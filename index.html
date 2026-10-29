@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DealerConnect v3.0 | Daily Pricing & Dispatch</title>
+<title>DealerConnect v4.0 | Payments & Dealer Status</title>
 <style>
 :root{--primary:#2563eb;--primary-dark:#1e40af;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--bg:#f3f4f6;--card:#fff;--text:#1f2937;--muted:#6b7280;--border:#e5e7eb;--shadow:0 4px 6px -1px rgba(0,0,0,.05),0 2px 4px -1px rgba(0,0,0,.03)}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
@@ -73,6 +73,8 @@ body{background:var(--bg);color:var(--text);min-height:100vh}
 .badge.info{background:#ede9fe;color:#6d28d9}
 .badge.muted{background:#f1f5f9;color:#475569}
 .badge.dispatch{background:#fef3c7;color:#92400e}
+.badge.free{background:#fce7f3;color:#9d174d}
+.badge.inactive{background:#fee2e2;color:#991b1b}
 
 .btn{padding:9px 16px;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px;transition:.2s;display:inline-flex;align-items:center;gap:6px}
 .btn-primary{background:var(--primary);color:#fff}
@@ -80,6 +82,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh}
 .btn-success{background:var(--success);color:#fff}
 .btn-success:hover{background:#059669}
 .btn-danger{background:var(--danger);color:#fff}
+.btn-danger:hover{background:#dc2626}
 .btn-warning{background:var(--warning);color:#fff}
 .btn-outline{background:#fff;border:1px solid var(--border);color:var(--text)}
 .btn-sm{padding:5px 10px;font-size:11px}
@@ -92,6 +95,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh}
 .alert-info{background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe}
 .alert-warning{background:#fffbeb;color:#92400e;border:1px solid #fde68a}
 .alert-success{background:#f0fdf4;color:#065f46;border:1px solid #bbf7d0}
+.alert-danger{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
 
 table{width:100%;border-collapse:collapse}
 th,td{padding:10px;text-align:left;border-bottom:1px solid var(--border);font-size:12px}
@@ -121,6 +125,10 @@ tr:hover{background:#f9fafb}
 .order-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:end}
 .order-total{text-align:right;font-weight:700;font-size:15px;margin-top:8px;color:var(--primary-dark)}
 
+.payment-card{border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;background:#fff;border-left:4px solid var(--warning)}
+.payment-card.approved{border-left-color:var(--success)}
+.payment-card.rejected{border-left-color:var(--danger)}
+
 .price-card{border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;background:#fff;transition:.2s}
 .price-card:hover{box-shadow:var(--shadow)}
 .price-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
@@ -141,9 +149,14 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
 .timeline-item.success::before{background:var(--success)}
 .timeline-item.warning::before{background:var(--warning)}
 .timeline-item.info::before{background:#8b5cf6}
+.timeline-item.danger::before{background:var(--danger)}
 .timeline-date{font-size:11px;color:var(--muted)}
 .timeline-title{font-weight:600;font-size:13px;margin-top:2px}
 .timeline-desc{font-size:12px;color:var(--muted);margin-top:2px}
+
+.toggle-btn{background:none;border:1px solid var(--border);padding:4px 10px;border-radius:12px;font-size:11px;cursor:pointer;font-weight:600;transition:.2s}
+.toggle-btn.active{background:#d1fae5;color:#065f46;border-color:#10b981}
+.toggle-btn.inactive{background:#fee2e2;color:#991b1b;border-color:#ef4444}
 
 @media(max-width:1024px){.grid-2{grid-template-columns:1fr}.form-row-3{grid-template-columns:1fr}.order-item-row{grid-template-columns:1fr}}
 @media(max-width:768px){.sidebar{transform:translateX(-100%);z-index:100}.sidebar.active{transform:translateX(0)}.main{margin-left:0}.menu-toggle{display:block}}
@@ -156,7 +169,7 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
     <div class="login-logo">
       <div class="icon">🧾</div>
       <h1>DealerConnect</h1>
-      <p>v3.0 - Daily Pricing & Dispatch System</p>
+      <p>v4.0 - Payments & Dealer Status</p>
     </div>
     <div class="login-tabs">
       <div class="login-tab active" onclick="switchLoginTab('admin')">👨‍💼 Admin</div>
@@ -185,7 +198,7 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
   <aside class="sidebar" id="sidebar">
     <div class="logo">🧾 Dealer<span>Connect</span><span class="role-tag" id="roleTag">ADMIN</span></div>
     <ul class="nav-menu" id="navMenu"></ul>
-    <div class="sidebar-footer">DealerConnect v3.0<br>© 2026 GST Compliant</div>
+    <div class="sidebar-footer">DealerConnect v4.0<br>© 2026 GST Compliant</div>
   </aside>
 
   <main class="main">
@@ -208,6 +221,7 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
     <div class="page" id="page-dashboard"></div>
     <div class="page" id="page-prices"></div>
     <div class="page" id="page-approvals"></div>
+    <div class="page" id="page-payment-approvals"></div>
     <div class="page" id="page-dispatch"></div>
     <div class="page" id="page-invoices"></div>
     <div class="page" id="page-tdstcs"></div>
@@ -220,6 +234,8 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
     <div class="page" id="page-d-place-order"></div>
     <div class="page" id="page-d-my-orders"></div>
     <div class="page" id="page-d-my-invoices"></div>
+    <div class="page" id="page-d-make-payment"></div>
+    <div class="page" id="page-d-payment-history"></div>
     <div class="page" id="page-d-my-ledger"></div>
     <div class="page" id="page-d-profile"></div>
   </main>
@@ -235,23 +251,26 @@ const DB = {
     address: 'Plot 42, MIDC Industrial Area, Pune, Maharashtra - 411019'
   },
   dealers: JSON.parse(localStorage.getItem('dc_dealers') || 'null') || [
-    {id:1,name:'Sharma Traders',gstin:'27AABCU9603R1ZM',pan:'AABCU9603R',state:'Maharashtra',phone:'+91 98765 43210',dealerCode:'SHAR01',password:'dealer123',email:'sharma@example.com'},
-    {id:2,name:'Gupta Enterprises',gstin:'29BBBPD1234K1Z5',pan:'BBBPD1234K',state:'Karnataka',phone:'+91 98456 12345',dealerCode:'GUPT01',password:'dealer123',email:'gupta@example.com'},
-    {id:3,name:'Patel & Sons',gstin:'24CCCCQ5678L1Z2',pan:'CCCCQ5678L',state:'Gujarat',phone:'+91 98123 45678',dealerCode:'PATE01',password:'dealer123',email:'patel@example.com'},
-    {id:4,name:'Small Local Shop',gstin:'',pan:'',state:'Maharashtra',phone:'+91 99887 76655',dealerCode:'SHOP01',password:'dealer123',email:''}
+    {id:1,name:'Sharma Traders',gstin:'27AABCU9603R1ZM',pan:'AABCU9603R',state:'Maharashtra',phone:'+91 98765 43210',dealerCode:'SHAR01',password:'dealer123',email:'sharma@example.com',status:'active'},
+    {id:2,name:'Gupta Enterprises',gstin:'29BBBPD1234K1Z5',pan:'BBBPD1234K',state:'Karnataka',phone:'+91 98456 12345',dealerCode:'GUPT01',password:'dealer123',email:'gupta@example.com',status:'active'},
+    {id:3,name:'Patel & Sons',gstin:'24CCCCQ5678L1Z2',pan:'CCCCQ5678L',state:'Gujarat',phone:'+91 98123 45678',dealerCode:'PATE01',password:'dealer123',email:'patel@example.com',status:'active'},
+    {id:4,name:'Small Local Shop',gstin:'',pan:'',state:'Maharashtra',phone:'+91 99887 76655',dealerCode:'SHOP01',password:'dealer123',email:'',status:'active'},
+    {id:5,name:'Test Inactive Dealer',gstin:'',pan:'',state:'Maharashtra',phone:'',dealerCode:'INAC01',password:'dealer123',email:'',status:'inactive',notes:'Demo inactive dealer - cannot login'}
   ],
   inventory: JSON.parse(localStorage.getItem('dc_inventory') || 'null') || [
     {id:1,name:'Industrial Bearings',hsn:'8482',gst:18,rate:10000,stock:250,lastUpdated:today()},
     {id:2,name:'Hydraulic Pump',hsn:'8413',gst:18,rate:45000,stock:80,lastUpdated:today()},
     {id:3,name:'Steel Bolts M12',hsn:'7318',gst:18,rate:250,stock:5000,lastUpdated:today()},
     {id:4,name:'Electric Motor 5HP',hsn:'8501',gst:18,rate:28000,stock:45,lastUpdated:today()},
-    {id:5,name:'Gear Box Assembly',hsn:'8483',gst:18,rate:35000,stock:60,lastUpdated:today()}
+    {id:5,name:'Gear Box Assembly',hsn:'8483',gst:18,rate:35000,stock:60,lastUpdated:today()},
+    {id:6,name:'Free Sample Catalog',hsn:'4911',gst:0,rate:0,stock:500,lastUpdated:today(),isFree:true,notes:'Promotional freebie'}
   ],
   priceHistory: JSON.parse(localStorage.getItem('dc_priceHistory') || 'null') || [],
   invoices: JSON.parse(localStorage.getItem('dc_invoices') || 'null') || [],
   ledger: JSON.parse(localStorage.getItem('dc_ledger') || 'null') || [],
   tdstcs: JSON.parse(localStorage.getItem('dc_tdstcs') || 'null') || [],
-  orders: JSON.parse(localStorage.getItem('dc_orders') || 'null') || []
+  orders: JSON.parse(localStorage.getItem('dc_orders') || 'null') || [],
+  payments: JSON.parse(localStorage.getItem('dc_payments') || 'null') || []
 };
 
 function today(){ return new Date().toISOString().split('T')[0]; }
@@ -261,13 +280,14 @@ const save = () => {
   Object.entries({
     dc_settings: DB.settings, dc_dealers: DB.dealers, dc_inventory: DB.inventory,
     dc_priceHistory: DB.priceHistory, dc_invoices: DB.invoices, dc_ledger: DB.ledger,
-    dc_tdstcs: DB.tdstcs, dc_orders: DB.orders
+    dc_tdstcs: DB.tdstcs, dc_orders: DB.orders, dc_payments: DB.payments
   }).forEach(([k,v])=>localStorage.setItem(k, JSON.stringify(v)));
 };
 
 const fmt = n => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',minimumFractionDigits:2,maximumFractionDigits:2}).format(n||0);
 const isRegisteredDealer = d => d && d.gstin && d.gstin.length === 15;
 const getStateFromGSTIN = g => (g && g.length >= 2) ? g.substring(0,2) : null;
+const isDealerActive = d => d && d.status !== 'inactive';
 
 /* ============ AUTH ============ */
 function switchLoginTab(tab){
@@ -300,14 +320,19 @@ function doDealerLogin(){
   const code = document.getElementById('dealerCode').value.trim().toUpperCase();
   const pass = document.getElementById('dealerPass').value.trim();
   const dealer = DB.dealers.find(d=>d.dealerCode===code && d.password===pass);
-  if(dealer){
-    DB.user = {role:'dealer',dealerId:dealer.id,name:dealer.name,dealerCode:dealer.dealerCode,loginTime:new Date().toISOString()};
-    localStorage.setItem('dc_user', JSON.stringify(DB.user));
-    showApp();
-  } else {
+  if(!dealer){
     document.getElementById('loginError').style.display='block';
     document.getElementById('loginError').textContent='Invalid dealer code or password';
+    return;
   }
+  if(!isDealerActive(dealer)){
+    document.getElementById('loginError').style.display='block';
+    document.getElementById('loginError').textContent='⛔ Your account has been deactivated. Please contact admin.';
+    return;
+  }
+  DB.user = {role:'dealer',dealerId:dealer.id,name:dealer.name,dealerCode:dealer.dealerCode,loginTime:new Date().toISOString()};
+  localStorage.setItem('dc_user', JSON.stringify(DB.user));
+  showApp();
 }
 
 function doLogout(){
@@ -343,6 +368,7 @@ function buildNavMenu(){
       <li><a class="active" data-page="dashboard">📊 Dashboard</a></li>
       <li><a data-page="prices">💰 Daily Price Management</a></li>
       <li><a data-page="approvals">📝 Order Approvals <span class="badge warning" id="pendingBadge" style="margin-left:auto"></span></a></li>
+      <li><a data-page="payment-approvals">💳 Payment Approvals <span class="badge info" id="paymentBadge" style="margin-left:auto"></span></a></li>
       <li><a data-page="dispatch">🚚 Dispatch Management <span class="badge dispatch" id="dispatchBadge" style="margin-left:auto"></span></a></li>
       <li><a data-page="invoices">🧾 Invoices (GST)</a></li>
       <li><a data-page="tdstcs">🏛️ TDS / TCS</a></li>
@@ -358,6 +384,8 @@ function buildNavMenu(){
       <li><a data-page="d-place-order">📝 Place New Order</a></li>
       <li><a data-page="d-my-orders">📦 My Orders</a></li>
       <li><a data-page="d-my-invoices">🧾 My Invoices</a></li>
+      <li><a data-page="d-make-payment">💳 Make Payment</a></li>
+      <li><a data-page="d-payment-history">📋 Payment History</a></li>
       <li><a data-page="d-my-ledger">📒 My Ledger</a></li>
       <li><a data-page="d-profile">👤 My Profile</a></li>
     `;
@@ -377,6 +405,8 @@ function updateBadges(){
   if(pb){ const c = DB.orders.filter(o=>o.status==='pending').length; pb.textContent = c>0?c:''; }
   const db = document.getElementById('dispatchBadge');
   if(db){ const c = DB.orders.filter(o=>o.status==='approved').length; db.textContent = c>0?c:''; }
+  const pmb = document.getElementById('paymentBadge');
+  if(pmb){ const c = DB.payments.filter(p=>p.status==='pending').length; pmb.textContent = c>0?c:''; }
 }
 
 function navigateTo(page){
@@ -389,20 +419,24 @@ function navigateTo(page){
   
   const titles = {
     'dashboard':'Dashboard','prices':'Daily Price Management','approvals':'Order Approvals',
-    'dispatch':'Dispatch Management','invoices':'Invoices (GST)','tdstcs':'TDS / TCS Reports',
-    'ledger':'General Ledger','dealers':'Dealers Management','inventory':'Inventory (HSN)','settings':'Settings',
+    'payment-approvals':'Payment Approvals','dispatch':'Dispatch Management','invoices':'Invoices (GST)',
+    'tdstcs':'TDS / TCS Reports','ledger':'General Ledger','dealers':'Dealers Management',
+    'inventory':'Inventory (HSN)','settings':'Settings',
     'd-dashboard':'My Dashboard','d-today-prices':"Today's Prices",'d-place-order':'Place New Order',
-    'd-my-orders':'My Orders','d-my-invoices':'My Invoices','d-my-ledger':'My Ledger','d-profile':'My Profile'
+    'd-my-orders':'My Orders','d-my-invoices':'My Invoices','d-make-payment':'Make Payment',
+    'd-payment-history':'Payment History','d-my-ledger':'My Ledger','d-profile':'My Profile'
   };
   document.getElementById('pageTitle').textContent = titles[page]||'Dashboard';
   
   const renderers = {
     'dashboard':renderDashboard,'prices':renderPriceManagement,'approvals':renderApprovals,
-    'dispatch':renderDispatch,'invoices':renderInvoicePage,'tdstcs':renderTDSPage,
-    'ledger':renderLedger,'dealers':renderDealers,'inventory':renderInventory,'settings':loadSettings,
+    'payment-approvals':renderPaymentApprovals,'dispatch':renderDispatch,'invoices':renderInvoicePage,
+    'tdstcs':renderTDSPage,'ledger':renderLedger,'dealers':renderDealers,'inventory':renderInventory,
+    'settings':loadSettings,
     'd-dashboard':renderDealerDashboard,'d-today-prices':renderDealerTodayPrices,
     'd-place-order':renderPlaceOrder,'d-my-orders':renderMyOrders,
-    'd-my-invoices':renderMyInvoices,'d-my-ledger':renderDealerLedger,'d-profile':renderDealerProfile
+    'd-my-invoices':renderMyInvoices,'d-make-payment':renderMakePayment,
+    'd-payment-history':renderPaymentHistory,'d-my-ledger':renderDealerLedger,'d-profile':renderDealerProfile
   };
   if(renderers[page]) renderers[page]();
 }
@@ -415,88 +449,64 @@ function toast(msg, type='success'){
   setTimeout(()=>t.remove(), 3000);
 }
 
-/* ============ PRICE MANAGEMENT (ADMIN) ============ */
+/* ============ ADMIN: DEALER STATUS TOGGLE ============ */
+function toggleDealerStatus(id){
+  const d = DB.dealers.find(x=>x.id===id);
+  if(!d) return;
+  const newStatus = d.status === 'active' ? 'inactive' : 'active';
+  if(newStatus === 'inactive'){
+    if(!confirm(`Deactivate dealer "${d.name}"?\n\nThey will NOT be able to login until reactivated.`)) return;
+  }
+  d.status = newStatus;
+  save();
+  toast(`✅ ${d.name} is now ${newStatus.toUpperCase()}`);
+  renderDealers();
+}
+
+/* ============ PRICE MANAGEMENT ============ */
 function renderPriceManagement(){
   const todayDate = today();
   const todayUpdates = DB.priceHistory.filter(p=>p.date===todayDate).length;
   
   document.getElementById('page-prices').innerHTML = `
-    <div class="alert alert-info">💡 Update daily prices for all items. Price changes are tracked with full history and reflected immediately in dealer portals.</div>
+    <div class="alert alert-info">💡 Update daily prices. Zero-rate items (freebies) are also supported.</div>
     <div class="stats-grid">
-      <div class="stat-card"><h3>Total Items</h3><div class="value">${DB.inventory.length}</div><div class="sub">In inventory</div></div>
-      <div class="stat-card success"><h3>Today's Updates</h3><div class="value">${todayUpdates}</div><div class="sub">Price changes today</div></div>
-      <div class="stat-card warning"><h3>Total History</h3><div class="value">${DB.priceHistory.length}</div><div class="sub">All time records</div></div>
-      <div class="stat-card info"><h3>Last Update</h3><div class="value" style="font-size:16px">${DB.priceHistory.length ? DB.priceHistory[DB.priceHistory.length-1].date : 'N/A'}</div><div class="sub">Most recent change</div></div>
+      <div class="stat-card"><h3>Total Items</h3><div class="value">${DB.inventory.length}</div><div class="sub">${DB.inventory.filter(i=>i.rate===0).length} Free items</div></div>
+      <div class="stat-card success"><h3>Today's Updates</h3><div class="value">${todayUpdates}</div></div>
+      <div class="stat-card warning"><h3>Total History</h3><div class="value">${DB.priceHistory.length}</div></div>
     </div>
-    
     <div class="card">
       <div class="card-title">Update Daily Prices <span class="badge success">${todayDate}</span></div>
       <table>
-        <thead><tr><th>Item</th><th>HSN</th><th>GST</th><th class="text-right">Current Price</th><th class="text-right">New Price</th><th>Change</th><th>Action</th></tr></thead>
+        <thead><tr><th>Item</th><th>HSN</th><th>GST</th><th class="text-right">Current Price</th><th class="text-right">New Price</th><th>Action</th></tr></thead>
         <tbody>
-          ${DB.inventory.map(item=>{
-            const lastPrice = getLastPriceBefore(item.id, todayDate);
-            const change = lastPrice ? ((item.rate - lastPrice) / lastPrice * 100).toFixed(1) : 0;
-            const changeClass = change > 0 ? 'price-up' : change < 0 ? 'price-down' : 'price-same';
-            const changeIcon = change > 0 ? '📈' : change < 0 ? '📉' : '➖';
-            return `<tr>
-              <td><strong>${item.name}</strong><br><small style="color:var(--muted)">Last updated: ${item.lastUpdated||'N/A'}</small></td>
-              <td>${item.hsn}</td><td>${item.gst}%</td>
-              <td class="text-right">${fmt(item.rate)}</td>
-              <td class="text-right"><input type="number" class="form-control" id="newprice-${item.id}" value="${item.rate}" style="width:130px;display:inline-block;padding:6px 10px"></td>
-              <td><span class="price-change ${changeClass}">${changeIcon} ${change}%</span></td>
-              <td><button class="btn btn-primary btn-sm" onclick="updateItemPrice(${item.id})">💾 Update</button></td>
-            </tr>`;
-          }).join('')}
+          ${DB.inventory.map(item=>`<tr>
+            <td><strong>${item.name}</strong>${item.isFree?' <span class="badge free">FREE</span>':''}<br><small style="color:var(--muted)">Last: ${item.lastUpdated||'N/A'}</small></td>
+            <td>${item.hsn}</td><td>${item.gst}%</td>
+            <td class="text-right">${item.rate===0?'<span class="badge free">FREE</span>':fmt(item.rate)}</td>
+            <td class="text-right"><input type="number" class="form-control" id="newprice-${item.id}" value="${item.rate}" min="0" style="width:130px;display:inline-block;padding:6px 10px"></td>
+            <td><button class="btn btn-primary btn-sm" onclick="updateItemPrice(${item.id})">💾 Update</button></td>
+          </tr>`).join('')}
         </tbody>
       </table>
       <button class="btn btn-success" style="margin-top:14px" onclick="updateAllPrices()">💾 Update All Prices</button>
     </div>
-    
-    <div class="card">
-      <div class="card-title">Price Change History <span class="badge">Last 20 changes</span></div>
-      ${DB.priceHistory.length ? `<table>
-        <thead><tr><th>Date</th><th>Item</th><th class="text-right">Old Price</th><th class="text-right">New Price</th><th>Change</th><th>Updated By</th></tr></thead>
-        <tbody>${DB.priceHistory.slice().reverse().slice(0,20).map(p=>{
-          const item = DB.inventory.find(i=>i.id===p.itemId);
-          const change = ((p.newPrice - p.oldPrice) / p.oldPrice * 100).toFixed(1);
-          const changeClass = change > 0 ? 'price-up' : change < 0 ? 'price-down' : 'price-same';
-          return `<tr>
-            <td>${p.date}<br><small style="color:var(--muted)">${p.timestamp||''}</small></td>
-            <td>${item?.name||'Unknown'}</td>
-            <td class="text-right">${fmt(p.oldPrice)}</td>
-            <td class="text-right"><strong>${fmt(p.newPrice)}</strong></td>
-            <td><span class="price-change ${changeClass}">${change>0?'+':''}${change}%</span></td>
-            <td>${p.updatedBy}</td>
-          </tr>`;
-        }).join('')}</tbody>
-      </table>` : '<div class="empty">No price changes recorded yet</div>'}
-    </div>
   `;
-}
-
-function getLastPriceBefore(itemId, beforeDate){
-  const history = DB.priceHistory.filter(p=>p.itemId===itemId && p.date < beforeDate);
-  if(history.length) return history[history.length-1].newPrice;
-  return null;
 }
 
 function updateItemPrice(itemId){
   const newPrice = parseFloat(document.getElementById('newprice-'+itemId).value);
   const item = DB.inventory.find(i=>i.id===itemId);
   if(!item){ toast('Item not found','error'); return; }
-  if(isNaN(newPrice) || newPrice < 0){ toast('Enter valid price','error'); return; }
+  if(isNaN(newPrice) || newPrice < 0){ toast('Enter valid price (0 or more)','error'); return; }
   if(newPrice === item.rate){ toast('Price unchanged','error'); return; }
-  
   const oldPrice = item.rate;
-  DB.priceHistory.push({
-    id: Date.now(), itemId, date: today(), timestamp: now(),
-    oldPrice, newPrice, updatedBy: DB.user.name
-  });
+  DB.priceHistory.push({id:Date.now(),itemId,date:today(),timestamp:now(),oldPrice,newPrice,updatedBy:DB.user.name});
   item.rate = newPrice;
   item.lastUpdated = today();
+  item.isFree = newPrice === 0;
   save();
-  toast(`✅ ${item.name} price updated: ${fmt(oldPrice)} → ${fmt(newPrice)}`);
+  toast(`✅ ${item.name}: ${fmt(oldPrice)} → ${newPrice===0?'FREE':fmt(newPrice)}`);
   renderPriceManagement();
 }
 
@@ -507,18 +517,16 @@ function updateAllPrices(){
     if(!input) return;
     const newPrice = parseFloat(input.value);
     if(!isNaN(newPrice) && newPrice >= 0 && newPrice !== item.rate){
-      DB.priceHistory.push({
-        id: Date.now()+updated, itemId: item.id, date: today(), timestamp: now(),
-        oldPrice: item.rate, newPrice, updatedBy: DB.user.name
-      });
+      DB.priceHistory.push({id:Date.now()+updated,itemId:item.id,date:today(),timestamp:now(),oldPrice:item.rate,newPrice,updatedBy:DB.user.name});
       item.rate = newPrice;
       item.lastUpdated = today();
+      item.isFree = newPrice === 0;
       updated++;
     }
   });
   if(updated===0){ toast('No prices changed','error'); return; }
   save();
-  toast(`✅ ${updated} price(s) updated successfully`);
+  toast(`✅ ${updated} price(s) updated`);
   renderPriceManagement();
 }
 
@@ -528,69 +536,61 @@ function renderDashboard(){
   const totalGST = DB.invoices.reduce((s,i)=>s+i.cgst+i.sgst+i.igst,0);
   const pendingOrders = DB.orders.filter(o=>o.status==='pending').length;
   const toDispatch = DB.orders.filter(o=>o.status==='approved').length;
-  const dispatched = DB.orders.filter(o=>o.status==='dispatched').length;
-  const todayPriceUpdates = DB.priceHistory.filter(p=>p.date===today()).length;
+  const pendingPayments = DB.payments.filter(p=>p.status==='pending').length;
+  const approvedPayments = DB.payments.filter(p=>p.status==='approved').reduce((s,p)=>s+p.amount,0);
+  const activeDealers = DB.dealers.filter(d=>d.status==='active').length;
 
   document.getElementById('page-dashboard').innerHTML = `
     <div class="stats-grid">
-      <div class="stat-card"><h3>Total Sales (YTD)</h3><div class="value">${fmt(totalSales)}</div><div class="sub">${DB.invoices.length} Invoices</div></div>
-      <div class="stat-card success"><h3>GST Collected</h3><div class="value">${fmt(totalGST)}</div><div class="sub">Output Tax</div></div>
-      <div class="stat-card warning"><h3>Pending Approval</h3><div class="value">${pendingOrders}</div><div class="sub">Orders to review</div></div>
-      <div class="stat-card info"><h3>Ready to Dispatch</h3><div class="value">${toDispatch}</div><div class="sub">${dispatched} Dispatched</div></div>
-      <div class="stat-card"><h3>Today's Price Updates</h3><div class="value">${todayPriceUpdates}</div><div class="sub">Items repriced today</div></div>
+      <div class="stat-card"><h3>Total Sales</h3><div class="value">${fmt(totalSales)}</div><div class="sub">${DB.invoices.length} Invoices</div></div>
+      <div class="stat-card success"><h3>GST Collected</h3><div class="value">${fmt(totalGST)}</div></div>
+      <div class="stat-card warning"><h3>Pending Orders</h3><div class="value">${pendingOrders}</div></div>
+      <div class="stat-card info"><h3>Pending Payments</h3><div class="value">${pendingPayments}</div><div class="sub">Awaiting approval</div></div>
+      <div class="stat-card success"><h3>Payments Received</h3><div class="value">${fmt(approvedPayments)}</div><div class="sub">Approved this FY</div></div>
+      <div class="stat-card"><h3>Active Dealers</h3><div class="value">${activeDealers}/${DB.dealers.length}</div><div class="sub">${DB.dealers.length-activeDealers} inactive</div></div>
     </div>
     <div class="grid-2">
       <div class="card">
-        <div class="card-title">Orders Awaiting Dispatch <span class="badge dispatch">${toDispatch}</span></div>
-        ${renderDispatchQueue()}
+        <div class="card-title">Pending Payments <span class="badge info">${pendingPayments}</span></div>
+        ${renderPendingPayments()}
       </div>
       <div class="card">
-        <div class="card-title">Recent Price Changes <span class="badge">Today</span></div>
-        ${renderRecentPriceChanges()}
+        <div class="card-title">Dealer Status</div>
+        <table><thead><tr><th>Dealer</th><th>Code</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>${DB.dealers.slice(0,8).map(d=>`
+          <tr><td>${d.name}</td><td><code>${d.dealerCode}</code></td>
+          <td>${d.status==='active'?'<span class="badge success">Active</span>':'<span class="badge inactive">Inactive</span>'}</td>
+          <td><button class="toggle-btn ${d.status==='active'?'active':'inactive'}" onclick="toggleDealerStatus(${d.id})">${d.status==='active'?'✓ Active':'⛔ Deactivate'}</button></td></tr>
+        `).join('')}</tbody></table>
       </div>
     </div>
   `;
 }
 
-function renderDispatchQueue(){
-  const toDispatch = DB.orders.filter(o=>o.status==='approved').slice(-5).reverse();
-  if(!toDispatch.length) return '<div class="empty">No orders awaiting dispatch 🎉</div>';
-  return toDispatch.map(o=>{
-    const d = DB.dealers.find(x=>x.id===o.dealerId);
-    return `<div class="order-card">
+function renderPendingPayments(){
+  const pending = DB.payments.filter(p=>p.status==='pending').slice(-5).reverse();
+  if(!pending.length) return '<div class="empty">No pending payments 🎉</div>';
+  return pending.map(p=>{
+    const d = DB.dealers.find(x=>x.id===p.dealerId);
+    return `<div class="payment-card">
       <div class="order-header">
-        <div><div class="order-no">${o.orderNo}</div>
-        <div class="order-meta">${d?.name||'Unknown'} • Approved: ${o.approvedDate||''}</div></div>
-        <span class="badge dispatch">Ready</span>
+        <div><div class="order-no">${p.paymentNo}</div>
+        <div class="order-meta">${d?.name||'Unknown'} • ${p.date}</div></div>
+        <div style="text-align:right"><div class="order-total">${fmt(p.amount)}</div>
+        <span class="badge warning">Pending</span></div>
       </div>
-      <div class="order-total">${fmt(o.total)}</div>
-      <div class="order-actions">
-        <button class="btn btn-warning btn-sm" onclick="navigateTo('dispatch')">🚚 Dispatch →</button>
-      </div>
+      <div style="font-size:12px;color:var(--muted)">Mode: ${p.mode} | Ref: ${p.referenceNo||'N/A'}</div>
+      <div class="order-actions"><button class="btn btn-primary btn-sm" onclick="navigateTo('payment-approvals')">Review →</button></div>
     </div>`;
   }).join('');
-}
-
-function renderRecentPriceChanges(){
-  const todayChanges = DB.priceHistory.filter(p=>p.date===today()).slice(-5).reverse();
-  if(!todayChanges.length) return '<div class="empty">No price changes today</div>';
-  return `<table><thead><tr><th>Item</th><th>Old</th><th>New</th><th>Change</th></tr></thead>
-  <tbody>${todayChanges.map(p=>{
-    const item = DB.inventory.find(i=>i.id===p.itemId);
-    const change = ((p.newPrice - p.oldPrice) / p.oldPrice * 100).toFixed(1);
-    const changeClass = change > 0 ? 'price-up' : change < 0 ? 'price-down' : 'price-same';
-    return `<tr><td>${item?.name||'?'}</td><td>${fmt(p.oldPrice)}</td><td><strong>${fmt(p.newPrice)}</strong></td>
-    <td><span class="price-change ${changeClass}">${change>0?'+':''}${change}%</span></td></tr>`;
-  }).join('')}</tbody></table>`;
 }
 
 /* ============ ORDER APPROVALS ============ */
 function renderApprovals(){
   const pending = DB.orders.filter(o=>o.status==='pending').reverse();
   const processed = DB.orders.filter(o=>o.status!=='pending' && o.status!=='approved').reverse().slice(0,10);
-  
   document.getElementById('page-approvals').innerHTML = `
-    <div class="alert alert-info">📌 Approve dealer orders. Approved orders move to Dispatch queue.</div>
+    <div class="alert alert-info">📌 Approve dealer orders. Only active dealers' orders should be processed.</div>
     <div class="card">
       <div class="card-title">Pending Orders <span class="badge warning">${pending.length}</span></div>
       ${pending.length ? pending.map(o=>renderOrderCard(o,'approve')).join('') : '<div class="empty">No pending orders 🎉</div>'}
@@ -605,6 +605,7 @@ function renderApprovals(){
 function renderOrderCard(o, mode){
   const d = DB.dealers.find(x=>x.id===o.dealerId);
   const isReg = isRegisteredDealer(d);
+  const isActive = isDealerActive(d);
   const regBadge = isReg ? '<span class="badge success">B2B</span>' : '<span class="badge muted">B2C</span>';
   const statusBadge = {
     'pending':'<span class="badge warning">⏳ Pending</span>',
@@ -626,30 +627,22 @@ function renderOrderCard(o, mode){
   return `<div class="order-card" style="border-left:4px solid ${o.status==='pending'?'var(--warning)':o.status==='approved'?'var(--success)':o.status==='dispatched'?'var(--warning)':o.status==='rejected'?'var(--danger)':'#8b5cf6'}">
     <div class="order-header">
       <div>
-        <div class="order-no">${o.orderNo} ${statusBadge} ${regBadge}</div>
+        <div class="order-no">${o.orderNo} ${statusBadge} ${regBadge} ${!isActive?'<span class="badge inactive">Dealer Inactive</span>':''}</div>
         <div class="order-meta">
           <strong>${d?.name||'Unknown'}</strong><br>
           ${isReg ? `GSTIN: ${d.gstin}` : '<em>Unregistered Dealer</em>'}<br>
           Placed: ${o.date} ${o.time||''}
-          ${o.approvedDate ? '<br>Approved: '+o.approvedDate : ''}
-          ${o.dispatchDate ? '<br>Dispatched: '+o.dispatchDate : ''}
         </div>
       </div>
       <div style="text-align:right">
         <div class="order-total">${fmt(o.total)}</div>
         ${o.invoiceNo ? `<div style="font-size:11px;color:var(--muted);margin-top:4px">Invoice: ${o.invoiceNo}</div>` : ''}
-        ${o.challanNo ? `<div style="font-size:11px;color:var(--muted)">Challan: ${o.challanNo}</div>` : ''}
       </div>
     </div>
     <div class="order-items">
       <strong>Items:</strong><br>
-      ${o.items.map(it=>`• ${it.name} (HSN: ${it.hsn}) × ${it.qty} @ ${fmt(it.rate)} = ${fmt(it.amount)}`).join('<br>')}
+      ${o.items.map(it=>`• ${it.name} ${it.rate===0?'<span class="badge free">FREE</span>':''} (HSN: ${it.hsn}) × ${it.qty} @ ${fmt(it.rate)} = ${fmt(it.amount)}`).join('<br>')}
     </div>
-    ${o.dispatchDetails ? `<div style="padding:10px;background:#fef3c7;border-radius:6px;font-size:12px;margin-top:8px">
-      <strong>🚚 Dispatch Details:</strong><br>
-      Vehicle: ${o.dispatchDetails.vehicleNo||'N/A'} | Challan: ${o.dispatchDetails.challanNo||'N/A'}<br>
-      Tracking: ${o.dispatchDetails.trackingNo||'N/A'} | By: ${o.dispatchedBy||'Admin'}
-    </div>` : ''}
     ${o.remarks ? `<div style="padding:8px;background:#f1f5f9;border-radius:6px;font-size:12px;margin-top:8px"><strong>Remarks:</strong> ${o.remarks}</div>` : ''}
     ${actions}
   </div>`;
@@ -659,12 +652,11 @@ function approveOrder(id){
   const o = DB.orders.find(x=>x.id===id);
   if(!o) return;
   const d = DB.dealers.find(x=>x.id===o.dealerId);
-  
+  if(!isDealerActive(d)){ toast('Cannot approve - dealer is inactive','error'); return; }
   for(const it of o.items){
     const inv = DB.inventory.find(x=>x.id===it.itemId);
     if(!inv || inv.stock < it.qty){ toast(`Insufficient stock for ${it.name}`,'error'); return; }
   }
-  
   const invNo = 'INV-' + new Date().getFullYear() + '-' + String(DB.invoices.length+1).padStart(4,'0');
   const irn = 'IRN' + Math.random().toString(36).substring(2,14).toUpperCase();
   const isReg = isRegisteredDealer(d);
@@ -677,36 +669,25 @@ function approveOrder(id){
   if(taxable >= 500000) tcs = (taxable*0.1)/100;
   const total = taxable+cgst+sgst+igst+tcs;
   
-  DB.invoices.push({
-    id:Date.now(), invNo, date:today(), dealerId:d?.id, dealerName:d?.name||'Unknown',
-    gstin:d?.gstin||'', hsn:o.items.map(i=>i.hsn).join(','),
-    itemName:o.items.map(i=>i.name).join(', '), orderId:o.id,
-    qty:o.items.reduce((s,i)=>s+i.qty,0), taxable, cgst, sgst, igst, tcs, total, gstRate, irn,
-    status:'Generated', source:'Dealer Order', isRegistered: isReg, saleType: isReg ? 'B2B' : 'B2C'
-  });
+  DB.invoices.push({id:Date.now(),invNo,date:today(),dealerId:d?.id,dealerName:d?.name||'Unknown',
+    gstin:d?.gstin||'',hsn:o.items.map(i=>i.hsn).join(','),itemName:o.items.map(i=>i.name).join(', '),
+    orderId:o.id,qty:o.items.reduce((s,i)=>s+i.qty,0),taxable,cgst,sgst,igst,tcs,total,gstRate,irn,
+    status:'Generated',source:'Dealer Order',isRegistered:isReg,saleType:isReg?'B2B':'B2C'});
   
-  // Initial ledger: Invoice generated (receivable created)
-  DB.ledger.push({id:Date.now()+1,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,
-    account:'Sundry Debtors (Dr)',particulars:`${isReg?'B2B':'B2C'} Invoice to ${d?.name} (Order: ${o.orderNo})`,debit:total,credit:0});
-  DB.ledger.push({id:Date.now()+2,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,
-    account:'Sales A/c (Cr)',particulars:`Sale against ${o.orderNo}`,debit:0,credit:taxable});
-  if(isInter) DB.ledger.push({id:Date.now()+3,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,
-    account:'IGST Payable (Cr)',particulars:`IGST @ ${gstRate}%`,debit:0,credit:igst});
-  else { DB.ledger.push({id:Date.now()+3,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,
-    account:'CGST Payable (Cr)',particulars:`CGST @ ${gstRate/2}%`,debit:0,credit:cgst});
-    DB.ledger.push({id:Date.now()+4,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,
-    account:'SGST Payable (Cr)',particulars:`SGST @ ${gstRate/2}%`,debit:0,credit:sgst}); }
-  if(tcs>0) DB.ledger.push({id:Date.now()+5,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,
-    account:'TCS Collected (Cr)',particulars:`TCS u/s 206C(1H)`,debit:0,credit:tcs});
+  DB.ledger.push({id:Date.now()+1,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,account:'Sundry Debtors (Dr)',particulars:`${isReg?'B2B':'B2C'} Invoice to ${d?.name} (${o.orderNo})`,debit:total,credit:0});
+  DB.ledger.push({id:Date.now()+2,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,account:'Sales A/c (Cr)',particulars:`Sale against ${o.orderNo}`,debit:0,credit:taxable});
+  if(isInter) DB.ledger.push({id:Date.now()+3,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,account:'IGST Payable (Cr)',particulars:`IGST @ ${gstRate}%`,debit:0,credit:igst});
+  else { DB.ledger.push({id:Date.now()+3,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,account:'CGST Payable (Cr)',particulars:`CGST @ ${gstRate/2}%`,debit:0,credit:cgst});
+    DB.ledger.push({id:Date.now()+4,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,account:'SGST Payable (Cr)',particulars:`SGST @ ${gstRate/2}%`,debit:0,credit:sgst}); }
+  if(tcs>0) DB.ledger.push({id:Date.now()+5,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,account:'TCS Collected (Cr)',particulars:`TCS u/s 206C(1H)`,debit:0,credit:tcs});
   
   o.status = 'approved';
   o.remarks = document.getElementById('remark-'+id)?.value || '';
   o.approvedDate = now();
   o.approvedBy = DB.user.name;
   o.invoiceNo = invNo;
-  
   save();
-  toast(`✅ Order ${o.orderNo} approved! Invoice ${invNo} generated. Ready for dispatch.`);
+  toast(`✅ Order ${o.orderNo} approved! Invoice ${invNo} generated.`);
   renderApprovals();
   updateBadges();
 }
@@ -726,13 +707,132 @@ function rejectOrder(id){
   updateBadges();
 }
 
-/* ============ DISPATCH MANAGEMENT ============ */
+/* ============ PAYMENT APPROVALS (ADMIN) ============ */
+function renderPaymentApprovals(){
+  const pending = DB.payments.filter(p=>p.status==='pending').reverse();
+  const processed = DB.payments.filter(p=>p.status!=='pending').reverse();
+  const totalPending = pending.reduce((s,p)=>s+p.amount,0);
+  const totalApproved = DB.payments.filter(p=>p.status==='approved').reduce((s,p)=>s+p.amount,0);
+  
+  document.getElementById('page-payment-approvals').innerHTML = `
+    <div class="alert alert-info">💳 Review dealer payments. On approval, ledger will auto-update (Bank Dr / Sundry Debtors Cr).</div>
+    <div class="stats-grid">
+      <div class="stat-card warning"><h3>Pending Payments</h3><div class="value">${pending.length}</div><div class="sub">Total: ${fmt(totalPending)}</div></div>
+      <div class="stat-card success"><h3>Approved (FY)</h3><div class="value">${fmt(totalApproved)}</div><div class="sub">${DB.payments.filter(p=>p.status==='approved').length} payments</div></div>
+      <div class="stat-card danger"><h3>Rejected</h3><div class="value">${DB.payments.filter(p=>p.status==='rejected').length}</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Pending Payments <span class="badge warning">${pending.length}</span></div>
+      ${pending.length ? pending.map(p=>renderPaymentCard(p,'approve')).join('') : '<div class="empty">No pending payments 🎉</div>'}
+    </div>
+    <div class="card">
+      <div class="card-title">Payment History</div>
+      ${processed.length ? processed.map(p=>renderPaymentCard(p,'view')).join('') : '<div class="empty">No payment history yet</div>'}
+    </div>
+  `;
+}
+
+function renderPaymentCard(p, mode){
+  const d = DB.dealers.find(x=>x.id===p.dealerId);
+  const statusBadge = {
+    'pending':'<span class="badge warning">⏳ Pending</span>',
+    'approved':'<span class="badge success">✅ Approved</span>',
+    'rejected':'<span class="badge danger">❌ Rejected</span>'
+  }[p.status];
+  
+  let actions = '';
+  if(mode==='approve'){
+    actions = `<div class="order-actions">
+      <input type="text" class="form-control" id="pay-remark-${p.id}" placeholder="Remarks (required for reject)" style="flex:1">
+      <button class="btn btn-success btn-sm" onclick="approvePayment(${p.id})">✅ Approve & Update Ledger</button>
+      <button class="btn btn-danger btn-sm" onclick="rejectPayment(${p.id})">❌ Reject</button>
+    </div>`;
+  }
+  
+  return `<div class="payment-card ${p.status}">
+    <div class="order-header">
+      <div>
+        <div class="order-no">${p.paymentNo} ${statusBadge}</div>
+        <div class="order-meta">
+          <strong>${d?.name||'Unknown'}</strong> | ${isRegisteredDealer(d)?'B2B':'B2C'}<br>
+          Submitted: ${p.date} ${p.time||''}
+          ${p.approvedDate ? '<br>Processed: '+p.approvedDate : ''}
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div class="order-total">${fmt(p.amount)}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Mode: ${p.mode}</div>
+        ${p.referenceNo ? `<div style="font-size:11px;color:var(--muted)">Ref: ${p.referenceNo}</div>` : ''}
+      </div>
+    </div>
+    ${p.remarks ? `<div style="padding:8px;background:#f1f5f9;border-radius:6px;font-size:12px;margin-top:8px"><strong>Remarks:</strong> ${p.remarks}</div>` : ''}
+    ${actions}
+  </div>`;
+}
+
+function approvePayment(id){
+  const p = DB.payments.find(x=>x.id===id);
+  if(!p) return;
+  const d = DB.dealers.find(x=>x.id===p.dealerId);
+  
+  // Auto-generate payment receipt number
+  const receiptNo = 'RCPT-' + new Date().getFullYear() + '-' + String(DB.payments.filter(x=>x.status==='approved').length+1).padStart(4,'0');
+  
+  // UPDATE DEALER LEDGER
+  // Entry 1: Bank/Cash Dr (money received)
+  DB.ledger.push({
+    id: Date.now()+1, date: today(), voucher: receiptNo, type:'Payment',
+    dealerId: d?.id, dealerName: d?.name,
+    account: p.mode === 'Cash' ? 'Cash A/c (Dr)' : 'Bank A/c (Dr)',
+    particulars: `Payment received from ${d?.name} via ${p.mode}${p.referenceNo?' | Ref: '+p.referenceNo:''}`,
+    debit: p.amount, credit: 0,
+    refPayment: p.paymentNo
+  });
+  
+  // Entry 2: Sundry Debtors Cr (reduces dealer's outstanding)
+  DB.ledger.push({
+    id: Date.now()+2, date: today(), voucher: receiptNo, type:'Payment',
+    dealerId: d?.id, dealerName: d?.name,
+    account: 'Sundry Debtors (Cr)',
+    particulars: `Against payment ${p.paymentNo} from ${d?.name}`,
+    debit: 0, credit: p.amount,
+    refPayment: p.paymentNo
+  });
+  
+  // Update payment record
+  p.status = 'approved';
+  p.approvedDate = now();
+  p.approvedBy = DB.user.name;
+  p.receiptNo = receiptNo;
+  p.adminRemarks = document.getElementById('pay-remark-'+id)?.value || '';
+  
+  save();
+  toast(`✅ Payment ${p.paymentNo} approved! Receipt: ${receiptNo}. Dealer ledger updated.`);
+  renderPaymentApprovals();
+  updateBadges();
+}
+
+function rejectPayment(id){
+  const p = DB.payments.find(x=>x.id===id);
+  if(!p) return;
+  const remarks = document.getElementById('pay-remark-'+id)?.value;
+  if(!remarks){ toast('Please add remarks for rejection','error'); return; }
+  p.status = 'rejected';
+  p.remarks = remarks;
+  p.approvedDate = now();
+  p.approvedBy = DB.user.name;
+  save();
+  toast('Payment rejected','error');
+  renderPaymentApprovals();
+  updateBadges();
+}
+
+/* ============ DISPATCH ============ */
 function renderDispatch(){
   const toDispatch = DB.orders.filter(o=>o.status==='approved').reverse();
   const dispatched = DB.orders.filter(o=>o.status==='dispatched' || o.status==='delivered').reverse();
-  
   document.getElementById('page-dispatch').innerHTML = `
-    <div class="alert alert-info">🚚 Dispatch approved orders. System will auto-update dealer ledger with dispatch challan and stock-out entries.</div>
+    <div class="alert alert-info">🚚 Dispatch approved orders. System auto-updates dealer ledger.</div>
     <div class="card">
       <div class="card-title">Ready to Dispatch <span class="badge dispatch">${toDispatch.length}</span></div>
       ${toDispatch.length ? toDispatch.map(o=>renderDispatchCard(o)).join('') : '<div class="empty">No orders awaiting dispatch 🎉</div>'}
@@ -750,41 +850,29 @@ function renderDispatchCard(o){
     <div class="order-header">
       <div>
         <div class="order-no">${o.orderNo} <span class="badge dispatch">Ready</span></div>
-        <div class="order-meta">
-          <strong>${d?.name||'Unknown'}</strong> | Invoice: ${o.invoiceNo||'N/A'}<br>
-          ${d?.phone||''} | ${d?.state||''}<br>
-          Approved: ${o.approvedDate||''}
-        </div>
+        <div class="order-meta"><strong>${d?.name||'Unknown'}</strong> | Invoice: ${o.invoiceNo||'N/A'}<br>Approved: ${o.approvedDate||''}</div>
       </div>
-      <div style="text-align:right">
-        <div class="order-total">${fmt(o.total)}</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:4px">${o.items.reduce((s,i)=>s+i.qty,0)} items</div>
-      </div>
+      <div style="text-align:right"><div class="order-total">${fmt(o.total)}</div></div>
     </div>
     <div class="order-items">
-      <strong>Items to Dispatch:</strong><br>
-      ${o.items.map(it=>`• ${it.name} × ${it.qty} (HSN: ${it.hsn})`).join('<br>')}
+      <strong>Items:</strong><br>
+      ${o.items.map(it=>`• ${it.name} × ${it.qty} ${it.rate===0?'<span class="badge free">FREE</span>':''}`).join('<br>')}
     </div>
     <div style="background:#f8fafc;padding:12px;border-radius:8px;margin-top:10px">
       <strong style="font-size:13px">🚚 Dispatch Details:</strong>
       <div class="form-row-3" style="margin-top:10px">
-        <div class="form-group" style="margin:0"><label>Dispatch Date</label>
-          <input type="date" class="form-control" id="disp-date-${o.id}" value="${today()}"></div>
-        <div class="form-group" style="margin:0"><label>Vehicle No.</label>
-          <input type="text" class="form-control" id="disp-vehicle-${o.id}" placeholder="MH12AB1234"></div>
-        <div class="form-group" style="margin:0"><label>Challan No.</label>
-          <input type="text" class="form-control" id="disp-challan-${o.id}" placeholder="DC-001"></div>
+        <div class="form-group" style="margin:0"><label>Dispatch Date</label><input type="date" class="form-control" id="disp-date-${o.id}" value="${today()}"></div>
+        <div class="form-group" style="margin:0"><label>Vehicle No.</label><input type="text" class="form-control" id="disp-vehicle-${o.id}" placeholder="MH12AB1234"></div>
+        <div class="form-group" style="margin:0"><label>Challan No.</label><input type="text" class="form-control" id="disp-challan-${o.id}" placeholder="DC-001"></div>
       </div>
       <div class="form-row">
-        <div class="form-group" style="margin:0"><label>Tracking / LR No.</label>
-          <input type="text" class="form-control" id="disp-tracking-${o.id}" placeholder="Optional"></div>
-        <div class="form-group" style="margin:0"><label>Remarks</label>
-          <input type="text" class="form-control" id="disp-remarks-${o.id}" placeholder="Optional"></div>
+        <div class="form-group" style="margin:0"><label>Tracking / LR No.</label><input type="text" class="form-control" id="disp-tracking-${o.id}"></div>
+        <div class="form-group" style="margin:0"><label>Remarks</label><input type="text" class="form-control" id="disp-remarks-${o.id}"></div>
       </div>
     </div>
     <div class="order-actions" style="margin-top:12px">
-      <button class="btn btn-warning" onclick="dispatchOrder(${o.id})">🚚 Dispatch & Update Ledger</button>
-      <button class="btn btn-success" onclick="dispatchAndDeliver(${o.id})">📦 Dispatch + Mark Delivered</button>
+      <button class="btn btn-warning" onclick="dispatchOrder(${o.id})">🚚 Dispatch</button>
+      <button class="btn btn-success" onclick="dispatchAndDeliver(${o.id})">📦 Dispatch + Delivered</button>
     </div>
   </div>`;
 }
@@ -793,68 +881,41 @@ function dispatchOrder(id, markDelivered=false){
   const o = DB.orders.find(x=>x.id===id);
   if(!o) return;
   const d = DB.dealers.find(x=>x.id===o.dealerId);
-  
   const dispatchDate = document.getElementById('disp-date-'+id)?.value || today();
   const vehicleNo = document.getElementById('disp-vehicle-'+id)?.value.trim();
   const challanNo = document.getElementById('disp-challan-'+id)?.value.trim();
   const trackingNo = document.getElementById('disp-tracking-'+id)?.value.trim();
   const remarks = document.getElementById('disp-remarks-'+id)?.value.trim();
-  
-  if(!challanNo){ toast('Challan No. is required','error'); return; }
-  
-  // Generate delivery challan number
+  if(!challanNo){ toast('Challan No. required','error'); return; }
   const dcNo = 'DC-' + new Date().getFullYear() + '-' + String(DB.orders.filter(x=>x.dispatchDate).length+1).padStart(4,'0');
   
-  // Save dispatch details
   o.dispatchDate = dispatchDate;
   o.dispatchTime = now();
   o.dispatchedBy = DB.user.name;
   o.challanNo = challanNo;
   o.dcNo = dcNo;
-  o.dispatchDetails = { dispatchDate, vehicleNo, challanNo, trackingNo, remarks };
+  o.dispatchDetails = {dispatchDate,vehicleNo,challanNo,trackingNo,remarks};
   o.status = markDelivered ? 'delivered' : 'dispatched';
   
-  // Deduct stock
   for(const it of o.items){
     const inv = DB.inventory.find(x=>x.id===it.itemId);
     if(inv) inv.stock = Math.max(0, inv.stock - it.qty);
   }
   
-  // AUTO-UPDATE DEALER LEDGER with dispatch entries
-  // Entry 1: Delivery Challan reference
-  DB.ledger.push({
-    id: Date.now()+10, date: dispatchDate, voucher: dcNo, type:'Dispatch',
-    dealerId: d?.id, dealerName: d?.name,
-    account: 'Stock Out (Cr)',
-    particulars: `Dispatched against ${o.orderNo} / Invoice ${o.invoiceNo||'N/A'} | Vehicle: ${vehicleNo||'N/A'}`,
-    debit: 0, credit: o.subtotal,
-    refOrder: o.orderNo, refInvoice: o.invoiceNo
-  });
-  
-  // Entry 2: Dispatch note for dealer's ledger view
-  DB.ledger.push({
-    id: Date.now()+11, date: dispatchDate, voucher: dcNo, type:'Dispatch',
-    dealerId: d?.id, dealerName: d?.name,
-    account: 'Goods Dispatched',
-    particulars: `Challan ${challanNo} | ${o.items.map(i=>`${i.name}×${i.qty}`).join(', ')}`,
-    debit: 0, credit: 0, note: true,
-    refOrder: o.orderNo, refInvoice: o.invoiceNo
-  });
-  
-  // If delivered, mark payment receivable as due
+  DB.ledger.push({id:Date.now()+10,date:dispatchDate,voucher:dcNo,type:'Dispatch',dealerId:d?.id,dealerName:d?.name,
+    account:'Stock Out (Cr)',particulars:`Dispatched against ${o.orderNo} | Vehicle: ${vehicleNo||'N/A'}`,
+    debit:0,credit:o.subtotal,refOrder:o.orderNo});
+  DB.ledger.push({id:Date.now()+11,date:dispatchDate,voucher:dcNo,type:'Dispatch',dealerId:d?.id,dealerName:d?.name,
+    account:'Goods Dispatched',particulars:`Challan ${challanNo} | ${o.items.map(i=>`${i.name}×${i.qty}`).join(', ')}`,
+    debit:0,credit:0,note:true,refOrder:o.orderNo});
   if(markDelivered){
-    DB.ledger.push({
-      id: Date.now()+12, date: dispatchDate, voucher: o.invoiceNo, type:'Delivery',
-      dealerId: d?.id, dealerName: d?.name,
-      account: 'Delivery Confirmed',
-      particulars: `Goods delivered to ${d?.name}. Payment of ${fmt(o.total)} due.`,
-      debit: 0, credit: 0, note: true,
-      refOrder: o.orderNo, refInvoice: o.invoiceNo
-    });
+    DB.ledger.push({id:Date.now()+12,date:dispatchDate,voucher:o.invoiceNo,type:'Delivery',dealerId:d?.id,dealerName:d?.name,
+      account:'Delivery Confirmed',particulars:`Delivered to ${d?.name}. Payment ${fmt(o.total)} due.`,
+      debit:0,credit:0,note:true,refOrder:o.orderNo});
   }
   
   save();
-  toast(`✅ Order ${o.orderNo} dispatched! Challan: ${dcNo}. Dealer ledger updated.`);
+  toast(`✅ Dispatched! Challan: ${dcNo}. Ledger updated.`);
   renderDispatch();
   updateBadges();
 }
@@ -866,7 +927,7 @@ function renderInvoicePage(){
   document.getElementById('page-invoices').innerHTML = `
     <div class="card">
       <div class="card-title">All Invoices <input type="text" class="search-box" placeholder="Search..." oninput="renderInvoiceList(this.value)"></div>
-      <table><thead><tr><th>Inv No.</th><th>Date</th><th>Dealer</th><th>Type</th><th>Order</th><th>Status</th><th class="text-right">Total</th><th>Action</th></tr></thead>
+      <table><thead><tr><th>Inv No.</th><th>Date</th><th>Dealer</th><th>Type</th><th>Status</th><th class="text-right">Total</th><th>Action</th></tr></thead>
       <tbody id="invoiceList"></tbody></table>
     </div>
   `;
@@ -882,16 +943,13 @@ function renderInvoiceList(search=''){
     const statusBadge = {
       'dispatched':'<span class="badge dispatch">Dispatched</span>',
       'delivered':'<span class="badge info">Delivered</span>',
-      'Generated':'<span class="badge warning">Pending Dispatch</span>'
+      'approved':'<span class="badge warning">Pending Dispatch</span>'
     }[order?.status] || '<span class="badge">Direct</span>';
-    return `<tr><td><strong>${i.invNo}</strong></td>
-    <td>${i.date}</td><td>${i.dealerName}</td>
-    <td>${typeBadge}</td>
-    <td>${i.orderId ? order?.orderNo||'-' : 'Direct'}</td>
-    <td>${statusBadge}</td>
+    return `<tr><td><strong>${i.invNo}</strong></td><td>${i.date}</td><td>${i.dealerName}</td>
+    <td>${typeBadge}</td><td>${statusBadge}</td>
     <td class="text-right"><strong>${fmt(i.total)}</strong></td>
     <td><button class="btn btn-danger btn-sm" onclick="deleteInvoice(${i.id})">🗑️</button></td></tr>`;
-  }).join('') : '<tr><td colspan="8" class="empty">No invoices yet</td></tr>';
+  }).join('') : '<tr><td colspan="7" class="empty">No invoices yet</td></tr>';
 }
 function deleteInvoice(id){
   if(!confirm('Delete this invoice?')) return;
@@ -911,12 +969,11 @@ function renderTDSPage(){
     </div>
     <div class="card">
       <div class="card-title">TDS/TCS Transactions</div>
-      <table><thead><tr><th>Date</th><th>Type</th><th>Party</th><th>PAN</th><th class="text-right">Base</th><th class="text-right">Tax</th></tr></thead>
+      <table><thead><tr><th>Date</th><th>Type</th><th>Party</th><th class="text-right">Base</th><th class="text-right">Tax</th></tr></thead>
       <tbody>${DB.tdstcs.length ? DB.tdstcs.slice().reverse().map(t=>`
         <tr><td>${t.date}</td><td><span class="badge ${t.type==='TDS'?'warning':'success'}">${t.type}</span></td>
-        <td>${t.party}</td><td>${t.pan||'N/A'}</td>
-        <td class="text-right">${fmt(t.base)}</td><td class="text-right"><strong>${fmt(t.tax)}</strong></td></tr>
-      `).join('') : '<tr><td colspan="6" class="empty">No TDS/TCS transactions</td></tr>'}</tbody></table>
+        <td>${t.party}</td><td class="text-right">${fmt(t.base)}</td><td class="text-right"><strong>${fmt(t.tax)}</strong></td></tr>
+      `).join('') : '<tr><td colspan="5" class="empty">No TDS/TCS transactions</td></tr>'}</tbody></table>
     </div>
   `;
 }
@@ -929,7 +986,7 @@ function renderLedger(){
       <table><thead><tr><th>Date</th><th>Voucher</th><th>Type</th><th>Dealer</th><th>Account</th><th>Particulars</th><th class="text-right">Debit</th><th class="text-right">Credit</th></tr></thead>
       <tbody>${DB.ledger.length ? DB.ledger.slice().reverse().map(l=>`
         <tr><td>${l.date}</td><td>${l.voucher}</td>
-        <td><span class="badge ${l.type==='Dispatch'?'dispatch':l.type==='Invoice'?'success':'info'}">${l.type}</span></td>
+        <td><span class="badge ${l.type==='Dispatch'?'dispatch':l.type==='Invoice'?'success':l.type==='Payment'?'info':'muted'}">${l.type}</span></td>
         <td>${l.dealerName||'-'}</td>
         <td><strong>${l.account}</strong></td><td>${l.particulars}</td>
         <td class="text-right">${l.debit?fmt(l.debit):'-'}</td><td class="text-right">${l.credit?fmt(l.credit):'-'}</td></tr>
@@ -940,8 +997,15 @@ function renderLedger(){
 
 /* ============ DEALERS ============ */
 function renderDealers(){
+  const activeCount = DB.dealers.filter(d=>d.status==='active').length;
+  const inactiveCount = DB.dealers.length - activeCount;
   document.getElementById('page-dealers').innerHTML = `
-    <div class="alert alert-info">ℹ️ <strong>GSTIN and PAN are OPTIONAL.</strong> Dealers without GSTIN are treated as <strong>Unregistered (B2C)</strong>.</div>
+    <div class="alert alert-info">ℹ️ <strong>GSTIN and PAN are OPTIONAL.</strong> Admin can activate/deactivate dealers. Inactive dealers cannot login.</div>
+    <div class="stats-grid">
+      <div class="stat-card success"><h3>Active Dealers</h3><div class="value">${activeCount}</div></div>
+      <div class="stat-card danger"><h3>Inactive Dealers</h3><div class="value">${inactiveCount}</div></div>
+      <div class="stat-card"><h3>Total Dealers</h3><div class="value">${DB.dealers.length}</div></div>
+    </div>
     <div class="grid-2">
       <div class="card">
         <div class="card-title">Add New Dealer</div>
@@ -949,7 +1013,7 @@ function renderDealers(){
         <div class="form-group"><label>GSTIN <span class="optional">(Optional)</span></label><input type="text" class="form-control" id="dGstin" style="text-transform:uppercase"></div>
         <div class="form-row">
           <div class="form-group"><label>PAN <span class="optional">(Optional)</span></label><input type="text" class="form-control" id="dPan" style="text-transform:uppercase"></div>
-          <div class="form-group"><label>State <span class="optional">(Optional)</span></label><input type="text" class="form-control" id="dState"></div>
+          <div class="form-group"><label>State</label><input type="text" class="form-control" id="dState"></div>
         </div>
         <div class="form-group"><label>Phone</label><input type="text" class="form-control" id="dPhone"></div>
         <div class="form-group"><label>Email <span class="optional">(Optional)</span></label><input type="email" class="form-control" id="dEmail"></div>
@@ -957,18 +1021,19 @@ function renderDealers(){
           <div class="form-group"><label>Dealer Code <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="dCode" style="text-transform:uppercase"></div>
           <div class="form-group"><label>Password <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="dPass" value="dealer123"></div>
         </div>
-        <button class="btn btn-success btn-block" onclick="addDealer()">➕ Add Dealer</button>
+        <button class="btn btn-success btn-block" onclick="addDealer()">➕ Add Dealer (Active)</button>
       </div>
       <div class="card">
         <div class="card-title">Dealer Directory <span class="badge">${DB.dealers.length}</span></div>
-        <table><thead><tr><th>Name</th><th>Code</th><th>Type</th><th>GSTIN</th><th>Action</th></tr></thead>
+        <table><thead><tr><th>Name</th><th>Code</th><th>Type</th><th>Status</th><th>Action</th></tr></thead>
         <tbody>${DB.dealers.map(d=>{
           const isReg = isRegisteredDealer(d);
+          const isActive = d.status !== 'inactive';
           return `<tr>
             <td><strong>${d.name}</strong><br><small style="color:var(--muted)">${d.phone||''}</small></td>
             <td><code>${d.dealerCode}</code></td>
             <td>${isReg ? '<span class="badge success">B2B</span>' : '<span class="badge muted">B2C</span>'}</td>
-            <td>${d.gstin || '<em style="color:var(--muted)">N/A</em>'}</td>
+            <td><button class="toggle-btn ${isActive?'active':'inactive'}" onclick="toggleDealerStatus(${d.id})">${isActive?'✓ Active':'⛔ Inactive'}</button></td>
             <td><button class="btn btn-danger btn-sm" onclick="deleteDealer(${d.id})">🗑️</button></td></tr>`;
         }).join('')}</tbody></table>
       </div>
@@ -987,11 +1052,11 @@ function addDealer(){
   if(!name||!code||!pass){toast('Name, Code and Password required','error');return;}
   if(gstin && gstin.length !== 15){toast('GSTIN must be 15 chars (or leave blank)','error');return;}
   if(DB.dealers.some(d=>d.dealerCode===code)){toast('Dealer code exists','error');return;}
-  DB.dealers.push({id:Date.now(),name,gstin,pan,state,phone,email,dealerCode:code,password:pass});
-  save(); renderDealers(); toast(`✅ Dealer added (${gstin?'B2B':'B2C'})`);
+  DB.dealers.push({id:Date.now(),name,gstin,pan,state,phone,email,dealerCode:code,password:pass,status:'active'});
+  save(); renderDealers(); toast(`✅ Dealer added (Active)`);
 }
 function deleteDealer(id){
-  if(!confirm('Delete dealer?'))return;
+  if(!confirm('Delete dealer? This will remove all their data.'))return;
   DB.dealers=DB.dealers.filter(d=>d.id!==id);
   save(); renderDealers(); toast('Dealer deleted');
 }
@@ -999,6 +1064,7 @@ function deleteDealer(id){
 /* ============ INVENTORY ============ */
 function renderInventory(){
   document.getElementById('page-inventory').innerHTML = `
+    <div class="alert alert-info">💡 You can add items with <strong>₹0 rate</strong> for freebies, samples, or promotional items. These will show as "FREE" in dealer portals.</div>
     <div class="grid-2">
       <div class="card">
         <div class="card-title">Add Item</div>
@@ -1006,23 +1072,24 @@ function renderInventory(){
         <div class="form-row">
           <div class="form-group"><label>HSN</label><input type="text" class="form-control" id="iHsn"></div>
           <div class="form-group"><label>GST %</label>
-            <select class="form-control" id="iGst"><option>5</option><option>12</option><option selected>18</option><option>28</option></select>
+            <select class="form-control" id="iGst"><option>0</option><option>5</option><option>12</option><option selected>18</option><option>28</option></select>
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label>Rate (₹)</label><input type="number" class="form-control" id="iRate" value="1000"></div>
+          <div class="form-group"><label>Rate (₹) <span class="optional">(0 for free items)</span></label><input type="number" class="form-control" id="iRate" value="0" min="0"></div>
           <div class="form-group"><label>Stock</label><input type="number" class="form-control" id="iStock" value="100"></div>
         </div>
+        <div class="form-group"><label>Notes <span class="optional">(Optional)</span></label><input type="text" class="form-control" id="iNotes" placeholder="e.g., Free sample, promotional"></div>
         <button class="btn btn-success btn-block" onclick="addItem()">➕ Add Item</button>
       </div>
       <div class="card">
-        <div class="card-title">Inventory</div>
-        <table><thead><tr><th>Item</th><th>HSN</th><th class="text-right">Rate</th><th class="text-right">Stock</th><th>Last Updated</th><th>Action</th></tr></thead>
+        <div class="card-title">Inventory <span class="badge">${DB.inventory.length} items</span></div>
+        <table><thead><tr><th>Item</th><th>HSN</th><th class="text-right">Rate</th><th class="text-right">Stock</th><th>Action</th></tr></thead>
         <tbody>${DB.inventory.map(i=>`
-          <tr><td><strong>${i.name}</strong></td><td>${i.hsn}</td>
-          <td class="text-right">${fmt(i.rate)}</td>
+          <tr><td><strong>${i.name}</strong>${i.isFree?' <span class="badge free">FREE</span>':''}<br><small style="color:var(--muted)">${i.notes||''}</small></td>
+          <td>${i.hsn}</td>
+          <td class="text-right">${i.rate===0?'<span class="badge free">FREE</span>':fmt(i.rate)}</td>
           <td class="text-right"><span class="badge ${i.stock<50?'danger':'success'}">${i.stock}</span></td>
-          <td><small>${i.lastUpdated||'N/A'}</small></td>
           <td><button class="btn btn-danger btn-sm" onclick="deleteItem(${i.id})">🗑️</button></td></tr>
         `).join('')}</tbody></table>
       </div>
@@ -1035,9 +1102,11 @@ function addItem(){
   const gst=parseInt(document.getElementById('iGst').value);
   const rate=parseFloat(document.getElementById('iRate').value);
   const stock=parseInt(document.getElementById('iStock').value);
+  const notes=document.getElementById('iNotes').value.trim();
   if(!name||!hsn){toast('Name and HSN required','error');return;}
-  DB.inventory.push({id:Date.now(),name,hsn,gst,rate,stock,lastUpdated:today()});
-  save(); renderInventory(); toast('✅ Item added');
+  if(isNaN(rate) || rate < 0){toast('Rate must be 0 or more','error');return;}
+  DB.inventory.push({id:Date.now(),name,hsn,gst,rate:rate||0,stock:Math.max(0,stock||0),lastUpdated:today(),isFree:rate===0,notes});
+  save(); renderInventory(); toast(`✅ Item added ${rate===0?'(FREE)':''}`);
 }
 function deleteItem(id){
   if(!confirm('Delete item?'))return;
@@ -1087,46 +1156,60 @@ function renderDealerDashboard(){
   const isReg = isRegisteredDealer(d);
   const myOrders = DB.orders.filter(o=>o.dealerId===d.id);
   const myInvoices = DB.invoices.filter(i=>i.dealerId===d.id);
+  const myPayments = DB.payments.filter(p=>p.dealerId===d.id);
   const pending = myOrders.filter(o=>o.status==='pending').length;
   const approved = myOrders.filter(o=>o.status==='approved').length;
   const dispatched = myOrders.filter(o=>o.status==='dispatched').length;
   const delivered = myOrders.filter(o=>o.status==='delivered').length;
   const totalSpent = myInvoices.reduce((s,i)=>s+i.total,0);
+  const totalPaid = myPayments.filter(p=>p.status==='approved').reduce((s,p)=>s+p.amount,0);
+  const pendingPayments = myPayments.filter(p=>p.status==='pending').length;
+  
+  // Calculate outstanding from ledger
+  const myLedger = DB.ledger.filter(l=>l.dealerId===d.id);
+  const totalDebit = myLedger.reduce((s,l)=>s+(l.debit||0),0);
+  const totalCredit = myLedger.reduce((s,l)=>s+(l.credit||0),0);
+  const outstanding = totalDebit - totalCredit;
   
   document.getElementById('page-d-dashboard').innerHTML = `
     <div class="alert ${isReg?'alert-success':'alert-warning'}">
       👋 Welcome back, <strong>${d.name}</strong>! 
-      ${isReg ? `Your GSTIN: ${d.gstin} (B2B Registered - ITC eligible)` : 'Unregistered Dealer (B2C) - ITC not available'}
+      ${isReg ? `B2B Registered - ITC eligible` : 'Unregistered Dealer (B2C)'}
     </div>
     <div class="stats-grid">
-      <div class="stat-card warning"><h3>Pending</h3><div class="value">${pending}</div><div class="sub">Awaiting approval</div></div>
-      <div class="stat-card success"><h3>Approved</h3><div class="value">${approved}</div><div class="sub">Ready for dispatch</div></div>
-      <div class="stat-card info"><h3>Dispatched</h3><div class="value">${dispatched}</div><div class="sub">On the way</div></div>
-      <div class="stat-card"><h3>Delivered</h3><div class="value">${delivered}</div><div class="sub">Completed</div></div>
-      <div class="stat-card success"><h3>Total Spend</h3><div class="value">${fmt(totalSpent)}</div><div class="sub">Invoiced value</div></div>
+      <div class="stat-card warning"><h3>Pending Orders</h3><div class="value">${pending}</div></div>
+      <div class="stat-card info"><h3>Dispatched</h3><div class="value">${dispatched}</div></div>
+      <div class="stat-card success"><h3>Delivered</h3><div class="value">${delivered}</div></div>
+      <div class="stat-card"><h3>Total Purchases</h3><div class="value">${fmt(totalSpent)}</div></div>
+      <div class="stat-card success"><h3>Total Paid</h3><div class="value">${fmt(totalPaid)}</div><div class="sub">${myPayments.filter(p=>p.status==='approved').length} payments</div></div>
+      <div class="stat-card ${outstanding>0?'danger':'success'}"><h3>Outstanding</h3><div class="value">${fmt(Math.abs(outstanding))}</div><div class="sub">${outstanding>0?'Payable':'Credit Balance'} ${pendingPayments>0?'| '+pendingPayments+' pending':''}</div></div>
     </div>
     <div class="grid-2">
       <div class="card">
         <div class="card-title">Quick Actions</div>
         <button class="btn btn-primary btn-block" onclick="navigateTo('d-today-prices')" style="margin-bottom:10px">📊 View Today's Prices</button>
         <button class="btn btn-success btn-block" onclick="navigateTo('d-place-order')" style="margin-bottom:10px">📝 Place New Order</button>
+        <button class="btn btn-warning btn-block" onclick="navigateTo('d-make-payment')" style="margin-bottom:10px">💳 Make Payment</button>
         <button class="btn btn-outline btn-block" onclick="navigateTo('d-my-ledger')">📒 View My Ledger</button>
       </div>
       <div class="card">
-        <div class="card-title">Recent Orders</div>
-        ${myOrders.length ? myOrders.slice(-5).reverse().map(o=>{
-          const statusBadge = {
-            'pending':'<span class="badge warning">⏳ Pending</span>',
-            'approved':'<span class="badge success">✅ Approved</span>',
-            'dispatched':'<span class="badge dispatch">🚚 Dispatched</span>',
-            'delivered':'<span class="badge info">📦 Delivered</span>',
-            'rejected':'<span class="badge danger">❌ Rejected</span>'
-          }[o.status];
-          return `<div style="padding:10px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
-            <div><strong style="font-size:13px">${o.orderNo}</strong><br><small style="color:var(--muted)">${o.date}</small></div>
-            <div style="text-align:right"><div style="font-weight:700;font-size:13px">${fmt(o.total)}</div>${statusBadge}</div>
-          </div>`;
-        }).join('') : '<div class="empty">No orders yet</div>'}
+        <div class="card-title">Recent Activity</div>
+        ${myOrders.length || myPayments.length ? `
+          ${myPayments.slice(-3).reverse().map(p=>{
+            const statusBadge = {'pending':'<span class="badge warning">⏳</span>','approved':'<span class="badge success">✅</span>','rejected':'<span class="badge danger">❌</span>'}[p.status];
+            return `<div style="padding:8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font-size:12px">
+              <div>💳 ${p.paymentNo} <small style="color:var(--muted)">${p.date}</small></div>
+              <div><strong>${fmt(p.amount)}</strong> ${statusBadge}</div>
+            </div>`;
+          }).join('')}
+          ${myOrders.slice(-3).reverse().map(o=>{
+            const statusBadge = {'pending':'<span class="badge warning">⏳</span>','approved':'<span class="badge success">✅</span>','dispatched':'<span class="badge dispatch">🚚</span>','delivered':'<span class="badge info">📦</span>','rejected':'<span class="badge danger">❌</span>'}[o.status];
+            return `<div style="padding:8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font-size:12px">
+              <div>📦 ${o.orderNo} <small style="color:var(--muted)">${o.date}</small></div>
+              <div><strong>${fmt(o.total)}</strong> ${statusBadge}</div>
+            </div>`;
+          }).join('')}
+        ` : '<div class="empty">No activity yet</div>'}
       </div>
     </div>
   `;
@@ -1134,19 +1217,15 @@ function renderDealerDashboard(){
 
 /* ============ DEALER: TODAY'S PRICES ============ */
 function renderDealerTodayPrices(){
-  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
   const todayDate = today();
   const todayChanges = DB.priceHistory.filter(p=>p.date===todayDate);
-  const totalValue = DB.inventory.reduce((s,i)=>s+i.rate,0);
-  
   document.getElementById('page-d-today-prices').innerHTML = `
-    <div class="alert alert-info">📊 Daily rate card effective from <strong>${todayDate}</strong>. Prices are updated daily by admin and reflected in real-time.</div>
+    <div class="alert alert-info">📊 Daily rate card effective <strong>${todayDate}</strong>. Free items shown with FREE badge.</div>
     <div class="stats-grid">
-      <div class="stat-card"><h3>Total Items</h3><div class="value">${DB.inventory.length}</div><div class="sub">Available for order</div></div>
-      <div class="stat-card success"><h3>Today's Changes</h3><div class="value">${todayChanges.length}</div><div class="sub">Prices updated today</div></div>
-      <div class="stat-card info"><h3>Effective Date</h3><div class="value" style="font-size:16px">${todayDate}</div><div class="sub">FY ${DB.settings.fy}</div></div>
+      <div class="stat-card"><h3>Total Items</h3><div class="value">${DB.inventory.length}</div></div>
+      <div class="stat-card success"><h3>Today's Changes</h3><div class="value">${todayChanges.length}</div></div>
+      <div class="stat-card info"><h3>Free Items</h3><div class="value">${DB.inventory.filter(i=>i.rate===0).length}</div></div>
     </div>
-    
     <div class="card">
       <div class="card-title">Today's Rate Card <span class="badge success">${todayDate}</span></div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px">
@@ -1155,7 +1234,7 @@ function renderDealerTodayPrices(){
           const yesterdayPrice = lastChange && lastChange.date === todayDate ? lastChange.oldPrice : null;
           let changeHtml = '';
           if(yesterdayPrice !== null && yesterdayPrice !== item.rate){
-            const change = ((item.rate - yesterdayPrice) / yesterdayPrice * 100).toFixed(1);
+            const change = ((item.rate - yesterdayPrice) / (yesterdayPrice||1) * 100).toFixed(1);
             const changeClass = change > 0 ? 'price-up' : 'price-down';
             const icon = change > 0 ? '📈' : '📉';
             changeHtml = `<span class="price-change ${changeClass}">${icon} ${change>0?'+':''}${change}% from yesterday</span>`;
@@ -1165,42 +1244,25 @@ function renderDealerTodayPrices(){
           const priceWithGST = item.rate * (1 + item.gst/100);
           return `<div class="price-card">
             <div class="price-header">
-              <div class="price-name">${item.name}</div>
-              <div class="price-amount">${fmt(item.rate)}</div>
+              <div class="price-name">${item.name} ${item.isFree?'<span class="badge free">FREE</span>':''}</div>
+              <div class="price-amount">${item.rate===0?'<span style="color:#ec4899">FREE</span>':fmt(item.rate)}</div>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
               <span class="badge">HSN: ${item.hsn}</span>
               <span class="badge success">GST: ${item.gst}%</span>
             </div>
             <div class="price-meta">
-              Price with GST: <strong>${fmt(priceWithGST)}</strong><br>
+              ${item.rate>0 ? `Price with GST: <strong>${fmt(priceWithGST)}</strong><br>` : ''}
               Available Stock: <strong>${item.stock} units</strong><br>
               Last Updated: ${item.lastUpdated||'N/A'}
+              ${item.notes ? `<br><em>${item.notes}</em>` : ''}
             </div>
             <div style="margin-top:8px">${changeHtml}</div>
           </div>`;
         }).join('')}
       </div>
     </div>
-    
-    <div class="card">
-      <div class="card-title">Recent Price Changes (Your Reference)</div>
-      ${DB.priceHistory.length ? `<table>
-        <thead><tr><th>Date</th><th>Item</th><th class="text-right">Old</th><th class="text-right">New</th><th>Change</th></tr></thead>
-        <tbody>${DB.priceHistory.slice().reverse().slice(0,15).map(p=>{
-          const item = DB.inventory.find(i=>i.id===p.itemId);
-          if(!item) return '';
-          const change = ((p.newPrice - p.oldPrice) / p.oldPrice * 100).toFixed(1);
-          const changeClass = change > 0 ? 'price-up' : change < 0 ? 'price-down' : 'price-same';
-          return `<tr><td>${p.date}</td><td>${item.name}</td>
-          <td class="text-right">${fmt(p.oldPrice)}</td>
-          <td class="text-right"><strong>${fmt(p.newPrice)}</strong></td>
-          <td><span class="price-change ${changeClass}">${change>0?'+':''}${change}%</span></td></tr>`;
-        }).join('')}</tbody>
-      </table>` : '<div class="empty">No price changes yet</div>'}
-    </div>
-    
-    <button class="btn btn-primary btn-block" onclick="navigateTo('d-place-order')" style="margin-top:10px">📝 Place Order with Today's Prices</button>
+    <button class="btn btn-primary btn-block" onclick="navigateTo('d-place-order')">📝 Place Order with Today's Prices</button>
   `;
 }
 
@@ -1208,11 +1270,12 @@ function renderDealerTodayPrices(){
 let orderItems = [];
 function renderPlaceOrder(){
   const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  if(!isDealerActive(d)){ toast('Your account is inactive','error'); navigateTo('d-dashboard'); return; }
   const isReg = isRegisteredDealer(d);
   orderItems = [];
   document.getElementById('page-d-place-order').innerHTML = `
     <div class="alert ${isReg?'alert-info':'alert-warning'}">
-      ${isReg ? '📌 B2B registered dealer - ITC available. Prices as of today: '+today() : '📌 B2C unregistered dealer - No ITC. Prices as of today: '+today()}
+      ${isReg ? '📌 B2B registered - ITC available. Prices: '+today() : '📌 B2C unregistered - No ITC. Prices: '+today()}
     </div>
     <div class="grid-2">
       <div class="card">
@@ -1221,9 +1284,9 @@ function renderPlaceOrder(){
         <button class="btn btn-outline" onclick="addOrderItem()" style="margin-top:10px">➕ Add Item</button>
         <div class="form-group" style="margin-top:14px">
           <label>Order Notes (Optional)</label>
-          <textarea class="form-control" id="orderNotes" placeholder="Special instructions, delivery address, etc."></textarea>
+          <textarea class="form-control" id="orderNotes" placeholder="Special instructions"></textarea>
         </div>
-        <button class="btn btn-primary btn-block" onclick="submitOrder()">📤 Submit Order for Approval</button>
+        <button class="btn btn-primary btn-block" onclick="submitOrder()">📤 Submit Order</button>
       </div>
       <div class="card">
         <div class="card-title">Order Summary <span class="badge success">Live</span></div>
@@ -1248,10 +1311,10 @@ function renderOrderItems(){
   el.innerHTML = orderItems.map((it,idx)=>{
     const item = DB.inventory.find(x=>x.id==it.itemId);
     return `<div class="order-item-row">
-      <div><label style="font-size:11px;color:var(--muted)">Item (Today's Rate)</label>
+      <div><label style="font-size:11px;color:var(--muted)">Item</label>
         <select class="form-control" onchange="updateOrderItem(${idx},'itemId',this.value)">
           <option value="">-- Select --</option>
-          ${DB.inventory.map(i=>`<option value="${i.id}" ${it.itemId==i.id?'selected':''}>${i.name} - ${fmt(i.rate)} (Stock: ${i.stock})</option>`).join('')}
+          ${DB.inventory.map(i=>`<option value="${i.id}" ${it.itemId==i.id?'selected':''}>${i.name} - ${i.rate===0?'FREE':fmt(i.rate)} (Stock: ${i.stock})</option>`).join('')}
         </select>
       </div>
       <div><label style="font-size:11px;color:var(--muted)">HSN</label>
@@ -1261,7 +1324,7 @@ function renderOrderItems(){
         <input type="number" class="form-control" value="${it.qty}" min="1" onchange="updateOrderItem(${idx},'qty',this.value)">
       </div>
       <div><label style="font-size:11px;color:var(--muted)">Amount</label>
-        <input type="text" class="form-control" value="${item?fmt(item.rate*it.qty):'-'}" readonly>
+        <input type="text" class="form-control" value="${item?(item.rate===0?'FREE':fmt(item.rate*it.qty)):'-'}" readonly>
       </div>
       <button class="remove-item" onclick="removeOrderItem(${idx})">✕</button>
     </div>`;
@@ -1287,28 +1350,27 @@ function renderOrderSummary(){
   let cgst=0,sgst=0,igst=0;
   if(isInter) igst=(subtotal*gstRate)/100; else { cgst=(subtotal*gstRate/2)/100; sgst=(subtotal*gstRate/2)/100; }
   const est = subtotal+cgst+sgst+igst;
+  const freeItems = validItems.filter(i=>i.rate===0).length;
   
   el.innerHTML = `
     <table>
       <tr><td>Effective Date</td><td class="text-right"><strong>${today()}</strong></td></tr>
-      <tr><td>Dealer Type</td><td class="text-right">${isReg ? '<span class="badge success">B2B</span>' : '<span class="badge muted">B2C</span>'}</td></tr>
-      <tr><td>Items</td><td class="text-right">${validItems.length}</td></tr>
+      <tr><td>Paid Items</td><td class="text-right">${validItems.length - freeItems}</td></tr>
+      ${freeItems>0?`<tr><td>Free Items</td><td class="text-right"><span class="badge free">${freeItems} FREE</span></td></tr>`:''}
       <tr><td>Subtotal</td><td class="text-right">${fmt(subtotal)}</td></tr>
       ${isInter ? `<tr><td>IGST (${gstRate}%)</td><td class="text-right">${fmt(igst)}</td></tr>` :
         `<tr><td>CGST (${gstRate/2}%)</td><td class="text-right">${fmt(cgst)}</td></tr>
          <tr><td>SGST (${gstRate/2}%)</td><td class="text-right">${fmt(sgst)}</td></tr>`}
       <tr class="total-row"><td>Estimated Total</td><td class="text-right">${fmt(est)}</td></tr>
     </table>
-    <div style="margin-top:14px;padding:10px;background:${isReg?'#eff6ff':'#fffbeb'};border-radius:6px;font-size:11px;color:${isReg?'#1e40af':'#92400e'}">
-      ${isReg ? 'ℹ️ B2B Invoice: ITC available.' : 'ℹ️ B2C Invoice: No ITC. TCS may apply if order > ₹50L.'}
-    </div>
   `;
 }
 
 function submitOrder(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  if(!isDealerActive(d)){ toast('Your account is inactive','error'); return; }
   const validItems = orderItems.filter(it=>it.itemId && it.qty>0);
   if(!validItems.length){ toast('Add at least one item','error'); return; }
-  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
   const isReg = isRegisteredDealer(d);
   
   let items;
@@ -1321,7 +1383,7 @@ function submitOrder(){
   } catch(e) { return; }
   
   const subtotal = items.reduce((s,i)=>s+i.amount,0);
-  const gstRate = items[0].gst;
+  const gstRate = items.find(i=>i.rate>0)?.gst || items[0].gst;
   const buyerState = isReg ? getStateFromGSTIN(d.gstin) : DB.settings.stateCode;
   const isInter = isReg && buyerState && buyerState !== DB.settings.stateCode;
   let cgst=0,sgst=0,igst=0,tcs=0;
@@ -1348,39 +1410,9 @@ function renderMyOrders(){
   document.getElementById('page-d-my-orders').innerHTML = `
     <div class="card">
       <div class="card-title">My Orders <span class="badge">${myOrders.length}</span></div>
-      ${myOrders.length ? myOrders.map(o=>{
-        const card = renderOrderCard(o,'view');
-        // Add order timeline for dealer view
-        const timeline = buildOrderTimeline(o);
-        return card.replace('</div></div>', timeline + '</div></div>');
-      }).join('') : '<div class="empty">No orders placed yet. <a href="#" onclick="navigateTo(\'d-place-order\');return false;" style="color:var(--primary)">Place your first order →</a></div>'}
+      ${myOrders.length ? myOrders.map(o=>renderOrderCard(o,'view')).join('') : '<div class="empty">No orders yet. <a href="#" onclick="navigateTo(\'d-place-order\');return false;" style="color:var(--primary)">Place your first order →</a></div>'}
     </div>
   `;
-}
-
-function buildOrderTimeline(o){
-  let html = '<div class="timeline">';
-  html += `<div class="timeline-item warning"><div class="timeline-date">${o.date} ${o.time||''}</div>
-    <div class="timeline-title">Order Placed</div><div class="timeline-desc">Order ${o.orderNo} submitted for approval</div></div>`;
-  if(o.status !== 'pending' && o.status !== 'rejected'){
-    html += `<div class="timeline-item success"><div class="timeline-date">${o.approvedDate||''}</div>
-      <div class="timeline-title">Order Approved</div><div class="timeline-desc">Invoice ${o.invoiceNo||'generated'}</div></div>`;
-  }
-  if(o.status === 'dispatched' || o.status === 'delivered'){
-    html += `<div class="timeline-item info"><div class="timeline-date">${o.dispatchDate||''}</div>
-      <div class="timeline-title">Dispatched</div>
-      <div class="timeline-desc">Challan: ${o.challanNo||'N/A'} | Vehicle: ${o.dispatchDetails?.vehicleNo||'N/A'}${o.dispatchDetails?.trackingNo ? ' | Tracking: '+o.dispatchDetails.trackingNo : ''}</div></div>`;
-  }
-  if(o.status === 'delivered'){
-    html += `<div class="timeline-item success"><div class="timeline-date">Delivered</div>
-      <div class="timeline-title">Delivered</div><div class="timeline-desc">Goods received successfully</div></div>`;
-  }
-  if(o.status === 'rejected'){
-    html += `<div class="timeline-item"><div class="timeline-date">${o.approvedDate||''}</div>
-      <div class="timeline-title">Order Rejected</div><div class="timeline-desc">${o.remarks||'No remarks'}</div></div>`;
-  }
-  html += '</div>';
-  return html;
 }
 
 /* ============ DEALER: MY INVOICES ============ */
@@ -1390,7 +1422,7 @@ function renderMyInvoices(){
   document.getElementById('page-d-my-invoices').innerHTML = `
     <div class="card">
       <div class="card-title">My Invoices <span class="badge success">${myInv.length}</span></div>
-      <table><thead><tr><th>Inv No.</th><th>Date</th><th>Type</th><th>Items</th><th>Dispatch Status</th><th class="text-right">Total</th></tr></thead>
+      <table><thead><tr><th>Inv No.</th><th>Date</th><th>Type</th><th>Items</th><th>Status</th><th class="text-right">Total</th></tr></thead>
       <tbody>${myInv.length ? myInv.map(i=>{
         const typeBadge = i.saleType==='B2B' ? '<span class="badge success">B2B</span>' : '<span class="badge muted">B2C</span>';
         const order = DB.orders.find(o=>o.id===i.orderId);
@@ -1400,10 +1432,134 @@ function renderMyInvoices(){
           'approved':'<span class="badge warning">Pending Dispatch</span>'
         }[order?.status] || '<span class="badge">-</span>';
         return `<tr><td><strong>${i.invNo}</strong></td><td>${i.date}</td><td>${typeBadge}</td>
-        <td>${i.itemName.substring(0,30)}${i.itemName.length>30?'...':''}</td>
-        <td>${statusBadge}</td>
+        <td>${i.itemName.substring(0,30)}</td><td>${statusBadge}</td>
         <td class="text-right"><strong>${fmt(i.total)}</strong></td></tr>`;
       }).join('') : '<tr><td colspan="6" class="empty">No invoices yet</td></tr>'}</tbody></table>
+    </div>
+  `;
+}
+
+/* ============ DEALER: MAKE PAYMENT ============ */
+function renderMakePayment(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  if(!isDealerActive(d)){ toast('Account inactive','error'); navigateTo('d-dashboard'); return; }
+  
+  // Calculate outstanding
+  const myLedger = DB.ledger.filter(l=>l.dealerId===d.id);
+  const totalDebit = myLedger.reduce((s,l)=>s+(l.debit||0),0);
+  const totalCredit = myLedger.reduce((s,l)=>s+(l.credit||0),0);
+  const outstanding = totalDebit - totalCredit;
+  
+  document.getElementById('page-d-make-payment').innerHTML = `
+    <div class="alert alert-info">💳 Record your payment. Admin will review and approve. Once approved, your ledger will auto-update.</div>
+    <div class="stats-grid">
+      <div class="stat-card ${outstanding>0?'danger':'success'}"><h3>Current Outstanding</h3><div class="value">${fmt(Math.abs(outstanding))}</div><div class="sub">${outstanding>0?'You need to pay':'Credit balance'}</div></div>
+      <div class="stat-card warning"><h3>Pending Payments</h3><div class="value">${DB.payments.filter(p=>p.dealerId===d.id && p.status==='pending').length}</div><div class="sub">Awaiting admin approval</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Record New Payment</div>
+      <div class="form-row">
+        <div class="form-group"><label>Payment Amount (₹) <span style="color:var(--danger)">*</span></label>
+          <input type="number" class="form-control" id="payAmount" placeholder="Enter amount" min="1" value="${outstanding>0?outstanding:''}"></div>
+        <div class="form-group"><label>Payment Mode <span style="color:var(--danger)">*</span></label>
+          <select class="form-control" id="payMode">
+            <option value="NEFT">NEFT</option>
+            <option value="RTGS">RTGS</option>
+            <option value="UPI">UPI</option>
+            <option value="Cheque">Cheque</option>
+            <option value="Cash">Cash</option>
+            <option value="IMPS">IMPS</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Payment Date <span style="color:var(--danger)">*</span></label>
+          <input type="date" class="form-control" id="payDate" value="${today()}"></div>
+        <div class="form-group"><label>Reference / Transaction No. <span class="optional">(Optional for Cash)</span></label>
+          <input type="text" class="form-control" id="payRef" placeholder="UTR/Cheque No."></div>
+      </div>
+      <div class="form-group"><label>Bank Name (if applicable)</label>
+        <input type="text" class="form-control" id="payBank" placeholder="e.g., HDFC Bank, SBI"></div>
+      <div class="form-group"><label>Remarks</label>
+        <textarea class="form-control" id="payRemarks" placeholder="Against which invoice(s)? Any notes?" rows="2"></textarea></div>
+      <div class="alert alert-warning" style="margin-top:10px">
+        ⚠️ <strong>Note:</strong> Your payment will be marked as <strong>"Pending"</strong> until admin approves. Ledger will update only after approval.
+      </div>
+      <button class="btn btn-primary btn-block" onclick="submitPayment()">📤 Submit Payment for Approval</button>
+    </div>
+  `;
+}
+
+function submitPayment(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  if(!isDealerActive(d)){ toast('Account inactive','error'); return; }
+  
+  const amount = parseFloat(document.getElementById('payAmount').value);
+  const mode = document.getElementById('payMode').value;
+  const date = document.getElementById('payDate').value;
+  const referenceNo = document.getElementById('payRef').value.trim();
+  const bankName = document.getElementById('payBank').value.trim();
+  const remarks = document.getElementById('payRemarks').value.trim();
+  
+  if(!amount || amount <= 0){ toast('Enter valid amount','error'); return; }
+  if(!date){ toast('Select payment date','error'); return; }
+  if(mode !== 'Cash' && !referenceNo){ toast('Reference number required for non-cash payments','error'); return; }
+  
+  const paymentNo = 'PAY-' + new Date().getFullYear() + '-' + String(DB.payments.filter(p=>p.dealerId===d.id).length+1).padStart(4,'0');
+  
+  DB.payments.push({
+    id: Date.now(), paymentNo, dealerId: d.id, dealerName: d.name,
+    amount, mode, date, time: new Date().toLocaleTimeString('en-IN'),
+    referenceNo, bankName, remarks,
+    status: 'pending', submittedAt: now()
+  });
+  
+  save();
+  toast(`✅ Payment ${paymentNo} submitted! Awaiting admin approval.`);
+  navigateTo('d-payment-history');
+}
+
+/* ============ DEALER: PAYMENT HISTORY ============ */
+function renderPaymentHistory(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const myPayments = DB.payments.filter(p=>p.dealerId===d.id).reverse();
+  const totalApproved = myPayments.filter(p=>p.status==='approved').reduce((s,p)=>s+p.amount,0);
+  const totalPending = myPayments.filter(p=>p.status==='pending').reduce((s,p)=>s+p.amount,0);
+  
+  document.getElementById('page-d-payment-history').innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card"><h3>Total Payments</h3><div class="value">${myPayments.length}</div></div>
+      <div class="stat-card success"><h3>Approved</h3><div class="value">${fmt(totalApproved)}</div></div>
+      <div class="stat-card warning"><h3>Pending</h3><div class="value">${fmt(totalPending)}</div></div>
+      <div class="stat-card danger"><h3>Rejected</h3><div class="value">${myPayments.filter(p=>p.status==='rejected').length}</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">My Payment History <span class="badge">${myPayments.length}</span></div>
+      ${myPayments.length ? myPayments.map(p=>{
+        const statusBadge = {
+          'pending':'<span class="badge warning">⏳ Pending Approval</span>',
+          'approved':'<span class="badge success">✅ Approved</span>',
+          'rejected':'<span class="badge danger">❌ Rejected</span>'
+        }[p.status];
+        return `<div class="payment-card ${p.status}">
+          <div class="order-header">
+            <div>
+              <div class="order-no">${p.paymentNo} ${statusBadge}</div>
+              <div class="order-meta">
+                Date: ${p.date} ${p.time||''}<br>
+                Mode: <strong>${p.mode}</strong> ${p.referenceNo?'| Ref: '+p.referenceNo:''}
+                ${p.bankName?'| Bank: '+p.bankName:''}<br>
+                ${p.status==='approved' ? 'Receipt: <strong>'+p.receiptNo+'</strong> | Approved: '+p.approvedDate : ''}
+                ${p.status==='rejected' && p.remarks ? 'Reason: '+p.remarks : ''}
+              </div>
+            </div>
+            <div style="text-align:right">
+              <div class="order-total">${fmt(p.amount)}</div>
+            </div>
+          </div>
+          ${p.remarks ? `<div style="padding:8px;background:#f1f5f9;border-radius:6px;font-size:12px;margin-top:8px"><strong>Your Remarks:</strong> ${p.remarks}</div>` : ''}
+        </div>`;
+      }).join('') : '<div class="empty">No payments made yet. <a href="#" onclick="navigateTo(\'d-make-payment\');return false;" style="color:var(--primary)">Make your first payment →</a></div>'}
     </div>
   `;
 }
@@ -1412,33 +1568,31 @@ function renderMyInvoices(){
 function renderDealerLedger(){
   const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
   const myLedger = DB.ledger.filter(l=>l.dealerId===d.id).reverse();
-  
-  // Calculate balances
   const totalDebit = myLedger.reduce((s,l)=>s+(l.debit||0),0);
   const totalCredit = myLedger.reduce((s,l)=>s+(l.credit||0),0);
   const balance = totalDebit - totalCredit;
   const totalInvoices = myLedger.filter(l=>l.type==='Invoice').length;
   const totalDispatches = myLedger.filter(l=>l.type==='Dispatch').length;
+  const totalPayments = myLedger.filter(l=>l.type==='Payment').length;
   
   document.getElementById('page-d-my-ledger').innerHTML = `
-    <div class="alert alert-info">📒 Your complete transaction ledger. All invoices, dispatches, and ledger entries related to your account.</div>
+    <div class="alert alert-info">📒 Your complete ledger. Payments appear here only after admin approval.</div>
     <div class="stats-grid">
-      <div class="stat-card"><h3>Total Debit</h3><div class="value">${fmt(totalDebit)}</div><div class="sub">Receivables</div></div>
+      <div class="stat-card"><h3>Total Debit</h3><div class="value">${fmt(totalDebit)}</div><div class="sub">Invoices</div></div>
       <div class="stat-card success"><h3>Total Credit</h3><div class="value">${fmt(totalCredit)}</div><div class="sub">Payments/Adjustments</div></div>
-      <div class="stat-card ${balance>0?'warning':'success'}"><h3>Balance</h3><div class="value">${fmt(Math.abs(balance))}</div><div class="sub">${balance>0?'Payable':'Credit Balance'}</div></div>
-      <div class="stat-card info"><h3>Transactions</h3><div class="value">${myLedger.length}</div><div class="sub">${totalInvoices} invoices, ${totalDispatches} dispatches</div></div>
+      <div class="stat-card ${balance>0?'danger':'success'}"><h3>Balance</h3><div class="value">${fmt(Math.abs(balance))}</div><div class="sub">${balance>0?'Payable':'Credit Balance'}</div></div>
+      <div class="stat-card info"><h3>Transactions</h3><div class="value">${myLedger.length}</div><div class="sub">${totalInvoices} invoices, ${totalPayments} payments</div></div>
     </div>
-    
     <div class="card">
       <div class="card-title">Ledger Statement <span class="badge">${d.name}</span></div>
       <table><thead><tr><th>Date</th><th>Voucher</th><th>Type</th><th>Particulars</th><th class="text-right">Debit</th><th class="text-right">Credit</th></tr></thead>
       <tbody>${myLedger.length ? myLedger.map(l=>`
         <tr><td>${l.date}</td><td>${l.voucher}</td>
-        <td><span class="badge ${l.type==='Dispatch'?'dispatch':l.type==='Invoice'?'success':l.type==='Delivery'?'info':'muted'}">${l.type}</span></td>
+        <td><span class="badge ${l.type==='Dispatch'?'dispatch':l.type==='Invoice'?'success':l.type==='Payment'?'info':l.type==='Delivery'?'warning':'muted'}">${l.type}</span></td>
         <td>${l.particulars}</td>
         <td class="text-right">${l.debit?fmt(l.debit):'-'}</td>
         <td class="text-right">${l.credit?fmt(l.credit):'-'}</td></tr>
-      `).join('') : '<tr><td colspan="6" class="empty">No ledger entries yet. Place an order to start.</td></tr>'}</tbody>
+      `).join('') : '<tr><td colspan="6" class="empty">No ledger entries yet</td></tr>'}</tbody>
       ${myLedger.length ? `<tfoot><tr class="total-row">
         <td colspan="4">Balance (${balance>0?'Payable':'Favourite'})</td>
         <td class="text-right">${fmt(totalDebit)}</td>
@@ -1459,6 +1613,7 @@ function renderDealerProfile(){
       <table>
         <tr><td><strong>Dealer Name</strong></td><td>${d.name}</td></tr>
         <tr><td><strong>Dealer Code</strong></td><td><code>${d.dealerCode}</code></td></tr>
+        <tr><td><strong>Account Status</strong></td><td>${d.status==='active'?'<span class="badge success">✓ Active</span>':'<span class="badge inactive">⛔ Inactive</span>'}</td></tr>
         <tr><td><strong>Registration Type</strong></td><td>${isReg ? 'GST Registered (B2B) - ITC Eligible' : 'Unregistered (B2C) - No ITC'}</td></tr>
         <tr><td><strong>GSTIN</strong></td><td>${d.gstin || '<em style="color:var(--muted)">Not Provided</em>'}</td></tr>
         <tr><td><strong>PAN</strong></td><td>${d.pan || '<em style="color:var(--muted)">Not Provided</em>'}</td></tr>
@@ -1466,13 +1621,26 @@ function renderDealerProfile(){
         <tr><td><strong>Phone</strong></td><td>${d.phone || '<em style="color:var(--muted)">Not Provided</em>'}</td></tr>
         <tr><td><strong>Email</strong></td><td>${d.email || '<em style="color:var(--muted)">Not Provided</em>'}</td></tr>
       </table>
-      <div class="alert alert-info" style="margin-top:14px">ℹ️ Contact admin to update profile details or change password.</div>
+      <div class="alert alert-info" style="margin-top:14px">ℹ️ Contact admin to update profile or change password.</div>
     </div>
   `;
 }
 
 /* ============ INIT ============ */
-if(DB.user){ showApp(); }
+if(DB.user){ 
+  // Check if logged-in dealer is still active
+  if(DB.user.role==='dealer'){
+    const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+    if(!d || !isDealerActive(d)){
+      localStorage.removeItem('dc_user');
+      location.reload();
+    } else {
+      showApp();
+    }
+  } else {
+    showApp();
+  }
+}
 document.getElementById('adminPass').addEventListener('keypress',e=>{if(e.key==='Enter')doAdminLogin();});
 document.getElementById('dealerPass').addEventListener('keypress',e=>{if(e.key==='Enter')doDealerLogin();});
 </script>
