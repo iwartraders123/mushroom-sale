@@ -9,7 +9,6 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
 body{background:var(--bg);color:var(--text);min-height:100vh}
 
-/* LOGIN */
 .login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e40af 0%,#2563eb 50%,#3b82f6 100%);padding:20px}
 .login-card{background:#fff;border-radius:16px;padding:32px;width:100%;max-width:440px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
 .login-logo{text-align:center;margin-bottom:20px}
@@ -23,6 +22,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh}
 
 .form-group{margin-bottom:14px}
 .form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.form-group label .optional{font-weight:400;color:var(--muted);font-size:11px;margin-left:4px}
 .form-control{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:#f9fafb}
 .form-control:focus{outline:none;border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
 .login-btn{width:100%;padding:12px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer;margin-top:6px}
@@ -32,7 +32,6 @@ body{background:var(--bg);color:var(--text);min-height:100vh}
 .login-form{display:none}
 .login-form.active{display:block}
 
-/* APP */
 .app{display:none;min-height:100vh}
 .app.active{display:flex}
 .sidebar{width:260px;background:#0f172a;color:#fff;position:fixed;height:100vh;display:flex;flex-direction:column;transition:transform .3s;z-index:50}
@@ -52,7 +51,6 @@ body{background:var(--bg);color:var(--text);min-height:100vh}
 .user-profile{display:flex;align-items:center;gap:10px;background:#fff;padding:7px 14px;border-radius:50px;box-shadow:var(--shadow)}
 .avatar{width:34px;height:34px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px}
 .logout-btn{background:#fee2e2;color:#991b1b;border:none;padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;font-weight:600}
-.logout-btn:hover{background:#fecaca}
 
 .page{display:none}
 .page.active{display:block;animation:fadeIn .3s}
@@ -75,14 +73,13 @@ body{background:var(--bg);color:var(--text);min-height:100vh}
 .badge.warning{background:#fef3c7;color:#92400e}
 .badge.danger{background:#fee2e2;color:#991b1b}
 .badge.info{background:#ede9fe;color:#6d28d9}
+.badge.muted{background:#f1f5f9;color:#475569}
 
 .btn{padding:9px 16px;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px;transition:.2s;display:inline-flex;align-items:center;gap:6px}
 .btn-primary{background:var(--primary);color:#fff}
 .btn-primary:hover{background:var(--primary-dark)}
 .btn-success{background:var(--success);color:#fff}
-.btn-success:hover{background:#059669}
 .btn-danger{background:var(--danger);color:#fff}
-.btn-danger:hover{background:#dc2626}
 .btn-warning{background:var(--warning);color:#fff}
 .btn-outline{background:#fff;border:1px solid var(--border);color:var(--text)}
 .btn-sm{padding:5px 10px;font-size:11px}
@@ -111,7 +108,6 @@ tr:hover{background:#f9fafb}
 .toast.error{background:var(--danger)}
 @keyframes slideIn{from{transform:translateX(400px)}to{transform:translateX(0)}}
 
-/* ORDER ITEMS */
 .order-item-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px;padding:10px;background:#f9fafb;border-radius:8px}
 .order-item-row select,.order-item-row input{padding:8px;font-size:12px}
 .remove-item{background:#fee2e2;color:#991b1b;border:none;padding:8px 10px;border-radius:6px;cursor:pointer;font-weight:600}
@@ -125,7 +121,6 @@ tr:hover{background:#f9fafb}
 .order-total{text-align:right;font-weight:700;font-size:15px;margin-top:8px;color:var(--primary-dark)}
 
 textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
-
 .menu-toggle{display:none;background:var(--primary);color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
 
 @media(max-width:1024px){.grid-2{grid-template-columns:1fr}.form-row-3{grid-template-columns:1fr}.order-item-row{grid-template-columns:1fr}}
@@ -134,7 +129,6 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
 </head>
 <body>
 
-<!-- ============ LOGIN PAGE ============ -->
 <div class="login-page" id="loginPage">
   <div class="login-card">
     <div class="login-logo">
@@ -147,33 +141,16 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
       <div class="login-tab" onclick="switchLoginTab('dealer')">🏪 Dealer Login</div>
     </div>
     <div class="login-error" id="loginError">Invalid credentials</div>
-    
-    <!-- Admin Form -->
     <div class="login-form active" id="adminForm">
-      <div class="form-group">
-        <label>Admin Username</label>
-        <input type="text" class="form-control" id="adminUser" value="admin">
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" class="form-control" id="adminPass" value="admin123">
-      </div>
+      <div class="form-group"><label>Admin Username</label><input type="text" class="form-control" id="adminUser" value="admin"></div>
+      <div class="form-group"><label>Password</label><input type="password" class="form-control" id="adminPass" value="admin123"></div>
       <button class="login-btn" onclick="doAdminLogin()">Sign In as Admin</button>
     </div>
-    
-    <!-- Dealer Form -->
     <div class="login-form" id="dealerForm">
-      <div class="form-group">
-        <label>Dealer Code</label>
-        <input type="text" class="form-control" id="dealerCode" placeholder="e.g., SHAR01" style="text-transform:uppercase">
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" class="form-control" id="dealerPass" placeholder="Enter password">
-      </div>
+      <div class="form-group"><label>Dealer Code</label><input type="text" class="form-control" id="dealerCode" placeholder="e.g., SHAR01" style="text-transform:uppercase"></div>
+      <div class="form-group"><label>Password</label><input type="password" class="form-control" id="dealerPass" placeholder="Enter password"></div>
       <button class="login-btn" onclick="doDealerLogin()">Sign In as Dealer</button>
     </div>
-    
     <div class="login-hint">
       <strong>🔐 Demo Credentials</strong><br>
       <b>Admin:</b> admin / admin123<br>
@@ -182,12 +159,11 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
   </div>
 </div>
 
-<!-- ============ MAIN APP ============ -->
 <div class="app" id="app">
   <aside class="sidebar" id="sidebar">
     <div class="logo">🧾 Dealer<span>Connect</span><span class="role-tag" id="roleTag">ADMIN</span></div>
     <ul class="nav-menu" id="navMenu"></ul>
-    <div class="sidebar-footer">DealerConnect v2.0<br>© 2026 GST Compliant</div>
+    <div class="sidebar-footer">DealerConnect v2.1<br>© 2026 GST Compliant</div>
   </aside>
 
   <main class="main">
@@ -207,49 +183,23 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
       </div>
     </div>
 
-    <!-- ADMIN DASHBOARD -->
     <div class="page" id="page-dashboard"></div>
-    
-    <!-- ADMIN: INVOICES -->
     <div class="page" id="page-invoices"></div>
-    
-    <!-- ADMIN: ORDER APPROVALS -->
     <div class="page" id="page-approvals"></div>
-    
-    <!-- ADMIN: TDS/TCS -->
     <div class="page" id="page-tdstcs"></div>
-    
-    <!-- ADMIN: LEDGER -->
     <div class="page" id="page-ledger"></div>
-    
-    <!-- ADMIN: DEALERS -->
     <div class="page" id="page-dealers"></div>
-    
-    <!-- ADMIN: INVENTORY -->
     <div class="page" id="page-inventory"></div>
-    
-    <!-- ADMIN: SETTINGS -->
     <div class="page" id="page-settings"></div>
-    
-    <!-- DEALER DASHBOARD -->
     <div class="page" id="page-d-dashboard"></div>
-    
-    <!-- DEALER: PLACE ORDER -->
     <div class="page" id="page-d-place-order"></div>
-    
-    <!-- DEALER: MY ORDERS -->
     <div class="page" id="page-d-my-orders"></div>
-    
-    <!-- DEALER: MY INVOICES -->
     <div class="page" id="page-d-my-invoices"></div>
-    
-    <!-- DEALER: PROFILE -->
     <div class="page" id="page-d-profile"></div>
   </main>
 </div>
 
 <script>
-/* ============ DATA STORE ============ */
 const DB = {
   user: JSON.parse(localStorage.getItem('dc_user') || 'null'),
   settings: JSON.parse(localStorage.getItem('dc_settings') || 'null') || {
@@ -260,7 +210,8 @@ const DB = {
   dealers: JSON.parse(localStorage.getItem('dc_dealers') || 'null') || [
     {id:1,name:'Sharma Traders',gstin:'27AABCU9603R1ZM',pan:'AABCU9603R',state:'Maharashtra',phone:'+91 98765 43210',dealerCode:'SHAR01',password:'dealer123',email:'sharma@example.com'},
     {id:2,name:'Gupta Enterprises',gstin:'29BBBPD1234K1Z5',pan:'BBBPD1234K',state:'Karnataka',phone:'+91 98456 12345',dealerCode:'GUPT01',password:'dealer123',email:'gupta@example.com'},
-    {id:3,name:'Patel & Sons',gstin:'24CCCCQ5678L1Z2',pan:'CCCCQ5678L',state:'Gujarat',phone:'+91 98123 45678',dealerCode:'PATE01',password:'dealer123',email:'patel@example.com'}
+    {id:3,name:'Patel & Sons',gstin:'24CCCCQ5678L1Z2',pan:'CCCCQ5678L',state:'Gujarat',phone:'+91 98123 45678',dealerCode:'PATE01',password:'dealer123',email:'patel@example.com'},
+    {id:4,name:'Small Local Shop',gstin:'',pan:'',state:'Maharashtra',phone:'+91 99887 76655',dealerCode:'SHOP01',password:'dealer123',email:'',notes:'Unregistered dealer - turnover below threshold'}
   ],
   inventory: JSON.parse(localStorage.getItem('dc_inventory') || 'null') || [
     {id:1,name:'Industrial Bearings',hsn:'8482',gst:18,rate:10000,stock:250},
@@ -276,20 +227,27 @@ const DB = {
 };
 
 const save = () => {
-  localStorage.setItem('dc_settings', JSON.stringify(DB.settings));
-  localStorage.setItem('dc_dealers', JSON.stringify(DB.dealers));
-  localStorage.setItem('dc_inventory', JSON.stringify(DB.inventory));
-  localStorage.setItem('dc_invoices', JSON.stringify(DB.invoices));
-  localStorage.setItem('dc_ledger', JSON.stringify(DB.ledger));
-  localStorage.setItem('dc_tdstcs', JSON.stringify(DB.tdstcs));
-  localStorage.setItem('dc_orders', JSON.stringify(DB.orders));
+  Object.entries({
+    dc_settings: DB.settings, dc_dealers: DB.dealers, dc_inventory: DB.inventory,
+    dc_invoices: DB.invoices, dc_ledger: DB.ledger, dc_tdstcs: DB.tdstcs, dc_orders: DB.orders
+  }).forEach(([k,v])=>localStorage.setItem(k, JSON.stringify(v)));
 };
 
 const fmt = n => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',minimumFractionDigits:2,maximumFractionDigits:2}).format(n||0);
 const today = () => new Date().toISOString().split('T')[0];
 const now = () => new Date().toLocaleString('en-IN');
 
-/* ============ AUTH ============ */
+// Helper: Check if dealer is registered (has valid GSTIN)
+function isRegisteredDealer(dealer) {
+  return dealer && dealer.gstin && dealer.gstin.length === 15;
+}
+
+// Helper: Get state code from GSTIN (returns null if no GSTIN)
+function getStateFromGSTIN(gstin) {
+  if (!gstin || gstin.length < 2) return null;
+  return gstin.substring(0, 2);
+}
+
 function switchLoginTab(tab){
   document.querySelectorAll('.login-tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.login-form').forEach(f=>f.classList.remove('active'));
@@ -321,7 +279,7 @@ function doDealerLogin(){
   const pass = document.getElementById('dealerPass').value.trim();
   const dealer = DB.dealers.find(d=>d.dealerCode===code && d.password===pass);
   if(dealer){
-    DB.user = {role:'dealer',dealerId:dealer.id,name:dealer.name,dealerCode:dealer.code,loginTime:new Date().toISOString()};
+    DB.user = {role:'dealer',dealerId:dealer.id,name:dealer.name,dealerCode:dealer.dealerCode,loginTime:new Date().toISOString()};
     localStorage.setItem('dc_user', JSON.stringify(DB.user));
     showApp();
   } else {
@@ -350,12 +308,12 @@ function showApp(){
     navigateTo('dashboard');
   } else {
     const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
-    document.getElementById('pageSubtitle').textContent = `${d?.name||''} | GSTIN: ${d?.gstin||''}`;
+    const regStatus = isRegisteredDealer(d) ? `GSTIN: ${d.gstin}` : 'Unregistered Dealer';
+    document.getElementById('pageSubtitle').textContent = `${d?.name||''} | ${regStatus}`;
     navigateTo('d-dashboard');
   }
 }
 
-/* ============ NAVIGATION ============ */
 function buildNavMenu(){
   const menu = document.getElementById('navMenu');
   if(DB.user.role==='admin'){
@@ -422,7 +380,6 @@ function navigateTo(page){
   if(renderers[page]) renderers[page]();
 }
 
-/* ============ TOAST ============ */
 function toast(msg, type='success'){
   const t = document.createElement('div');
   t.className = 'toast' + (type==='error'?' error':'');
@@ -431,20 +388,21 @@ function toast(msg, type='success'){
   setTimeout(()=>t.remove(), 3000);
 }
 
-/* ============ ADMIN: DASHBOARD ============ */
 function renderDashboard(){
   const totalSales = DB.invoices.reduce((s,i)=>s+i.taxable,0);
   const totalGST = DB.invoices.reduce((s,i)=>s+i.cgst+i.sgst+i.igst,0);
   const pendingOrders = DB.orders.filter(o=>o.status==='pending').length;
   const approvedOrders = DB.orders.filter(o=>o.status==='approved').length;
   const orderValue = DB.orders.reduce((s,o)=>s+o.total,0);
+  const registeredDealers = DB.dealers.filter(d=>isRegisteredDealer(d)).length;
+  const unregisteredDealers = DB.dealers.length - registeredDealers;
 
   document.getElementById('page-dashboard').innerHTML = `
     <div class="stats-grid">
       <div class="stat-card"><h3>Total Sales (YTD)</h3><div class="value">${fmt(totalSales)}</div><div class="sub">${DB.invoices.length} Invoices</div></div>
       <div class="stat-card success"><h3>GST Collected</h3><div class="value">${fmt(totalGST)}</div><div class="sub">Output Tax</div></div>
       <div class="stat-card warning"><h3>Pending Orders</h3><div class="value">${pendingOrders}</div><div class="sub">Awaiting approval</div></div>
-      <div class="stat-card info"><h3>Order Book Value</h3><div class="value">${fmt(orderValue)}</div><div class="sub">${approvedOrders} Approved</div></div>
+      <div class="stat-card info"><h3>Dealers</h3><div class="value">${DB.dealers.length}</div><div class="sub">${registeredDealers} Registered | ${unregisteredDealers} Unregistered</div></div>
     </div>
     <div class="grid-2">
       <div class="card">
@@ -464,9 +422,10 @@ function renderRecentOrders(){
   if(!recent.length) return '<div class="empty">No pending orders 🎉</div>';
   return recent.map(o=>{
     const d = DB.dealers.find(x=>x.id===o.dealerId);
+    const regBadge = isRegisteredDealer(d) ? '<span class="badge success">B2B</span>' : '<span class="badge muted">B2C</span>';
     return `<div class="order-card">
       <div class="order-header">
-        <div><div class="order-no">${o.orderNo}</div>
+        <div><div class="order-no">${o.orderNo} ${regBadge}</div>
         <div class="order-meta">${d?.name||'Unknown'} • ${o.date}</div></div>
         <span class="badge warning">Pending</span>
       </div>
@@ -481,17 +440,19 @@ function renderRecentOrders(){
 function renderRecentInvoices(){
   const recent = DB.invoices.slice(-5).reverse();
   if(!recent.length) return '<div class="empty">No invoices yet</div>';
-  return `<table><thead><tr><th>Inv No.</th><th>Dealer</th><th>Amount</th></tr></thead>
-  <tbody>${recent.map(i=>`<tr><td>${i.invNo}</td><td>${i.dealerName}</td><td>${fmt(i.total)}</td></tr>`).join('')}</tbody></table>`;
+  return `<table><thead><tr><th>Inv No.</th><th>Dealer</th><th>Type</th><th>Amount</th></tr></thead>
+  <tbody>${recent.map(i=>{
+    const typeBadge = i.isRegistered ? '<span class="badge success">B2B</span>' : '<span class="badge muted">B2C</span>';
+    return `<tr><td>${i.invNo}</td><td>${i.dealerName}</td><td>${typeBadge}</td><td>${fmt(i.total)}</td></tr>`;
+  }).join('')}</tbody></table>`;
 }
 
-/* ============ ADMIN: ORDER APPROVALS ============ */
 function renderApprovals(){
   const pending = DB.orders.filter(o=>o.status==='pending').reverse();
   const processed = DB.orders.filter(o=>o.status!=='pending').reverse().slice(0,20);
   
   document.getElementById('page-approvals').innerHTML = `
-    <div class="alert alert-info">📌 Review dealer orders below. Approve to auto-generate GST-compliant invoice, or reject with remarks.</div>
+    <div class="alert alert-info">📌 Review dealer orders below. B2B (registered) and B2C (unregistered) dealers are both supported.</div>
     <div class="card">
       <div class="card-title">Pending Orders <span class="badge warning">${pending.length}</span></div>
       ${pending.length ? pending.map(o=>renderOrderCard(o,true)).join('') : '<div class="empty">No pending orders 🎉</div>'}
@@ -505,6 +466,8 @@ function renderApprovals(){
 
 function renderOrderCard(o, showActions){
   const d = DB.dealers.find(x=>x.id===o.dealerId);
+  const isReg = isRegisteredDealer(d);
+  const regBadge = isReg ? '<span class="badge success">B2B Registered</span>' : '<span class="badge muted">B2C Unregistered</span>';
   const statusBadge = {
     'pending':'<span class="badge warning">⏳ Pending</span>',
     'approved':'<span class="badge success">✅ Approved</span>',
@@ -515,9 +478,10 @@ function renderOrderCard(o, showActions){
   return `<div class="order-card" style="border-left:4px solid ${o.status==='pending'?'var(--warning)':o.status==='approved'?'var(--success)':o.status==='rejected'?'var(--danger)':'#8b5cf6'}">
     <div class="order-header">
       <div>
-        <div class="order-no">${o.orderNo} ${statusBadge}</div>
+        <div class="order-no">${o.orderNo} ${statusBadge} ${regBadge}</div>
         <div class="order-meta">
-          <strong>${d?.name||'Unknown Dealer'}</strong> • GSTIN: ${d?.gstin||'-'}<br>
+          <strong>${d?.name||'Unknown Dealer'}</strong><br>
+          ${isReg ? `GSTIN: ${d.gstin} | PAN: ${d.pan||'-'}` : '<em style="color:var(--muted)">Unregistered Dealer (No GSTIN)</em>'}<br>
           Placed: ${o.date} ${o.time||''}
           ${o.approvedDate ? '<br>Processed: '+o.approvedDate : ''}
         </div>
@@ -531,7 +495,8 @@ function renderOrderCard(o, showActions){
       <strong>Items:</strong><br>
       ${o.items.map(it=>`• ${it.name} (HSN: ${it.hsn}) × ${it.qty} @ ${fmt(it.rate)} = ${fmt(it.amount)}`).join('<br>')}
     </div>
-    ${o.remarks ? `<div style="padding:8px;background:#fef3c7;border-radius:6px;font-size:12px;margin-top:8px"><strong>Remarks:</strong> ${o.remarks}</div>` : ''}
+    ${!isReg ? `<div style="padding:8px;background:#fef3c7;border-radius:6px;font-size:11px;margin-top:8px;color:#92400e">⚠️ B2C Sale: Buyer cannot claim ITC. TCS u/s 206C(1H) still applies if sale > ₹50L.</div>` : ''}
+    ${o.remarks ? `<div style="padding:8px;background:#f1f5f9;border-radius:6px;font-size:12px;margin-top:8px"><strong>Remarks:</strong> ${o.remarks}</div>` : ''}
     ${showActions ? `
     <div class="order-actions">
       <input type="text" class="form-control" id="remark-${o.id}" placeholder="Add remarks (optional)" style="flex:1">
@@ -546,8 +511,8 @@ function approveOrder(id){
   if(!o) return;
   const remarks = document.getElementById('remark-'+id)?.value || '';
   const d = DB.dealers.find(x=>x.id===o.dealerId);
+  const isReg = isRegisteredDealer(d);
   
-  // Check stock availability
   for(const it of o.items){
     const inv = DB.inventory.find(x=>x.id===it.itemId);
     if(!inv || inv.stock < it.qty){
@@ -556,16 +521,17 @@ function approveOrder(id){
     }
   }
   
-  // Create invoice
   const invNo = 'INV-' + new Date().getFullYear() + '-' + String(DB.invoices.length+1).padStart(4,'0');
   const irn = 'IRN' + Math.random().toString(36).substring(2,14).toUpperCase();
   
   const taxable = o.subtotal;
-  const buyerState = d?.gstin.substring(0,2) || '';
-  const isInter = buyerState && buyerState !== DB.settings.stateCode;
+  // For unregistered dealers: default to same-state (intra-state) CGST+SGST
+  const buyerState = isReg ? getStateFromGSTIN(d.gstin) : DB.settings.stateCode;
+  const isInter = isReg && buyerState && buyerState !== DB.settings.stateCode;
   const gstRate = o.items[0]?.gst || 18;
   let cgst=0,sgst=0,igst=0,tcs=0;
   if(isInter) igst=(taxable*gstRate)/100; else { cgst=(taxable*gstRate/2)/100; sgst=(taxable*gstRate/2)/100; }
+  // TCS applies regardless of registration if sale > 50L
   if(taxable >= 500000) tcs = (taxable*0.1)/100;
   const total = taxable+cgst+sgst+igst+tcs;
   
@@ -576,25 +542,24 @@ function approveOrder(id){
     itemName:o.items.map(i=>i.name).join(', '),
     qty:o.items.reduce((s,i)=>s+i.qty,0), rate:0,
     taxable, cgst, sgst, igst, tcs, total, gstRate, irn,
-    status:'Paid', orderId:o.id, source:'Dealer Order'
+    status:'Paid', orderId:o.id, source:'Dealer Order',
+    isRegistered: isReg,
+    saleType: isReg ? 'B2B' : 'B2C'
   };
   DB.invoices.push(inv);
   
-  // Ledger
-  DB.ledger.push({id:Date.now()+1,date:today(),voucher:invNo,type:'Sale',account:'Sundry Debtors (Dr)',particulars:`Sale to ${d?.name} (Order: ${o.orderNo})`,debit:total,credit:0});
+  DB.ledger.push({id:Date.now()+1,date:today(),voucher:invNo,type:'Sale',account:'Sundry Debtors (Dr)',particulars:`${inv.saleType} Sale to ${d?.name} (Order: ${o.orderNo})`,debit:total,credit:0});
   DB.ledger.push({id:Date.now()+2,date:today(),voucher:invNo,type:'Sale',account:'Sales A/c (Cr)',particulars:`Sale against order ${o.orderNo}`,debit:0,credit:taxable});
   if(isInter) DB.ledger.push({id:Date.now()+3,date:today(),voucher:invNo,type:'Sale',account:'IGST Payable (Cr)',particulars:`IGST @ ${gstRate}%`,debit:0,credit:igst});
   else { DB.ledger.push({id:Date.now()+3,date:today(),voucher:invNo,type:'Sale',account:'CGST Payable (Cr)',particulars:`CGST @ ${gstRate/2}%`,debit:0,credit:cgst});
          DB.ledger.push({id:Date.now()+4,date:today(),voucher:invNo,type:'Sale',account:'SGST Payable (Cr)',particulars:`SGST @ ${gstRate/2}%`,debit:0,credit:sgst}); }
   if(tcs>0) DB.ledger.push({id:Date.now()+5,date:today(),voucher:invNo,type:'Sale',account:'TCS Collected (Cr)',particulars:`TCS u/s 206C(1H)`,debit:0,credit:tcs});
   
-  // Deduct stock
   for(const it of o.items){
     const inv2 = DB.inventory.find(x=>x.id===it.itemId);
     if(inv2) inv2.stock -= it.qty;
   }
   
-  // Update order
   o.status = 'approved';
   o.remarks = remarks;
   o.approvedDate = now();
@@ -602,7 +567,7 @@ function approveOrder(id){
   o.invoiceNo = invNo;
   
   save();
-  toast(`✅ Order ${o.orderNo} approved! Invoice ${invNo} generated.`);
+  toast(`✅ Order ${o.orderNo} approved! Invoice ${invNo} generated (${inv.saleType}).`);
   renderApprovals();
   updatePendingBadge();
 }
@@ -622,12 +587,11 @@ function rejectOrder(id){
   updatePendingBadge();
 }
 
-/* ============ ADMIN: INVOICES ============ */
 function renderInvoicePage(){
   document.getElementById('page-invoices').innerHTML = `
     <div class="card">
       <div class="card-title">All Invoices <input type="text" class="search-box" placeholder="Search..." oninput="renderInvoiceList(this.value)"></div>
-      <table><thead><tr><th>Inv No.</th><th>Date</th><th>Dealer</th><th>Source</th><th class="text-right">Taxable</th><th class="text-right">GST</th><th class="text-right">Total</th><th>Action</th></tr></thead>
+      <table><thead><tr><th>Inv No.</th><th>Date</th><th>Dealer</th><th>Type</th><th>GSTIN</th><th class="text-right">Taxable</th><th class="text-right">GST</th><th class="text-right">Total</th><th>Action</th></tr></thead>
       <tbody id="invoiceList"></tbody></table>
     </div>
   `;
@@ -637,15 +601,17 @@ function renderInvoiceList(search=''){
   const list = DB.invoices.filter(i=>!search||i.invNo.toLowerCase().includes(search.toLowerCase())||i.dealerName.toLowerCase().includes(search.toLowerCase())).slice().reverse();
   const el = document.getElementById('invoiceList');
   if(!el) return;
-  el.innerHTML = list.length ? list.map(i=>`
-    <tr><td><strong>${i.invNo}</strong><br><small style="color:var(--muted)">${i.irn||''}</small></td>
+  el.innerHTML = list.length ? list.map(i=>{
+    const typeBadge = i.saleType==='B2B' ? '<span class="badge success">B2B</span>' : '<span class="badge muted">B2C</span>';
+    return `<tr><td><strong>${i.invNo}</strong><br><small style="color:var(--muted)">${i.irn||''}</small></td>
     <td>${i.date}</td><td>${i.dealerName}</td>
-    <td>${i.source==='Dealer Order'?'<span class="badge info">Dealer</span>':'<span class="badge">Direct</span>'}</td>
+    <td>${typeBadge}</td>
+    <td>${i.gstin || '<em style="color:var(--muted)">N/A</em>'}</td>
     <td class="text-right">${fmt(i.taxable)}</td>
     <td class="text-right">${fmt(i.cgst+i.sgst+i.igst)}</td>
     <td class="text-right"><strong>${fmt(i.total)}</strong></td>
-    <td><button class="btn btn-danger btn-sm" onclick="deleteInvoice(${i.id})">🗑️</button></td></tr>
-  `).join('') : '<tr><td colspan="8" class="empty">No invoices yet</td></tr>';
+    <td><button class="btn btn-danger btn-sm" onclick="deleteInvoice(${i.id})">🗑️</button></td></tr>`;
+  }).join('') : '<tr><td colspan="9" class="empty">No invoices yet</td></tr>';
 }
 function deleteInvoice(id){
   if(!confirm('Delete this invoice?')) return;
@@ -653,12 +619,11 @@ function deleteInvoice(id){
   save(); renderInvoiceList(); toast('Invoice deleted');
 }
 
-/* ============ ADMIN: TDS/TCS ============ */
 function renderTDSPage(){
   const totalTDS = DB.tdstcs.filter(t=>t.type==='TDS').reduce((s,t)=>s+t.tax,0);
   const totalTCS = DB.tdstcs.filter(t=>t.type==='TCS').reduce((s,t)=>s+t.tax,0);
   document.getElementById('page-tdstcs').innerHTML = `
-    <div class="alert alert-info">📌 TDS u/s 194Q: 0.1% on purchase > ₹50L | TCS u/s 206C(1H): 0.1% on sale > ₹50L</div>
+    <div class="alert alert-info">📌 TDS u/s 194Q: 0.1% on purchase > ₹50L | TCS u/s 206C(1H): 0.1% on sale > ₹50L (applies to both B2B and B2C)</div>
     <div class="stats-grid">
       <div class="stat-card warning"><h3>Total TDS</h3><div class="value">${fmt(totalTDS)}</div></div>
       <div class="stat-card success"><h3>Total TCS</h3><div class="value">${fmt(totalTCS)}</div></div>
@@ -668,14 +633,13 @@ function renderTDSPage(){
       <table><thead><tr><th>Date</th><th>Type</th><th>Party</th><th>PAN</th><th class="text-right">Base</th><th class="text-right">Tax</th></tr></thead>
       <tbody>${DB.tdstcs.length ? DB.tdstcs.slice().reverse().map(t=>`
         <tr><td>${t.date}</td><td><span class="badge ${t.type==='TDS'?'warning':'success'}">${t.type}</span></td>
-        <td>${t.party}</td><td>${t.pan}</td>
+        <td>${t.party}</td><td>${t.pan||'N/A'}</td>
         <td class="text-right">${fmt(t.base)}</td><td class="text-right"><strong>${fmt(t.tax)}</strong></td></tr>
       `).join('') : '<tr><td colspan="6" class="empty">No TDS/TCS transactions</td></tr>'}</tbody></table>
     </div>
   `;
 }
 
-/* ============ ADMIN: LEDGER ============ */
 function renderLedger(){
   document.getElementById('page-ledger').innerHTML = `
     <div class="card">
@@ -689,38 +653,44 @@ function renderLedger(){
   `;
 }
 
-/* ============ ADMIN: DEALERS ============ */
 function renderDealers(){
   document.getElementById('page-dealers').innerHTML = `
+    <div class="alert alert-info">ℹ️ <strong>GSTIN and PAN are OPTIONAL.</strong> Dealers without GSTIN are treated as <strong>Unregistered (B2C)</strong>. They can still place orders, but cannot claim ITC.</div>
     <div class="grid-2">
       <div class="card">
         <div class="card-title">Add New Dealer</div>
-        <div class="form-group"><label>Dealer Name</label><input type="text" class="form-control" id="dName"></div>
-        <div class="form-group"><label>GSTIN</label><input type="text" class="form-control" id="dGstin" style="text-transform:uppercase"></div>
+        <div class="form-group"><label>Dealer Name <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="dName" placeholder="Required"></div>
+        <div class="form-group"><label>GSTIN <span class="optional">(Optional)</span></label><input type="text" class="form-control" id="dGstin" style="text-transform:uppercase" placeholder="Leave blank for unregistered dealer"><small style="color:var(--muted);font-size:11px">15 characters if provided. Required for B2B with ITC.</small></div>
         <div class="form-row">
-          <div class="form-group"><label>PAN</label><input type="text" class="form-control" id="dPan" style="text-transform:uppercase"></div>
-          <div class="form-group"><label>State</label><input type="text" class="form-control" id="dState"></div>
+          <div class="form-group"><label>PAN <span class="optional">(Optional)</span></label><input type="text" class="form-control" id="dPan" style="text-transform:uppercase" placeholder="Optional"></div>
+          <div class="form-group"><label>State <span class="optional">(Optional)</span></label><input type="text" class="form-control" id="dState" placeholder="e.g., Maharashtra"></div>
         </div>
         <div class="form-group"><label>Phone</label><input type="text" class="form-control" id="dPhone"></div>
-        <div class="form-group"><label>Email</label><input type="email" class="form-control" id="dEmail"></div>
+        <div class="form-group"><label>Email <span class="optional">(Optional)</span></label><input type="email" class="form-control" id="dEmail"></div>
         <div class="form-row">
-          <div class="form-group"><label>Dealer Code</label><input type="text" class="form-control" id="dCode" style="text-transform:uppercase" placeholder="e.g., ABCD01"></div>
-          <div class="form-group"><label>Password</label><input type="text" class="form-control" id="dPass" value="dealer123"></div>
+          <div class="form-group"><label>Dealer Code <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="dCode" style="text-transform:uppercase" placeholder="e.g., ABCD01"></div>
+          <div class="form-group"><label>Password <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="dPass" value="dealer123"></div>
         </div>
+        <div class="form-group"><label>Notes <span class="optional">(Optional)</span></label><textarea class="form-control" id="dNotes" placeholder="E.g., Unregistered, small dealer, etc." rows="2"></textarea></div>
         <button class="btn btn-success btn-block" onclick="addDealer()">➕ Add Dealer</button>
       </div>
       <div class="card">
-        <div class="card-title">Dealer Directory</div>
-        <table><thead><tr><th>Name</th><th>Code</th><th>GSTIN</th><th>Action</th></tr></thead>
-        <tbody>${DB.dealers.map(d=>`
-          <tr><td><strong>${d.name}</strong><br><small style="color:var(--muted)">${d.phone||''}</small></td>
-          <td><code>${d.dealerCode}</code></td><td>${d.gstin}</td>
-          <td><button class="btn btn-danger btn-sm" onclick="deleteDealer(${d.id})">🗑️</button></td></tr>
-        `).join('')}</tbody></table>
+        <div class="card-title">Dealer Directory <span class="badge">${DB.dealers.length}</span></div>
+        <table><thead><tr><th>Name</th><th>Code</th><th>Type</th><th>GSTIN</th><th>Action</th></tr></thead>
+        <tbody>${DB.dealers.map(d=>{
+          const isReg = isRegisteredDealer(d);
+          return `<tr>
+            <td><strong>${d.name}</strong><br><small style="color:var(--muted)">${d.phone||''}</small></td>
+            <td><code>${d.dealerCode}</code></td>
+            <td>${isReg ? '<span class="badge success">B2B</span>' : '<span class="badge muted">B2C</span>'}</td>
+            <td>${d.gstin || '<em style="color:var(--muted)">N/A</em>'}</td>
+            <td><button class="btn btn-danger btn-sm" onclick="deleteDealer(${d.id})">🗑️</button></td></tr>`;
+        }).join('')}</tbody></table>
       </div>
     </div>
   `;
 }
+
 function addDealer(){
   const name=document.getElementById('dName').value.trim();
   const gstin=document.getElementById('dGstin').value.trim().toUpperCase();
@@ -730,19 +700,40 @@ function addDealer(){
   const email=document.getElementById('dEmail').value.trim();
   const code=document.getElementById('dCode').value.trim().toUpperCase();
   const pass=document.getElementById('dPass').value.trim();
-  if(!name||!gstin||!code){toast('Name, GSTIN and Code required','error');return;}
-  if(gstin.length!==15){toast('GSTIN must be 15 chars','error');return;}
-  if(DB.dealers.some(d=>d.dealerCode===code)){toast('Dealer code exists','error');return;}
-  DB.dealers.push({id:Date.now(),name,gstin,pan,state,phone,email,dealerCode:code,password:pass});
-  save(); renderDealers(); toast('✅ Dealer added');
+  const notes=document.getElementById('dNotes').value.trim();
+  
+  // Only Name and Code are mandatory
+  if(!name){toast('Dealer Name is required','error');return;}
+  if(!code){toast('Dealer Code is required','error');return;}
+  if(!pass){toast('Password is required','error');return;}
+  
+  // Validate GSTIN ONLY if provided
+  if(gstin && gstin.length !== 15){
+    toast('GSTIN must be 15 characters (or leave blank)','error');
+    return;
+  }
+  
+  if(DB.dealers.some(d=>d.dealerCode===code)){
+    toast('Dealer code already exists','error');
+    return;
+  }
+  
+  DB.dealers.push({
+    id:Date.now(),name,gstin,pan,state,phone,email,
+    dealerCode:code,password:pass,notes,
+    createdAt: today()
+  });
+  save(); 
+  renderDealers(); 
+  toast(`✅ Dealer added (${gstin ? 'B2B Registered' : 'B2C Unregistered'})`);
 }
+
 function deleteDealer(id){
   if(!confirm('Delete dealer?'))return;
   DB.dealers=DB.dealers.filter(d=>d.id!==id);
   save(); renderDealers(); toast('Dealer deleted');
 }
 
-/* ============ ADMIN: INVENTORY ============ */
 function renderInventory(){
   document.getElementById('page-inventory').innerHTML = `
     <div class="grid-2">
@@ -790,7 +781,6 @@ function deleteItem(id){
   save(); renderInventory(); toast('Deleted');
 }
 
-/* ============ ADMIN: SETTINGS ============ */
 function loadSettings(){
   const s = DB.settings;
   document.getElementById('page-settings').innerHTML = `
@@ -826,18 +816,20 @@ function saveSettings(){
   save(); toast('✅ Settings saved');
 }
 
-/* ============ DEALER: DASHBOARD ============ */
 function renderDealerDashboard(){
   const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const isReg = isRegisteredDealer(d);
   const myOrders = DB.orders.filter(o=>o.dealerId===d.id);
   const myInvoices = DB.invoices.filter(i=>i.dealerId===d.id);
   const pending = myOrders.filter(o=>o.status==='pending').length;
   const approved = myOrders.filter(o=>o.status==='approved').length;
   const totalSpent = myInvoices.reduce((s,i)=>s+i.total,0);
-  const totalOrdered = myOrders.reduce((s,o)=>s+o.total,0);
   
   document.getElementById('page-d-dashboard').innerHTML = `
-    <div class="alert alert-success">👋 Welcome back, <strong>${d.name}</strong>! Your GSTIN: ${d.gstin}</div>
+    <div class="alert ${isReg?'alert-success':'alert-warning'}">
+      👋 Welcome back, <strong>${d.name}</strong>! 
+      ${isReg ? `Your GSTIN: ${d.gstin} (B2B Registered - ITC eligible)` : 'You are an Unregistered Dealer (B2C) - ITC not available on purchases'}
+    </div>
     <div class="stats-grid">
       <div class="stat-card warning"><h3>Pending Orders</h3><div class="value">${pending}</div><div class="sub">Awaiting approval</div></div>
       <div class="stat-card success"><h3>Approved Orders</h3><div class="value">${approved}</div><div class="sub">Ready for dispatch</div></div>
@@ -864,12 +856,15 @@ function renderDealerDashboard(){
   `;
 }
 
-/* ============ DEALER: PLACE ORDER ============ */
 let orderItems = [];
 function renderPlaceOrder(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const isReg = isRegisteredDealer(d);
   orderItems = [];
   document.getElementById('page-d-place-order').innerHTML = `
-    <div class="alert alert-info">📌 Select items and quantities. Your order will be sent to admin for approval. Invoice will be generated upon approval with applicable GST.</div>
+    <div class="alert ${isReg?'alert-info':'alert-warning'}">
+      ${isReg ? '📌 As a B2B registered dealer, you can claim ITC on GST paid. Invoice will include your GSTIN.' : '📌 As an unregistered dealer (B2C), you cannot claim ITC. GST will still be charged as per applicable rates.'}
+    </div>
     <div class="grid-2">
       <div class="card">
         <div class="card-title">Order Items</div>
@@ -942,17 +937,20 @@ function renderOrderSummary(){
   });
   if(!validItems.length){ el.innerHTML='<div class="empty">Add items to see summary</div>'; return; }
   
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const isReg = isRegisteredDealer(d);
   const subtotal = validItems.reduce((s,i)=>s+i.amount,0);
   const gstRate = validItems[0].gst;
-  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
-  const buyerState = d?.gstin.substring(0,2)||'';
-  const isInter = buyerState && buyerState !== DB.settings.stateCode;
+  // For unregistered: default to same-state (intra-state)
+  const buyerState = isReg ? getStateFromGSTIN(d.gstin) : DB.settings.stateCode;
+  const isInter = isReg && buyerState && buyerState !== DB.settings.stateCode;
   let cgst=0,sgst=0,igst=0;
   if(isInter) igst=(subtotal*gstRate)/100; else { cgst=(subtotal*gstRate/2)/100; sgst=(subtotal*gstRate/2)/100; }
   const est = subtotal+cgst+sgst+igst;
   
   el.innerHTML = `
     <table>
+      <tr><td>Dealer Type</td><td class="text-right">${isReg ? '<span class="badge success">B2B</span>' : '<span class="badge muted">B2C</span>'}</td></tr>
       <tr><td>Items</td><td class="text-right">${validItems.length}</td></tr>
       <tr><td>Subtotal</td><td class="text-right">${fmt(subtotal)}</td></tr>
       ${isInter ? `<tr><td>IGST (${gstRate}%)</td><td class="text-right">${fmt(igst)}</td></tr>` :
@@ -960,8 +958,8 @@ function renderOrderSummary(){
          <tr><td>SGST (${gstRate/2}%)</td><td class="text-right">${fmt(sgst)}</td></tr>`}
       <tr class="total-row"><td>Estimated Total</td><td class="text-right">${fmt(est)}</td></tr>
     </table>
-    <div style="margin-top:14px;padding:10px;background:#eff6ff;border-radius:6px;font-size:11px;color:#1e40af">
-      ℹ️ Final GST calculated based on your GSTIN state. TCS may apply if order exceeds ₹50 Lakhs.
+    <div style="margin-top:14px;padding:10px;background:${isReg?'#eff6ff':'#fffbeb'};border-radius:6px;font-size:11px;color:${isReg?'#1e40af':'#92400e'}">
+      ${isReg ? 'ℹ️ B2B Invoice: ITC available. GST breakup will be shown on invoice.' : 'ℹ️ B2C Invoice: No ITC. TCS may apply if order exceeds ₹50 Lakhs.'}
     </div>
   `;
 }
@@ -971,17 +969,21 @@ function submitOrder(){
   if(!validItems.length){ toast('Add at least one item','error'); return; }
   
   const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
-  const items = validItems.map(it=>{
-    const item = DB.inventory.find(x=>x.id==it.itemId);
-    if(item.stock < it.qty){ toast(`Insufficient stock for ${item.name}`,'error'); throw new Error(); }
-    return {itemId:item.id, name:item.name, hsn:item.hsn, gst:item.gst, qty:it.qty, rate:item.rate, amount:item.rate*it.qty};
-  }).catch(()=>null);
-  if(!items) return;
+  const isReg = isRegisteredDealer(d);
+  
+  let items;
+  try {
+    items = validItems.map(it=>{
+      const item = DB.inventory.find(x=>x.id==it.itemId);
+      if(item.stock < it.qty){ toast(`Insufficient stock for ${item.name}`,'error'); throw new Error(); }
+      return {itemId:item.id, name:item.name, hsn:item.hsn, gst:item.gst, qty:it.qty, rate:item.rate, amount:item.rate*it.qty};
+    });
+  } catch(e) { return; }
   
   const subtotal = items.reduce((s,i)=>s+i.amount,0);
   const gstRate = items[0].gst;
-  const buyerState = d?.gstin.substring(0,2)||'';
-  const isInter = buyerState && buyerState !== DB.settings.stateCode;
+  const buyerState = isReg ? getStateFromGSTIN(d.gstin) : DB.settings.stateCode;
+  const isInter = isReg && buyerState && buyerState !== DB.settings.stateCode;
   let cgst=0,sgst=0,igst=0,tcs=0;
   if(isInter) igst=(subtotal*gstRate)/100; else { cgst=(subtotal*gstRate/2)/100; sgst=(subtotal*gstRate/2)/100; }
   if(subtotal>=500000) tcs=(subtotal*0.1)/100;
@@ -990,17 +992,17 @@ function submitOrder(){
   const orderNo = 'ORD-' + new Date().getFullYear() + '-' + String(DB.orders.length+1).padStart(4,'0');
   const order = {
     id:Date.now(), orderNo, dealerId:d.id, dealerName:d.name,
+    isRegistered: isReg,
     date:today(), time:new Date().toLocaleTimeString('en-IN'),
     items, subtotal, cgst, sgst, igst, tcs, total, gstRate,
     status:'pending', notes:document.getElementById('orderNotes')?.value||''
   };
   DB.orders.push(order);
   save();
-  toast(`✅ Order ${orderNo} submitted for approval!`);
+  toast(`✅ Order ${orderNo} submitted (${isReg?'B2B':'B2C'})!`);
   navigateTo('d-my-orders');
 }
 
-/* ============ DEALER: MY ORDERS ============ */
 function renderMyOrders(){
   const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
   const myOrders = DB.orders.filter(o=>o.dealerId===d.id).reverse();
@@ -1012,46 +1014,47 @@ function renderMyOrders(){
   `;
 }
 
-/* ============ DEALER: MY INVOICES ============ */
 function renderMyInvoices(){
   const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
   const myInv = DB.invoices.filter(i=>i.dealerId===d.id).reverse();
   document.getElementById('page-d-my-invoices').innerHTML = `
     <div class="card">
       <div class="card-title">My Invoices <span class="badge success">${myInv.length}</span></div>
-      <table><thead><tr><th>Inv No.</th><th>Date</th><th>Items</th><th class="text-right">Taxable</th><th class="text-right">GST</th><th class="text-right">Total</th><th>Status</th></tr></thead>
-      <tbody>${myInv.length ? myInv.map(i=>`
-        <tr><td><strong>${i.invNo}</strong></td><td>${i.date}</td><td>${i.itemName.substring(0,30)}${i.itemName.length>30?'...':''}</td>
+      <table><thead><tr><th>Inv No.</th><th>Date</th><th>Type</th><th>Items</th><th class="text-right">Taxable</th><th class="text-right">GST</th><th class="text-right">Total</th></tr></thead>
+      <tbody>${myInv.length ? myInv.map(i=>{
+        const typeBadge = i.saleType==='B2B' ? '<span class="badge success">B2B</span>' : '<span class="badge muted">B2C</span>';
+        return `<tr><td><strong>${i.invNo}</strong></td><td>${i.date}</td><td>${typeBadge}</td>
+        <td>${i.itemName.substring(0,30)}${i.itemName.length>30?'...':''}</td>
         <td class="text-right">${fmt(i.taxable)}</td>
         <td class="text-right">${fmt(i.cgst+i.sgst+i.igst)}</td>
-        <td class="text-right"><strong>${fmt(i.total)}</strong></td>
-        <td><span class="badge success">${i.status}</span></td></tr>
-      `).join('') : '<tr><td colspan="7" class="empty">No invoices yet</td></tr>'}</tbody></table>
+        <td class="text-right"><strong>${fmt(i.total)}</strong></td></tr>`;
+      }).join('') : '<tr><td colspan="7" class="empty">No invoices yet</td></tr>'}</tbody></table>
     </div>
   `;
 }
 
-/* ============ DEALER: PROFILE ============ */
 function renderDealerProfile(){
   const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const isReg = isRegisteredDealer(d);
   document.getElementById('page-d-profile').innerHTML = `
     <div class="card">
-      <div class="card-title">My Profile</div>
+      <div class="card-title">My Profile ${isReg ? '<span class="badge success">B2B Registered</span>' : '<span class="badge muted">B2C Unregistered</span>'}</div>
       <table>
         <tr><td><strong>Dealer Name</strong></td><td>${d.name}</td></tr>
         <tr><td><strong>Dealer Code</strong></td><td><code>${d.dealerCode}</code></td></tr>
-        <tr><td><strong>GSTIN</strong></td><td>${d.gstin}</td></tr>
-        <tr><td><strong>PAN</strong></td><td>${d.pan||'-'}</td></tr>
-        <tr><td><strong>State</strong></td><td>${d.state||'-'}</td></tr>
-        <tr><td><strong>Phone</strong></td><td>${d.phone||'-'}</td></tr>
-        <tr><td><strong>Email</strong></td><td>${d.email||'-'}</td></tr>
+        <tr><td><strong>Registration Type</strong></td><td>${isReg ? 'GST Registered (B2B) - ITC Eligible' : 'Unregistered (B2C) - No ITC'}</td></tr>
+        <tr><td><strong>GSTIN</strong></td><td>${d.gstin || '<em style="color:var(--muted)">Not Provided</em>'}</td></tr>
+        <tr><td><strong>PAN</strong></td><td>${d.pan || '<em style="color:var(--muted)">Not Provided</em>'}</td></tr>
+        <tr><td><strong>State</strong></td><td>${d.state || '<em style="color:var(--muted)">Not Provided</em>'}</td></tr>
+        <tr><td><strong>Phone</strong></td><td>${d.phone || '<em style="color:var(--muted)">Not Provided</em>'}</td></tr>
+        <tr><td><strong>Email</strong></td><td>${d.email || '<em style="color:var(--muted)">Not Provided</em>'}</td></tr>
+        ${d.notes ? `<tr><td><strong>Notes</strong></td><td>${d.notes}</td></tr>` : ''}
       </table>
-      <div class="alert alert-info" style="margin-top:14px">ℹ️ Contact admin to update profile details or change password.</div>
+      <div class="alert alert-info" style="margin-top:14px">ℹ️ Contact admin to update profile details, add GSTIN, or change password.</div>
     </div>
   `;
 }
 
-/* ============ INIT ============ */
 if(DB.user){ showApp(); }
 document.getElementById('adminPass').addEventListener('keypress',e=>{if(e.key==='Enter')doAdminLogin();});
 document.getElementById('dealerPass').addEventListener('keypress',e=>{if(e.key==='Enter')doDealerLogin();});
