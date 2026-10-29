@@ -3,108 +3,133 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DealerConnect | Indian Accounting & GST Portal</title>
+<title>DealerConnect | Indian Accounting & Dealer Portal</title>
 <style>
 :root{--primary:#2563eb;--primary-dark:#1e40af;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--bg:#f3f4f6;--card:#fff;--text:#1f2937;--muted:#6b7280;--border:#e5e7eb;--shadow:0 4px 6px -1px rgba(0,0,0,.05),0 2px 4px -1px rgba(0,0,0,.03)}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
 body{background:var(--bg);color:var(--text);min-height:100vh}
 
-/* ===== LOGIN PAGE ===== */
+/* LOGIN */
 .login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e40af 0%,#2563eb 50%,#3b82f6 100%);padding:20px}
-.login-card{background:#fff;border-radius:16px;padding:40px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
-.login-logo{text-align:center;margin-bottom:24px}
-.login-logo .icon{width:64px;height:64px;background:var(--primary);border-radius:16px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:28px;margin-bottom:12px}
-.login-logo h1{font-size:24px;color:var(--text)}
-.login-logo p{color:var(--muted);font-size:13px;margin-top:4px}
-.login-card .form-group{margin-bottom:16px}
-.login-card label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
-.login-card input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:#f9fafb}
-.login-card input:focus{outline:none;border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
-.login-btn{width:100%;padding:12px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-weight:600;font-size:15px;cursor:pointer;margin-top:8px}
-.login-btn:hover{background:var(--primary-dark)}
-.login-hint{margin-top:16px;padding:12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;font-size:12px;color:#1e40af;text-align:center}
-.login-error{background:#fef2f2;color:#991b1b;border:1px solid #fecaca;padding:10px;border-radius:8px;font-size:13px;margin-bottom:12px;display:none}
+.login-card{background:#fff;border-radius:16px;padding:32px;width:100%;max-width:440px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.login-logo{text-align:center;margin-bottom:20px}
+.login-logo .icon{width:60px;height:60px;background:var(--primary);border-radius:14px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:26px;margin-bottom:10px}
+.login-logo h1{font-size:22px}
+.login-logo p{color:var(--muted);font-size:12px;margin-top:4px}
 
-/* ===== APP LAYOUT ===== */
+.login-tabs{display:flex;background:#f1f5f9;border-radius:10px;padding:4px;margin-bottom:20px}
+.login-tab{flex:1;padding:10px;text-align:center;border-radius:8px;cursor:pointer;font-weight:600;font-size:13px;color:var(--muted);transition:.2s}
+.login-tab.active{background:#fff;color:var(--primary);box-shadow:var(--shadow)}
+
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.form-control{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:#f9fafb}
+.form-control:focus{outline:none;border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.login-btn{width:100%;padding:12px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer;margin-top:6px}
+.login-btn:hover{background:var(--primary-dark)}
+.login-hint{margin-top:14px;padding:12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;font-size:11px;color:#1e40af;text-align:center;line-height:1.6}
+.login-error{background:#fef2f2;color:#991b1b;border:1px solid #fecaca;padding:10px;border-radius:8px;font-size:12px;margin-bottom:10px;display:none}
+.login-form{display:none}
+.login-form.active{display:block}
+
+/* APP */
 .app{display:none;min-height:100vh}
 .app.active{display:flex}
-.sidebar{width:260px;background:#0f172a;color:#fff;position:fixed;height:100vh;display:flex;flex-direction:column;transition:transform .3s}
-.logo{padding:24px;font-size:22px;font-weight:700;border-bottom:1px solid #334155;display:flex;align-items:center;gap:10px}
+.sidebar{width:260px;background:#0f172a;color:#fff;position:fixed;height:100vh;display:flex;flex-direction:column;transition:transform .3s;z-index:50}
+.logo{padding:22px 24px;font-size:20px;font-weight:700;border-bottom:1px solid #334155;display:flex;align-items:center;gap:10px}
 .logo span{color:var(--primary)}
-.nav-menu{list-style:none;margin-top:12px;flex:1;overflow-y:auto}
-.nav-menu li a{display:flex;align-items:center;gap:12px;padding:12px 24px;color:#94a3b8;text-decoration:none;font-size:14px;cursor:pointer;transition:.2s;border-left:3px solid transparent}
+.logo .role-tag{font-size:10px;padding:3px 8px;background:var(--primary);border-radius:10px;font-weight:600;margin-left:auto}
+.nav-menu{list-style:none;margin-top:10px;flex:1;overflow-y:auto}
+.nav-menu li a{display:flex;align-items:center;gap:12px;padding:11px 24px;color:#94a3b8;text-decoration:none;font-size:14px;cursor:pointer;transition:.2s;border-left:3px solid transparent}
 .nav-menu li a:hover{background:#1e293b;color:#fff}
 .nav-menu li a.active{background:#1e293b;color:#fff;border-left-color:var(--primary)}
-.sidebar-footer{padding:16px 24px;border-top:1px solid #334155;font-size:12px;color:#64748b}
+.sidebar-footer{padding:14px 24px;border-top:1px solid #334155;font-size:11px;color:#64748b}
 
-.main{flex:1;margin-left:260px;padding:24px;min-height:100vh}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;flex-wrap:wrap;gap:12px}
-.header h1{font-size:24px;font-weight:700}
-.header p{color:var(--muted);font-size:13px;margin-top:2px}
-.user-profile{display:flex;align-items:center;gap:12px;background:#fff;padding:8px 16px;border-radius:50px;box-shadow:var(--shadow)}
-.avatar{width:36px;height:36px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+.main{flex:1;margin-left:260px;padding:22px;min-height:100vh}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.header h1{font-size:22px;font-weight:700}
+.header p{color:var(--muted);font-size:12px;margin-top:2px}
+.user-profile{display:flex;align-items:center;gap:10px;background:#fff;padding:7px 14px;border-radius:50px;box-shadow:var(--shadow)}
+.avatar{width:34px;height:34px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px}
 .logout-btn{background:#fee2e2;color:#991b1b;border:none;padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;font-weight:600}
 .logout-btn:hover{background:#fecaca}
 
-/* ===== PAGES ===== */
 .page{display:none}
 .page.active{display:block;animation:fadeIn .3s}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-bottom:28px}
-.stat-card{background:#fff;padding:20px;border-radius:12px;box-shadow:var(--shadow);border-left:4px solid var(--primary)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:24px}
+.stat-card{background:#fff;padding:18px;border-radius:12px;box-shadow:var(--shadow);border-left:4px solid var(--primary)}
 .stat-card.success{border-left-color:var(--success)}
 .stat-card.warning{border-left-color:var(--warning)}
 .stat-card.danger{border-left-color:var(--danger)}
-.stat-card h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
-.stat-card .value{font-size:24px;font-weight:700;margin-top:8px}
-.stat-card .sub{font-size:12px;color:var(--muted);margin-top:4px}
+.stat-card.info{border-left-color:#8b5cf6}
+.stat-card h3{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.stat-card .value{font-size:22px;font-weight:700;margin-top:6px}
+.stat-card .sub{font-size:11px;color:var(--muted);margin-top:3px}
 
-.card{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:24px;margin-bottom:20px}
-.card-title{font-size:17px;font-weight:600;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-.badge{font-size:11px;padding:4px 10px;background:#dbeafe;color:var(--primary);border-radius:20px;font-weight:600}
+.card{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:22px;margin-bottom:18px}
+.card-title{font-size:16px;font-weight:600;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.badge{font-size:10px;padding:3px 9px;background:#dbeafe;color:var(--primary);border-radius:20px;font-weight:600}
 .badge.success{background:#d1fae5;color:#065f46}
 .badge.warning{background:#fef3c7;color:#92400e}
 .badge.danger{background:#fee2e2;color:#991b1b}
+.badge.info{background:#ede9fe;color:#6d28d9}
 
-.form-group{margin-bottom:14px}
-.form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
-.form-control{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:#f9fafb}
-.form-control:focus{outline:none;border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-
-.btn{padding:10px 18px;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:14px;transition:.2s;display:inline-flex;align-items:center;gap:8px}
+.btn{padding:9px 16px;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px;transition:.2s;display:inline-flex;align-items:center;gap:6px}
 .btn-primary{background:var(--primary);color:#fff}
 .btn-primary:hover{background:var(--primary-dark)}
 .btn-success{background:var(--success);color:#fff}
+.btn-success:hover{background:#059669}
 .btn-danger{background:var(--danger);color:#fff}
+.btn-danger:hover{background:#dc2626}
+.btn-warning{background:var(--warning);color:#fff}
 .btn-outline{background:#fff;border:1px solid var(--border);color:var(--text)}
-.btn-sm{padding:6px 12px;font-size:12px}
+.btn-sm{padding:5px 10px;font-size:11px}
+.btn-block{width:100%;justify-content:center}
 
-.alert{padding:12px 16px;border-radius:8px;font-size:13px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+.alert{padding:11px 14px;border-radius:8px;font-size:12px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .alert-info{background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe}
 .alert-warning{background:#fffbeb;color:#92400e;border:1px solid #fde68a}
 .alert-success{background:#f0fdf4;color:#065f46;border:1px solid #bbf7d0}
 
 table{width:100%;border-collapse:collapse}
-th,td{padding:12px;text-align:left;border-bottom:1px solid var(--border);font-size:13px}
-th{background:#f8fafc;font-weight:600;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+th,td{padding:10px;text-align:left;border-bottom:1px solid var(--border);font-size:12px}
+th{background:#f8fafc;font-weight:600;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px}
 tr:hover{background:#f9fafb}
-.total-row{font-weight:700;font-size:15px;background:#f0fdf4!important;color:#065f46}
+.total-row{font-weight:700;font-size:14px;background:#f0fdf4!important;color:#065f46}
 .text-right{text-align:right}
-.empty{text-align:center;padding:40px;color:var(--muted)}
+.empty{text-align:center;padding:30px;color:var(--muted);font-size:13px}
 
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.search-box{padding:10px 14px;border:1px solid var(--border);border-radius:8px;width:100%;max-width:300px;font-size:14px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.search-box{padding:9px 12px;border:1px solid var(--border);border-radius:8px;width:100%;max-width:260px;font-size:13px}
 
-.toast{position:fixed;top:24px;right:24px;background:#10b981;color:#fff;padding:14px 20px;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.2);z-index:1000;animation:slideIn .3s;font-weight:600}
+.toast{position:fixed;top:20px;right:20px;background:#10b981;color:#fff;padding:12px 18px;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.2);z-index:1000;animation:slideIn .3s;font-weight:600;font-size:13px}
 .toast.error{background:var(--danger)}
 @keyframes slideIn{from{transform:translateX(400px)}to{transform:translateX(0)}}
 
-@media(max-width:1024px){.grid-2{grid-template-columns:1fr}.form-row-3{grid-template-columns:1fr}}
-@media(max-width:768px){.sidebar{transform:translateX(-100%);z-index:100}.sidebar.active{transform:translateX(0)}.main{margin-left:0}.menu-toggle{display:block!important}}
+/* ORDER ITEMS */
+.order-item-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px;padding:10px;background:#f9fafb;border-radius:8px}
+.order-item-row select,.order-item-row input{padding:8px;font-size:12px}
+.remove-item{background:#fee2e2;color:#991b1b;border:none;padding:8px 10px;border-radius:6px;cursor:pointer;font-weight:600}
+
+.order-card{border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;background:#fff}
+.order-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.order-no{font-weight:700;font-size:14px}
+.order-meta{font-size:11px;color:var(--muted);margin-top:3px}
+.order-items{background:#f8fafc;padding:10px;border-radius:6px;margin:10px 0;font-size:12px}
+.order-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.order-total{text-align:right;font-weight:700;font-size:15px;margin-top:8px;color:var(--primary-dark)}
+
+textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
+
 .menu-toggle{display:none;background:var(--primary);color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
+
+@media(max-width:1024px){.grid-2{grid-template-columns:1fr}.form-row-3{grid-template-columns:1fr}.order-item-row{grid-template-columns:1fr}}
+@media(max-width:768px){.sidebar{transform:translateX(-100%);z-index:100}.sidebar.active{transform:translateX(0)}.main{margin-left:0}.menu-toggle{display:block}}
 </style>
 </head>
 <body>
@@ -115,22 +140,44 @@ tr:hover{background:#f9fafb}
     <div class="login-logo">
       <div class="icon">🧾</div>
       <h1>DealerConnect</h1>
-      <p>Indian Accounting & GST Portal</p>
+      <p>Indian Accounting & Dealer Portal</p>
     </div>
-    <div class="login-error" id="loginError">Invalid username or password</div>
-    <div class="form-group">
-      <label>Username</label>
-      <input type="text" id="loginUser" placeholder="Enter username" value="admin">
+    <div class="login-tabs">
+      <div class="login-tab active" onclick="switchLoginTab('admin')">👨‍💼 Admin Login</div>
+      <div class="login-tab" onclick="switchLoginTab('dealer')">🏪 Dealer Login</div>
     </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" id="loginPass" placeholder="Enter password" value="admin123">
+    <div class="login-error" id="loginError">Invalid credentials</div>
+    
+    <!-- Admin Form -->
+    <div class="login-form active" id="adminForm">
+      <div class="form-group">
+        <label>Admin Username</label>
+        <input type="text" class="form-control" id="adminUser" value="admin">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" id="adminPass" value="admin123">
+      </div>
+      <button class="login-btn" onclick="doAdminLogin()">Sign In as Admin</button>
     </div>
-    <button class="login-btn" onclick="doLogin()">Sign In</button>
+    
+    <!-- Dealer Form -->
+    <div class="login-form" id="dealerForm">
+      <div class="form-group">
+        <label>Dealer Code</label>
+        <input type="text" class="form-control" id="dealerCode" placeholder="e.g., SHAR01" style="text-transform:uppercase">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" id="dealerPass" placeholder="Enter password">
+      </div>
+      <button class="login-btn" onclick="doDealerLogin()">Sign In as Dealer</button>
+    </div>
+    
     <div class="login-hint">
-      <strong>Demo Credentials:</strong><br>
-      Username: <b>admin</b> | Password: <b>admin123</b><br>
-      FY 2026-27 | GST Compliant
+      <strong>🔐 Demo Credentials</strong><br>
+      <b>Admin:</b> admin / admin123<br>
+      <b>Dealers:</b> SHAR01, GUPT01, PATE01 / dealer123
     </div>
   </div>
 </div>
@@ -138,19 +185,9 @@ tr:hover{background:#f9fafb}
 <!-- ============ MAIN APP ============ -->
 <div class="app" id="app">
   <aside class="sidebar" id="sidebar">
-    <div class="logo">🧾 Dealer<span>Connect</span></div>
-    <ul class="nav-menu">
-      <li><a class="active" data-page="dashboard">📊 Dashboard</a></li>
-      <li><a data-page="invoices">🧾 Invoices (GST)</a></li>
-      <li><a data-page="tdstcs">🏛️ TDS / TCS Reports</a></li>
-      <li><a data-page="ledger">📒 General Ledger</a></li>
-      <li><a data-page="dealers">👥 Dealers & GSTIN</a></li>
-      <li><a data-page="inventory">📦 Inventory (HSN)</a></li>
-      <li><a data-page="settings">⚙️ Settings</a></li>
-    </ul>
-    <div class="sidebar-footer">
-      DealerConnect v1.0<br>© 2026 GST Compliant
-    </div>
+    <div class="logo">🧾 Dealer<span>Connect</span><span class="role-tag" id="roleTag">ADMIN</span></div>
+    <ul class="nav-menu" id="navMenu"></ul>
+    <div class="sidebar-footer">DealerConnect v2.0<br>© 2026 GST Compliant</div>
   </aside>
 
   <main class="main">
@@ -158,184 +195,56 @@ tr:hover{background:#f9fafb}
       <div>
         <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">☰</button>
         <h1 id="pageTitle">Dashboard</h1>
-        <p id="pageSubtitle">Financial Year: 2026-27 | GSTIN: 27AABCU9603R1ZM</p>
+        <p id="pageSubtitle">Financial Year: 2026-27</p>
       </div>
       <div class="user-profile">
-        <div class="avatar" id="userAvatar">AD</div>
+        <div class="avatar" id="userAvatar">A</div>
         <div>
-          <div style="font-weight:600;font-size:14px" id="userName">Admin</div>
-          <div style="font-size:12px;color:var(--muted)">Administrator</div>
+          <div style="font-weight:600;font-size:13px" id="userName">Admin</div>
+          <div style="font-size:11px;color:var(--muted)" id="userRole">Administrator</div>
         </div>
         <button class="logout-btn" onclick="doLogout()">Logout</button>
       </div>
     </div>
 
-    <!-- ===== DASHBOARD ===== -->
-    <div class="page active" id="page-dashboard">
-      <div class="stats-grid" id="statsGrid"></div>
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title">Recent Invoices <span class="badge">Last 5</span></div>
-          <table><thead><tr><th>Inv No.</th><th>Dealer</th><th>Amount</th><th>Status</th></tr></thead>
-          <tbody id="recentInvoices"></tbody></table>
-        </div>
-        <div class="card">
-          <div class="card-title">GST Liability Summary <span class="badge success">FY 2026-27</span></div>
-          <table><thead><tr><th>Tax Type</th><th class="text-right">Amount (₹)</th></tr></thead>
-          <tbody id="gstSummary"></tbody></table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== INVOICES ===== -->
-    <div class="page" id="page-invoices">
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title">Create B2B Invoice <span class="badge">E-Invoice Ready</span></div>
-          <div class="alert alert-info">ℹ️ Enter Dealer GSTIN. System auto-detects Intra/Inter state for CGST/SGST or IGST.</div>
-          <div class="form-group">
-            <label>Select Dealer (or enter GSTIN)</label>
-            <select class="form-control" id="invDealer" onchange="fillDealerGST()"></select>
-          </div>
-          <div class="form-group">
-            <label>Buyer GSTIN</label>
-            <input type="text" class="form-control" id="buyerGstin" placeholder="e.g., 29AABCU9603R1ZM" oninput="calcTax()">
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Item</label>
-              <select class="form-control" id="invItem" onchange="fillItem()"></select>
-            </div>
-            <div class="form-group"><label>HSN Code</label><input type="text" class="form-control" id="hsnCode" readonly></div>
-          </div>
-          <div class="form-row-3">
-            <div class="form-group"><label>Qty</label><input type="number" class="form-control" id="invQty" value="1" oninput="calcTax()"></div>
-            <div class="form-group"><label>Rate (₹)</label><input type="number" class="form-control" id="invRate" value="10000" oninput="calcTax()"></div>
-            <div class="form-group"><label>GST %</label>
-              <select class="form-control" id="gstRate" onchange="calcTax()">
-                <option value="5">5%</option><option value="12">12%</option>
-                <option value="18" selected>18%</option><option value="28">28%</option>
-              </select>
-            </div>
-          </div>
-          <div class="alert alert-warning" id="tcsAlert" style="display:none">⚠️ <strong>TCS u/s 206C(1H):</strong> Sale exceeds ₹50L. TCS @ 0.1% applicable.</div>
-          <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="saveInvoice()">💾 Save Invoice & Generate IRN</button>
-        </div>
-        <div class="card">
-          <div class="card-title">Tax Computation <span class="badge success">Live</span></div>
-          <table><thead><tr><th>Description</th><th>Rate</th><th class="text-right">Amount</th></tr></thead>
-          <tbody id="taxBreakdown"></tbody></table>
-          <div style="margin-top:20px;padding:14px;background:#f8fafc;border-radius:8px;border:1px dashed var(--border)">
-            <h4 style="font-size:13px;color:var(--muted);margin-bottom:8px">Journal Entry (Ind AS)</h4>
-            <div id="journalEntry" style="font-family:monospace;font-size:12px;line-height:1.7"></div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">All Invoices <input type="text" class="search-box" placeholder="Search invoices..." oninput="renderInvoiceList(this.value)"></div>
-        <table><thead><tr><th>Inv No.</th><th>Date</th><th>Dealer</th><th>GSTIN</th><th class="text-right">Taxable</th><th class="text-right">GST</th><th class="text-right">Total</th><th>Action</th></tr></thead>
-        <tbody id="invoiceList"></tbody></table>
-      </div>
-    </div>
-
-    <!-- ===== TDS/TCS ===== -->
-    <div class="page" id="page-tdstcs">
-      <div class="alert alert-info">📌 TDS u/s 194Q: 0.1% on purchase exceeding ₹50 Lakhs from a seller in a FY.<br>📌 TCS u/s 206C(1H): 0.1% on sale receipt exceeding ₹50 Lakhs from a buyer in a FY.</div>
-      <div class="stats-grid">
-        <div class="stat-card warning"><h3>Total TDS Deducted</h3><div class="value" id="totalTDS">₹0.00</div><div class="sub">u/s 194Q</div></div>
-        <div class="stat-card success"><h3>Total TCS Collected</h3><div class="value" id="totalTCS">₹0.00</div><div class="sub">u/s 206C(1H)</div></div>
-        <div class="stat-card"><h3>TDS Payable</h3><div class="value" id="tdsPayable">₹0.00</div><div class="sub">To be deposited</div></div>
-      </div>
-      <div class="card">
-        <div class="card-title">TDS / TCS Transactions</div>
-        <table><thead><tr><th>Date</th><th>Type</th><th>Party</th><th>PAN</th><th class="text-right">Base (₹)</th><th class="text-right">Tax (₹)</th><th>Status</th></tr></thead>
-        <tbody id="tdstcsList"></tbody></table>
-      </div>
-    </div>
-
-    <!-- ===== LEDGER ===== -->
-    <div class="page" id="page-ledger">
-      <div class="card">
-        <div class="card-title">General Ledger (Double Entry) <span class="badge">Ind AS</span></div>
-        <table><thead><tr><th>Date</th><th>Voucher</th><th>Account (Dr/Cr)</th><th>Particulars</th><th class="text-right">Debit (₹)</th><th class="text-right">Credit (₹)</th></tr></thead>
-        <tbody id="ledgerList"></tbody></table>
-      </div>
-    </div>
-
-    <!-- ===== DEALERS ===== -->
-    <div class="page" id="page-dealers">
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title">Add New Dealer</div>
-          <div class="form-group"><label>Dealer Name</label><input type="text" class="form-control" id="dName" placeholder="ABC Enterprises"></div>
-          <div class="form-group"><label>GSTIN</label><input type="text" class="form-control" id="dGstin" placeholder="27AABCU9603R1ZM" style="text-transform:uppercase"></div>
-          <div class="form-row">
-            <div class="form-group"><label>PAN</label><input type="text" class="form-control" id="dPan" placeholder="AABCU9603R" style="text-transform:uppercase"></div>
-            <div class="form-group"><label>State</label><input type="text" class="form-control" id="dState" placeholder="Maharashtra"></div>
-          </div>
-          <div class="form-group"><label>Phone</label><input type="text" class="form-control" id="dPhone" placeholder="+91 98765 43210"></div>
-          <button class="btn btn-success" style="width:100%;justify-content:center" onclick="addDealer()">➕ Add Dealer</button>
-        </div>
-        <div class="card">
-          <div class="card-title">Dealer Directory <input type="text" class="search-box" placeholder="Search..." oninput="renderDealers(this.value)"></div>
-          <table><thead><tr><th>Name</th><th>GSTIN</th><th>State</th><th>Action</th></tr></thead>
-          <tbody id="dealerList"></tbody></table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== INVENTORY ===== -->
-    <div class="page" id="page-inventory">
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title">Add Inventory Item</div>
-          <div class="form-group"><label>Item Name</label><input type="text" class="form-control" id="iName" placeholder="Industrial Bearing"></div>
-          <div class="form-row">
-            <div class="form-group"><label>HSN Code</label><input type="text" class="form-control" id="iHsn" placeholder="8482"></div>
-            <div class="form-group"><label>GST %</label>
-              <select class="form-control" id="iGst">
-                <option value="5">5%</option><option value="12">12%</option>
-                <option value="18" selected>18%</option><option value="28">28%</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Rate (₹)</label><input type="number" class="form-control" id="iRate" value="1000"></div>
-            <div class="form-group"><label>Stock Qty</label><input type="number" class="form-control" id="iStock" value="100"></div>
-          </div>
-          <button class="btn btn-success" style="width:100%;justify-content:center" onclick="addItem()">➕ Add Item</button>
-        </div>
-        <div class="card">
-          <div class="card-title">Inventory Stock</div>
-          <table><thead><tr><th>Item</th><th>HSN</th><th>GST</th><th class="text-right">Rate</th><th class="text-right">Stock</th><th>Action</th></tr></thead>
-          <tbody id="inventoryList"></tbody></table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== SETTINGS ===== -->
-    <div class="page" id="page-settings">
-      <div class="card">
-        <div class="card-title">Company Profile & GST Configuration</div>
-        <div class="form-row">
-          <div class="form-group"><label>Company Name</label><input type="text" class="form-control" id="sCompany"></div>
-          <div class="form-group"><label>Company GSTIN</label><input type="text" class="form-control" id="sGstin" style="text-transform:uppercase"></div>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label>PAN</label><input type="text" class="form-control" id="sPan" style="text-transform:uppercase"></div>
-          <div class="form-group"><label>State</label><input type="text" class="form-control" id="sState"></div>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label>Financial Year</label>
-            <select class="form-control" id="sFY">
-              <option>2025-26</option><option selected>2026-27</option><option>2027-28</option>
-            </select>
-          </div>
-          <div class="form-group"><label>State Code (for GST)</label><input type="text" class="form-control" id="sStateCode" maxlength="2"></div>
-        </div>
-        <div class="form-group"><label>Address</label><textarea class="form-control" id="sAddress" rows="2"></textarea></div>
-        <button class="btn btn-primary" onclick="saveSettings()">💾 Save Settings</button>
-      </div>
-    </div>
+    <!-- ADMIN DASHBOARD -->
+    <div class="page" id="page-dashboard"></div>
+    
+    <!-- ADMIN: INVOICES -->
+    <div class="page" id="page-invoices"></div>
+    
+    <!-- ADMIN: ORDER APPROVALS -->
+    <div class="page" id="page-approvals"></div>
+    
+    <!-- ADMIN: TDS/TCS -->
+    <div class="page" id="page-tdstcs"></div>
+    
+    <!-- ADMIN: LEDGER -->
+    <div class="page" id="page-ledger"></div>
+    
+    <!-- ADMIN: DEALERS -->
+    <div class="page" id="page-dealers"></div>
+    
+    <!-- ADMIN: INVENTORY -->
+    <div class="page" id="page-inventory"></div>
+    
+    <!-- ADMIN: SETTINGS -->
+    <div class="page" id="page-settings"></div>
+    
+    <!-- DEALER DASHBOARD -->
+    <div class="page" id="page-d-dashboard"></div>
+    
+    <!-- DEALER: PLACE ORDER -->
+    <div class="page" id="page-d-place-order"></div>
+    
+    <!-- DEALER: MY ORDERS -->
+    <div class="page" id="page-d-my-orders"></div>
+    
+    <!-- DEALER: MY INVOICES -->
+    <div class="page" id="page-d-my-invoices"></div>
+    
+    <!-- DEALER: PROFILE -->
+    <div class="page" id="page-d-profile"></div>
   </main>
 </div>
 
@@ -349,19 +258,21 @@ const DB = {
     address: 'Plot 42, MIDC Industrial Area, Pune, Maharashtra - 411019'
   },
   dealers: JSON.parse(localStorage.getItem('dc_dealers') || 'null') || [
-    {id:1,name:'Sharma Traders',gstin:'27AABCU9603R1ZM',pan:'AABCU9603R',state:'Maharashtra',phone:'+91 98765 43210'},
-    {id:2,name:'Gupta Enterprises',gstin:'29BBBPD1234K1Z5',pan:'BBBPD1234K',state:'Karnataka',phone:'+91 98456 12345'},
-    {id:3,name:'Patel & Sons',gstin:'24CCCCQ5678L1Z2',pan:'CCCCQ5678L',state:'Gujarat',phone:'+91 98123 45678'}
+    {id:1,name:'Sharma Traders',gstin:'27AABCU9603R1ZM',pan:'AABCU9603R',state:'Maharashtra',phone:'+91 98765 43210',dealerCode:'SHAR01',password:'dealer123',email:'sharma@example.com'},
+    {id:2,name:'Gupta Enterprises',gstin:'29BBBPD1234K1Z5',pan:'BBBPD1234K',state:'Karnataka',phone:'+91 98456 12345',dealerCode:'GUPT01',password:'dealer123',email:'gupta@example.com'},
+    {id:3,name:'Patel & Sons',gstin:'24CCCCQ5678L1Z2',pan:'CCCCQ5678L',state:'Gujarat',phone:'+91 98123 45678',dealerCode:'PATE01',password:'dealer123',email:'patel@example.com'}
   ],
   inventory: JSON.parse(localStorage.getItem('dc_inventory') || 'null') || [
     {id:1,name:'Industrial Bearings',hsn:'8482',gst:18,rate:10000,stock:250},
     {id:2,name:'Hydraulic Pump',hsn:'8413',gst:18,rate:45000,stock:80},
     {id:3,name:'Steel Bolts M12',hsn:'7318',gst:18,rate:250,stock:5000},
-    {id:4,name:'Electric Motor 5HP',hsn:'8501',gst:18,rate:28000,stock:45}
+    {id:4,name:'Electric Motor 5HP',hsn:'8501',gst:18,rate:28000,stock:45},
+    {id:5,name:'Gear Box Assembly',hsn:'8483',gst:18,rate:35000,stock:60}
   ],
   invoices: JSON.parse(localStorage.getItem('dc_invoices') || 'null') || [],
   ledger: JSON.parse(localStorage.getItem('dc_ledger') || 'null') || [],
-  tdstcs: JSON.parse(localStorage.getItem('dc_tdstcs') || 'null') || []
+  tdstcs: JSON.parse(localStorage.getItem('dc_tdstcs') || 'null') || [],
+  orders: JSON.parse(localStorage.getItem('dc_orders') || 'null') || []
 };
 
 const save = () => {
@@ -371,61 +282,145 @@ const save = () => {
   localStorage.setItem('dc_invoices', JSON.stringify(DB.invoices));
   localStorage.setItem('dc_ledger', JSON.stringify(DB.ledger));
   localStorage.setItem('dc_tdstcs', JSON.stringify(DB.tdstcs));
+  localStorage.setItem('dc_orders', JSON.stringify(DB.orders));
 };
 
 const fmt = n => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',minimumFractionDigits:2,maximumFractionDigits:2}).format(n||0);
 const today = () => new Date().toISOString().split('T')[0];
+const now = () => new Date().toLocaleString('en-IN');
 
 /* ============ AUTH ============ */
-function doLogin(){
-  const u = document.getElementById('loginUser').value.trim();
-  const p = document.getElementById('loginPass').value.trim();
-  if(u === 'admin' && p === 'admin123'){
-    DB.user = {name:'Admin',username:u,loginTime:new Date().toISOString()};
+function switchLoginTab(tab){
+  document.querySelectorAll('.login-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.login-form').forEach(f=>f.classList.remove('active'));
+  if(tab==='admin'){
+    document.querySelectorAll('.login-tab')[0].classList.add('active');
+    document.getElementById('adminForm').classList.add('active');
+  } else {
+    document.querySelectorAll('.login-tab')[1].classList.add('active');
+    document.getElementById('dealerForm').classList.add('active');
+  }
+  document.getElementById('loginError').style.display='none';
+}
+
+function doAdminLogin(){
+  const u = document.getElementById('adminUser').value.trim();
+  const p = document.getElementById('adminPass').value.trim();
+  if(u==='admin' && p==='admin123'){
+    DB.user = {role:'admin',name:'Administrator',username:u,loginTime:new Date().toISOString()};
     localStorage.setItem('dc_user', JSON.stringify(DB.user));
     showApp();
   } else {
-    document.getElementById('loginError').style.display = 'block';
-    setTimeout(()=>document.getElementById('loginError').style.display='none', 3000);
+    document.getElementById('loginError').style.display='block';
+    document.getElementById('loginError').textContent='Invalid admin credentials';
   }
 }
+
+function doDealerLogin(){
+  const code = document.getElementById('dealerCode').value.trim().toUpperCase();
+  const pass = document.getElementById('dealerPass').value.trim();
+  const dealer = DB.dealers.find(d=>d.dealerCode===code && d.password===pass);
+  if(dealer){
+    DB.user = {role:'dealer',dealerId:dealer.id,name:dealer.name,dealerCode:dealer.code,loginTime:new Date().toISOString()};
+    localStorage.setItem('dc_user', JSON.stringify(DB.user));
+    showApp();
+  } else {
+    document.getElementById('loginError').style.display='block';
+    document.getElementById('loginError').textContent='Invalid dealer code or password';
+  }
+}
+
 function doLogout(){
-  if(confirm('Are you sure you want to logout?')){
+  if(confirm('Logout from DealerConnect?')){
     localStorage.removeItem('dc_user');
-    DB.user = null;
     location.reload();
   }
 }
+
 function showApp(){
-  document.getElementById('loginPage').style.display = 'none';
+  document.getElementById('loginPage').style.display='none';
   document.getElementById('app').classList.add('active');
-  document.getElementById('userName').textContent = DB.user?.name || 'Admin';
-  document.getElementById('userAvatar').textContent = (DB.user?.name||'A').charAt(0).toUpperCase();
-  document.getElementById('pageSubtitle').textContent = `Financial Year: ${DB.settings.fy} | GSTIN: ${DB.settings.gstin}`;
-  initAll();
+  document.getElementById('userName').textContent = DB.user.name;
+  document.getElementById('userAvatar').textContent = DB.user.name.charAt(0).toUpperCase();
+  document.getElementById('roleTag').textContent = DB.user.role==='admin'?'ADMIN':'DEALER';
+  document.getElementById('userRole').textContent = DB.user.role==='admin'?'Administrator':'Authorized Dealer';
+  buildNavMenu();
+  if(DB.user.role==='admin'){
+    document.getElementById('pageSubtitle').textContent = `FY: ${DB.settings.fy} | GSTIN: ${DB.settings.gstin}`;
+    navigateTo('dashboard');
+  } else {
+    const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+    document.getElementById('pageSubtitle').textContent = `${d?.name||''} | GSTIN: ${d?.gstin||''}`;
+    navigateTo('d-dashboard');
+  }
 }
 
 /* ============ NAVIGATION ============ */
-document.querySelectorAll('.nav-menu a').forEach(a=>{
-  a.addEventListener('click', e=>{
-    e.preventDefault();
-    const page = a.dataset.page;
-    document.querySelectorAll('.nav-menu a').forEach(x=>x.classList.remove('active'));
-    a.classList.add('active');
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.getElementById('page-'+page).classList.add('active');
-    const titles = {dashboard:'Dashboard',invoices:'Invoices (GST)',tdstcs:'TDS / TCS Reports',ledger:'General Ledger',dealers:'Dealers & GSTIN',inventory:'Inventory (HSN)',settings:'Settings'};
-    document.getElementById('pageTitle').textContent = titles[page];
-    if(page==='dashboard') renderDashboard();
-    if(page==='invoices') renderInvoicePage();
-    if(page==='tdstcs') renderTDSPage();
-    if(page==='ledger') renderLedger();
-    if(page==='dealers') renderDealers();
-    if(page==='inventory') renderInventory();
-    if(page==='settings') loadSettings();
-    document.getElementById('sidebar').classList.remove('active');
+function buildNavMenu(){
+  const menu = document.getElementById('navMenu');
+  if(DB.user.role==='admin'){
+    menu.innerHTML = `
+      <li><a class="active" data-page="dashboard">📊 Dashboard</a></li>
+      <li><a data-page="approvals">📝 Order Approvals <span class="badge warning" id="pendingBadge" style="margin-left:auto"></span></a></li>
+      <li><a data-page="invoices">🧾 Invoices (GST)</a></li>
+      <li><a data-page="tdstcs">🏛️ TDS / TCS</a></li>
+      <li><a data-page="ledger">📒 Ledger</a></li>
+      <li><a data-page="dealers">👥 Dealers</a></li>
+      <li><a data-page="inventory">📦 Inventory</a></li>
+      <li><a data-page="settings">⚙️ Settings</a></li>
+    `;
+  } else {
+    menu.innerHTML = `
+      <li><a class="active" data-page="d-dashboard">🏠 My Dashboard</a></li>
+      <li><a data-page="d-place-order">📝 Place New Order</a></li>
+      <li><a data-page="d-my-orders">📦 My Orders</a></li>
+      <li><a data-page="d-my-invoices">🧾 My Invoices</a></li>
+      <li><a data-page="d-profile">👤 My Profile</a></li>
+    `;
+  }
+  menu.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click', e=>{
+      e.preventDefault();
+      navigateTo(a.dataset.page);
+      document.getElementById('sidebar').classList.remove('active');
+    });
   });
-});
+  updatePendingBadge();
+}
+
+function updatePendingBadge(){
+  const b = document.getElementById('pendingBadge');
+  if(b){
+    const count = DB.orders.filter(o=>o.status==='pending').length;
+    b.textContent = count>0 ? count : '';
+  }
+}
+
+function navigateTo(page){
+  document.querySelectorAll('.nav-menu a').forEach(x=>x.classList.remove('active'));
+  const activeLink = document.querySelector(`.nav-menu a[data-page="${page}"]`);
+  if(activeLink) activeLink.classList.add('active');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  
+  const titles = {
+    'dashboard':'Dashboard','approvals':'Order Approvals','invoices':'Invoices (GST)',
+    'tdstcs':'TDS / TCS Reports','ledger':'General Ledger','dealers':'Dealers Management',
+    'inventory':'Inventory (HSN)','settings':'Settings',
+    'd-dashboard':'My Dashboard','d-place-order':'Place New Order',
+    'd-my-orders':'My Orders','d-my-invoices':'My Invoices','d-profile':'My Profile'
+  };
+  document.getElementById('pageTitle').textContent = titles[page]||'Dashboard';
+  
+  const renderers = {
+    'dashboard':renderDashboard,'approvals':renderApprovals,'invoices':renderInvoicePage,
+    'tdstcs':renderTDSPage,'ledger':renderLedger,'dealers':renderDealers,
+    'inventory':renderInventory,'settings':loadSettings,
+    'd-dashboard':renderDealerDashboard,'d-place-order':renderPlaceOrder,
+    'd-my-orders':renderMyOrders,'d-my-invoices':renderMyInvoices,'d-profile':renderDealerProfile
+  };
+  if(renderers[page]) renderers[page]();
+}
 
 /* ============ TOAST ============ */
 function toast(msg, type='success'){
@@ -436,153 +431,221 @@ function toast(msg, type='success'){
   setTimeout(()=>t.remove(), 3000);
 }
 
-/* ============ DASHBOARD ============ */
+/* ============ ADMIN: DASHBOARD ============ */
 function renderDashboard(){
   const totalSales = DB.invoices.reduce((s,i)=>s+i.taxable,0);
   const totalGST = DB.invoices.reduce((s,i)=>s+i.cgst+i.sgst+i.igst,0);
-  const totalTDS = DB.tdstcs.filter(t=>t.type==='TDS').reduce((s,t)=>s+t.amount,0);
-  const totalTCS = DB.tdstcs.filter(t=>t.type==='TCS').reduce((s,t)=>s+t.amount,0);
-  const outstanding = DB.invoices.filter(i=>i.status==='Pending').reduce((s,i)=>s+i.total,0);
+  const pendingOrders = DB.orders.filter(o=>o.status==='pending').length;
+  const approvedOrders = DB.orders.filter(o=>o.status==='approved').length;
+  const orderValue = DB.orders.reduce((s,o)=>s+o.total,0);
 
-  document.getElementById('statsGrid').innerHTML = `
-    <div class="stat-card"><h3>Total Sales (YTD)</h3><div class="value">${fmt(totalSales)}</div><div class="sub">${DB.invoices.length} Invoices</div></div>
-    <div class="stat-card success"><h3>GST Collected</h3><div class="value">${fmt(totalGST)}</div><div class="sub">CGST+SGST+IGST</div></div>
-    <div class="stat-card warning"><h3>TDS/TCS</h3><div class="value">${fmt(totalTDS+totalTCS)}</div><div class="sub">TDS: ${fmt(totalTDS)} | TCS: ${fmt(totalTCS)}</div></div>
-    <div class="stat-card danger"><h3>Outstanding</h3><div class="value">${fmt(outstanding)}</div><div class="sub">${DB.invoices.filter(i=>i.status==='Pending').length} Pending</div></div>
+  document.getElementById('page-dashboard').innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card"><h3>Total Sales (YTD)</h3><div class="value">${fmt(totalSales)}</div><div class="sub">${DB.invoices.length} Invoices</div></div>
+      <div class="stat-card success"><h3>GST Collected</h3><div class="value">${fmt(totalGST)}</div><div class="sub">Output Tax</div></div>
+      <div class="stat-card warning"><h3>Pending Orders</h3><div class="value">${pendingOrders}</div><div class="sub">Awaiting approval</div></div>
+      <div class="stat-card info"><h3>Order Book Value</h3><div class="value">${fmt(orderValue)}</div><div class="sub">${approvedOrders} Approved</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Recent Orders Awaiting Approval <span class="badge warning">${pendingOrders}</span></div>
+        ${renderRecentOrders()}
+      </div>
+      <div class="card">
+        <div class="card-title">Recent Invoices <span class="badge success">Last 5</span></div>
+        ${renderRecentInvoices()}
+      </div>
+    </div>
   `;
+}
 
+function renderRecentOrders(){
+  const recent = DB.orders.filter(o=>o.status==='pending').slice(-5).reverse();
+  if(!recent.length) return '<div class="empty">No pending orders 🎉</div>';
+  return recent.map(o=>{
+    const d = DB.dealers.find(x=>x.id===o.dealerId);
+    return `<div class="order-card">
+      <div class="order-header">
+        <div><div class="order-no">${o.orderNo}</div>
+        <div class="order-meta">${d?.name||'Unknown'} • ${o.date}</div></div>
+        <span class="badge warning">Pending</span>
+      </div>
+      <div class="order-total">${fmt(o.total)}</div>
+      <div class="order-actions">
+        <button class="btn btn-success btn-sm" onclick="navigateTo('approvals')">Review →</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderRecentInvoices(){
   const recent = DB.invoices.slice(-5).reverse();
-  document.getElementById('recentInvoices').innerHTML = recent.length ? recent.map(i=>`
-    <tr><td>${i.invNo}</td><td>${i.dealerName}</td><td>${fmt(i.total)}</td>
-    <td><span class="badge ${i.status==='Paid'?'success':'warning'}">${i.status}</span></td></tr>
-  `).join('') : '<tr><td colspan="4" class="empty">No invoices yet</td></tr>';
+  if(!recent.length) return '<div class="empty">No invoices yet</div>';
+  return `<table><thead><tr><th>Inv No.</th><th>Dealer</th><th>Amount</th></tr></thead>
+  <tbody>${recent.map(i=>`<tr><td>${i.invNo}</td><td>${i.dealerName}</td><td>${fmt(i.total)}</td></tr>`).join('')}</tbody></table>`;
+}
 
-  const cgst = DB.invoices.reduce((s,i)=>s+i.cgst,0);
-  const sgst = DB.invoices.reduce((s,i)=>s+i.sgst,0);
-  const igst = DB.invoices.reduce((s,i)=>s+i.igst,0);
-  document.getElementById('gstSummary').innerHTML = `
-    <tr><td>CGST Payable</td><td class="text-right">${fmt(cgst)}</td></tr>
-    <tr><td>SGST Payable</td><td class="text-right">${fmt(sgst)}</td></tr>
-    <tr><td>IGST Payable</td><td class="text-right">${fmt(igst)}</td></tr>
-    <tr class="total-row"><td>Total GST Liability</td><td class="text-right">${fmt(cgst+sgst+igst)}</td></tr>
+/* ============ ADMIN: ORDER APPROVALS ============ */
+function renderApprovals(){
+  const pending = DB.orders.filter(o=>o.status==='pending').reverse();
+  const processed = DB.orders.filter(o=>o.status!=='pending').reverse().slice(0,20);
+  
+  document.getElementById('page-approvals').innerHTML = `
+    <div class="alert alert-info">📌 Review dealer orders below. Approve to auto-generate GST-compliant invoice, or reject with remarks.</div>
+    <div class="card">
+      <div class="card-title">Pending Orders <span class="badge warning">${pending.length}</span></div>
+      ${pending.length ? pending.map(o=>renderOrderCard(o,true)).join('') : '<div class="empty">No pending orders 🎉</div>'}
+    </div>
+    <div class="card">
+      <div class="card-title">Recently Processed</div>
+      ${processed.length ? processed.map(o=>renderOrderCard(o,false)).join('') : '<div class="empty">No processed orders yet</div>'}
+    </div>
   `;
 }
 
-/* ============ INVOICES ============ */
-function renderInvoicePage(){
-  // Populate dealer dropdown
-  const dSel = document.getElementById('invDealer');
-  dSel.innerHTML = '<option value="">-- Select Dealer --</option>' + DB.dealers.map(d=>`<option value="${d.id}">${d.name} (${d.gstin})</option>`).join('');
-  // Populate item dropdown
-  const iSel = document.getElementById('invItem');
-  iSel.innerHTML = '<option value="">-- Select Item --</option>' + DB.inventory.map(i=>`<option value="${i.id}">${i.name}</option>`).join('');
-  renderInvoiceList();
-  calcTax();
+function renderOrderCard(o, showActions){
+  const d = DB.dealers.find(x=>x.id===o.dealerId);
+  const statusBadge = {
+    'pending':'<span class="badge warning">⏳ Pending</span>',
+    'approved':'<span class="badge success">✅ Approved</span>',
+    'rejected':'<span class="badge danger">❌ Rejected</span>',
+    'fulfilled':'<span class="badge info">📦 Fulfilled</span>'
+  }[o.status];
+  
+  return `<div class="order-card" style="border-left:4px solid ${o.status==='pending'?'var(--warning)':o.status==='approved'?'var(--success)':o.status==='rejected'?'var(--danger)':'#8b5cf6'}">
+    <div class="order-header">
+      <div>
+        <div class="order-no">${o.orderNo} ${statusBadge}</div>
+        <div class="order-meta">
+          <strong>${d?.name||'Unknown Dealer'}</strong> • GSTIN: ${d?.gstin||'-'}<br>
+          Placed: ${o.date} ${o.time||''}
+          ${o.approvedDate ? '<br>Processed: '+o.approvedDate : ''}
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div class="order-total">${fmt(o.total)}</div>
+        ${o.invoiceNo ? `<div style="font-size:11px;color:var(--muted);margin-top:4px">Invoice: ${o.invoiceNo}</div>` : ''}
+      </div>
+    </div>
+    <div class="order-items">
+      <strong>Items:</strong><br>
+      ${o.items.map(it=>`• ${it.name} (HSN: ${it.hsn}) × ${it.qty} @ ${fmt(it.rate)} = ${fmt(it.amount)}`).join('<br>')}
+    </div>
+    ${o.remarks ? `<div style="padding:8px;background:#fef3c7;border-radius:6px;font-size:12px;margin-top:8px"><strong>Remarks:</strong> ${o.remarks}</div>` : ''}
+    ${showActions ? `
+    <div class="order-actions">
+      <input type="text" class="form-control" id="remark-${o.id}" placeholder="Add remarks (optional)" style="flex:1">
+      <button class="btn btn-success btn-sm" onclick="approveOrder(${o.id})">✅ Approve</button>
+      <button class="btn btn-danger btn-sm" onclick="rejectOrder(${o.id})">❌ Reject</button>
+    </div>` : ''}
+  </div>`;
 }
-function fillDealerGST(){
-  const id = document.getElementById('invDealer').value;
-  const d = DB.dealers.find(x=>x.id==id);
-  if(d){ document.getElementById('buyerGstin').value = d.gstin; calcTax(); }
-}
-function fillItem(){
-  const id = document.getElementById('invItem').value;
-  const i = DB.inventory.find(x=>x.id==id);
-  if(i){
-    document.getElementById('hsnCode').value = i.hsn;
-    document.getElementById('invRate').value = i.rate;
-    document.getElementById('gstRate').value = i.gst;
-    calcTax();
+
+function approveOrder(id){
+  const o = DB.orders.find(x=>x.id===id);
+  if(!o) return;
+  const remarks = document.getElementById('remark-'+id)?.value || '';
+  const d = DB.dealers.find(x=>x.id===o.dealerId);
+  
+  // Check stock availability
+  for(const it of o.items){
+    const inv = DB.inventory.find(x=>x.id===it.itemId);
+    if(!inv || inv.stock < it.qty){
+      toast(`Insufficient stock for ${it.name}`,'error');
+      return;
+    }
   }
-}
-function calcTax(){
-  const gstin = document.getElementById('buyerGstin').value.toUpperCase().trim();
-  const qty = parseFloat(document.getElementById('invQty').value)||0;
-  const rate = parseFloat(document.getElementById('invRate').value)||0;
-  const gstR = parseFloat(document.getElementById('gstRate').value);
-  const base = qty*rate;
-  const buyerState = gstin.substring(0,2);
-  const isInter = buyerState && buyerState !== DB.settings.stateCode;
-  let cgst=0,sgst=0,igst=0,tcs=0;
-  if(isInter){ igst=(base*gstR)/100; } else { cgst=(base*gstR/2)/100; sgst=(base*gstR/2)/100; }
-  // TCS simulation (demo: if base > 5L, apply)
-  if(base >= 500000){ tcs = (base*0.1)/100; document.getElementById('tcsAlert').style.display='flex'; }
-  else document.getElementById('tcsAlert').style.display='none';
-  const total = base+cgst+sgst+igst+tcs;
-
-  let html = `<tr><td>Taxable Value (${qty} × ${fmt(rate)})</td><td>-</td><td class="text-right">${fmt(base)}</td></tr>`;
-  if(isInter) html += `<tr><td>IGST</td><td>${gstR}%</td><td class="text-right">${fmt(igst)}</td></tr>`;
-  else { html += `<tr><td>CGST</td><td>${gstR/2}%</td><td class="text-right">${fmt(cgst)}</td></tr>`;
-         html += `<tr><td>SGST</td><td>${gstR/2}%</td><td class="text-right">${fmt(sgst)}</td></tr>`; }
-  if(tcs>0) html += `<tr><td>TCS u/s 206C(1H)</td><td>0.1%</td><td class="text-right">${fmt(tcs)}</td></tr>`;
-  html += `<tr class="total-row"><td colspan="2">Grand Total</td><td class="text-right">${fmt(total)}</td></tr>`;
-  document.getElementById('taxBreakdown').innerHTML = html;
-
-  let j = `<strong>Dr.</strong> Sundry Debtors &nbsp;&nbsp; ${fmt(total)}<br>`;
-  j += `&nbsp;&nbsp;<strong>Cr.</strong> Sales A/c &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${fmt(base)}<br>`;
-  if(isInter) j += `&nbsp;&nbsp;<strong>Cr.</strong> IGST Payable &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${fmt(igst)}<br>`;
-  else { j += `&nbsp;&nbsp;<strong>Cr.</strong> CGST Payable &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${fmt(cgst)}<br>`;
-         j += `&nbsp;&nbsp;<strong>Cr.</strong> SGST Payable &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${fmt(sgst)}<br>`; }
-  if(tcs>0) j += `&nbsp;&nbsp;<strong>Cr.</strong> TCS Collected &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${fmt(tcs)}<br>`;
-  document.getElementById('journalEntry').innerHTML = j;
-}
-function saveInvoice(){
-  const gstin = document.getElementById('buyerGstin').value.toUpperCase().trim();
-  if(!gstin || gstin.length < 15){ toast('Please enter valid GSTIN','error'); return; }
-  const dealerId = document.getElementById('invDealer').value;
-  const dealer = DB.dealers.find(d=>d.id==dealerId);
-  const item = DB.inventory.find(i=>i.id==document.getElementById('invItem').value);
-  const qty = parseFloat(document.getElementById('invQty').value)||0;
-  const rate = parseFloat(document.getElementById('invRate').value)||0;
-  const gstR = parseFloat(document.getElementById('gstRate').value);
-  if(qty<=0 || rate<=0){ toast('Enter valid quantity and rate','error'); return; }
-  const base = qty*rate;
-  const buyerState = gstin.substring(0,2);
-  const isInter = buyerState && buyerState !== DB.settings.stateCode;
-  let cgst=0,sgst=0,igst=0,tcs=0;
-  if(isInter) igst=(base*gstR)/100; else { cgst=(base*gstR/2)/100; sgst=(base*gstR/2)/100; }
-  if(base >= 500000) tcs = (base*0.1)/100;
-  const total = base+cgst+sgst+igst+tcs;
+  
+  // Create invoice
   const invNo = 'INV-' + new Date().getFullYear() + '-' + String(DB.invoices.length+1).padStart(4,'0');
   const irn = 'IRN' + Math.random().toString(36).substring(2,14).toUpperCase();
-
+  
+  const taxable = o.subtotal;
+  const buyerState = d?.gstin.substring(0,2) || '';
+  const isInter = buyerState && buyerState !== DB.settings.stateCode;
+  const gstRate = o.items[0]?.gst || 18;
+  let cgst=0,sgst=0,igst=0,tcs=0;
+  if(isInter) igst=(taxable*gstRate)/100; else { cgst=(taxable*gstRate/2)/100; sgst=(taxable*gstRate/2)/100; }
+  if(taxable >= 500000) tcs = (taxable*0.1)/100;
+  const total = taxable+cgst+sgst+igst+tcs;
+  
   const inv = {
-    id: Date.now(), invNo, date: today(),
-    dealerId: dealer?.id || null, dealerName: dealer?.name || 'Walk-in Customer',
-    gstin, hsn: document.getElementById('hsnCode').value,
-    itemName: item?.name || document.getElementById('invItem').selectedOptions[0]?.text || 'Item',
-    qty, rate, taxable: base, cgst, sgst, igst, tcs, total,
-    gstRate: gstR, irn, status: 'Pending'
+    id:Date.now(), invNo, date:today(),
+    dealerId:d?.id, dealerName:d?.name||'Unknown',
+    gstin:d?.gstin||'', hsn:o.items.map(i=>i.hsn).join(','),
+    itemName:o.items.map(i=>i.name).join(', '),
+    qty:o.items.reduce((s,i)=>s+i.qty,0), rate:0,
+    taxable, cgst, sgst, igst, tcs, total, gstRate, irn,
+    status:'Paid', orderId:o.id, source:'Dealer Order'
   };
   DB.invoices.push(inv);
-
-  // Ledger entries
-  DB.ledger.push({id:Date.now(),date:today(),voucher:invNo,type:'Sale',account:'Sundry Debtors (Dr)',particulars:`B2B Sale to ${inv.dealerName}`,debit:total,credit:0});
-  DB.ledger.push({id:Date.now()+1,date:today(),voucher:invNo,type:'Sale',account:'Sales A/c (Cr)',particulars:`Sale of ${inv.itemName}`,debit:0,credit:base});
-  if(isInter) DB.ledger.push({id:Date.now()+2,date:today(),voucher:invNo,type:'Sale',account:'IGST Payable (Cr)',particulars:`IGST @ ${gstR}%`,debit:0,credit:igst});
-  else { DB.ledger.push({id:Date.now()+2,date:today(),voucher:invNo,type:'Sale',account:'CGST Payable (Cr)',particulars:`CGST @ ${gstR/2}%`,debit:0,credit:cgst});
-         DB.ledger.push({id:Date.now()+3,date:today(),voucher:invNo,type:'Sale',account:'SGST Payable (Cr)',particulars:`SGST @ ${gstR/2}%`,debit:0,credit:sgst}); }
-  if(tcs>0){
-    DB.ledger.push({id:Date.now()+4,date:today(),voucher:invNo,type:'Sale',account:'TCS Collected (Cr)',particulars:`TCS u/s 206C(1H)`,debit:0,credit:tcs});
-    DB.tdstcs.push({id:Date.now()+5,date:today(),type:'TCS',party:inv.dealerName,pan:dealer?.pan||'N/A',base,total:base,tax:tcs,status:'Collected'});
+  
+  // Ledger
+  DB.ledger.push({id:Date.now()+1,date:today(),voucher:invNo,type:'Sale',account:'Sundry Debtors (Dr)',particulars:`Sale to ${d?.name} (Order: ${o.orderNo})`,debit:total,credit:0});
+  DB.ledger.push({id:Date.now()+2,date:today(),voucher:invNo,type:'Sale',account:'Sales A/c (Cr)',particulars:`Sale against order ${o.orderNo}`,debit:0,credit:taxable});
+  if(isInter) DB.ledger.push({id:Date.now()+3,date:today(),voucher:invNo,type:'Sale',account:'IGST Payable (Cr)',particulars:`IGST @ ${gstRate}%`,debit:0,credit:igst});
+  else { DB.ledger.push({id:Date.now()+3,date:today(),voucher:invNo,type:'Sale',account:'CGST Payable (Cr)',particulars:`CGST @ ${gstRate/2}%`,debit:0,credit:cgst});
+         DB.ledger.push({id:Date.now()+4,date:today(),voucher:invNo,type:'Sale',account:'SGST Payable (Cr)',particulars:`SGST @ ${gstRate/2}%`,debit:0,credit:sgst}); }
+  if(tcs>0) DB.ledger.push({id:Date.now()+5,date:today(),voucher:invNo,type:'Sale',account:'TCS Collected (Cr)',particulars:`TCS u/s 206C(1H)`,debit:0,credit:tcs});
+  
+  // Deduct stock
+  for(const it of o.items){
+    const inv2 = DB.inventory.find(x=>x.id===it.itemId);
+    if(inv2) inv2.stock -= it.qty;
   }
-
-  // Update stock
-  if(item){ item.stock = Math.max(0, item.stock - qty); }
-
+  
+  // Update order
+  o.status = 'approved';
+  o.remarks = remarks;
+  o.approvedDate = now();
+  o.approvedBy = DB.user.name;
+  o.invoiceNo = invNo;
+  
   save();
-  toast(`✅ Invoice ${invNo} saved! IRN: ${irn}`);
-  renderInvoicePage();
+  toast(`✅ Order ${o.orderNo} approved! Invoice ${invNo} generated.`);
+  renderApprovals();
+  updatePendingBadge();
+}
+
+function rejectOrder(id){
+  const o = DB.orders.find(x=>x.id===id);
+  if(!o) return;
+  const remarks = document.getElementById('remark-'+id)?.value;
+  if(!remarks){ toast('Please add remarks for rejection','error'); return; }
+  o.status = 'rejected';
+  o.remarks = remarks;
+  o.approvedDate = now();
+  o.approvedBy = DB.user.name;
+  save();
+  toast('Order rejected','error');
+  renderApprovals();
+  updatePendingBadge();
+}
+
+/* ============ ADMIN: INVOICES ============ */
+function renderInvoicePage(){
+  document.getElementById('page-invoices').innerHTML = `
+    <div class="card">
+      <div class="card-title">All Invoices <input type="text" class="search-box" placeholder="Search..." oninput="renderInvoiceList(this.value)"></div>
+      <table><thead><tr><th>Inv No.</th><th>Date</th><th>Dealer</th><th>Source</th><th class="text-right">Taxable</th><th class="text-right">GST</th><th class="text-right">Total</th><th>Action</th></tr></thead>
+      <tbody id="invoiceList"></tbody></table>
+    </div>
+  `;
+  renderInvoiceList();
 }
 function renderInvoiceList(search=''){
-  const list = DB.invoices.filter(i=> !search || i.invNo.toLowerCase().includes(search.toLowerCase()) || i.dealerName.toLowerCase().includes(search.toLowerCase())).slice().reverse();
-  document.getElementById('invoiceList').innerHTML = list.length ? list.map(i=>`
-    <tr><td><strong>${i.invNo}</strong><br><small style="color:var(--muted)">${i.irn}</small></td>
-    <td>${i.date}</td><td>${i.dealerName}</td><td>${i.gstin}</td>
+  const list = DB.invoices.filter(i=>!search||i.invNo.toLowerCase().includes(search.toLowerCase())||i.dealerName.toLowerCase().includes(search.toLowerCase())).slice().reverse();
+  const el = document.getElementById('invoiceList');
+  if(!el) return;
+  el.innerHTML = list.length ? list.map(i=>`
+    <tr><td><strong>${i.invNo}</strong><br><small style="color:var(--muted)">${i.irn||''}</small></td>
+    <td>${i.date}</td><td>${i.dealerName}</td>
+    <td>${i.source==='Dealer Order'?'<span class="badge info">Dealer</span>':'<span class="badge">Direct</span>'}</td>
     <td class="text-right">${fmt(i.taxable)}</td>
     <td class="text-right">${fmt(i.cgst+i.sgst+i.igst)}</td>
     <td class="text-right"><strong>${fmt(i.total)}</strong></td>
     <td><button class="btn btn-danger btn-sm" onclick="deleteInvoice(${i.id})">🗑️</button></td></tr>
-  `).join('') : '<tr><td colspan="8" class="empty">No invoices yet. Create your first invoice above!</td></tr>';
+  `).join('') : '<tr><td colspan="8" class="empty">No invoices yet</td></tr>';
 }
 function deleteInvoice(id){
   if(!confirm('Delete this invoice?')) return;
@@ -590,128 +653,408 @@ function deleteInvoice(id){
   save(); renderInvoiceList(); toast('Invoice deleted');
 }
 
-/* ============ TDS/TCS ============ */
+/* ============ ADMIN: TDS/TCS ============ */
 function renderTDSPage(){
-  const tds = DB.tdstcs.filter(t=>t.type==='TDS');
-  const tcs = DB.tdstcs.filter(t=>t.type==='TCS');
-  const totalTDS = tds.reduce((s,t)=>s+t.tax,0);
-  const totalTCS = tcs.reduce((s,t)=>s+t.tax,0);
-  document.getElementById('totalTDS').textContent = fmt(totalTDS);
-  document.getElementById('totalTCS').textContent = fmt(totalTCS);
-  document.getElementById('tdsPayable').textContent = fmt(totalTDS);
-  document.getElementById('tdstcsList').innerHTML = DB.tdstcs.length ? DB.tdstcs.slice().reverse().map(t=>`
-    <tr><td>${t.date}</td>
-    <td><span class="badge ${t.type==='TDS'?'warning':'success'}">${t.type}</span></td>
-    <td>${t.party}</td><td>${t.pan}</td>
-    <td class="text-right">${fmt(t.base)}</td>
-    <td class="text-right"><strong>${fmt(t.tax)}</strong></td>
-    <td><span class="badge success">${t.status}</span></td></tr>
-  `).join('') : '<tr><td colspan="7" class="empty">No TDS/TCS transactions yet. Create invoices above ₹50L to auto-generate.</td></tr>';
+  const totalTDS = DB.tdstcs.filter(t=>t.type==='TDS').reduce((s,t)=>s+t.tax,0);
+  const totalTCS = DB.tdstcs.filter(t=>t.type==='TCS').reduce((s,t)=>s+t.tax,0);
+  document.getElementById('page-tdstcs').innerHTML = `
+    <div class="alert alert-info">📌 TDS u/s 194Q: 0.1% on purchase > ₹50L | TCS u/s 206C(1H): 0.1% on sale > ₹50L</div>
+    <div class="stats-grid">
+      <div class="stat-card warning"><h3>Total TDS</h3><div class="value">${fmt(totalTDS)}</div></div>
+      <div class="stat-card success"><h3>Total TCS</h3><div class="value">${fmt(totalTCS)}</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">TDS/TCS Transactions</div>
+      <table><thead><tr><th>Date</th><th>Type</th><th>Party</th><th>PAN</th><th class="text-right">Base</th><th class="text-right">Tax</th></tr></thead>
+      <tbody>${DB.tdstcs.length ? DB.tdstcs.slice().reverse().map(t=>`
+        <tr><td>${t.date}</td><td><span class="badge ${t.type==='TDS'?'warning':'success'}">${t.type}</span></td>
+        <td>${t.party}</td><td>${t.pan}</td>
+        <td class="text-right">${fmt(t.base)}</td><td class="text-right"><strong>${fmt(t.tax)}</strong></td></tr>
+      `).join('') : '<tr><td colspan="6" class="empty">No TDS/TCS transactions</td></tr>'}</tbody></table>
+    </div>
+  `;
 }
 
-/* ============ LEDGER ============ */
+/* ============ ADMIN: LEDGER ============ */
 function renderLedger(){
-  document.getElementById('ledgerList').innerHTML = DB.ledger.length ? DB.ledger.slice().reverse().map(l=>`
-    <tr><td>${l.date}</td><td>${l.voucher}</td>
-    <td><strong>${l.account}</strong></td><td>${l.particulars}</td>
-    <td class="text-right">${l.debit?fmt(l.debit):'-'}</td>
-    <td class="text-right">${l.credit?fmt(l.credit):'-'}</td></tr>
-  `).join('') : '<tr><td colspan="6" class="empty">No ledger entries yet. Create invoices to populate.</td></tr>';
+  document.getElementById('page-ledger').innerHTML = `
+    <div class="card">
+      <div class="card-title">General Ledger <span class="badge">Ind AS</span></div>
+      <table><thead><tr><th>Date</th><th>Voucher</th><th>Account</th><th>Particulars</th><th class="text-right">Debit</th><th class="text-right">Credit</th></tr></thead>
+      <tbody>${DB.ledger.length ? DB.ledger.slice().reverse().map(l=>`
+        <tr><td>${l.date}</td><td>${l.voucher}</td><td><strong>${l.account}</strong></td><td>${l.particulars}</td>
+        <td class="text-right">${l.debit?fmt(l.debit):'-'}</td><td class="text-right">${l.credit?fmt(l.credit):'-'}</td></tr>
+      `).join('') : '<tr><td colspan="6" class="empty">No entries yet</td></tr>'}</tbody></table>
+    </div>
+  `;
 }
 
-/* ============ DEALERS ============ */
-function renderDealers(search=''){
-  const list = DB.dealers.filter(d=> !search || d.name.toLowerCase().includes(search.toLowerCase()) || d.gstin.toLowerCase().includes(search.toLowerCase()));
-  document.getElementById('dealerList').innerHTML = list.length ? list.map(d=>`
-    <tr><td><strong>${d.name}</strong><br><small style="color:var(--muted)">${d.phone}</small></td>
-    <td>${d.gstin}</td><td>${d.state}</td>
-    <td><button class="btn btn-danger btn-sm" onclick="deleteDealer(${d.id})">🗑️</button></td></tr>
-  `).join('') : '<tr><td colspan="4" class="empty">No dealers added</td></tr>';
+/* ============ ADMIN: DEALERS ============ */
+function renderDealers(){
+  document.getElementById('page-dealers').innerHTML = `
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Add New Dealer</div>
+        <div class="form-group"><label>Dealer Name</label><input type="text" class="form-control" id="dName"></div>
+        <div class="form-group"><label>GSTIN</label><input type="text" class="form-control" id="dGstin" style="text-transform:uppercase"></div>
+        <div class="form-row">
+          <div class="form-group"><label>PAN</label><input type="text" class="form-control" id="dPan" style="text-transform:uppercase"></div>
+          <div class="form-group"><label>State</label><input type="text" class="form-control" id="dState"></div>
+        </div>
+        <div class="form-group"><label>Phone</label><input type="text" class="form-control" id="dPhone"></div>
+        <div class="form-group"><label>Email</label><input type="email" class="form-control" id="dEmail"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Dealer Code</label><input type="text" class="form-control" id="dCode" style="text-transform:uppercase" placeholder="e.g., ABCD01"></div>
+          <div class="form-group"><label>Password</label><input type="text" class="form-control" id="dPass" value="dealer123"></div>
+        </div>
+        <button class="btn btn-success btn-block" onclick="addDealer()">➕ Add Dealer</button>
+      </div>
+      <div class="card">
+        <div class="card-title">Dealer Directory</div>
+        <table><thead><tr><th>Name</th><th>Code</th><th>GSTIN</th><th>Action</th></tr></thead>
+        <tbody>${DB.dealers.map(d=>`
+          <tr><td><strong>${d.name}</strong><br><small style="color:var(--muted)">${d.phone||''}</small></td>
+          <td><code>${d.dealerCode}</code></td><td>${d.gstin}</td>
+          <td><button class="btn btn-danger btn-sm" onclick="deleteDealer(${d.id})">🗑️</button></td></tr>
+        `).join('')}</tbody></table>
+      </div>
+    </div>
+  `;
 }
 function addDealer(){
-  const name = document.getElementById('dName').value.trim();
-  const gstin = document.getElementById('dGstin').value.trim().toUpperCase();
-  const pan = document.getElementById('dPan').value.trim().toUpperCase();
-  const state = document.getElementById('dState').value.trim();
-  const phone = document.getElementById('dPhone').value.trim();
-  if(!name || !gstin){ toast('Name and GSTIN required','error'); return; }
-  if(gstin.length !== 15){ toast('GSTIN must be 15 characters','error'); return; }
-  DB.dealers.push({id:Date.now(),name,gstin,pan,state,phone});
-  save(); renderDealers();
-  ['dName','dGstin','dPan','dState','dPhone'].forEach(id=>document.getElementById(id).value='');
-  toast('✅ Dealer added successfully');
+  const name=document.getElementById('dName').value.trim();
+  const gstin=document.getElementById('dGstin').value.trim().toUpperCase();
+  const pan=document.getElementById('dPan').value.trim().toUpperCase();
+  const state=document.getElementById('dState').value.trim();
+  const phone=document.getElementById('dPhone').value.trim();
+  const email=document.getElementById('dEmail').value.trim();
+  const code=document.getElementById('dCode').value.trim().toUpperCase();
+  const pass=document.getElementById('dPass').value.trim();
+  if(!name||!gstin||!code){toast('Name, GSTIN and Code required','error');return;}
+  if(gstin.length!==15){toast('GSTIN must be 15 chars','error');return;}
+  if(DB.dealers.some(d=>d.dealerCode===code)){toast('Dealer code exists','error');return;}
+  DB.dealers.push({id:Date.now(),name,gstin,pan,state,phone,email,dealerCode:code,password:pass});
+  save(); renderDealers(); toast('✅ Dealer added');
 }
 function deleteDealer(id){
-  if(!confirm('Delete this dealer?')) return;
-  DB.dealers = DB.dealers.filter(d=>d.id!==id);
+  if(!confirm('Delete dealer?'))return;
+  DB.dealers=DB.dealers.filter(d=>d.id!==id);
   save(); renderDealers(); toast('Dealer deleted');
 }
 
-/* ============ INVENTORY ============ */
+/* ============ ADMIN: INVENTORY ============ */
 function renderInventory(){
-  document.getElementById('inventoryList').innerHTML = DB.inventory.length ? DB.inventory.map(i=>`
-    <tr><td><strong>${i.name}</strong></td><td>${i.hsn}</td><td>${i.gst}%</td>
-    <td class="text-right">${fmt(i.rate)}</td>
-    <td class="text-right"><span class="badge ${i.stock<50?'danger':'success'}">${i.stock}</span></td>
-    <td><button class="btn btn-danger btn-sm" onclick="deleteItem(${i.id})">🗑️</button></td></tr>
-  `).join('') : '<tr><td colspan="6" class="empty">No items in inventory</td></tr>';
+  document.getElementById('page-inventory').innerHTML = `
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Add Item</div>
+        <div class="form-group"><label>Item Name</label><input type="text" class="form-control" id="iName"></div>
+        <div class="form-row">
+          <div class="form-group"><label>HSN</label><input type="text" class="form-control" id="iHsn"></div>
+          <div class="form-group"><label>GST %</label>
+            <select class="form-control" id="iGst"><option>5</option><option>12</option><option selected>18</option><option>28</option></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Rate (₹)</label><input type="number" class="form-control" id="iRate" value="1000"></div>
+          <div class="form-group"><label>Stock</label><input type="number" class="form-control" id="iStock" value="100"></div>
+        </div>
+        <button class="btn btn-success btn-block" onclick="addItem()">➕ Add Item</button>
+      </div>
+      <div class="card">
+        <div class="card-title">Inventory</div>
+        <table><thead><tr><th>Item</th><th>HSN</th><th class="text-right">Rate</th><th class="text-right">Stock</th><th>Action</th></tr></thead>
+        <tbody>${DB.inventory.map(i=>`
+          <tr><td><strong>${i.name}</strong></td><td>${i.hsn}</td>
+          <td class="text-right">${fmt(i.rate)}</td>
+          <td class="text-right"><span class="badge ${i.stock<50?'danger':'success'}">${i.stock}</span></td>
+          <td><button class="btn btn-danger btn-sm" onclick="deleteItem(${i.id})">🗑️</button></td></tr>
+        `).join('')}</tbody></table>
+      </div>
+    </div>
+  `;
 }
 function addItem(){
-  const name = document.getElementById('iName').value.trim();
-  const hsn = document.getElementById('iHsn').value.trim();
-  const gst = parseInt(document.getElementById('iGst').value);
-  const rate = parseFloat(document.getElementById('iRate').value);
-  const stock = parseInt(document.getElementById('iStock').value);
-  if(!name || !hsn){ toast('Name and HSN required','error'); return; }
+  const name=document.getElementById('iName').value.trim();
+  const hsn=document.getElementById('iHsn').value.trim();
+  const gst=parseInt(document.getElementById('iGst').value);
+  const rate=parseFloat(document.getElementById('iRate').value);
+  const stock=parseInt(document.getElementById('iStock').value);
+  if(!name||!hsn){toast('Name and HSN required','error');return;}
   DB.inventory.push({id:Date.now(),name,hsn,gst,rate,stock});
-  save(); renderInventory();
-  ['iName','iHsn'].forEach(id=>document.getElementById(id).value='');
-  toast('✅ Item added to inventory');
+  save(); renderInventory(); toast('✅ Item added');
 }
 function deleteItem(id){
-  if(!confirm('Delete this item?')) return;
-  DB.inventory = DB.inventory.filter(i=>i.id!==id);
-  save(); renderInventory(); toast('Item deleted');
+  if(!confirm('Delete item?'))return;
+  DB.inventory=DB.inventory.filter(i=>i.id!==id);
+  save(); renderInventory(); toast('Deleted');
 }
 
-/* ============ SETTINGS ============ */
+/* ============ ADMIN: SETTINGS ============ */
 function loadSettings(){
-  document.getElementById('sCompany').value = DB.settings.company;
-  document.getElementById('sGstin').value = DB.settings.gstin;
-  document.getElementById('sPan').value = DB.settings.pan;
-  document.getElementById('sState').value = DB.settings.state;
-  document.getElementById('sStateCode').value = DB.settings.stateCode;
-  document.getElementById('sFY').value = DB.settings.fy;
-  document.getElementById('sAddress').value = DB.settings.address;
+  const s = DB.settings;
+  document.getElementById('page-settings').innerHTML = `
+    <div class="card">
+      <div class="card-title">Company Profile</div>
+      <div class="form-row">
+        <div class="form-group"><label>Company Name</label><input type="text" class="form-control" id="sCompany" value="${s.company}"></div>
+        <div class="form-group"><label>GSTIN</label><input type="text" class="form-control" id="sGstin" value="${s.gstin}" style="text-transform:uppercase"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>PAN</label><input type="text" class="form-control" id="sPan" value="${s.pan}" style="text-transform:uppercase"></div>
+        <div class="form-group"><label>State</label><input type="text" class="form-control" id="sState" value="${s.state}"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Financial Year</label>
+          <select class="form-control" id="sFY"><option ${s.fy==='2025-26'?'selected':''}>2025-26</option><option ${s.fy==='2026-27'?'selected':''}>2026-27</option><option ${s.fy==='2027-28'?'selected':''}>2027-28</option></select>
+        </div>
+        <div class="form-group"><label>State Code</label><input type="text" class="form-control" id="sStateCode" value="${s.stateCode}" maxlength="2"></div>
+      </div>
+      <div class="form-group"><label>Address</label><textarea class="form-control" id="sAddress" rows="2">${s.address}</textarea></div>
+      <button class="btn btn-primary" onclick="saveSettings()">💾 Save Settings</button>
+    </div>
+  `;
 }
 function saveSettings(){
-  DB.settings.company = document.getElementById('sCompany').value;
-  DB.settings.gstin = document.getElementById('sGstin').value.toUpperCase();
-  DB.settings.pan = document.getElementById('sPan').value.toUpperCase();
-  DB.settings.state = document.getElementById('sState').value;
-  DB.settings.stateCode = document.getElementById('sStateCode').value;
-  DB.settings.fy = document.getElementById('sFY').value;
-  DB.settings.address = document.getElementById('sAddress').value;
+  DB.settings.company=document.getElementById('sCompany').value;
+  DB.settings.gstin=document.getElementById('sGstin').value.toUpperCase();
+  DB.settings.pan=document.getElementById('sPan').value.toUpperCase();
+  DB.settings.state=document.getElementById('sState').value;
+  DB.settings.stateCode=document.getElementById('sStateCode').value;
+  DB.settings.fy=document.getElementById('sFY').value;
+  DB.settings.address=document.getElementById('sAddress').value;
+  save(); toast('✅ Settings saved');
+}
+
+/* ============ DEALER: DASHBOARD ============ */
+function renderDealerDashboard(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const myOrders = DB.orders.filter(o=>o.dealerId===d.id);
+  const myInvoices = DB.invoices.filter(i=>i.dealerId===d.id);
+  const pending = myOrders.filter(o=>o.status==='pending').length;
+  const approved = myOrders.filter(o=>o.status==='approved').length;
+  const totalSpent = myInvoices.reduce((s,i)=>s+i.total,0);
+  const totalOrdered = myOrders.reduce((s,o)=>s+o.total,0);
+  
+  document.getElementById('page-d-dashboard').innerHTML = `
+    <div class="alert alert-success">👋 Welcome back, <strong>${d.name}</strong>! Your GSTIN: ${d.gstin}</div>
+    <div class="stats-grid">
+      <div class="stat-card warning"><h3>Pending Orders</h3><div class="value">${pending}</div><div class="sub">Awaiting approval</div></div>
+      <div class="stat-card success"><h3>Approved Orders</h3><div class="value">${approved}</div><div class="sub">Ready for dispatch</div></div>
+      <div class="stat-card"><h3>Total Orders</h3><div class="value">${myOrders.length}</div><div class="sub">All time</div></div>
+      <div class="stat-card info"><h3>Total Spend</h3><div class="value">${fmt(totalSpent)}</div><div class="sub">Invoiced value</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Quick Actions</div>
+        <button class="btn btn-primary btn-block" onclick="navigateTo('d-place-order')" style="margin-bottom:10px">📝 Place New Order</button>
+        <button class="btn btn-outline btn-block" onclick="navigateTo('d-my-orders')">📦 View My Orders</button>
+      </div>
+      <div class="card">
+        <div class="card-title">Recent Orders</div>
+        ${myOrders.length ? myOrders.slice(-5).reverse().map(o=>`
+          <div style="padding:10px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+            <div><strong style="font-size:13px">${o.orderNo}</strong><br><small style="color:var(--muted)">${o.date}</small></div>
+            <div style="text-align:right"><div style="font-weight:700;font-size:13px">${fmt(o.total)}</div>
+            <span class="badge ${o.status==='pending'?'warning':o.status==='approved'?'success':o.status==='rejected'?'danger':'info'}">${o.status}</span></div>
+          </div>
+        `).join('') : '<div class="empty">No orders yet</div>'}
+      </div>
+    </div>
+  `;
+}
+
+/* ============ DEALER: PLACE ORDER ============ */
+let orderItems = [];
+function renderPlaceOrder(){
+  orderItems = [];
+  document.getElementById('page-d-place-order').innerHTML = `
+    <div class="alert alert-info">📌 Select items and quantities. Your order will be sent to admin for approval. Invoice will be generated upon approval with applicable GST.</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Order Items</div>
+        <div id="orderItemsList"></div>
+        <button class="btn btn-outline" onclick="addOrderItem()" style="margin-top:10px">➕ Add Item</button>
+        <div class="form-group" style="margin-top:14px">
+          <label>Order Notes (Optional)</label>
+          <textarea class="form-control" id="orderNotes" placeholder="Special instructions, delivery address, etc."></textarea>
+        </div>
+        <button class="btn btn-primary btn-block" onclick="submitOrder()">📤 Submit Order for Approval</button>
+      </div>
+      <div class="card">
+        <div class="card-title">Order Summary <span class="badge success">Live</span></div>
+        <div id="orderSummary"><div class="empty">Add items to see summary</div></div>
+      </div>
+    </div>
+  `;
+  addOrderItem();
+}
+
+function addOrderItem(){
+  orderItems.push({itemId:'',qty:1});
+  renderOrderItems();
+}
+
+function removeOrderItem(idx){
+  orderItems.splice(idx,1);
+  renderOrderItems();
+}
+
+function updateOrderItem(idx,field,val){
+  orderItems[idx][field] = field==='qty' ? parseInt(val)||0 : val;
+  renderOrderSummary();
+}
+
+function renderOrderItems(){
+  const el = document.getElementById('orderItemsList');
+  if(!el) return;
+  if(!orderItems.length){ el.innerHTML='<div class="empty">No items added</div>'; renderOrderSummary(); return; }
+  el.innerHTML = orderItems.map((it,idx)=>{
+    const item = DB.inventory.find(x=>x.id==it.itemId);
+    return `<div class="order-item-row">
+      <div><label style="font-size:11px;color:var(--muted)">Item</label>
+        <select class="form-control" onchange="updateOrderItem(${idx},'itemId',this.value)">
+          <option value="">-- Select --</option>
+          ${DB.inventory.map(i=>`<option value="${i.id}" ${it.itemId==i.id?'selected':''}>${i.name} (Stock: ${i.stock})</option>`).join('')}
+        </select>
+      </div>
+      <div><label style="font-size:11px;color:var(--muted)">HSN</label>
+        <input type="text" class="form-control" value="${item?.hsn||'-'}" readonly>
+      </div>
+      <div><label style="font-size:11px;color:var(--muted)">Qty</label>
+        <input type="number" class="form-control" value="${it.qty}" min="1" onchange="updateOrderItem(${idx},'qty',this.value)">
+      </div>
+      <div><label style="font-size:11px;color:var(--muted)">Amount</label>
+        <input type="text" class="form-control" value="${item?fmt(item.rate*it.qty):'-'}" readonly>
+      </div>
+      <button class="remove-item" onclick="removeOrderItem(${idx})">✕</button>
+    </div>`;
+  }).join('');
+  renderOrderSummary();
+}
+
+function renderOrderSummary(){
+  const el = document.getElementById('orderSummary');
+  if(!el) return;
+  const validItems = orderItems.filter(it=>it.itemId && it.qty>0).map(it=>{
+    const item = DB.inventory.find(x=>x.id==it.itemId);
+    return {...item, qty:it.qty, amount:item.rate*it.qty};
+  });
+  if(!validItems.length){ el.innerHTML='<div class="empty">Add items to see summary</div>'; return; }
+  
+  const subtotal = validItems.reduce((s,i)=>s+i.amount,0);
+  const gstRate = validItems[0].gst;
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const buyerState = d?.gstin.substring(0,2)||'';
+  const isInter = buyerState && buyerState !== DB.settings.stateCode;
+  let cgst=0,sgst=0,igst=0;
+  if(isInter) igst=(subtotal*gstRate)/100; else { cgst=(subtotal*gstRate/2)/100; sgst=(subtotal*gstRate/2)/100; }
+  const est = subtotal+cgst+sgst+igst;
+  
+  el.innerHTML = `
+    <table>
+      <tr><td>Items</td><td class="text-right">${validItems.length}</td></tr>
+      <tr><td>Subtotal</td><td class="text-right">${fmt(subtotal)}</td></tr>
+      ${isInter ? `<tr><td>IGST (${gstRate}%)</td><td class="text-right">${fmt(igst)}</td></tr>` :
+        `<tr><td>CGST (${gstRate/2}%)</td><td class="text-right">${fmt(cgst)}</td></tr>
+         <tr><td>SGST (${gstRate/2}%)</td><td class="text-right">${fmt(sgst)}</td></tr>`}
+      <tr class="total-row"><td>Estimated Total</td><td class="text-right">${fmt(est)}</td></tr>
+    </table>
+    <div style="margin-top:14px;padding:10px;background:#eff6ff;border-radius:6px;font-size:11px;color:#1e40af">
+      ℹ️ Final GST calculated based on your GSTIN state. TCS may apply if order exceeds ₹50 Lakhs.
+    </div>
+  `;
+}
+
+function submitOrder(){
+  const validItems = orderItems.filter(it=>it.itemId && it.qty>0);
+  if(!validItems.length){ toast('Add at least one item','error'); return; }
+  
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const items = validItems.map(it=>{
+    const item = DB.inventory.find(x=>x.id==it.itemId);
+    if(item.stock < it.qty){ toast(`Insufficient stock for ${item.name}`,'error'); throw new Error(); }
+    return {itemId:item.id, name:item.name, hsn:item.hsn, gst:item.gst, qty:it.qty, rate:item.rate, amount:item.rate*it.qty};
+  }).catch(()=>null);
+  if(!items) return;
+  
+  const subtotal = items.reduce((s,i)=>s+i.amount,0);
+  const gstRate = items[0].gst;
+  const buyerState = d?.gstin.substring(0,2)||'';
+  const isInter = buyerState && buyerState !== DB.settings.stateCode;
+  let cgst=0,sgst=0,igst=0,tcs=0;
+  if(isInter) igst=(subtotal*gstRate)/100; else { cgst=(subtotal*gstRate/2)/100; sgst=(subtotal*gstRate/2)/100; }
+  if(subtotal>=500000) tcs=(subtotal*0.1)/100;
+  const total = subtotal+cgst+sgst+igst+tcs;
+  
+  const orderNo = 'ORD-' + new Date().getFullYear() + '-' + String(DB.orders.length+1).padStart(4,'0');
+  const order = {
+    id:Date.now(), orderNo, dealerId:d.id, dealerName:d.name,
+    date:today(), time:new Date().toLocaleTimeString('en-IN'),
+    items, subtotal, cgst, sgst, igst, tcs, total, gstRate,
+    status:'pending', notes:document.getElementById('orderNotes')?.value||''
+  };
+  DB.orders.push(order);
   save();
-  document.getElementById('pageSubtitle').textContent = `Financial Year: ${DB.settings.fy} | GSTIN: ${DB.settings.gstin}`;
-  toast('✅ Settings saved successfully');
+  toast(`✅ Order ${orderNo} submitted for approval!`);
+  navigateTo('d-my-orders');
+}
+
+/* ============ DEALER: MY ORDERS ============ */
+function renderMyOrders(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const myOrders = DB.orders.filter(o=>o.dealerId===d.id).reverse();
+  document.getElementById('page-d-my-orders').innerHTML = `
+    <div class="card">
+      <div class="card-title">My Orders <span class="badge">${myOrders.length}</span></div>
+      ${myOrders.length ? myOrders.map(o=>renderOrderCard(o,false)).join('') : '<div class="empty">No orders placed yet. <a href="#" onclick="navigateTo(\'d-place-order\');return false;" style="color:var(--primary)">Place your first order →</a></div>'}
+    </div>
+  `;
+}
+
+/* ============ DEALER: MY INVOICES ============ */
+function renderMyInvoices(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const myInv = DB.invoices.filter(i=>i.dealerId===d.id).reverse();
+  document.getElementById('page-d-my-invoices').innerHTML = `
+    <div class="card">
+      <div class="card-title">My Invoices <span class="badge success">${myInv.length}</span></div>
+      <table><thead><tr><th>Inv No.</th><th>Date</th><th>Items</th><th class="text-right">Taxable</th><th class="text-right">GST</th><th class="text-right">Total</th><th>Status</th></tr></thead>
+      <tbody>${myInv.length ? myInv.map(i=>`
+        <tr><td><strong>${i.invNo}</strong></td><td>${i.date}</td><td>${i.itemName.substring(0,30)}${i.itemName.length>30?'...':''}</td>
+        <td class="text-right">${fmt(i.taxable)}</td>
+        <td class="text-right">${fmt(i.cgst+i.sgst+i.igst)}</td>
+        <td class="text-right"><strong>${fmt(i.total)}</strong></td>
+        <td><span class="badge success">${i.status}</span></td></tr>
+      `).join('') : '<tr><td colspan="7" class="empty">No invoices yet</td></tr>'}</tbody></table>
+    </div>
+  `;
+}
+
+/* ============ DEALER: PROFILE ============ */
+function renderDealerProfile(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  document.getElementById('page-d-profile').innerHTML = `
+    <div class="card">
+      <div class="card-title">My Profile</div>
+      <table>
+        <tr><td><strong>Dealer Name</strong></td><td>${d.name}</td></tr>
+        <tr><td><strong>Dealer Code</strong></td><td><code>${d.dealerCode}</code></td></tr>
+        <tr><td><strong>GSTIN</strong></td><td>${d.gstin}</td></tr>
+        <tr><td><strong>PAN</strong></td><td>${d.pan||'-'}</td></tr>
+        <tr><td><strong>State</strong></td><td>${d.state||'-'}</td></tr>
+        <tr><td><strong>Phone</strong></td><td>${d.phone||'-'}</td></tr>
+        <tr><td><strong>Email</strong></td><td>${d.email||'-'}</td></tr>
+      </table>
+      <div class="alert alert-info" style="margin-top:14px">ℹ️ Contact admin to update profile details or change password.</div>
+    </div>
+  `;
 }
 
 /* ============ INIT ============ */
-function initAll(){
-  renderDashboard();
-  renderInvoicePage();
-  renderDealers();
-  renderInventory();
-  loadSettings();
-}
-
-// Auto-login if session exists
 if(DB.user){ showApp(); }
-
-// Enter key on login
-document.getElementById('loginPass').addEventListener('keypress', e=>{ if(e.key==='Enter') doLogin(); });
-document.getElementById('loginUser').addEventListener('keypress', e=>{ if(e.key==='Enter') doLogin(); });
+document.getElementById('adminPass').addEventListener('keypress',e=>{if(e.key==='Enter')doAdminLogin();});
+document.getElementById('dealerPass').addEventListener('keypress',e=>{if(e.key==='Enter')doDealerLogin();});
 </script>
 </body>
 </html>
