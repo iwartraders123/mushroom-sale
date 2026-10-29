@@ -1,135 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DealerConnect</title>
-<style>
-:root{--bg:#f3f5f9;--cd:#fff;--tx:#14213d;--mu:#6b7690;--bd:#e3e8f0;--pr:#2457d6;--pl:#e8effd;--ok:#0b7a43;--bad:#c62828;--wn:#a86400;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1420;--cd:#18202f;--tx:#e8ecf4;--mu:#93a0b8;--bd:#2a3448;--pr:#6b95ff;--pl:#1f2c4a}}
-:root[data-theme="dark"]{--bg:#0e1420;--cd:#18202f;--tx:#e8ecf4;--mu:#93a0b8;--bd:#2a3448;--pr:#6b95ff;--pl:#1f2c4a}
-*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-button,input,select,textarea{font:inherit;color:inherit}
-#app{display:flex;min-height:100vh}
-aside{display:none;width:220px;background:var(--cd);border-right:1px solid var(--bd);padding:16px;position:sticky;top:0;height:100vh;flex-direction:column;gap:3px}
-aside h1{font-size:18px;color:var(--pr);margin:0 0 4px}
-.nv{border:0;background:none;text-align:left;padding:10px 12px;border-radius:10px;cursor:pointer;color:var(--mu);width:100%}
-.nv.on,.nv:hover{background:var(--pl);color:var(--tx)}
-main{flex:1;min-width:0;padding:16px 14px 90px;max-width:1100px;margin:0 auto;width:100%}
-nav.bot{position:fixed;left:0;right:0;bottom:0;background:var(--cd);border-top:1px solid var(--bd);display:flex;overflow-x:auto;padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
-nav.bot button{flex:1 0 64px;border:0;background:none;padding:10px 4px;color:var(--mu);font-size:12px;cursor:pointer}
-nav.bot button.on{color:var(--pr);font-weight:700}
-@media(min-width:800px){aside{display:flex}nav.bot{display:none}main{padding:24px 24px 30px}}
-h2{margin:2px 0 14px;font-size:22px}h3{margin:0 0 8px;font-size:16px}
-.cd{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:14px}
-.st{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:12px}.st b{font-size:22px;display:block}.st small{color:var(--mu)}
-.btn{background:var(--pr);color:#fff;border:0;border-radius:10px;padding:10px 16px;font-weight:600;cursor:pointer;min-height:42px}
-.btn.s{background:transparent;color:var(--pr);border:1px solid var(--pr)}.btn.r{background:var(--bad)}.btn.sm{min-height:34px;padding:5px 10px;font-size:13px}
-input,select,textarea{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:10px;min-height:42px}
-label{display:block;font-size:13px;color:var(--mu);margin:10px 0 4px}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:1;min-width:130px}.row>.btn{flex:none}
-.it{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--bd);flex-wrap:wrap}.it:last-child{border:0}
-.mu{color:var(--mu);font-size:13px}.pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600;background:var(--bd)}
-.Approved,.Delivered,.Resolved,.Active{background:#d7f5e0;color:var(--ok)}.Rejected,.Cancelled,.Suspended{background:#fde0de;color:var(--bad)}.Submitted,.Review{background:#fff1cc;color:var(--wn)}
-.demo{background:#fff1cc;color:#6b4500;border-radius:10px;padding:8px 12px;font-size:13px;margin-bottom:14px}
-.sw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:8px;border-bottom:1px solid var(--bd);text-align:left;white-space:nowrap}.n{text-align:right}
-#toast{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:var(--pr);color:#fff;padding:10px 18px;border-radius:12px;z-index:20;display:none;max-width:90%}
-.login{max-width:400px;margin:8vh auto;padding:16px}
-@media print{aside,nav.bot,.demo,.np{display:none!important}body{background:#fff;color:#000}.cd{border:0}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DealerConnect | Indian Accounting & GST Portal</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-body: #f3f4f6;
+            --bg-card: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); display: flex; min-height: 100vh; }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px; background: #0f172a; color: white; padding: 24px 0;
+            display: flex; flex-direction: column; position: fixed; height: 100vh;
+            transition: transform 0.3s ease;
+        }
+        .logo { padding: 0 24px 32px; font-size: 22px; font-weight: 700; border-bottom: 1px solid #334155; display: flex; align-items: center; gap: 10px;}
+        .logo span { color: var(--primary); }
+        .nav-menu { list-style: none; margin-top: 20px; flex: 1; }
+        .nav-menu li a {
+            display: flex; align-items: center; gap: 12px; padding: 12px 24px;
+            color: #94a3b8; text-decoration: none; font-size: 15px; transition: 0.2s;
+        }
+        .nav-menu li a:hover, .nav-menu li a.active { background: #1e293b; color: white; border-right: 3px solid var(--primary); }
+        .nav-icon { width: 20px; height: 20px; }
+
+        /* Main Content */
+        .main-content { flex: 1; margin-left: 260px; padding: 24px; }
+        
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+        .header h1 { font-size: 26px; font-weight: 700; }
+        .header p { color: var(--text-muted); font-size: 14px; }
+        .user-profile { display: flex; align-items: center; gap: 12px; background: white; padding: 8px 16px; border-radius: 50px; box-shadow: var(--shadow); }
+        .avatar { width: 36px; height: 36px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+
+        /* Stats Cards */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 32px; }
+        .stat-card {
+            background: var(--bg-card); padding: 24px; border-radius: 12px; box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+        }
+        .stat-card.success { border-left-color: var(--success); }
+        .stat-card.warning { border-left-color: var(--warning); }
+        .stat-card.danger { border-left-color: var(--danger); }
+        .stat-card h3 { font-size: 14px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-card .value { font-size: 28px; font-weight: 700; margin-top: 8px; }
+        .stat-card .sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+        /* Invoice Section */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .card { background: var(--bg-card); border-radius: 12px; box-shadow: var(--shadow); padding: 24px; }
+        .card-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .badge { font-size: 11px; padding: 4px 8px; background: #dbeafe; color: var(--primary); border-radius: 20px; font-weight: 600;}
+
+        /* Form Elements */
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text-main); }
+        .form-control {
+            width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px;
+            font-size: 14px; transition: 0.2s; background: #f9fafb;
+        }
+        .form-control:focus { outline: none; border-color: var(--primary); background: white; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        
+        .btn {
+            padding: 10px 20px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;
+            font-size: 14px; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-main); }
+
+        /* Tax Breakdown Table */
+        .tax-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+        .tax-table th, .tax-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
+        .tax-table th { background: #f8fafc; font-weight: 600; color: var(--text-muted); font-size: 12px; text-transform: uppercase; }
+        .tax-table .total-row { font-weight: 700; font-size: 16px; background: #f0fdf4; color: #065f46; }
+        
+        .alert {
+            padding: 12px 16px; border-radius: 8px; font-size: 13px; margin-bottom: 16px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .alert-info { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+        .alert-warning { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); z-index: 100; }
+            .sidebar.active { transform: translateX(0); }
+            .main-content { margin-left: 0; }
+        }
+    </style>
 </head>
 <body>
-<div id="toast" role="status" aria-live="polite"></div>
-<div id="root"></div>
-<script>
-var $=function(s){return document.querySelector(s)};
-var esc=function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
-var inr=function(n){return"₹"+Number(n).toLocaleString("en-IN")};
-var TAX=18;
-var S={me:null,view:"",cart:{},sel:1,q:"",nid:100,
-dealers:[{id:1,code:"DLR-001",name:"Mehta Traders",city:"Cuttack",limit:100000,status:"Active"},{id:2,code:"DLR-002",name:"Das & Co",city:"Bhubaneswar",limit:60000,status:"Active"},{id:3,code:"DLR-003",name:"Khan Foods",city:"Puri",limit:40000,status:"Suspended"},{id:4,code:"DLR-004",name:"Rao Textiles",city:"Berhampur",limit:80000,status:"Active"}],
-cf:"",cats:[{id:1,name:"Mushroom",desc:"Fresh and dried mushroom varieties"}],products:[{id:1,sku:"MSH-101",name:"Button Mushroom 10kg box",cat:"Mushroom",price:1450},{id:2,sku:"MSH-102",name:"Oyster Mushroom 10kg box",cat:"Mushroom",price:2100},{id:3,sku:"MSH-103",name:"Milky Mushroom 10kg box",cat:"Mushroom",price:3800},{id:4,sku:"MSH-104",name:"Shiitake Mushroom 5kg box",cat:"Mushroom",price:2750},{id:5,sku:"MSH-201",name:"Dried Mushroom 5kg pack",cat:"Mushroom",price:4200},{id:6,sku:"MSH-301",name:"Mushroom Spawn Bag",cat:"Mushroom",price:640}],
-orders:[{no:"ORD-0001",dealer:1,date:"2026-10-03",items:[[1,10],[2,5]],status:"Approved",hist:["Submitted","Approved"]},{no:"ORD-0002",dealer:2,date:"2026-10-12",items:[[3,4]],status:"Approved",hist:["Submitted","Approved"]},{no:"ORD-0003",dealer:1,date:"2026-10-27",items:[[5,3]],status:"Submitted",hist:["Submitted"]},{no:"ORD-0004",dealer:4,date:"2026-10-28",items:[[4,6],[6,10]],status:"Submitted",hist:["Submitted"]}],
-v:[{id:1,dealer:1,date:"2026-10-01",type:"Opening",ref:"OB",narr:"Opening balance",dr:5000,cr:0},{id:2,dealer:1,date:"2026-10-03",type:"Invoice",ref:"INV-0001",narr:"Order ORD-0001",dr:29800,cr:0},{id:3,dealer:1,date:"2026-10-08",type:"Receipt",ref:"RCT-0001",narr:"UTR 4421907 (bank)",dr:0,cr:15000},{id:4,dealer:2,date:"2026-10-12",type:"Invoice",ref:"INV-0002",narr:"Order ORD-0002",dr:17936,cr:0},{id:5,dealer:2,date:"2026-10-20",type:"Credit note",ref:"CN-0001",narr:"Damaged goods",dr:0,cr:2000}],
-rq:[{id:"REQ-001",dealer:1,cat:"Payment not reflected",ref:"UTR 5530012",txt:"Paid ₹5,000 on 25 Oct, not showing.",status:"Submitted",reply:""}],
-audit:["Demo data loaded"]};
-function tot(o){var s=0;o.items.forEach(function(i){s+=P(i[0]).price*i[1]});var t=Math.round(s*TAX/100);return{sub:s,tax:t,tot:s+t}}
-function P(id){return S.products.filter(function(p){return p.id===id})[0]}
-function D(id){return S.dealers.filter(function(d){return d.id===id})[0]}
-function bal(id){return S.v.filter(function(x){return x.dealer===id}).reduce(function(a,x){return a+x.dr-x.cr},0)}
-function bs(b){return inr(Math.abs(b))+(b>=0?" Dr":" Cr")}
-function toast(m){var t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(function(){t.style.display="none"},2800)}
-function log(m){S.audit.unshift(new Date().toISOString().slice(0,16).replace("T"," ")+" · "+(S.me?S.me.name:"")+" · "+m)}
-var AN=[["dash","Dashboard"],["dealers","Dealers"],["prod","Products"],["orders","Orders"],["ledger","Dealer Ledgers"],["pay","Payments"],["req","Requests"]];
-var DN=[["dash","Home"],["place","Place Order"],["orders","My Orders"],["ledger","My Ledger"],["pay","Payments"],["req","Requests"],["prof","Profile"]];
-function go(v){S.view=v;render();window.scrollTo(0,0)}
-function render(){
- var r=$("#root");
- if(!S.me){r.innerHTML='<div class="login cd"><h2 style="color:var(--pr)">DealerConnect</h2><div class="demo">Demo with sample data. Pick a role to explore. Not real accounting records.</div><label for="rl">Sign in as</label><select id="rl"><option value="a">Admin</option>'+S.dealers.filter(function(d){return d.status==="Active"}).map(function(d){return'<option value="'+d.id+'">Dealer: '+esc(d.name)+" ("+d.code+")</option>"}).join("")+'</select><label>Password</label><input type="password" value="demo1234" aria-label="Password"><br><br><button class="btn" style="width:100%" data-a="login">Sign in</button></div>';return}
- var N=S.me.role==="a"?AN:DN;if(!S.view)S.view="dash";
- var side=N.map(function(n){return'<button class="nv'+(S.view===n[0]?" on":"")+'" data-a="go" data-v="'+n[0]+'">'+n[1]+"</button>"}).join("");
- r.innerHTML='<div id="app"><aside><h1>DealerConnect</h1><div class="mu" style="margin-bottom:10px">'+esc(S.me.name)+"</div>"+side+'<button class="nv" data-a="out" style="margin-top:auto">Sign out</button></aside><main><div class="demo">Demo mode: sample data. All records shown are fictional.</div>'+(V[S.me.role+S.view]||V[S.me.role+"dash"])()+'</main></div><nav class="bot" aria-label="Main">'+N.map(function(n){return'<button class="'+(S.view===n[0]?"on":"")+'" data-a="go" data-v="'+n[0]+'">'+n[1]+"</button>"}).join("")+'<button data-a="out">Sign out</button></nav>';
-}
-var V={};
-function stat(a){return'<div class="grid">'+a.map(function(s){return'<div class="st"><b>'+s[1]+"</b><small>"+s[0]+"</small></div>"}).join("")+"</div>"}
-function ordList(L,admin){return L.map(function(o){var t=tot(o),d=D(o.dealer);return'<div class="it"><div><b>'+o.no+'</b> <span class="pill '+o.status+'">'+o.status+'</span><div class="mu">'+o.date+(admin?" · "+esc(d.name):"")+" · "+o.items.length+" items · "+inr(t.tot)+'</div><div class="mu">History: '+o.hist.join(" → ")+'</div></div>'+(admin&&o.status==="Submitted"?'<div class="row np"><button class="btn sm" data-a="appr" data-n="'+o.no+'">Approve</button><button class="btn r sm" data-a="rej" data-n="'+o.no+'">Reject</button></div>':"")+"</div>"}).join("")||'<p class="mu">No orders.</p>'}
-V.adash=function(){var out=0,sales=0,rec=0;S.v.forEach(function(x){out+=x.dr-x.cr;if(x.type==="Invoice")sales+=x.dr;if(x.type==="Receipt")rec+=x.cr});
- var max=Math.max.apply(null,S.dealers.map(function(d){return Math.max(bal(d.id),1)}));
- return"<h2>Admin dashboard</h2>"+stat([["Dealers",S.dealers.length],["Active",S.dealers.filter(function(d){return d.status==="Active"}).length],["Pending orders",S.orders.filter(function(o){return o.status==="Submitted"}).length],["Sales (invoiced)",inr(sales)],["Payments received",inr(rec)],["Outstanding",inr(out)],["Open requests",S.rq.filter(function(r){return r.status!=="Resolved"&&r.status!=="Rejected"}).length]])+'<div class="cd"><h3>Outstanding by dealer</h3>'+S.dealers.map(function(d){var b=bal(d.id);return'<div class="mu" style="margin-top:6px">'+esc(d.name)+" · "+bs(b)+'</div><div style="height:10px;background:var(--bd);border-radius:9px"><div style="height:100%;width:'+Math.max(0,b/max*100)+'%;background:var(--pr);border-radius:9px"></div></div>'}).join("")+'</div><div class="cd"><h3>Audit trail</h3>'+S.audit.slice(0,6).map(function(a){return'<div class="mu">'+esc(a)+"</div>"}).join("")+"</div>"};
-V.adealers=function(){return"<h2>Dealers</h2>"+'<div class="cd">'+S.dealers.map(function(d){return'<div class="it"><div><b>'+esc(d.name)+'</b> <span class="pill '+d.status+'">'+d.status+'</span><div class="mu">'+d.code+" · "+esc(d.city)+" · Credit limit "+inr(d.limit)+" · Balance "+bs(bal(d.id))+'</div></div><div class="row"><button class="btn s sm" data-a="tg" data-id="'+d.id+'">'+(d.status==="Active"?"Suspend":"Activate")+'</button><button class="btn s sm" data-a="pw" data-id="'+d.id+'">Reset password</button></div></div>'}).join("")+"</div>"};
-V.aorders=function(){return"<h2>Orders</h2>"+'<div class="cd">'+ordList(S.orders.slice().reverse(),true)+'</div><p class="mu">Approving creates an invoice voucher (Dr dealer, Cr sales and output tax). Rejected and draft orders post nothing.</p>'};
-function ledgerTbl(id){var run=0,L=S.v.filter(function(x){return x.dealer===id}).sort(function(a,b){return a.date<b.date?-1:1});
- var dr=0,cr=0;var rows=L.map(function(x){run+=x.dr-x.cr;dr+=x.dr;cr+=x.cr;return"<tr><td>"+x.date+"</td><td>"+x.ref+"</td><td>"+x.type+"</td><td>"+esc(x.narr)+'</td><td class="n">'+(x.dr?inr(x.dr):"—")+'</td><td class="n">'+(x.cr?inr(x.cr):"—")+'</td><td class="n">'+bs(run)+"</td></tr>"}).join("");
- return'<div class="cd"><h3>Statement: '+esc(D(id).name)+" ("+D(id).code+')</h3><div class="sw"><table><thead><tr><th>Date</th><th>Voucher</th><th>Type</th><th>Narration</th><th class="n">Debit</th><th class="n">Credit</th><th class="n">Balance</th></tr></thead><tbody>'+rows+'</tbody><tfoot><tr><th colspan="4">Totals / closing</th><th class="n">'+inr(dr)+'</th><th class="n">'+inr(cr)+'</th><th class="n">'+bs(run)+'</th></tr></tfoot></table></div><div class="row np" style="margin-top:10px"><button class="btn s sm" data-a="print">Print / save PDF</button><button class="btn s sm" data-a="csv" data-id="'+id+'">Export CSV</button></div><p class="mu">Read-only. Derived from posted vouchers. Corrections are made by reversal or credit/debit note, never by editing entries.</p></div>'}
-V.aledger=function(){return"<h2>Dealer ledgers</h2>"+'<select data-a="seld" aria-label="Dealer" class="np">'+S.dealers.map(function(d){return'<option value="'+d.id+'"'+(S.sel===d.id?" selected":"")+">"+esc(d.name)+"</option>"}).join("")+'</select><br><br>'+ledgerTbl(S.sel)};
-V.apay=function(){return"<h2>Payments</h2>"+'<div class="cd np"><h3>Record verified receipt</h3><div class="row"><select id="pd">'+S.dealers.map(function(d){return'<option value="'+d.id+'">'+esc(d.name)+"</option>"}).join("")+'</select><input id="pa" type="number" min="1" step="1" placeholder="Amount ₹"><select id="pm"><option>Bank transfer (UTR)</option><option>Cheque</option><option>Cash</option></select><input id="pr" placeholder="UTR / cheque ref"><button class="btn" data-a="addpay">Post receipt</button></div></div><div class="cd"><h3>Receipts register</h3>'+(S.v.filter(function(x){return x.type==="Receipt"}).map(function(x){return'<div class="it"><div><b>'+x.ref+"</b> · "+esc(D(x.dealer).name)+'<div class="mu">'+x.date+" · "+esc(x.narr)+"</div></div><b>"+inr(x.cr)+"</b></div>"}).join("")||'<p class="mu">None</p>')+"</div>"};
-V.aprod=function(){return"<h2>Products &amp; categories</h2>"+'<div class="cd"><h3>Create category</h3><div class="row"><input id="cnm" placeholder="Category name" aria-label="Category name"><input id="cds" placeholder="Category details" aria-label="Category details"><button class="btn" data-a="addcat">Create category</button></div></div><div class="cd"><h3>Categories</h3>'+S.cats.map(function(c){var n=S.products.filter(function(p){return p.cat===c.name}).length;return'<div class="it"><div><b>'+esc(c.name)+'</b><div class="mu">'+esc(c.desc||"No details")+" · "+n+' products</div></div><div class="row" style="flex:none"><button class="btn s sm" data-a="editcat" data-id="'+c.id+'">Edit details</button><button class="btn r sm" data-a="delcat" data-id="'+c.id+'"'+(n?" disabled":"")+">Delete</button></div></div>"}).join("")+'</div><div class="cd"><h3>Add product</h3><div class="row"><input id="pnm" placeholder="Product name" aria-label="Product name"><input id="psk" placeholder="SKU" aria-label="SKU"><select id="pct" aria-label="Category">'+S.cats.map(function(c){return"<option>"+esc(c.name)+"</option>"}).join("")+'</select><input id="ppr" type="number" min="1" placeholder="Price ₹" aria-label="Price"><button class="btn" data-a="addprod">Add product</button></div></div><div class="cd"><h3>Catalog</h3>'+S.products.map(function(p){return'<div class="it"><div><b>'+esc(p.name)+'</b><div class="mu">'+esc(p.sku)+" · "+esc(p.cat)+"</div></div><b>"+inr(p.price)+"</b></div>"}).join("")+"</div>"};
-function reqList(L,admin){return L.map(function(r){return'<div class="it" style="align-items:flex-start"><div style="flex:1;min-width:200px"><b>'+r.id+"</b> · "+r.cat+' <span class="pill '+r.status+'">'+r.status+'</span><div class="mu">'+(admin?esc(D(r.dealer).name)+" · ":"")+"Ref: "+esc(r.ref||"—")+"</div><div>"+esc(r.txt)+"</div>"+(r.reply?'<div class="mu">Admin reply: '+esc(r.reply)+"</div>":"")+"</div>"+(admin&&r.status!=="Resolved"&&r.status!=="Rejected"?'<div class="row np"><button class="btn sm" data-a="rrep" data-id="'+r.id+'">Reply &amp; resolve</button><button class="btn r sm" data-a="rrej" data-id="'+r.id+'">Reject</button></div>':"")+"</div>"}).join("")||'<p class="mu">No requests.</p>'}
-V.areq=function(){return"<h2>Dealer requests</h2>"+'<div class="cd">'+reqList(S.rq,true)+'</div><p class="mu">Approved ledger corrections must be posted as a reversal or credit/debit note, never an overwrite.</p>'};
-V.ddash=function(){var d=D(S.me.id),b=bal(d.id),my=S.orders.filter(function(o){return o.dealer===d.id});
- return"<h2>Welcome, "+esc(d.name)+"</h2>"+stat([["Dealer ID",d.code],["Outstanding",bs(b)],["Credit limit",inr(d.limit)],["Credit remaining",inr(Math.max(0,d.limit-b))],["Orders placed",my.length],["Pending orders",my.filter(function(o){return o.status==="Submitted"}).length]])+'<div class="row np" style="margin-bottom:14px"><button class="btn" data-a="go" data-v="place">Place Order</button><button class="btn s" data-a="go" data-v="ledger">View Ledger</button><button class="btn s" data-a="go" data-v="pay">Payment History</button><button class="btn s" data-a="go" data-v="req">Contact Admin</button></div><div class="cd"><h3>Latest ledger entries</h3>'+S.v.filter(function(x){return x.dealer===d.id}).slice(-4).reverse().map(function(x){return'<div class="it"><div>'+x.ref+' <span class="mu">'+x.date+" · "+x.type+"</span></div><b>"+(x.dr?"+"+inr(x.dr):"−"+inr(x.cr))+"</b></div>"}).join("")+"</div>"};
-function cartTot(){var s=0;Object.keys(S.cart).forEach(function(k){s+=P(+k).price*S.cart[k]});return s}
-V.dplace=function(){var q=S.q.toLowerCase(),s=cartTot(),t=Math.round(s*TAX/100);
- return"<h2>Place order</h2>"+'<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">'+[{name:""}].concat(S.cats).map(function(c){return'<button class="btn sm'+(S.cf===c.name?"":" s")+'" data-a="cf" data-c="'+esc(c.name)+'">'+(esc(c.name)||"All")+"</button>"}).join("")+'</div><input data-a="sq" placeholder="Search name, SKU or category" value="'+esc(S.q)+'" aria-label="Search products"><div class="cd" style="margin-top:12px" id="pl">'+plist()+'</div><div class="cd" id="ct">'+ctHtml()+"</div>"};
-function plist(){var q=S.q.toLowerCase();return S.products.filter(function(p){return(!S.cf||p.cat===S.cf)&&(p.name+p.sku+p.cat).toLowerCase().indexOf(q)>-1}).map(function(p){return'<div class="it"><div><b>'+esc(p.name)+'</b><div class="mu">'+p.sku+" · "+p.cat+" · "+inr(p.price)+'</div></div><div class="row" style="flex:none"><button class="btn s sm" data-a="dec" data-id="'+p.id+'" aria-label="Less">−</button><b>'+(S.cart[p.id]||0)+'</b><button class="btn sm" data-a="inc" data-id="'+p.id+'" aria-label="More">＋</button></div></div>'}).join("")||'<p class="mu">No products.</p>'}
-function ctHtml(){var s=cartTot(),t=Math.round(s*TAX/100),d=D(S.me.id);return"<h3>Order summary</h3><div>Subtotal: "+inr(s)+"</div><div>GST ("+TAX+"%, configurable): "+inr(t)+"</div><div><b>Total: "+inr(s+t)+"</b></div>"+(d.limit-bal(d.id)<s+t&&s?'<div class="mu" style="color:var(--bad)">Exceeds remaining credit; admin review required.</div>':"")+'<label for="nt">Delivery instructions</label><textarea id="nt" rows="2"></textarea><br><button class="btn" style="width:100%" data-a="submit"'+(s?"":" disabled")+">Submit order</button>"}
-V.dorders=function(){return"<h2>My orders</h2>"+'<div class="cd">'+ordList(S.orders.filter(function(o){return o.dealer===S.me.id}).reverse(),false)+"</div>"};
-V.dledger=function(){return"<h2>My ledger</h2>"+ledgerTbl(S.me.id)};
-V.dpay=function(){return"<h2>Payments</h2>"+'<div class="cd"><h3>Receipts</h3>'+(S.v.filter(function(x){return x.dealer===S.me.id&&x.type==="Receipt"}).map(function(x){return'<div class="it"><div><b>'+x.ref+'</b><div class="mu">'+x.date+" · "+esc(x.narr)+"</div></div><b>"+inr(x.cr)+"</b></div>"}).join("")||'<p class="mu">None</p>')+'</div><p class="mu">Paid but not showing? Raise a “Payment not reflected” request. It is only recorded after admin verification.</p>'};
-V.dreq=function(){return"<h2>Request center</h2>"+'<div class="cd np"><h3>New request</h3><select id="rc">'+["Ledger correction","Payment not reflected","Invoice clarification","Outstanding balance clarification","Order modification","Order cancellation","Missing credit note","Statement of account request","Other"].map(function(c){return"<option>"+c+"</option>"}).join("")+'</select><label>Related invoice / voucher / order</label><input id="rr"><label>Description</label><textarea id="rt" rows="3"></textarea><br><button class="btn" data-a="addreq">Submit request</button></div><div class="cd"><h3>My requests</h3>'+reqList(S.rq.filter(function(r){return r.dealer===S.me.id}).reverse(),false)+"</div>"};
-V.dprof=function(){var d=D(S.me.id);return"<h2>Profile</h2>"+'<div class="cd"><label>Dealer</label><input value="'+esc(d.name)+'" readonly><label>Dealer ID</label><input value="'+d.code+'" readonly><label>City</label><input value="'+esc(d.city)+'"><label>New password</label><input type="password" autocomplete="new-password"><br><br><button class="btn" data-a="saveprof">Save</button> <button class="btn s" data-a="theme">Toggle dark mode</button></div>'};
-document.addEventListener("click",function(e){var b=e.target.closest("[data-a]");if(!b||b.tagName==="SELECT"||b.tagName==="INPUT")return;var a=b.dataset.a,id=+b.dataset.id;
- if(a==="login"){var v=$("#rl").value;S.me=v==="a"?{role:"a",name:"Admin"}:{role:"d",id:+v,name:D(+v).name};S.view="";log("Logged in");render()}
- else if(a==="out"){S.me=null;render()}else if(a==="go")go(b.dataset.v);
- else if(a==="tg"){var d=D(id);d.status=d.status==="Active"?"Suspended":"Active";log(d.code+" set to "+d.status);render()}
- else if(a==="pw"){log("Password reset for "+D(id).code);toast("Reset link generated (demo)")}
- else if(a==="appr"||a==="rej"){var o=S.orders.filter(function(x){return x.no===b.dataset.n})[0],reason=prompt(a==="appr"?"Note (optional):":"Reason for rejection (required):","");if(reason===null||(a==="rej"&&!reason.trim()))return;
-  if(a==="appr"){var t=tot(o);if(S.v.some(function(x){return x.narr==="Order "+o.no&&x.type==="Invoice"}))return toast("Already invoiced");o.status="Approved";o.hist.push("Approved");S.v.push({id:++S.nid,dealer:o.dealer,date:"2026-10-29",type:"Invoice",ref:"INV-"+String(S.nid).padStart(4,"0"),narr:"Order "+o.no,dr:t.tot,cr:0});log("Approved "+o.no+", invoice posted")}
-  else{o.status="Rejected";o.hist.push("Rejected: "+reason);log("Rejected "+o.no+": "+reason)}render()}
- else if(a==="cf"){S.cf=b.dataset.c;render()}
- else if(a==="addcat"){var cn=$("#cnm").value.trim();if(!cn)return toast("Enter a category name");if(S.cats.some(function(c){return c.name.toLowerCase()===cn.toLowerCase()}))return toast("Category already exists");S.cats.push({id:++S.nid,name:cn,desc:$("#cds").value.trim()});log("Category created: "+cn);toast("Category created");render()}
- else if(a==="editcat"){var ec=S.cats.filter(function(c){return c.id===id})[0],nd=prompt("Category details:",ec.desc);if(nd===null)return;ec.desc=nd.trim();log("Category updated: "+ec.name);render()}
- else if(a==="delcat"){var dc=S.cats.filter(function(c){return c.id===id})[0];S.cats=S.cats.filter(function(c){return c.id!==id});if(S.cf===dc.name)S.cf="";log("Category deleted: "+dc.name);render()}
- else if(a==="addprod"){var pn=$("#pnm").value.trim(),sk=$("#psk").value.trim(),pp=Math.round(+$("#ppr").value);if(!pn||!sk||!(pp>0))return toast("Enter name, SKU and a positive price");if(S.products.some(function(p){return p.sku.toLowerCase()===sk.toLowerCase()}))return toast("SKU already exists");S.products.push({id:++S.nid,sku:sk,name:pn,cat:$("#pct").value,price:pp});log("Product added: "+sk);toast("Product added");render()}
- else if(a==="seld"){}
- else if(a==="print")window.print();
- else if(a==="csv"){var run=0,rows=[["date","voucher","type","narration","debit","credit","balance"]].concat(S.v.filter(function(x){return x.dealer===id}).map(function(x){run+=x.dr-x.cr;return[x.date,x.ref,x.type,x.narr,x.dr,x.cr,run]}));var u=URL.createObjectURL(new Blob([rows.map(function(r){return r.map(function(c){return'"'+String(c).replace(/"/g,'""')+'"'}).join(",")}).join("\n")],{type:"text/csv"})),l=document.createElement("a");l.href=u;l.download="ledger-"+D(id).code+".csv";l.click()}
- else if(a==="addpay"){var am=Math.round(+$("#pa").value),ref=$("#pr").value.trim();if(!(am>0)||!ref)return toast("Enter a positive amount and a reference");
-  if(S.v.some(function(x){return x.type==="Receipt"&&x.narr.indexOf(ref)>-1}))return toast("Duplicate reference: receipt already posted");
-  S.v.push({id:++S.nid,dealer:+$("#pd").value,date:"2026-10-29",type:"Receipt",ref:"RCT-"+String(S.nid).padStart(4,"0"),narr:ref+" ("+$("#pm").value+")",dr:0,cr:am});log("Receipt "+inr(am)+" posted");toast("Receipt posted");render()}
- else if(a==="rrep"){var rp=prompt("Reply to dealer:");if(!rp)return;var r=S.rq.filter(function(x){return x.id===b.dataset.id})[0];r.reply=rp;r.status="Resolved";log(r.id+" resolved");render()}
- else if(a==="rrej"){var rs=prompt("Reason for rejection:");if(!rs)return;var r2=S.rq.filter(function(x){return x.id===b.dataset.id})[0];r2.reply=rs;r2.status="Rejected";log(r2.id+" rejected");render()}
- else if(a==="inc"||a==="dec"){S.cart[id]=Math.max(0,(S.cart[id]||0)+(a==="inc"?1:-1));if(!S.cart[id])delete S.cart[id];$("#pl").innerHTML=plist();$("#ct").innerHTML=ctHtml()}
- else if(a==="submit"){var items=Object.keys(S.cart).map(function(k){return[+k,S.cart[k]]});if(!items.length||S.submitting)return;var no="ORD-"+String(S.orders.length+1).padStart(4,"0");S.orders.push({no:no,dealer:S.me.id,date:"2026-10-29",items:items,status:"Submitted",hist:["Submitted"]});S.cart={};log("Order "+no+" submitted");toast("Order "+no+" submitted");go("orders")}
- else if(a==="addreq"){if(!$("#rt").value.trim())return toast("Add a description");S.rq.push({id:"REQ-"+String(S.rq.length+1).padStart(3,"0"),dealer:S.me.id,cat:$("#rc").value,ref:$("#rr").value,txt:$("#rt").value,status:"Submitted",reply:""});log("Request submitted");toast("Request submitted");render()}
- else if(a==="saveprof")toast("Saved (demo)");
- else if(a==="theme"){var h=document.documentElement;h.setAttribute("data-theme",h.getAttribute("data-theme")==="dark"?"light":"dark")}
-});
-document.addEventListener("change",function(e){if(e.target.dataset.a==="seld"){S.sel=+e.target.value;render()}});
-document.addEventListener("input",function(e){if(e.target.dataset.a==="sq"){S.q=e.target.value;$("#pl").innerHTML=plist()}});
-render();
-</script>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M9 9h6v6H9z"/></svg>
+            Dealer<span>Connect</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#" class="active">📊 Dashboard</a></li>
+            <li><a href="#">🧾 Invoices (GST)</a></li>
+            <li><a href="#">🏛️ TDS / TCS Reports</a></li>
+            <li><a href="#">📒 General Ledger</a></li>
+            <li><a href="#">👥 Dealers & GSTIN</a></li>
+            <li><a href="#">📦 Inventory (HSN)</a></li>
+            <li><a href="#">⚙️ Settings</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <div>
+                <h1>Accounting Dashboard</h1>
+                <p>Financial Year: 2026-27 (Apr 1 - Mar 31) | GSTIN: 27AABCU9603R1ZM</p>
+            </div>
+            <div class="user-profile">
+                <div class="avatar">RK</div>
+                <div>
+                    <div style="font-weight: 600; font-size: 14px;">Rajesh Kumar</div>
+                    <div style="font-size: 12px; color: var(--text-muted);">Admin</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Sales (YTD)</h3>
+                <div class="value" id="stat-sales">₹42,50,000.00</div>
+                <div class="sub">+12.5% from last FY</div>
+            </div>
+            <div class="stat-card success">
+                <h3>GST Payable (Output)</h3>
+                <div class="value" id="stat-gst">₹7,65,000.00</div>
+                <div class="sub">Net of ITC (Input Credit)</div>
+            </div>
+            <div class="stat-card warning">
+                <h3>TDS Deducted (194Q)</h3>
+                <div class="value" id="stat-tds">₹12,400.00</div>
+                <div class="sub">On purchases > ₹50 Lakhs</div>
+            </div>
+            <div class="stat-card danger">
+                <h3>Outstanding Receivables</h3>
+                <div class="value" id="stat-outstanding">₹3,15,000.00</div>
+                <div class="sub">4 Invoices Overdue</div>
+            </div>
+        </div>
+
+        <!-- Invoice & Tax Section -->
+        <div class="grid-2">
+            <!-- Invoice Generator -->
+            <div class="card">
+                <div class="card-title">
+                    Generate B2B Invoice (GST Compliant)
+                    <span class="badge">E-Invoice Ready</span>
+                </div>
+                
+                <div class="alert alert-info">
+                    ℹ️ Enter Dealer GSTIN. System will auto-detect Intra/Inter state for CGST/SGST or IGST.
+                </div>
+
+                <div class="form-group">
+                    <label>Dealer / Buyer GSTIN</label>
+                    <input type="text" class="form-control" id="buyer-gstin" placeholder="e.g., 29AABCU9603R1ZM" value="27AABCU9603R1ZM" oninput="calculateTax()">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Item Description</label>
+                        <input type="text" class="form-control" value="Industrial Bearings" id="item-desc">
+                    </div>
+                    <div class="form-group">
+                        <label>HSN Code</label>
+                        <input type="text" class="form-control" value="8482" id="hsn-code">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Taxable Value (₹)</label>
+                        <input type="number" class="form-control" id="base-amount" value="100000" oninput="calculateTax()">
+                    </div>
+                    <div class="form-group">
+                        <label>GST Rate (%)</label>
+                        <select class="form-control" id="gst-rate" onchange="calculateTax()">
+                            <option value="5">5%</option>
+                            <option value="12">12%</option>
+                            <option value="18" selected>18%</option>
+                            <option value="28">28%</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning" id="tcs-alert" style="display: none;">
+                    ⚠️ <strong>TCS u/s 206C(1H) Applicable:</strong> Sale exceeds ₹50 Lakhs. TCS @ 0.1% will be collected.
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 10px;" onclick="generateIRN()">
+                    Generate IRN & Save
+                </button>
+            </div>
+
+            <!-- Tax Breakdown Preview -->
+            <div class="card">
+                <div class="card-title">
+                    Tax Computation & Ledger Entry
+                    <span class="badge">Live Preview</span>
+                </div>
+                
+                <table class="tax-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Rate</th>
+                            <th style="text-align: right;">Amount (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tax-breakdown">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 24px; padding: 16px; background: #f8fafc; border-radius: 8px; border: 1px dashed var(--border);">
+                    <h4 style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Accounting Journal Entry (Ind AS)</h4>
+                    <div id="journal-entry" style="font-family: monospace; font-size: 13px; line-height: 1.6;">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Indian Number Formatting (Lakhs/Crores)
+        const formatINR = (amount) => {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                minimumFractionDigits: 2
+            }).format(amount);
+        };
+
+        // Mock Seller State (Maharashtra - 27)
+        const SELLER_STATE_CODE = '27'; 
+
+        function calculateTax() {
+            const gstin = document.getElementById('buyer-gstin').value.toUpperCase();
+            const baseAmount = parseFloat(document.getElementById('base-amount').value) || 0;
+            const gstRate = parseFloat(document.getElementById('gst-rate').value);
+            
+            // Extract State Code from GSTIN (First 2 digits)
+            const buyerStateCode = gstin.substring(0, 2);
+            const isInterState = buyerStateCode !== SELLER_STATE_CODE && buyerStateCode !== '';
+
+            let cgst = 0, sgst = 0, igst = 0;
+            let taxType = '';
+
+            if (isInterState) {
+                igst = (baseAmount * gstRate) / 100;
+                taxType = 'IGST';
+            } else {
+                cgst = (baseAmount * (gstRate / 2)) / 100;
+                sgst = (baseAmount * (gstRate / 2)) / 100;
+                taxType = 'CGST + SGST';
+            }
+
+            // TCS Logic (u/s 206C(1H)) - Simplified for demo
+            let tcs = 0;
+            const tcsAlert = document.getElementById('tcs-alert');
+            // Assuming cumulative sales > 50L for demo trigger if base amount is high
+            if (baseAmount >= 500000) { 
+                tcs = (baseAmount * 0.1) / 100;
+                tcsAlert.style.display = 'flex';
+            } else {
+                tcsAlert.style.display = 'none';
+            }
+
+            const grandTotal = baseAmount + cgst + sgst + igst + tcs;
+
+            // Update UI Table
+            const tbody = document.getElementById('tax-breakdown');
+            let html = `
+                <tr><td>Base Taxable Value</td><td>-</td><td style="text-align: right;">${formatINR(baseAmount)}</td></tr>
+            `;
+            
+            if (isInterState) {
+                html += `<tr><td>IGST</td><td>${gstRate}%</td><td style="text-align: right;">${formatINR(igst)}</td></tr>`;
+            } else {
+                html += `<tr><td>CGST</td><td>${gstRate / 2}%</td><td style="text-align: right;">${formatINR(cgst)}</td></tr>`;
+                html += `<tr><td>SGST</td><td>${gstRate / 2}%</td><td style="text-align: right;">${formatINR(sgst)}</td></tr>`;
+            }
+
+            if (tcs > 0) {
+                html += `<tr><td>TCS u/s 206C(1H)</td><td>0.1%</td><td style="text-align: right;">${formatINR(tcs)}</td></tr>`;
+            }
+
+            html += `<tr class="total-row"><td colspan="2">Grand Total (Receivable)</td><td style="text-align: right;">${formatINR(grandTotal)}</td></tr>`;
+            tbody.innerHTML = html;
+
+            // Update Journal Entry (Ind AS / Double Entry)
+            const journal = document.getElementById('journal-entry');
+            let journalHTML = `<strong>Dr.</strong> Sundry Debtors &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${formatINR(grandTotal)}<br>`;
+            journalHTML += `&nbsp;&nbsp;&nbsp;&nbsp;<strong>Cr.</strong> Sales A/c &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${formatINR(baseAmount)}<br>`;
+            
+            if (isInterState) {
+                journalHTML += `&nbsp;&nbsp;&nbsp;&nbsp;<strong>Cr.</strong> IGST Payable &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${formatINR(igst)}<br>`;
+            } else {
+                journalHTML += `&nbsp;&nbsp;&nbsp;&nbsp;<strong>Cr.</strong> CGST Payable &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${formatINR(cgst)}<br>`;
+                journalHTML += `&nbsp;&nbsp;&nbsp;&nbsp;<strong>Cr.</strong> SGST Payable &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${formatINR(sgst)}<br>`;
+            }
+            if (tcs > 0) {
+                journalHTML += `&nbsp;&nbsp;&nbsp;&nbsp;<strong>Cr.</strong> TCS Collected &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${formatINR(tcs)}<br>`;
+            }
+            journal.innerHTML = journalHTML;
+        }
+
+        function generateIRN() {
+            alert('✅ Invoice Saved!\n\nIRN (Invoice Reference Number) Generated for E-Invoicing Portal.\nACK No: 123456789012345\n\nLedger updated successfully.');
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', calculateTax);
+    </script>
 </body>
 </html>
