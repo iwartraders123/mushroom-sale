@@ -3,229 +3,175 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DealerConnect v6.1 | Dealer Password Management</title>
-<!-- SheetJS for Excel Export -->
+<title>DealerConnect v7.0 | Complete Working</title>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
-:root{
-  --primary:#2563eb;--primary-dark:#1e40af;--primary-light:#dbeafe;
-  --success:#10b981;--success-dark:#047857;--success-light:#d1fae5;
-  --warning:#f59e0b;--warning-dark:#b45309;--warning-light:#fef3c7;
-  --danger:#ef4444;--danger-dark:#b91c1c;--danger-light:#fee2e2;
-  --info:#8b5cf6;--info-light:#ede9fe;
-  --bg:#f8fafc;--bg-alt:#f1f5f9;
-  --card:#ffffff;--text:#0f172a;--text-secondary:#475569;--text-muted:#64748b;
-  --border:#e2e8f0;--border-dark:#cbd5e1;
-  --shadow-sm:0 1px 2px 0 rgba(0,0,0,0.05);
-  --shadow:0 1px 3px 0 rgba(0,0,0,0.1),0 1px 2px -1px rgba(0,0,0,0.1);
-  --shadow-md:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -2px rgba(0,0,0,0.1);
-  --shadow-lg:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -4px rgba(0,0,0,0.1);
-  --radius:10px;--radius-lg:14px;
-}
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif}
-body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
-
-/* LOGIN */
-.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 50%,#3b82f6 100%);padding:20px;position:relative;overflow:hidden}
-.login-page::before{content:'';position:absolute;width:500px;height:500px;background:rgba(255,255,255,0.05);border-radius:50%;top:-200px;right:-200px}
-.login-page::after{content:'';position:absolute;width:400px;height:400px;background:rgba(255,255,255,0.05);border-radius:50%;bottom:-150px;left:-150px}
-.login-card{background:#fff;border-radius:var(--radius-lg);padding:36px;width:100%;max-width:440px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);position:relative;z-index:1}
+:root{--primary:#2563eb;--primary-dark:#1e40af;--primary-light:#dbeafe;--success:#10b981;--success-dark:#047857;--success-light:#d1fae5;--warning:#f59e0b;--warning-dark:#b45309;--warning-light:#fef3c7;--danger:#ef4444;--danger-dark:#b91c1c;--danger-light:#fee2e2;--info:#8b5cf6;--info-light:#ede9fe;--bg:#f8fafc;--bg-alt:#f1f5f9;--card:#fff;--text:#0f172a;--text-sec:#475569;--text-mut:#64748b;--border:#e2e8f0;--shadow:0 1px 3px rgba(0,0,0,.1);--shadow-md:0 4px 6px rgba(0,0,0,.1);--shadow-lg:0 10px 15px rgba(0,0,0,.1);--radius:10px;--radius-lg:14px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
+body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
+.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e3a8a,#2563eb,#3b82f6);padding:20px}
+.login-card{background:#fff;border-radius:var(--radius-lg);padding:36px;width:100%;max-width:440px;box-shadow:0 25px 50px rgba(0,0,0,.25)}
 .login-logo{text-align:center;margin-bottom:24px}
-.login-logo .icon{width:64px;height:64px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:16px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:28px;margin-bottom:12px;box-shadow:0 10px 25px -5px rgba(37,99,235,0.5)}
-.login-logo h1{font-size:24px;font-weight:700;color:var(--text);letter-spacing:-0.5px}
-.login-logo p{color:var(--text-muted);font-size:13px;margin-top:4px}
+.login-logo .icon{width:64px;height:64px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:16px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:28px;margin-bottom:12px}
+.login-logo h1{font-size:24px;font-weight:700}
+.login-logo p{color:var(--text-mut);font-size:13px;margin-top:4px}
 .login-tabs{display:flex;background:var(--bg-alt);border-radius:var(--radius);padding:4px;margin-bottom:22px}
-.login-tab{flex:1;padding:10px;text-align:center;border-radius:8px;cursor:pointer;font-weight:600;font-size:13px;color:var(--text-muted);transition:all .2s}
-.login-tab.active{background:#fff;color:var(--primary);box-shadow:var(--shadow-sm)}
+.login-tab{flex:1;padding:10px;text-align:center;border-radius:8px;cursor:pointer;font-weight:600;font-size:13px;color:var(--text-mut);transition:.2s}
+.login-tab.active{background:#fff;color:var(--primary);box-shadow:var(--shadow)}
 .form-group{margin-bottom:16px}
-.form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--text)}
-.form-group label .optional{font-weight:400;color:var(--text-muted);font-size:11px;margin-left:4px}
-.form-control{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:#fff;transition:all .2s;color:var(--text)}
-.form-control:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,0.1)}
-.login-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer;margin-top:8px;transition:all .2s;box-shadow:0 4px 12px rgba(37,99,235,0.3)}
-.login-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(37,99,235,0.4)}
+.form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.form-group label .optional{font-weight:400;color:var(--text-mut);font-size:11px;margin-left:4px}
+.form-control{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:#fff}
+.form-control:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.login-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer;margin-top:8px}
 .login-hint{margin-top:16px;padding:14px;background:var(--primary-light);border:1px solid #bfdbfe;border-radius:8px;font-size:11px;color:var(--primary-dark);text-align:center;line-height:1.6}
 .login-error{background:var(--danger-light);color:var(--danger-dark);border:1px solid #fecaca;padding:10px;border-radius:8px;font-size:12px;margin-bottom:12px;display:none}
 .login-form{display:none}
-.login-form.active{display:block;animation:fadeIn .3s}
-
-/* APP LAYOUT */
+.login-form.active{display:block}
 .app{display:none;min-height:100vh}
 .app.active{display:flex}
-.sidebar{width:260px;background:linear-gradient(180deg,#0f172a 0%,#1e293b 100%);color:#fff;position:fixed;height:100vh;display:flex;flex-direction:column;transition:transform .3s;z-index:50;overflow-y:auto;box-shadow:var(--shadow-lg)}
-.logo{padding:24px;font-size:20px;font-weight:700;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:10px}
+.sidebar{width:260px;background:linear-gradient(180deg,#0f172a,#1e293b);color:#fff;position:fixed;height:100vh;display:flex;flex-direction:column;z-index:50;overflow-y:auto}
+.logo{padding:24px;font-size:20px;font-weight:700;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px}
 .logo span{color:#60a5fa}
-.logo .role-tag{font-size:9px;padding:3px 8px;background:rgba(96,165,250,0.2);color:#60a5fa;border-radius:10px;font-weight:700;margin-left:auto;letter-spacing:0.5px}
+.logo .role-tag{font-size:9px;padding:3px 8px;background:rgba(96,165,250,.2);color:#60a5fa;border-radius:10px;font-weight:700;margin-left:auto}
 .nav-menu{list-style:none;margin-top:12px;flex:1;padding:0 8px}
 .nav-menu li{margin-bottom:2px}
-.nav-menu li a{display:flex;align-items:center;gap:12px;padding:11px 16px;color:#94a3b8;text-decoration:none;font-size:13px;cursor:pointer;transition:all .2s;border-radius:8px;border-left:3px solid transparent;font-weight:500}
-.nav-menu li a:hover{background:rgba(255,255,255,0.05);color:#fff}
-.nav-menu li a.active{background:linear-gradient(90deg,rgba(37,99,235,0.2),rgba(37,99,235,0.05));color:#fff;border-left-color:#60a5fa;font-weight:600}
-.sidebar-footer{padding:16px 24px;border-top:1px solid rgba(255,255,255,0.08);font-size:11px;color:#64748b}
-
-.main{flex:1;margin-left:260px;padding:0;min-height:100vh;background:var(--bg)}
-.topbar{background:#fff;border-bottom:1px solid var(--border);padding:16px 28px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:40;box-shadow:var(--shadow-sm)}
-.topbar-left h1{font-size:20px;font-weight:700;color:var(--text);letter-spacing:-0.3px}
-.topbar-left p{color:var(--text-muted);font-size:12px;margin-top:2px}
+.nav-menu li a{display:flex;align-items:center;gap:12px;padding:11px 16px;color:#94a3b8;text-decoration:none;font-size:13px;cursor:pointer;border-radius:8px;border-left:3px solid transparent;font-weight:500}
+.nav-menu li a:hover{background:rgba(255,255,255,.05);color:#fff}
+.nav-menu li a.active{background:linear-gradient(90deg,rgba(37,99,235,.2),rgba(37,99,235,.05));color:#fff;border-left-color:#60a5fa;font-weight:600}
+.sidebar-footer{padding:16px 24px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:#64748b}
+.main{flex:1;margin-left:260px;min-height:100vh;background:var(--bg)}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:16px 28px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:40;box-shadow:var(--shadow)}
+.topbar-left h1{font-size:20px;font-weight:700}
+.topbar-left p{color:var(--text-mut);font-size:12px;margin-top:2px}
 .user-profile{display:flex;align-items:center;gap:10px;background:var(--bg);padding:6px 14px 6px 6px;border-radius:50px;border:1px solid var(--border)}
 .avatar{width:34px;height:34px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px}
-.logout-btn{background:var(--danger-light);color:var(--danger-dark);border:none;padding:6px 12px;border-radius:6px;font-size:11px;cursor:pointer;font-weight:600;transition:all .2s}
-.logout-btn:hover{background:#fecaca}
-
+.logout-btn{background:var(--danger-light);color:var(--danger-dark);border:none;padding:6px 12px;border-radius:6px;font-size:11px;cursor:pointer;font-weight:600}
 .page-content{padding:28px}
 .page{display:none}
 .page.active{display:block;animation:fadeIn .3s}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-/* STATS */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:24px}
-.stat-card{background:#fff;padding:20px;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);transition:all .2s;position:relative;overflow:hidden}
-.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.stat-card{background:#fff;padding:20px;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);position:relative;overflow:hidden}
 .stat-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--primary)}
 .stat-card.success::before{background:var(--success)}
 .stat-card.warning::before{background:var(--warning)}
 .stat-card.danger::before{background:var(--danger)}
 .stat-card.info::before{background:var(--info)}
-.stat-card h3{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;margin-bottom:8px}
-.stat-card .value{font-size:24px;font-weight:700;margin-bottom:4px;color:var(--text);letter-spacing:-0.5px}
-.stat-card .sub{font-size:11px;color:var(--text-muted)}
-
-/* CARDS */
+.stat-card h3{font-size:11px;color:var(--text-mut);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:8px}
+.stat-card .value{font-size:24px;font-weight:700;margin-bottom:4px}
+.stat-card .sub{font-size:11px;color:var(--text-mut)}
 .card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-bottom:18px;border:1px solid var(--border)}
-.card-title{font-size:15px;font-weight:700;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;color:var(--text);letter-spacing:-0.2px}
-
-/* BADGES */
-.badge{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600;display:inline-block;letter-spacing:0.3px}
+.card-title{font-size:15px;font-weight:700;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.badge{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600;display:inline-block}
 .badge.primary{background:var(--primary-light);color:var(--primary-dark)}
 .badge.success{background:var(--success-light);color:var(--success-dark)}
 .badge.warning{background:var(--warning-light);color:var(--warning-dark)}
 .badge.danger{background:var(--danger-light);color:var(--danger-dark)}
 .badge.info{background:var(--info-light);color:#6d28d9}
-.badge.muted{background:var(--bg-alt);color:var(--text-secondary)}
+.badge.muted{background:var(--bg-alt);color:var(--text-sec)}
 .badge.dispatch{background:#fef3c7;color:#92400e}
 .badge.free{background:#fce7f3;color:#9d174d}
 .badge.inactive{background:var(--danger-light);color:var(--danger-dark)}
-
-/* BUTTONS */
-.btn{padding:9px 16px;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
-.btn:hover{transform:translateY(-1px)}
-.btn-primary{background:var(--primary);color:#fff;box-shadow:0 2px 4px rgba(37,99,235,0.2)}
-.btn-primary:hover{background:var(--primary-dark)}
+.btn{padding:9px 16px;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--primary);color:#fff}
 .btn-success{background:var(--success);color:#fff}
-.btn-success:hover{background:var(--success-dark)}
 .btn-danger{background:var(--danger);color:#fff}
-.btn-danger:hover{background:var(--danger-dark)}
 .btn-warning{background:var(--warning);color:#fff}
 .btn-outline{background:#fff;border:1px solid var(--border);color:var(--text)}
-.btn-outline:hover{background:var(--bg)}
 .btn-excel{background:#1d6f42;color:#fff}
-.btn-excel:hover{background:#14532d}
 .btn-sm{padding:5px 10px;font-size:11px}
 .btn-block{width:100%;justify-content:center}
-
-/* FORMS */
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-
-/* ALERTS */
 .alert{padding:12px 16px;border-radius:8px;font-size:12px;margin-bottom:14px;display:flex;align-items:center;gap:10px;border:1px solid}
 .alert-info{background:#eff6ff;color:#1e40af;border-color:#bfdbfe}
 .alert-warning{background:#fffbeb;color:#92400e;border-color:#fde68a}
 .alert-success{background:#f0fdf4;color:#065f46;border-color:#bbf7d0}
 .alert-danger{background:#fef2f2;color:#991b1b;border-color:#fecaca}
-
-/* TABLES */
 .table-wrapper{overflow-x:auto;border-radius:8px;border:1px solid var(--border)}
 table{width:100%;border-collapse:collapse}
 th,td{padding:12px 14px;text-align:left;font-size:13px}
-th{background:var(--bg-alt);font-weight:600;color:var(--text-secondary);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--border)}
-td{border-bottom:1px solid var(--border);color:var(--text)}
-tbody tr{transition:background .15s}
+th{background:var(--bg-alt);font-weight:600;color:var(--text-sec);font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
+td{border-bottom:1px solid var(--border)}
 tbody tr:hover{background:var(--bg)}
-tbody tr:last-child td{border-bottom:none}
-.total-row{font-weight:700;font-size:14px;background:#f0fdf4!important;color:#065f46}
+.total-row{font-weight:700;background:#f0fdf4!important;color:#065f46}
 .text-right{text-align:right}
-.text-center{text-align:center}
-.empty{text-align:center;padding:40px 20px;color:var(--text-muted);font-size:13px}
-.empty-icon{font-size:40px;margin-bottom:10px;opacity:0.5}
-
-/* GRID */
+.empty{text-align:center;padding:40px;color:var(--text-mut);font-size:13px}
+.empty-icon{font-size:40px;margin-bottom:10px;opacity:.5}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .search-box{padding:9px 14px;border:1.5px solid var(--border);border-radius:8px;width:100%;max-width:280px;font-size:13px;background:#fff}
-.search-box:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,0.1)}
-
-/* FILTER BAR */
-.filter-bar{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:18px;box-shadow:var(--shadow-sm)}
-.filter-bar-title{font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.filter-bar{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:18px}
+.filter-bar-title{font-size:13px;font-weight:600;color:var(--text-sec);margin-bottom:12px}
 .filter-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;align-items:end}
-.filter-group label{display:block;font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px}
+.filter-group label{display:block;font-size:11px;font-weight:600;color:var(--text-mut);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
 .filter-group select,.filter-group input{padding:8px 10px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;background:#fff;width:100%}
-.filter-group select:focus,.filter-group input:focus{outline:none;border-color:var(--primary)}
 .quick-filters{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.quick-filter{padding:5px 12px;background:var(--bg-alt);border:1px solid var(--border);border-radius:20px;font-size:11px;cursor:pointer;font-weight:600;color:var(--text-secondary);transition:all .15s}
-.quick-filter:hover{background:var(--primary-light);color:var(--primary-dark);border-color:var(--primary)}
+.quick-filter{padding:5px 12px;background:var(--bg-alt);border:1px solid var(--border);border-radius:20px;font-size:11px;cursor:pointer;font-weight:600;color:var(--text-sec)}
 .quick-filter.active{background:var(--primary);color:#fff;border-color:var(--primary)}
-
-/* TOAST */
-.toast{position:fixed;top:24px;right:24px;background:var(--success);color:#fff;padding:14px 20px;border-radius:var(--radius);box-shadow:var(--shadow-lg);z-index:1000;animation:slideIn .3s;font-weight:600;font-size:13px;display:flex;align-items:center;gap:10px;max-width:380px}
+.toast{position:fixed;top:24px;right:24px;background:var(--success);color:#fff;padding:14px 20px;border-radius:var(--radius);box-shadow:var(--shadow-lg);z-index:1000;font-weight:600;font-size:13px;animation:slideIn .3s}
 .toast.error{background:var(--danger)}
-@keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
-
-/* PASSWORD DISPLAY */
-.password-display{display:flex;align-items:center;gap:8px;font-family:'Courier New',monospace;font-size:12px;background:var(--bg);padding:6px 10px;border-radius:6px;border:1px solid var(--border)}
-.password-text{flex:1;letter-spacing:1px}
-.password-actions{display:flex;gap:4px}
-.password-btn{background:none;border:none;cursor:pointer;padding:4px;border-radius:4px;transition:all .15s;font-size:14px}
-.password-btn:hover{background:var(--border)}
-
-/* MODAL */
-.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:1000;animation:fadeIn .2s}
-.modal-overlay.active{display:flex}
-.modal{background:#fff;border-radius:var(--radius-lg);padding:28px;width:90%;max-width:500px;box-shadow:var(--shadow-lg);animation:slideUp .3s}
-@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.modal-title{font-size:18px;font-weight:700;color:var(--text)}
-.modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--text-muted);padding:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:all .15s}
-.modal-close:hover{background:var(--bg);color:var(--text)}
-
+@keyframes slideIn{from{transform:translateX(400px)}to{transform:translateX(0)}}
 .order-item-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px;padding:12px;background:var(--bg);border-radius:8px;border:1px solid var(--border)}
 .order-item-row select,.order-item-row input{padding:8px;font-size:12px}
-.remove-item{background:var(--danger-light);color:var(--danger-dark);border:none;padding:8px 10px;border-radius:6px;cursor:pointer;font-weight:600;transition:all .15s}
-.remove-item:hover{background:#fecaca}
-
-.order-card{border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;background:#fff;transition:all .2s}
-.order-card:hover{box-shadow:var(--shadow-md)}
+.remove-item{background:var(--danger-light);color:var(--danger-dark);border:none;padding:8px 10px;border-radius:6px;cursor:pointer;font-weight:600}
+.order-card{border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;background:#fff}
 .order-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:10px;flex-wrap:wrap;gap:8px}
-.order-no{font-weight:700;font-size:14px;color:var(--text)}
-.order-meta{font-size:11px;color:var(--text-muted);margin-top:3px;line-height:1.6}
+.order-no{font-weight:700;font-size:14px}
+.order-meta{font-size:11px;color:var(--text-mut);margin-top:3px;line-height:1.6}
 .order-items{background:var(--bg);padding:12px;border-radius:8px;margin:10px 0;font-size:12px;border:1px solid var(--border)}
 .order-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:end}
-.order-total{text-align:right;font-weight:700;font-size:17px;margin-top:8px;color:var(--primary-dark);letter-spacing:-0.3px}
-
-.payment-card{border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;background:#fff;border-left:4px solid var(--warning);transition:all .2s}
-.payment-card:hover{box-shadow:var(--shadow-md)}
+.order-total{text-align:right;font-weight:700;font-size:17px;margin-top:8px;color:var(--primary-dark)}
+.payment-card{border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;background:#fff;border-left:4px solid var(--warning)}
 .payment-card.approved{border-left-color:var(--success)}
 .payment-card.rejected{border-left-color:var(--danger)}
-
-.price-card{border:1px solid var(--border);border-radius:var(--radius);padding:18px;background:#fff;transition:all .2s}
-.price-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.price-card{border:1px solid var(--border);border-radius:var(--radius);padding:18px;background:#fff}
 .price-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.price-name{font-weight:700;font-size:15px;color:var(--text)}
-.price-amount{font-size:22px;font-weight:700;color:var(--primary-dark);letter-spacing:-0.5px}
-.price-meta{font-size:11px;color:var(--text-muted);margin-top:4px;line-height:1.6}
+.price-name{font-weight:700;font-size:15px}
+.price-amount{font-size:22px;font-weight:700;color:var(--primary-dark)}
+.price-meta{font-size:11px;color:var(--text-mut);margin-top:4px;line-height:1.6}
 .price-change{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 8px;border-radius:12px;font-weight:600}
 .price-up{background:var(--success-light);color:var(--success-dark)}
 .price-down{background:var(--danger-light);color:var(--danger-dark)}
-.price-same{background:var(--bg-alt);color:var(--text-secondary)}
-
+.price-same{background:var(--bg-alt);color:var(--text-sec)}
 textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
 .menu-toggle{display:none;background:var(--primary);color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
-
-.toggle-btn{background:none;border:1px solid var(--border);padding:5px 12px;border-radius:20px;font-size:11px;cursor:pointer;font-weight:600;transition:all .15s}
+.toggle-btn{background:none;border:1px solid var(--border);padding:5px 12px;border-radius:20px;font-size:11px;cursor:pointer;font-weight:600}
 .toggle-btn.active{background:var(--success-light);color:var(--success-dark);border-color:var(--success)}
 .toggle-btn.inactive{background:var(--danger-light);color:var(--danger-dark);border-color:var(--danger)}
-.toggle-btn:hover{transform:scale(1.05)}
-
+.password-display{display:flex;align-items:center;gap:6px;font-family:'Courier New',monospace;font-size:12px;background:var(--bg);padding:5px 8px;border-radius:6px;border:1px solid var(--border)}
+.password-text{flex:1;letter-spacing:1px;min-width:60px}
+.password-actions{display:flex;gap:2px}
+.password-btn{background:none;border:none;cursor:pointer;padding:3px 5px;border-radius:4px;font-size:13px}
+.password-btn:hover{background:var(--border)}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:1000}
+.modal-overlay.active{display:flex}
+.modal{background:#fff;border-radius:var(--radius-lg);padding:28px;width:90%;max-width:500px;box-shadow:var(--shadow-lg)}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.modal-title{font-size:18px;font-weight:700}
+.modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--text-mut);padding:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:6px}
+.dispatch-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;border-left:4px solid var(--warning)}
+.dispatch-card.delivered{border-left-color:var(--success)}
+.dispatch-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0;padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border)}
+.dispatch-info-item{display:flex;flex-direction:column}
+.dispatch-info-label{font-size:10px;color:var(--text-mut);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:3px}
+.dispatch-info-value{font-size:13px;font-weight:600}
+.timeline{border-left:3px solid var(--border);padding-left:20px;margin:14px 0}
+.timeline-item{position:relative;padding-bottom:14px}
+.timeline-item::before{content:'';position:absolute;left:-26px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--primary);border:2px solid #fff}
+.timeline-item.success::before{background:var(--success)}
+.timeline-item.warning::before{background:var(--warning)}
+.timeline-item.info::before{background:var(--info)}
+.timeline-date{font-size:11px;color:var(--text-mut)}
+.timeline-title{font-weight:600;font-size:13px;margin-top:2px}
+.timeline-desc{font-size:12px;color:var(--text-mut);margin-top:2px}
+@media print{body *{visibility:hidden}#challanPrintArea,#challanPrintArea *{visibility:visible}#challanPrintArea{position:absolute;left:0;top:0;width:100%;padding:20px}.no-print{display:none!important}}
+.challan-print{background:#fff;padding:30px;border:2px solid #000;font-family:'Courier New',monospace}
+.challan-print h2{text-align:center;margin-bottom:10px}
+.challan-print table{width:100%;border-collapse:collapse;margin:15px 0}
+.challan-print table th,.challan-print table td{border:1px solid #000;padding:8px;font-size:12px;text-align:left}
+.challan-print .signatures{display:flex;justify-content:space-between;margin-top:50px}
+.challan-print .signature-box{width:45%;text-align:center;border-top:1px solid #000;padding-top:5px}
 @media(max-width:1024px){.grid-2{grid-template-columns:1fr}.form-row-3{grid-template-columns:1fr 1fr}.order-item-row{grid-template-columns:1fr}}
 @media(max-width:768px){.sidebar{transform:translateX(-100%);z-index:100}.sidebar.active{transform:translateX(0)}.main{margin-left:0}.menu-toggle{display:block}.filter-row{grid-template-columns:1fr}}
 </style>
@@ -237,7 +183,7 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
     <div class="login-logo">
       <div class="icon">🧾</div>
       <h1>DealerConnect</h1>
-      <p>Professional Edition v6.1</p>
+      <p>Professional Edition v7.0</p>
     </div>
     <div class="login-tabs">
       <div class="login-tab active" onclick="switchLoginTab('admin')">👨‍💼 Admin</div>
@@ -266,26 +212,24 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
   <aside class="sidebar" id="sidebar">
     <div class="logo">🧾 Dealer<span>Connect</span><span class="role-tag" id="roleTag">ADMIN</span></div>
     <ul class="nav-menu" id="navMenu"></ul>
-    <div class="sidebar-footer">DealerConnect v6.1<br>© 2026 Professional Edition</div>
+    <div class="sidebar-footer">DealerConnect v7.0<br>© 2026</div>
   </aside>
-
   <main class="main">
     <div class="topbar">
       <div class="topbar-left">
         <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">☰</button>
         <h1 id="pageTitle">Dashboard</h1>
-        <p id="pageSubtitle">Financial Year: 2026-27</p>
+        <p id="pageSubtitle">FY: 2026-27</p>
       </div>
       <div class="user-profile">
         <div class="avatar" id="userAvatar">A</div>
         <div>
           <div style="font-weight:600;font-size:13px" id="userName">Admin</div>
-          <div style="font-size:10px;color:var(--text-muted)" id="userRole">Administrator</div>
+          <div style="font-size:10px;color:var(--text-mut)" id="userRole">Administrator</div>
         </div>
         <button class="logout-btn" onclick="doLogout()">Logout</button>
       </div>
     </div>
-
     <div class="page-content">
       <div class="page" id="page-dashboard"></div>
       <div class="page" id="page-prices"></div>
@@ -312,33 +256,17 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
   </main>
 </div>
 
-<!-- Password Update Modal -->
 <div class="modal-overlay" id="passwordModal">
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title">🔐 Update Dealer Password</div>
       <button class="modal-close" onclick="closePasswordModal()">×</button>
     </div>
-    <div class="alert alert-warning">
-      🔒 <strong>Security Notice:</strong> Passwords are sensitive. Only share with authorized dealer personnel.
-    </div>
-    <div class="form-group">
-      <label>Dealer Name</label>
-      <input type="text" class="form-control" id="modalDealerName" readonly>
-    </div>
-    <div class="form-group">
-      <label>Dealer Code</label>
-      <input type="text" class="form-control" id="modalDealerCode" readonly>
-    </div>
-    <div class="form-group">
-      <label>New Password <span style="color:var(--danger)">*</span></label>
-      <input type="password" class="form-control" id="modalNewPassword" placeholder="Minimum 6 characters">
-      <small style="color:var(--text-muted);font-size:11px;margin-top:4px;display:block">Use at least 6 characters with letters and numbers</small>
-    </div>
-    <div class="form-group">
-      <label>Confirm New Password <span style="color:var(--danger)">*</span></label>
-      <input type="password" class="form-control" id="modalConfirmPassword" placeholder="Re-enter new password">
-    </div>
+    <div class="alert alert-warning">🔒 <strong>Security:</strong> Only share with authorized dealer personnel.</div>
+    <div class="form-group"><label>Dealer Name</label><input type="text" class="form-control" id="modalDealerName" readonly></div>
+    <div class="form-group"><label>Dealer Code</label><input type="text" class="form-control" id="modalDealerCode" readonly></div>
+    <div class="form-group"><label>New Password <span style="color:var(--danger)">*</span></label><input type="password" class="form-control" id="modalNewPassword" placeholder="Minimum 6 characters"></div>
+    <div class="form-group"><label>Confirm Password <span style="color:var(--danger)">*</span></label><input type="password" class="form-control" id="modalConfirmPassword"></div>
     <div style="display:flex;gap:10px;margin-top:20px">
       <button class="btn btn-primary" style="flex:1" onclick="updateDealerPassword()">🔑 Update Password</button>
       <button class="btn btn-outline" onclick="closePasswordModal()">Cancel</button>
@@ -346,295 +274,154 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
   </div>
 </div>
 
+<div id="challanPrintArea" style="display:none"></div>
+
 <script>
-/* ============ DATA STORE ============ */
+/* ============ DATA ============ */
 const DB = {
-  user: JSON.parse(localStorage.getItem('dc_user') || 'null'),
-  settings: JSON.parse(localStorage.getItem('dc_settings') || 'null') || {
-    company: 'DealerConnect Pvt Ltd', gstin: '27AABCU9603R1ZM', pan: 'AABCU9603R',
-    state: 'Maharashtra', stateCode: '27', fy: '2026-27',
-    address: 'Plot 42, MIDC Industrial Area, Pune, Maharashtra - 411019',
-    phone: '+91 20 1234 5678', email: 'info@dealerconnect.in'
-  },
-  dealers: JSON.parse(localStorage.getItem('dc_dealers') || 'null') || [
+  user: JSON.parse(localStorage.getItem('dc_user')||'null'),
+  settings: JSON.parse(localStorage.getItem('dc_settings')||'null')||{company:'DealerConnect Pvt Ltd',gstin:'27AABCU9603R1ZM',pan:'AABCU9603R',state:'Maharashtra',stateCode:'27',fy:'2026-27',address:'Plot 42, MIDC, Pune, Maharashtra - 411019',phone:'+91 20 1234 5678',email:'info@dealerconnect.in'},
+  dealers: JSON.parse(localStorage.getItem('dc_dealers')||'null')||[
     {id:1,name:'Sharma Traders',gstin:'27AABCU9603R1ZM',pan:'AABCU9603R',state:'Maharashtra',phone:'+91 98765 43210',dealerCode:'SHAR01',password:'dealer123',email:'sharma@example.com',status:'active'},
     {id:2,name:'Gupta Enterprises',gstin:'29BBBPD1234K1Z5',pan:'BBBPD1234K',state:'Karnataka',phone:'+91 98456 12345',dealerCode:'GUPT01',password:'dealer123',email:'gupta@example.com',status:'active'},
     {id:3,name:'Patel & Sons',gstin:'24CCCCQ5678L1Z2',pan:'CCCCQ5678L',state:'Gujarat',phone:'+91 98123 45678',dealerCode:'PATE01',password:'dealer123',email:'patel@example.com',status:'active'},
     {id:4,name:'Small Local Shop',gstin:'',pan:'',state:'Maharashtra',phone:'+91 99887 76655',dealerCode:'SHOP01',password:'dealer123',email:'',status:'active'}
   ],
-  inventory: JSON.parse(localStorage.getItem('dc_inventory') || 'null') || [
+  inventory: JSON.parse(localStorage.getItem('dc_inventory')||'null')||[
     {id:1,name:'Industrial Bearings',hsn:'8482',gst:18,rate:10000,stock:250,lastUpdated:today()},
     {id:2,name:'Hydraulic Pump',hsn:'8413',gst:18,rate:45000,stock:80,lastUpdated:today()},
     {id:3,name:'Steel Bolts M12',hsn:'7318',gst:18,rate:250,stock:5000,lastUpdated:today()},
     {id:4,name:'Electric Motor 5HP',hsn:'8501',gst:18,rate:28000,stock:45,lastUpdated:today()},
     {id:5,name:'Gear Box Assembly',hsn:'8483',gst:18,rate:35000,stock:60,lastUpdated:today()},
-    {id:6,name:'Free Sample Catalog',hsn:'4911',gst:0,rate:0,stock:500,lastUpdated:today(),isFree:true,notes:'Promotional freebie'}
+    {id:6,name:'Free Sample Catalog',hsn:'4911',gst:0,rate:0,stock:500,lastUpdated:today(),isFree:true,notes:'Promotional'}
   ],
-  priceHistory: JSON.parse(localStorage.getItem('dc_priceHistory') || 'null') || [],
-  invoices: JSON.parse(localStorage.getItem('dc_invoices') || 'null') || [],
-  ledger: JSON.parse(localStorage.getItem('dc_ledger') || 'null') || [],
-  tdstcs: JSON.parse(localStorage.getItem('dc_tdstcs') || 'null') || [],
-  orders: JSON.parse(localStorage.getItem('dc_orders') || 'null') || [],
-  payments: JSON.parse(localStorage.getItem('dc_payments') || 'null') || []
+  priceHistory: JSON.parse(localStorage.getItem('dc_priceHistory')||'null')||[],
+  invoices: JSON.parse(localStorage.getItem('dc_invoices')||'null')||[],
+  ledger: JSON.parse(localStorage.getItem('dc_ledger')||'null')||[],
+  tdstcs: JSON.parse(localStorage.getItem('dc_tdstcs')||'null')||[],
+  orders: JSON.parse(localStorage.getItem('dc_orders')||'null')||[],
+  payments: JSON.parse(localStorage.getItem('dc_payments')||'null')||[]
 };
+const FILTERS={dispatch:{fromDate:'',toDate:'',status:'all'},ledger:{dealerId:'all',type:'all',fromDate:'',toDate:''},dealerDispatch:{status:'all'}};
+let passwordVisibility={};
+let currentPasswordDealerId=null;
+let orderItems=[];
 
-const FILTERS = {
-  dispatch: {fromDate:'', toDate:'', status:'all'},
-  ledger: {dealerId:'all', type:'all', fromDate:'', toDate:''},
-  dealerDispatch: {status:'all'}
-};
-
-function today(){ return new Date().toISOString().split('T')[0]; }
-function now(){ return new Date().toLocaleString('en-IN'); }
-function formatDate(d){ if(!d) return '-'; try{ return new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); }catch(e){ return d; } }
-
-const save = () => {
-  Object.entries({
-    dc_settings: DB.settings, dc_dealers: DB.dealers, dc_inventory: DB.inventory,
-    dc_priceHistory: DB.priceHistory, dc_invoices: DB.invoices, dc_ledger: DB.ledger,
-    dc_tdstcs: DB.tdstcs, dc_orders: DB.orders, dc_payments: DB.payments
-  }).forEach(([k,v])=>localStorage.setItem(k, JSON.stringify(v)));
-};
-
-const fmt = n => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',minimumFractionDigits:2,maximumFractionDigits:2}).format(n||0);
-const isRegisteredDealer = d => d && d.gstin && d.gstin.length === 15;
-const getStateFromGSTIN = g => (g && g.length >= 2) ? g.substring(0,2) : null;
-const isDealerActive = d => d && d.status !== 'inactive';
+function today(){return new Date().toISOString().split('T')[0]}
+function now(){return new Date().toLocaleString('en-IN')}
+function formatDate(d){if(!d)return'-';try{return new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})}catch(e){return d}}
+function save(){
+  Object.entries({dc_settings:DB.settings,dc_dealers:DB.dealers,dc_inventory:DB.inventory,dc_priceHistory:DB.priceHistory,dc_invoices:DB.invoices,dc_ledger:DB.ledger,dc_tdstcs:DB.tdstcs,dc_orders:DB.orders,dc_payments:DB.payments}).forEach(([k,v])=>localStorage.setItem(k,JSON.stringify(v)));
+}
+const fmt=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',minimumFractionDigits:2}).format(n||0);
+const isRegisteredDealer=d=>d&&d.gstin&&d.gstin.length===15;
+const getStateFromGSTIN=g=>(g&&g.length>=2)?g.substring(0,2):null;
+const isDealerActive=d=>d&&d.status!=='inactive';
 
 /* ============ AUTH ============ */
 function switchLoginTab(tab){
   document.querySelectorAll('.login-tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.login-form').forEach(f=>f.classList.remove('active'));
-  if(tab==='admin'){
-    document.querySelectorAll('.login-tab')[0].classList.add('active');
-    document.getElementById('adminForm').classList.add('active');
-  } else {
-    document.querySelectorAll('.login-tab')[1].classList.add('active');
-    document.getElementById('dealerForm').classList.add('active');
-  }
+  if(tab==='admin'){document.querySelectorAll('.login-tab')[0].classList.add('active');document.getElementById('adminForm').classList.add('active')}
+  else{document.querySelectorAll('.login-tab')[1].classList.add('active');document.getElementById('dealerForm').classList.add('active')}
   document.getElementById('loginError').style.display='none';
 }
-
 function doAdminLogin(){
-  const u = document.getElementById('adminUser').value.trim();
-  const p = document.getElementById('adminPass').value.trim();
-  if(u==='admin' && p==='admin123'){
-    DB.user = {role:'admin',name:'Administrator',username:u,loginTime:new Date().toISOString()};
-    localStorage.setItem('dc_user', JSON.stringify(DB.user));
-    showApp();
-  } else {
-    document.getElementById('loginError').style.display='block';
-    document.getElementById('loginError').textContent='Invalid admin credentials';
-  }
+  const u=document.getElementById('adminUser').value.trim(),p=document.getElementById('adminPass').value.trim();
+  if(u==='admin'&&p==='admin123'){DB.user={role:'admin',name:'Administrator',username:u};localStorage.setItem('dc_user',JSON.stringify(DB.user));showApp()}
+  else{document.getElementById('loginError').style.display='block';document.getElementById('loginError').textContent='Invalid admin credentials'}
 }
-
 function doDealerLogin(){
-  const code = document.getElementById('dealerCode').value.trim().toUpperCase();
-  const pass = document.getElementById('dealerPass').value.trim();
-  const dealer = DB.dealers.find(d=>d.dealerCode===code && d.password===pass);
-  if(!dealer){
-    document.getElementById('loginError').style.display='block';
-    document.getElementById('loginError').textContent='Invalid dealer code or password';
-    return;
-  }
-  if(!isDealerActive(dealer)){
-    document.getElementById('loginError').style.display='block';
-    document.getElementById('loginError').textContent='⛔ Your account has been deactivated. Please contact admin.';
-    return;
-  }
-  DB.user = {role:'dealer',dealerId:dealer.id,name:dealer.name,dealerCode:dealer.dealerCode,loginTime:new Date().toISOString()};
-  localStorage.setItem('dc_user', JSON.stringify(DB.user));
-  showApp();
+  const code=document.getElementById('dealerCode').value.trim().toUpperCase(),pass=document.getElementById('dealerPass').value.trim();
+  const dealer=DB.dealers.find(d=>d.dealerCode===code&&d.password===pass);
+  if(!dealer){document.getElementById('loginError').style.display='block';document.getElementById('loginError').textContent='Invalid dealer code or password';return}
+  if(!isDealerActive(dealer)){document.getElementById('loginError').style.display='block';document.getElementById('loginError').textContent='⛔ Account deactivated. Contact admin.';return}
+  DB.user={role:'dealer',dealerId:dealer.id,name:dealer.name,dealerCode:dealer.dealerCode};
+  localStorage.setItem('dc_user',JSON.stringify(DB.user));showApp();
 }
-
-function doLogout(){
-  if(confirm('Logout from DealerConnect?')){
-    localStorage.removeItem('dc_user');
-    location.reload();
-  }
-}
-
+function doLogout(){if(confirm('Logout?')){localStorage.removeItem('dc_user');location.reload()}}
 function showApp(){
   document.getElementById('loginPage').style.display='none';
   document.getElementById('app').classList.add('active');
-  document.getElementById('userName').textContent = DB.user.name;
-  document.getElementById('userAvatar').textContent = DB.user.name.charAt(0).toUpperCase();
-  document.getElementById('roleTag').textContent = DB.user.role==='admin'?'ADMIN':'DEALER';
-  document.getElementById('userRole').textContent = DB.user.role==='admin'?'Administrator':'Authorized Dealer';
+  document.getElementById('userName').textContent=DB.user.name;
+  document.getElementById('userAvatar').textContent=DB.user.name.charAt(0).toUpperCase();
+  document.getElementById('roleTag').textContent=DB.user.role==='admin'?'ADMIN':'DEALER';
+  document.getElementById('userRole').textContent=DB.user.role==='admin'?'Administrator':'Authorized Dealer';
   buildNavMenu();
-  if(DB.user.role==='admin'){
-    document.getElementById('pageSubtitle').textContent = `FY: ${DB.settings.fy} | GSTIN: ${DB.settings.gstin}`;
-    navigateTo('dashboard');
-  } else {
-    const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
-    const regStatus = isRegisteredDealer(d) ? `GSTIN: ${d.gstin}` : 'Unregistered Dealer';
-    document.getElementById('pageSubtitle').textContent = `${d?.name||''} | ${regStatus}`;
-    navigateTo('d-dashboard');
-  }
+  if(DB.user.role==='admin'){document.getElementById('pageSubtitle').textContent=`FY: ${DB.settings.fy} | GSTIN: ${DB.settings.gstin}`;navigateTo('dashboard')}
+  else{const d=DB.dealers.find(x=>x.id===DB.user.dealerId);document.getElementById('pageSubtitle').textContent=`${d?.name||''} | ${isRegisteredDealer(d)?`GSTIN: ${d.gstin}`:'Unregistered'}`;navigateTo('d-dashboard')}
 }
-
 function buildNavMenu(){
-  const menu = document.getElementById('navMenu');
+  const menu=document.getElementById('navMenu');
   if(DB.user.role==='admin'){
-    menu.innerHTML = `
-      <li><a class="active" data-page="dashboard">📊 Dashboard</a></li>
-      <li><a data-page="prices">💰 Daily Price Management</a></li>
-      <li><a data-page="approvals">📝 Order Approvals <span class="badge warning" id="pendingBadge" style="margin-left:auto"></span></a></li>
-      <li><a data-page="payment-approvals">💳 Payment Approvals <span class="badge info" id="paymentBadge" style="margin-left:auto"></span></a></li>
-      <li><a data-page="dispatch">🚚 Dispatch Management <span class="badge dispatch" id="dispatchBadge" style="margin-left:auto"></span></a></li>
-      <li><a data-page="invoices">🧾 Invoices (GST)</a></li>
-      <li><a data-page="tdstcs">🏛️ TDS / TCS</a></li>
-      <li><a data-page="ledger">📒 General Ledger</a></li>
-      <li><a data-page="dealers">👥 Dealers</a></li>
-      <li><a data-page="inventory">📦 Inventory</a></li>
-      <li><a data-page="settings">⚙️ Settings</a></li>
-    `;
+    menu.innerHTML=`<li><a class="active" data-page="dashboard">📊 Dashboard</a></li><li><a data-page="prices">💰 Daily Prices</a></li><li><a data-page="approvals">📝 Order Approvals <span class="badge warning" id="pendingBadge" style="margin-left:auto"></span></a></li><li><a data-page="payment-approvals">💳 Payment Approvals <span class="badge info" id="paymentBadge" style="margin-left:auto"></span></a></li><li><a data-page="dispatch">🚚 Dispatch <span class="badge dispatch" id="dispatchBadge" style="margin-left:auto"></span></a></li><li><a data-page="invoices">🧾 Invoices</a></li><li><a data-page="tdstcs">🏛️ TDS/TCS</a></li><li><a data-page="ledger">📒 Ledger</a></li><li><a data-page="dealers">👥 Dealers</a></li><li><a data-page="inventory">📦 Inventory</a></li><li><a data-page="settings">⚙️ Settings</a></li>`;
   } else {
-    menu.innerHTML = `
-      <li><a class="active" data-page="d-dashboard">🏠 My Dashboard</a></li>
-      <li><a data-page="d-today-prices">📊 Today's Prices</a></li>
-      <li><a data-page="d-place-order">📝 Place New Order</a></li>
-      <li><a data-page="d-my-orders">📦 My Orders</a></li>
-      <li><a data-page="d-my-dispatches">🚚 My Dispatches & Deliveries</a></li>
-      <li><a data-page="d-my-invoices">🧾 My Invoices</a></li>
-      <li><a data-page="d-make-payment">💳 Make Payment</a></li>
-      <li><a data-page="d-payment-history">📋 Payment History</a></li>
-      <li><a data-page="d-my-ledger">📒 My Ledger</a></li>
-      <li><a data-page="d-profile">👤 My Profile</a></li>
-    `;
+    menu.innerHTML=`<li><a class="active" data-page="d-dashboard">🏠 Dashboard</a></li><li><a data-page="d-today-prices">📊 Today's Prices</a></li><li><a data-page="d-place-order">📝 Place Order</a></li><li><a data-page="d-my-orders">📦 My Orders</a></li><li><a data-page="d-my-dispatches">🚚 My Dispatches</a></li><li><a data-page="d-my-invoices">🧾 My Invoices</a></li><li><a data-page="d-make-payment">💳 Make Payment</a></li><li><a data-page="d-payment-history">📋 Payment History</a></li><li><a data-page="d-my-ledger">📒 My Ledger</a></li><li><a data-page="d-profile">👤 Profile</a></li>`;
   }
-  menu.querySelectorAll('a').forEach(a=>{
-    a.addEventListener('click', e=>{
-      e.preventDefault();
-      navigateTo(a.dataset.page);
-      document.getElementById('sidebar').classList.remove('active');
-    });
-  });
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();navigateTo(a.dataset.page);document.getElementById('sidebar').classList.remove('active')}));
   updateBadges();
 }
-
 function updateBadges(){
-  const pb = document.getElementById('pendingBadge');
-  if(pb){ const c = DB.orders.filter(o=>o.status==='pending').length; pb.textContent = c>0?c:''; }
-  const db = document.getElementById('dispatchBadge');
-  if(db){ const c = DB.orders.filter(o=>o.status==='approved').length; db.textContent = c>0?c:''; }
-  const pmb = document.getElementById('paymentBadge');
-  if(pmb){ const c = DB.payments.filter(p=>p.status==='pending').length; pmb.textContent = c>0?c:''; }
+  const pb=document.getElementById('pendingBadge');if(pb){const c=DB.orders.filter(o=>o.status==='pending').length;pb.textContent=c>0?c:''}
+  const db=document.getElementById('dispatchBadge');if(db){const c=DB.orders.filter(o=>o.status==='approved').length;db.textContent=c>0?c:''}
+  const pmb=document.getElementById('paymentBadge');if(pmb){const c=DB.payments.filter(p=>p.status==='pending').length;pmb.textContent=c>0?c:''}
 }
-
 function navigateTo(page){
   document.querySelectorAll('.nav-menu a').forEach(x=>x.classList.remove('active'));
-  const activeLink = document.querySelector(`.nav-menu a[data-page="${page}"]`);
-  if(activeLink) activeLink.classList.add('active');
+  const link=document.querySelector(`.nav-menu a[data-page="${page}"]`);if(link)link.classList.add('active');
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  const el = document.getElementById('page-'+page);
-  if(el) el.classList.add('active');
-  
-  const titles = {
-    'dashboard':'Dashboard','prices':'Daily Price Management','approvals':'Order Approvals',
-    'payment-approvals':'Payment Approvals','dispatch':'Dispatch Management','invoices':'Invoices (GST)',
-    'tdstcs':'TDS / TCS Reports','ledger':'General Ledger','dealers':'Dealers Management',
-    'inventory':'Inventory (HSN)','settings':'Settings',
-    'd-dashboard':'My Dashboard','d-today-prices':"Today's Prices",'d-place-order':'Place New Order',
-    'd-my-orders':'My Orders','d-my-dispatches':'My Dispatches & Deliveries',
-    'd-my-invoices':'My Invoices','d-make-payment':'Make Payment',
-    'd-payment-history':'Payment History','d-my-ledger':'My Ledger','d-profile':'My Profile'
-  };
-  document.getElementById('pageTitle').textContent = titles[page]||'Dashboard';
-  
-  const renderers = {
-    'dashboard':renderDashboard,'prices':renderPriceManagement,'approvals':renderApprovals,
-    'payment-approvals':renderPaymentApprovals,'dispatch':renderDispatch,'invoices':renderInvoicePage,
-    'tdstcs':renderTDSPage,'ledger':renderLedger,'dealers':renderDealers,'inventory':renderInventory,
-    'settings':loadSettings,
-    'd-dashboard':renderDealerDashboard,'d-today-prices':renderDealerTodayPrices,
-    'd-place-order':renderPlaceOrder,'d-my-orders':renderMyOrders,
-    'd-my-dispatches':renderDealerDispatches,
-    'd-my-invoices':renderMyInvoices,'d-make-payment':renderMakePayment,
-    'd-payment-history':renderPaymentHistory,'d-my-ledger':renderDealerLedger,'d-profile':renderDealerProfile
-  };
-  if(renderers[page]) renderers[page]();
+  const el=document.getElementById('page-'+page);if(el)el.classList.add('active');
+  const titles={'dashboard':'Dashboard','prices':'Daily Price Management','approvals':'Order Approvals','payment-approvals':'Payment Approvals','dispatch':'Dispatch Management','invoices':'Invoices','tdstcs':'TDS/TCS Reports','ledger':'General Ledger','dealers':'Dealers Management','inventory':'Inventory','settings':'Settings','d-dashboard':'My Dashboard','d-today-prices':"Today's Prices",'d-place-order':'Place Order','d-my-orders':'My Orders','d-my-dispatches':'My Dispatches','d-my-invoices':'My Invoices','d-make-payment':'Make Payment','d-payment-history':'Payment History','d-my-ledger':'My Ledger','d-profile':'My Profile'};
+  document.getElementById('pageTitle').textContent=titles[page]||'Dashboard';
+  const r={'dashboard':renderDashboard,'prices':renderPriceManagement,'approvals':renderApprovals,'payment-approvals':renderPaymentApprovals,'dispatch':renderDispatch,'invoices':renderInvoicePage,'tdstcs':renderTDSPage,'ledger':renderLedger,'dealers':renderDealers,'inventory':renderInventory,'settings':loadSettings,'d-dashboard':renderDealerDashboard,'d-today-prices':renderDealerTodayPrices,'d-place-order':renderPlaceOrder,'d-my-orders':renderMyOrders,'d-my-dispatches':renderDealerDispatches,'d-my-invoices':renderMyInvoices,'d-make-payment':renderMakePayment,'d-payment-history':renderPaymentHistory,'d-my-ledger':renderDealerLedger,'d-profile':renderDealerProfile};
+  if(r[page])r[page]();
 }
+function toast(msg,type='success'){const t=document.createElement('div');t.className='toast'+(type==='error'?' error':'');t.innerHTML=(type==='error'?'⚠️ ':'✅ ')+msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3000)}
 
-function toast(msg, type='success'){
-  const t = document.createElement('div');
-  t.className = 'toast' + (type==='error'?' error':'');
-  t.innerHTML = (type==='error'?'⚠️ ':'✅ ') + msg;
-  document.body.appendChild(t);
-  setTimeout(()=>t.remove(), 3000);
+/* ============ EXCEL EXPORT ============ */
+function exportToExcel(data,filename,sheetName='Sheet1'){
+  if(typeof XLSX==='undefined'){toast('Excel library not loaded','error');return}
+  try{const ws=XLSX.utils.json_to_sheet(data);const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,sheetName);
+  const cols=Object.keys(data[0]||{}).map(k=>({wch:Math.min(Math.max(k.length,...data.map(r=>String(r[k]||'').length))+2,40)}));
+  ws['!cols']=cols;XLSX.writeFile(wb,`${filename}.xlsx`);toast(`✅ Exported: ${filename}.xlsx`)}catch(e){toast('Export failed: '+e.message,'error')}
 }
 
 /* ============ DEALER PASSWORD MANAGEMENT ============ */
-let currentPasswordDealerId = null;
-let passwordVisibility = {};
-
-function togglePasswordVisibility(dealerId){
-  passwordVisibility[dealerId] = !passwordVisibility[dealerId];
-  renderDealers();
-}
-
-function openPasswordModal(dealerId){
-  const dealer = DB.dealers.find(d=>d.id===dealerId);
-  if(!dealer) return;
-  
-  currentPasswordDealerId = dealerId;
-  document.getElementById('modalDealerName').value = dealer.name;
-  document.getElementById('modalDealerCode').value = dealer.dealerCode;
-  document.getElementById('modalNewPassword').value = '';
-  document.getElementById('modalConfirmPassword').value = '';
+function togglePasswordVisibility(id){passwordVisibility[id]=!passwordVisibility[id];renderDealers()}
+function openPasswordModal(id){
+  const d=DB.dealers.find(x=>x.id===id);if(!d)return;
+  currentPasswordDealerId=id;
+  document.getElementById('modalDealerName').value=d.name;
+  document.getElementById('modalDealerCode').value=d.dealerCode;
+  document.getElementById('modalNewPassword').value='';
+  document.getElementById('modalConfirmPassword').value='';
   document.getElementById('passwordModal').classList.add('active');
 }
-
-function closePasswordModal(){
-  document.getElementById('passwordModal').classList.remove('active');
-  currentPasswordDealerId = null;
-}
-
+function closePasswordModal(){document.getElementById('passwordModal').classList.remove('active');currentPasswordDealerId=null}
 function updateDealerPassword(){
-  if(!currentPasswordDealerId) return;
-  
-  const newPass = document.getElementById('modalNewPassword').value;
-  const confirmPass = document.getElementById('modalConfirmPassword').value;
-  
-  if(!newPass){
-    toast('Please enter new password','error');
-    return;
-  }
-  if(newPass.length < 6){
-    toast('Password must be at least 6 characters','error');
-    return;
-  }
-  if(newPass !== confirmPass){
-    toast('Passwords do not match','error');
-    return;
-  }
-  
-  const dealer = DB.dealers.find(d=>d.id===currentPasswordDealerId);
-  if(!dealer) return;
-  
-  dealer.password = newPass;
-  save();
-  
-  closePasswordModal();
-  toast(`✅ Password updated for ${dealer.name}`);
-  renderDealers();
+  if(!currentPasswordDealerId)return;
+  const np=document.getElementById('modalNewPassword').value,cp=document.getElementById('modalConfirmPassword').value;
+  if(!np){toast('Enter new password','error');return}
+  if(np.length<6){toast('Min 6 characters','error');return}
+  if(np!==cp){toast('Passwords do not match','error');return}
+  const d=DB.dealers.find(x=>x.id===currentPasswordDealerId);if(!d)return;
+  d.password=np;save();closePasswordModal();toast(`✅ Password updated for ${d.name}`);renderDealers();
 }
 
 /* ============ DEALERS ============ */
 function renderDealers(){
-  const activeCount = DB.dealers.filter(d=>d.status==='active').length;
-  const inactiveCount = DB.dealers.length - activeCount;
-  document.getElementById('page-dealers').innerHTML = `
-    <div class="alert alert-info">ℹ️ <strong>GSTIN and PAN are OPTIONAL.</strong> Admin can view/update dealer passwords and activate/deactivate dealers.</div>
+  const ac=DB.dealers.filter(d=>d.status==='active').length,ic=DB.dealers.length-ac;
+  document.getElementById('page-dealers').innerHTML=`
+    <div class="alert alert-info">ℹ️ <strong>GSTIN/PAN optional.</strong> Admin can view/update dealer passwords (hidden by default).</div>
     <div class="stats-grid">
-      <div class="stat-card success"><h3>Active Dealers</h3><div class="value">${activeCount}</div></div>
-      <div class="stat-card danger"><h3>Inactive Dealers</h3><div class="value">${inactiveCount}</div></div>
-      <div class="stat-card"><h3>Total Dealers</h3><div class="value">${DB.dealers.length}</div></div>
+      <div class="stat-card success"><h3>Active</h3><div class="value">${ac}</div></div>
+      <div class="stat-card danger"><h3>Inactive</h3><div class="value">${ic}</div></div>
+      <div class="stat-card"><h3>Total</h3><div class="value">${DB.dealers.length}</div></div>
     </div>
     <div class="grid-2">
       <div class="card">
         <div class="card-title">Add New Dealer</div>
-        <div class="form-group"><label>Dealer Name <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="dName"></div>
+        <div class="form-group"><label>Name <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="dName"></div>
         <div class="form-group"><label>GSTIN <span class="optional">(Optional)</span></label><input type="text" class="form-control" id="dGstin" style="text-transform:uppercase"></div>
         <div class="form-row">
           <div class="form-group"><label>PAN <span class="optional">(Optional)</span></label><input type="text" class="form-control" id="dPan" style="text-transform:uppercase"></div>
@@ -643,170 +430,584 @@ function renderDealers(){
         <div class="form-group"><label>Phone</label><input type="text" class="form-control" id="dPhone"></div>
         <div class="form-group"><label>Email <span class="optional">(Optional)</span></label><input type="email" class="form-control" id="dEmail"></div>
         <div class="form-row">
-          <div class="form-group"><label>Dealer Code <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="dCode" style="text-transform:uppercase"></div>
+          <div class="form-group"><label>Code <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="dCode" style="text-transform:uppercase"></div>
           <div class="form-group"><label>Password <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="dPass" value="dealer123"></div>
         </div>
-        <button class="btn btn-success btn-block" onclick="addDealer()">➕ Add Dealer (Active)</button>
+        <button class="btn btn-success btn-block" onclick="addDealer()">➕ Add Dealer</button>
       </div>
       <div class="card">
         <div class="card-title">Dealer Directory <span class="badge primary">${DB.dealers.length}</span>
           <button class="btn btn-excel btn-sm" onclick="exportDealersExcel()">📥 Export</button>
         </div>
-        <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Code</th>
-              <th>Password</th>
-              <th>Type</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${DB.dealers.map(d=>{
-              const isReg = isRegisteredDealer(d);
-              const isActive = d.status !== 'inactive';
-              const isVisible = passwordVisibility[d.id];
-              const maskedPass = '••••••••';
-              const displayPass = isVisible ? d.password : maskedPass;
-              
-              return `<tr>
-                <td><strong>${d.name}</strong><br><small style="color:var(--text-muted)">${d.phone||''}</small></td>
-                <td><code>${d.dealerCode}</code></td>
-                <td>
-                  <div class="password-display">
-                    <span class="password-text">${displayPass}</span>
-                    <div class="password-actions">
-                      <button class="password-btn" onclick="togglePasswordVisibility(${d.id})" title="${isVisible?'Hide':'Show'} Password">
-                        ${isVisible?'🙈':'👁️'}
-                      </button>
-                      <button class="password-btn" onclick="openPasswordModal(${d.id})" title="Update Password">
-                        ✏️
-                      </button>
-                    </div>
-                  </div>
-                </td>
-                <td>${isReg ? '<span class="badge success">B2B</span>' : '<span class="badge muted">B2C</span>'}</td>
-                <td><button class="toggle-btn ${isActive?'active':'inactive'}" onclick="toggleDealerStatus(${d.id})">${isActive?'✓ Active':'⛔ Inactive'}</button></td>
-                <td><button class="btn btn-danger btn-sm" onclick="deleteDealer(${d.id})">🗑️</button></td>
-              </tr>`;
-            }).join('')}
-          </tbody>
-        </table>
+        <div class="table-wrapper"><table>
+          <thead><tr><th>Name</th><th>Code</th><th>Password</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>${DB.dealers.map(d=>{
+            const isReg=isRegisteredDealer(d),isActive=d.status!=='inactive',isVisible=passwordVisibility[d.id];
+            return `<tr>
+              <td><strong>${d.name}</strong><br><small style="color:var(--text-mut)">${d.phone||''}</small></td>
+              <td><code>${d.dealerCode}</code></td>
+              <td><div class="password-display"><span class="password-text">${isVisible?d.password:'••••••••'}</span>
+                <div class="password-actions">
+                  <button class="password-btn" onclick="togglePasswordVisibility(${d.id})" title="${isVisible?'Hide':'Show'}">${isVisible?'🙈':'👁️'}</button>
+                  <button class="password-btn" onclick="openPasswordModal(${d.id})" title="Update">✏️</button>
+                </div></div></td>
+              <td>${isReg?'<span class="badge success">B2B</span>':'<span class="badge muted">B2C</span>'}</td>
+              <td><button class="toggle-btn ${isActive?'active':'inactive'}" onclick="toggleDealerStatus(${d.id})">${isActive?'✓ Active':'⛔ Inactive'}</button></td>
+              <td><button class="btn btn-danger btn-sm" onclick="deleteDealer(${d.id})">🗑️</button></td>
+            </tr>`;
+          }).join('')}</tbody>
+        </table></div>
+      </div>
+    </div>`;
+}
+function toggleDealerStatus(id){
+  const d=DB.dealers.find(x=>x.id===id);if(!d)return;
+  const ns=d.status==='active'?'inactive':'active';
+  if(ns==='inactive'&&!confirm(`Deactivate "${d.name}"?`))return;
+  d.status=ns;save();toast(`${d.name} is now ${ns.toUpperCase()}`);renderDealers();
+}
+function addDealer(){
+  const name=document.getElementById('dName').value.trim(),gstin=document.getElementById('dGstin').value.trim().toUpperCase(),pan=document.getElementById('dPan').value.trim().toUpperCase(),state=document.getElementById('dState').value.trim(),phone=document.getElementById('dPhone').value.trim(),email=document.getElementById('dEmail').value.trim(),code=document.getElementById('dCode').value.trim().toUpperCase(),pass=document.getElementById('dPass').value.trim();
+  if(!name||!code||!pass){toast('Name, Code, Password required','error');return}
+  if(gstin&&gstin.length!==15){toast('GSTIN must be 15 chars','error');return}
+  if(DB.dealers.some(d=>d.dealerCode===code)){toast('Code exists','error');return}
+  DB.dealers.push({id:Date.now(),name,gstin,pan,state,phone,email,dealerCode:code,password:pass,status:'active'});
+  save();renderDealers();toast('✅ Dealer added');
+}
+function deleteDealer(id){if(!confirm('Delete dealer?'))return;DB.dealers=DB.dealers.filter(d=>d.id!==id);save();renderDealers();toast('Deleted')}
+function exportDealersExcel(){
+  if(!DB.dealers.length){toast('No dealers','error');return}
+  exportToExcel(DB.dealers.map(d=>({'Name':d.name,'Code':d.dealerCode,'Password':d.password,'GSTIN':d.gstin||'N/A','PAN':d.pan||'N/A','State':d.state,'Phone':d.phone,'Email':d.email,'Type':isRegisteredDealer(d)?'B2B':'B2C','Status':d.status})),`dealers_${today()}`,'Dealers');
+}
+
+/* ============ DASHBOARD ============ */
+function renderDashboard(){
+  const ts=DB.invoices.reduce((s,i)=>s+i.taxable,0),tg=DB.invoices.reduce((s,i)=>s+i.cgst+i.sgst+i.igst,0);
+  const po=DB.orders.filter(o=>o.status==='pending').length,td=DB.orders.filter(o=>o.status==='approved').length;
+  const pp=DB.payments.filter(p=>p.status==='pending').length,ap=DB.payments.filter(p=>p.status==='approved').reduce((s,p)=>s+p.amount,0);
+  const ad=DB.dealers.filter(d=>d.status==='active').length;
+  document.getElementById('page-dashboard').innerHTML=`
+    <div class="stats-grid">
+      <div class="stat-card"><h3>Total Sales</h3><div class="value">${fmt(ts)}</div><div class="sub">${DB.invoices.length} Invoices</div></div>
+      <div class="stat-card success"><h3>GST Collected</h3><div class="value">${fmt(tg)}</div></div>
+      <div class="stat-card warning"><h3>Pending Orders</h3><div class="value">${po}</div></div>
+      <div class="stat-card info"><h3>Pending Payments</h3><div class="value">${pp}</div></div>
+      <div class="stat-card success"><h3>Payments Received</h3><div class="value">${fmt(ap)}</div></div>
+      <div class="stat-card"><h3>Active Dealers</h3><div class="value">${ad}/${DB.dealers.length}</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><div class="card-title">Pending Payments <span class="badge info">${pp}</span></div>
+        ${DB.payments.filter(p=>p.status==='pending').slice(-5).reverse().map(p=>{const d=DB.dealers.find(x=>x.id===p.dealerId);return `<div class="payment-card"><div class="order-header"><div><div class="order-no">${p.paymentNo}</div><div class="order-meta">${d?.name||'Unknown'} • ${formatDate(p.date)}</div></div><div style="text-align:right"><div class="order-total">${fmt(p.amount)}</div><span class="badge warning">Pending</span></div></div><div class="order-actions"><button class="btn btn-primary btn-sm" onclick="navigateTo('payment-approvals')">Review →</button></div></div>`}).join('')||'<div class="empty">No pending payments</div>'}
+      </div>
+      <div class="card"><div class="card-title">Dealer Status</div>
+        <div class="table-wrapper"><table><thead><tr><th>Dealer</th><th>Code</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>${DB.dealers.slice(0,8).map(d=>`<tr><td>${d.name}</td><td><code>${d.dealerCode}</code></td><td>${d.status==='active'?'<span class="badge success">Active</span>':'<span class="badge inactive">Inactive</span>'}</td><td><button class="toggle-btn ${d.status==='active'?'active':'inactive'}" onclick="toggleDealerStatus(${d.id})">${d.status==='active'?'✓ Active':'⛔ Inactive'}</button></td></tr>`).join('')}</tbody></table></div>
+      </div>
+    </div>`;
+}
+
+/* ============ PRICES ============ */
+function renderPriceManagement(){
+  const td=today(),tu=DB.priceHistory.filter(p=>p.date===td).length;
+  document.getElementById('page-prices').innerHTML=`
+    <div class="stats-grid">
+      <div class="stat-card"><h3>Items</h3><div class="value">${DB.inventory.length}</div></div>
+      <div class="stat-card success"><h3>Today's Updates</h3><div class="value">${tu}</div></div>
+      <div class="stat-card info"><h3>History</h3><div class="value">${DB.priceHistory.length}</div></div>
+    </div>
+    <div class="card"><div class="card-title">Update Prices <span class="badge success">${td}</span></div>
+      <div class="table-wrapper"><table><thead><tr><th>Item</th><th>HSN</th><th>GST</th><th class="text-right">Current</th><th class="text-right">New</th><th>Action</th></tr></thead>
+      <tbody>${DB.inventory.map(i=>`<tr><td><strong>${i.name}</strong>${i.isFree?' <span class="badge free">FREE</span>':''}</td><td>${i.hsn}</td><td>${i.gst}%</td><td class="text-right">${i.rate===0?'<span class="badge free">FREE</span>':fmt(i.rate)}</td><td class="text-right"><input type="number" class="form-control" id="np-${i.id}" value="${i.rate}" min="0" style="width:130px;padding:6px 10px"></td><td><button class="btn btn-primary btn-sm" onclick="updateItemPrice(${i.id})">💾</button></td></tr>`).join('')}</tbody></table></div>
+      <button class="btn btn-success" style="margin-top:14px" onclick="updateAllPrices()">💾 Update All</button>
+    </div>`;
+}
+function updateItemPrice(id){
+  const np=parseFloat(document.getElementById('np-'+id).value),i=DB.inventory.find(x=>x.id===id);
+  if(!i){toast('Not found','error');return}
+  if(isNaN(np)||np<0){toast('Invalid price','error');return}
+  if(np===i.rate){toast('Unchanged','error');return}
+  DB.priceHistory.push({id:Date.now(),itemId:id,date:today(),timestamp:now(),oldPrice:i.rate,newPrice:np,updatedBy:DB.user.name});
+  i.rate=np;i.lastUpdated=today();i.isFree=np===0;save();toast(`✅ ${i.name} updated`);renderPriceManagement();
+}
+function updateAllPrices(){
+  let u=0;DB.inventory.forEach(i=>{const inp=document.getElementById('np-'+i.id);if(!inp)return;const np=parseFloat(inp.value);if(!isNaN(np)&&np>=0&&np!==i.rate){DB.priceHistory.push({id:Date.now()+u,itemId:i.id,date:today(),timestamp:now(),oldPrice:i.rate,newPrice:np,updatedBy:DB.user.name});i.rate=np;i.lastUpdated=today();i.isFree=np===0;u++}});
+  if(!u){toast('No changes','error');return}save();toast(`✅ ${u} updated`);renderPriceManagement();
+}
+
+/* ============ APPROVALS ============ */
+function renderApprovals(){
+  const p=DB.orders.filter(o=>o.status==='pending').reverse(),pr=DB.orders.filter(o=>o.status!=='pending'&&o.status!=='approved').reverse().slice(0,10);
+  document.getElementById('page-approvals').innerHTML=`
+    <div class="card"><div class="card-title">Pending <span class="badge warning">${p.length}</span></div>${p.length?p.map(o=>renderOrderCard(o,'approve')).join(''):'<div class="empty">No pending orders</div>'}</div>
+    <div class="card"><div class="card-title">Processed</div>${pr.length?pr.map(o=>renderOrderCard(o,'view')).join(''):'<div class="empty">None yet</div>'}</div>`;
+}
+function renderOrderCard(o,mode){
+  const d=DB.dealers.find(x=>x.id===o.dealerId),isReg=isRegisteredDealer(d),isAct=isDealerActive(d);
+  const sb={'pending':'<span class="badge warning">⏳ Pending</span>','approved':'<span class="badge success">✅ Approved</span>','dispatched':'<span class="badge dispatch">🚚 Dispatched</span>','delivered':'<span class="badge info">📦 Delivered</span>','rejected':'<span class="badge danger">❌ Rejected</span>'}[o.status];
+  let act='';
+  if(mode==='approve')act=`<div class="order-actions"><input type="text" class="form-control" id="rm-${o.id}" placeholder="Remarks" style="flex:1"><button class="btn btn-success btn-sm" onclick="approveOrder(${o.id})">✅ Approve</button><button class="btn btn-danger btn-sm" onclick="rejectOrder(${o.id})">❌ Reject</button></div>`;
+  return `<div class="order-card" style="border-left:4px solid ${o.status==='pending'?'var(--warning)':o.status==='approved'?'var(--success)':'#8b5cf6'}">
+    <div class="order-header"><div><div class="order-no">${o.orderNo} ${sb} ${isReg?'<span class="badge success">B2B</span>':'<span class="badge muted">B2C</span>'} ${!isAct?'<span class="badge inactive">Inactive</span>':''}</div><div class="order-meta"><strong>${d?.name||'Unknown'}</strong><br>${isReg?`GSTIN: ${d.gstin}`:'<em>Unregistered</em>'}<br>Placed: ${formatDate(o.date)}</div></div><div style="text-align:right"><div class="order-total">${fmt(o.total)}</div>${o.invoiceNo?`<div style="font-size:11px;color:var(--text-mut)">Invoice: ${o.invoiceNo}</div>`:''}</div></div>
+    <div class="order-items"><strong>Items:</strong><br>${o.items.map(it=>`• ${it.name} (HSN: ${it.hsn}) × ${it.qty} @ ${fmt(it.rate)} = ${fmt(it.amount)}`).join('<br>')}</div>
+    ${o.remarks?`<div style="padding:8px;background:var(--bg);border-radius:6px;font-size:12px;margin-top:8px"><strong>Remarks:</strong> ${o.remarks}</div>`:''}
+    ${act}</div>`;
+}
+function approveOrder(id){
+  const o=DB.orders.find(x=>x.id===id);if(!o)return;
+  const d=DB.dealers.find(x=>x.id===o.dealerId);if(!isDealerActive(d)){toast('Dealer inactive','error');return}
+  for(const it of o.items){const inv=DB.inventory.find(x=>x.id===it.itemId);if(!inv||inv.stock<it.qty){toast(`Insufficient stock: ${it.name}`,'error');return}}
+  const invNo='INV-'+new Date().getFullYear()+'-'+String(DB.invoices.length+1).padStart(4,'0'),irn='IRN'+Math.random().toString(36).substring(2,14).toUpperCase();
+  const isReg=isRegisteredDealer(d),tax=o.subtotal,bs=isReg?getStateFromGSTIN(d.gstin):DB.settings.stateCode,isI=isReg&&bs&&bs!==DB.settings.stateCode,gr=o.items[0]?.gst||18;
+  let cg=0,sg=0,ig=0,tc=0;
+  if(isI)ig=(tax*gr)/100;else{cg=(tax*gr/2)/100;sg=(tax*gr/2)/100}
+  if(tax>=500000)tc=(tax*0.1)/100;
+  const tot=tax+cg+sg+ig+tc;
+  DB.invoices.push({id:Date.now(),invNo,date:today(),dealerId:d?.id,dealerName:d?.name,gstin:d?.gstin||'',hsn:o.items.map(i=>i.hsn).join(','),itemName:o.items.map(i=>i.name).join(', '),orderId:o.id,qty:o.items.reduce((s,i)=>s+i.qty,0),taxable:tax,cgst:cg,sgst:sg,igst:ig,tcs:tc,total:tot,gstRate:gr,irn,status:'Generated',source:'Dealer Order',isRegistered:isReg,saleType:isReg?'B2B':'B2C'});
+  DB.ledger.push({id:Date.now()+1,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,dealerName:d?.name,account:'Sundry Debtors (Dr)',particulars:`Invoice to ${d?.name} (${o.orderNo})`,debit:tot,credit:0});
+  DB.ledger.push({id:Date.now()+2,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,dealerName:d?.name,account:'Sales A/c (Cr)',particulars:`Sale ${o.orderNo}`,debit:0,credit:tax});
+  if(isI)DB.ledger.push({id:Date.now()+3,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,dealerName:d?.name,account:'IGST Payable (Cr)',particulars:`IGST @ ${gr}%`,debit:0,credit:ig});
+  else{DB.ledger.push({id:Date.now()+3,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,dealerName:d?.name,account:'CGST Payable (Cr)',particulars:`CGST @ ${gr/2}%`,debit:0,credit:cg});DB.ledger.push({id:Date.now()+4,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,dealerName:d?.name,account:'SGST Payable (Cr)',particulars:`SGST @ ${gr/2}%`,debit:0,credit:sg})}
+  if(tc>0)DB.ledger.push({id:Date.now()+5,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,dealerName:d?.name,account:'TCS Collected (Cr)',particulars:`TCS u/s 206C(1H)`,debit:0,credit:tc});
+  o.status='approved';o.remarks=document.getElementById('rm-'+id)?.value||'';o.approvedDate=now();o.approvedBy=DB.user.name;o.invoiceNo=invNo;
+  save();toast(`✅ Approved! Invoice ${invNo}`);renderApprovals();updateBadges();
+}
+function rejectOrder(id){
+  const o=DB.orders.find(x=>x.id===id);if(!o)return;
+  const r=document.getElementById('rm-'+id)?.value;if(!r){toast('Add remarks','error');return}
+  o.status='rejected';o.remarks=r;o.approvedDate=now();o.approvedBy=DB.user.name;save();toast('Rejected','error');renderApprovals();updateBadges();
+}
+
+/* ============ PAYMENT APPROVALS ============ */
+function renderPaymentApprovals(){
+  const p=DB.payments.filter(x=>x.status==='pending').reverse(),pr=DB.payments.filter(x=>x.status!=='pending').reverse();
+  const tp=p.reduce((s,x)=>s+x.amount,0),ta=DB.payments.filter(x=>x.status==='approved').reduce((s,x)=>s+x.amount,0);
+  document.getElementById('page-payment-approvals').innerHTML=`
+    <div class="alert alert-info">💳 On approval, ledger auto-updates (Bank Dr / Debtors Cr).</div>
+    <div class="stats-grid">
+      <div class="stat-card warning"><h3>Pending</h3><div class="value">${p.length}</div><div class="sub">${fmt(tp)}</div></div>
+      <div class="stat-card success"><h3>Approved</h3><div class="value">${fmt(ta)}</div></div>
+      <div class="stat-card danger"><h3>Rejected</h3><div class="value">${DB.payments.filter(x=>x.status==='rejected').length}</div></div>
+    </div>
+    <div class="card"><div class="card-title">Pending <span class="badge warning">${p.length}</span><button class="btn btn-excel btn-sm" onclick="exportPendingPayments()">📥 Export</button></div>${p.length?p.map(x=>renderPaymentCard(x,'approve')).join(''):'<div class="empty">No pending</div>'}</div>
+    <div class="card"><div class="card-title">History</div>${pr.length?pr.map(x=>renderPaymentCard(x,'view')).join(''):'<div class="empty">None</div>'}</div>`;
+}
+function renderPaymentCard(p,mode){
+  const d=DB.dealers.find(x=>x.id===p.dealerId);
+  const sb={'pending':'<span class="badge warning">⏳ Pending</span>','approved':'<span class="badge success">✅ Approved</span>','rejected':'<span class="badge danger">❌ Rejected</span>'}[p.status];
+  let act='';
+  if(mode==='approve')act=`<div class="order-actions"><input type="text" class="form-control" id="pr-${p.id}" placeholder="Remarks" style="flex:1"><button class="btn btn-success btn-sm" onclick="approvePayment(${p.id})">✅ Approve</button><button class="btn btn-danger btn-sm" onclick="rejectPayment(${p.id})">❌ Reject</button></div>`;
+  return `<div class="payment-card ${p.status}"><div class="order-header"><div><div class="order-no">${p.paymentNo} ${sb}</div><div class="order-meta"><strong>${d?.name||'Unknown'}</strong><br>Submitted: ${formatDate(p.date)} ${p.time||''}${p.approvedDate?'<br>Processed: '+p.approvedDate:''}</div></div><div style="text-align:right"><div class="order-total">${fmt(p.amount)}</div><div style="font-size:11px;color:var(--text-mut)">Mode: ${p.mode}</div>${p.referenceNo?`<div style="font-size:11px;color:var(--text-mut)">Ref: ${p.referenceNo}</div>`:''}</div></div>${p.remarks?`<div style="padding:8px;background:var(--bg);border-radius:6px;font-size:12px;margin-top:8px"><strong>Remarks:</strong> ${p.remarks}</div>`:''}${act}</div>`;
+}
+function approvePayment(id){
+  const p=DB.payments.find(x=>x.id===id);if(!p)return;
+  const d=DB.dealers.find(x=>x.id===p.dealerId);
+  const rc='RCPT-'+new Date().getFullYear()+'-'+String(DB.payments.filter(x=>x.status==='approved').length+1).padStart(4,'0');
+  DB.ledger.push({id:Date.now()+1,date:today(),voucher:rc,type:'Payment',dealerId:d?.id,dealerName:d?.name,account:p.mode==='Cash'?'Cash A/c (Dr)':'Bank A/c (Dr)',particulars:`Payment from ${d?.name} via ${p.mode}${p.referenceNo?' | Ref: '+p.referenceNo:''}`,debit:p.amount,credit:0});
+  DB.ledger.push({id:Date.now()+2,date:today(),voucher:rc,type:'Payment',dealerId:d?.id,dealerName:d?.name,account:'Sundry Debtors (Cr)',particulars:`Against ${p.paymentNo}`,debit:0,credit:p.amount});
+  p.status='approved';p.approvedDate=now();p.approvedBy=DB.user.name;p.receiptNo=rc;p.adminRemarks=document.getElementById('pr-'+id)?.value||'';
+  save();toast(`✅ Approved! Receipt: ${rc}`);renderPaymentApprovals();updateBadges();
+}
+function rejectPayment(id){
+  const p=DB.payments.find(x=>x.id===id);if(!p)return;
+  const r=document.getElementById('pr-'+id)?.value;if(!r){toast('Add remarks','error');return}
+  p.status='rejected';p.remarks=r;p.approvedDate=now();p.approvedBy=DB.user.name;save();toast('Rejected','error');renderPaymentApprovals();updateBadges();
+}
+function exportPendingPayments(){
+  const p=DB.payments.filter(x=>x.status==='pending');if(!p.length){toast('None','error');return}
+  exportToExcel(p.map(x=>{const d=DB.dealers.find(y=>y.id===x.dealerId);return {'Payment No':x.paymentNo,'Date':formatDate(x.date),'Dealer':d?.name,'Amount':x.amount,'Mode':x.mode,'Reference':x.referenceNo,'Bank':x.bankName,'Remarks':x.remarks,'Status':x.status}}),`pending_payments_${today()}`);
+}
+
+/* ============ DISPATCH ============ */
+function renderDispatch(){
+  const all=DB.orders.filter(o=>o.status==='dispatched'||o.status==='delivered');
+  let f=all.slice();
+  if(FILTERS.dispatch.fromDate)f=f.filter(o=>o.dispatchDate>=FILTERS.dispatch.fromDate);
+  if(FILTERS.dispatch.toDate)f=f.filter(o=>o.dispatchDate<=FILTERS.dispatch.toDate);
+  if(FILTERS.dispatch.status!=='all')f=f.filter(o=>o.status===FILTERS.dispatch.status);
+  f=f.reverse();
+  const tv=f.reduce((s,o)=>s+o.total,0),ti=f.reduce((s,o)=>s+o.items.reduce((a,i)=>a+i.qty,0),0);
+  const td=DB.orders.filter(o=>o.status==='approved').reverse();
+  document.getElementById('page-dispatch').innerHTML=`
+    <div class="card"><div class="card-title">Ready to Dispatch <span class="badge dispatch">${td.length}</span></div>${td.length?td.map(o=>renderDispatchCard(o)).join(''):'<div class="empty">No orders awaiting dispatch</div>'}</div>
+    <div class="card"><div class="card-title">📅 Dispatch History <button class="btn btn-excel btn-sm" onclick="exportDispatchExcel()">📥 Export</button></div>
+      <div class="filter-bar"><div class="filter-bar-title">🔍 Filter</div>
+        <div class="filter-row">
+          <div class="filter-group"><label>From</label><input type="date" id="dfd" value="${FILTERS.dispatch.fromDate}" onchange="applyDispatchFilter()"></div>
+          <div class="filter-group"><label>To</label><input type="date" id="dtd" value="${FILTERS.dispatch.toDate}" onchange="applyDispatchFilter()"></div>
+          <div class="filter-group"><label>Status</label><select id="dst" onchange="applyDispatchFilter()"><option value="all">All</option><option value="dispatched">Dispatched</option><option value="delivered">Delivered</option></select></div>
+          <div class="filter-group"><label>&nbsp;</label><button class="btn btn-outline btn-block" onclick="resetDispatchFilter()">🔄 Reset</button></div>
         </div>
+        <div class="quick-filters"><span class="quick-filter" onclick="setDispatchQuickFilter('today')">Today</span><span class="quick-filter" onclick="setDispatchQuickFilter('week')">Week</span><span class="quick-filter" onclick="setDispatchQuickFilter('month')">Month</span><span class="quick-filter" onclick="setDispatchQuickFilter('year')">FY</span></div>
+      </div>
+      ${f.length?`<div class="table-wrapper"><table><thead><tr><th>Date</th><th>Order</th><th>Dealer</th><th>Challan</th><th>Vehicle</th><th>Items</th><th>Status</th><th class="text-right">Value</th></tr></thead><tbody>${f.map(o=>{const d=DB.dealers.find(x=>x.id===o.dealerId);return `<tr><td>${formatDate(o.dispatchDate)}</td><td><strong>${o.orderNo}</strong></td><td>${d?.name}</td><td><code>${o.challanNo||o.dcNo}</code></td><td>${o.dispatchDetails?.vehicleNo||'-'}</td><td>${o.items.reduce((s,i)=>s+i.qty,0)}</td><td>${o.status==='delivered'?'<span class="badge info">📦</span>':'<span class="badge dispatch">🚚</span>'}</td><td class="text-right"><strong>${fmt(o.total)}</strong></td></tr>`}).join('')}</tbody><tfoot><tr class="total-row"><td colspan="5">Total</td><td>${ti} items</td><td>${f.length} records</td><td class="text-right">${fmt(tv)}</td></tr></tfoot></table></div>`:'<div class="empty">No dispatches</div>'}
+    </div>`;
+}
+function applyDispatchFilter(){FILTERS.dispatch.fromDate=document.getElementById('dfd').value;FILTERS.dispatch.toDate=document.getElementById('dtd').value;FILTERS.dispatch.status=document.getElementById('dst').value;renderDispatch()}
+function resetDispatchFilter(){FILTERS.dispatch={fromDate:'',toDate:'',status:'all'};renderDispatch()}
+function setDispatchQuickFilter(r){const n=new Date();let f='';const t=today();if(r==='today')f=t;else if(r==='week'){const d=new Date(n);d.setDate(d.getDate()-d.getDay());f=d.toISOString().split('T')[0]}else if(r==='month')f=new Date(n.getFullYear(),n.getMonth(),1).toISOString().split('T')[0];else if(r==='year'){const y=n.getMonth()<3?n.getFullYear()-1:n.getFullYear();f=`${y}-04-01`}FILTERS.dispatch.fromDate=f;FILTERS.dispatch.toDate=t;renderDispatch()}
+function renderDispatchCard(o){
+  const d=DB.dealers.find(x=>x.id===o.dealerId);
+  return `<div class="order-card" style="border-left:4px solid var(--warning)"><div class="order-header"><div><div class="order-no">${o.orderNo} <span class="badge dispatch">Ready</span></div><div class="order-meta"><strong>${d?.name}</strong> | Invoice: ${o.invoiceNo||'N/A'}</div></div><div style="text-align:right"><div class="order-total">${fmt(o.total)}</div></div></div>
+    <div class="order-items"><strong>Items:</strong><br>${o.items.map(it=>`• ${it.name} × ${it.qty}`).join('<br>')}</div>
+    <div style="background:var(--bg);padding:14px;border-radius:8px;margin-top:10px">
+      <div class="form-row-3"><div class="form-group" style="margin:0"><label>Date</label><input type="date" class="form-control" id="dd-${o.id}" value="${today()}"></div><div class="form-group" style="margin:0"><label>Vehicle</label><input type="text" class="form-control" id="dv-${o.id}" placeholder="MH12AB1234"></div><div class="form-group" style="margin:0"><label>Challan</label><input type="text" class="form-control" id="dc-${o.id}" placeholder="DC-001"></div></div>
+      <div class="form-row" style="margin-top:10px"><div class="form-group" style="margin:0"><label>Tracking</label><input type="text" class="form-control" id="dt-${o.id}"></div><div class="form-group" style="margin:0"><label>Remarks</label><input type="text" class="form-control" id="dr-${o.id}"></div></div>
+    </div>
+    <div class="order-actions" style="margin-top:12px"><button class="btn btn-warning" onclick="dispatchOrder(${o.id})">🚚 Dispatch</button><button class="btn btn-success" onclick="dispatchAndDeliver(${o.id})">📦 Dispatch + Delivered</button></div></div>`;
+}
+function dispatchOrder(id,md=false){
+  const o=DB.orders.find(x=>x.id===id);if(!o)return;const d=DB.dealers.find(x=>x.id===o.dealerId);
+  const dd=document.getElementById('dd-'+id)?.value||today(),vn=document.getElementById('dv-'+id)?.value.trim(),cn=document.getElementById('dc-'+id)?.value.trim(),tn=document.getElementById('dt-'+id)?.value.trim(),rm=document.getElementById('dr-'+id)?.value.trim();
+  if(!cn){toast('Challan required','error');return}
+  const dcNo='DC-'+new Date().getFullYear()+'-'+String(DB.orders.filter(x=>x.dispatchDate).length+1).padStart(4,'0');
+  o.dispatchDate=dd;o.dispatchTime=now();o.dispatchedBy=DB.user.name;o.challanNo=cn;o.dcNo=dcNo;o.dispatchDetails={dispatchDate:dd,vehicleNo:vn,challanNo:cn,trackingNo:tn,remarks:rm};o.status=md?'delivered':'dispatched';
+  for(const it of o.items){const inv=DB.inventory.find(x=>x.id===it.itemId);if(inv)inv.stock=Math.max(0,inv.stock-it.qty)}
+  DB.ledger.push({id:Date.now()+10,date:dd,voucher:dcNo,type:'Dispatch',dealerId:d?.id,dealerName:d?.name,account:'Stock Out (Cr)',particulars:`Dispatched ${o.orderNo}`,debit:0,credit:o.subtotal});
+  if(md)DB.ledger.push({id:Date.now()+11,date:dd,voucher:o.invoiceNo,type:'Delivery',dealerId:d?.id,dealerName:d?.name,account:'Delivery Confirmed',particulars:`Delivered to ${d?.name}`,debit:0,credit:0,note:true});
+  save();toast(`✅ Dispatched! Challan: ${dcNo}`);renderDispatch();updateBadges();
+}
+function dispatchAndDeliver(id){dispatchOrder(id,true)}
+function exportDispatchExcel(){
+  const all=DB.orders.filter(o=>o.status==='dispatched'||o.status==='delivered');let f=all.slice();
+  if(FILTERS.dispatch.fromDate)f=f.filter(o=>o.dispatchDate>=FILTERS.dispatch.fromDate);
+  if(FILTERS.dispatch.toDate)f=f.filter(o=>o.dispatchDate<=FILTERS.dispatch.toDate);
+  if(FILTERS.dispatch.status!=='all')f=f.filter(o=>o.status===FILTERS.dispatch.status);
+  if(!f.length){toast('None','error');return}
+  exportToExcel(f.map(o=>{const d=DB.dealers.find(x=>x.id===o.dealerId);return {'Date':formatDate(o.dispatchDate),'Order':o.orderNo,'Invoice':o.invoiceNo,'Dealer':d?.name,'Challan':o.challanNo,'Vehicle':o.dispatchDetails?.vehicleNo,'Tracking':o.dispatchDetails?.trackingNo,'Items':o.items.reduce((s,i)=>s+i.qty,0),'Amount':o.total,'Status':o.status}}),`dispatch_${today()}`);
+}
+
+/* ============ INVOICES ============ */
+function renderInvoicePage(){
+  document.getElementById('page-invoices').innerHTML=`<div class="card"><div class="card-title">Invoices <input type="text" class="search-box" placeholder="🔍" oninput="renderInvoiceList(this.value)"><button class="btn btn-excel btn-sm" onclick="exportInvoicesExcel()">📥 Export</button></div><div class="table-wrapper"><table><thead><tr><th>Inv No.</th><th>Date</th><th>Dealer</th><th>Type</th><th>Status</th><th class="text-right">Total</th><th>Action</th></tr></thead><tbody id="invoiceList"></tbody></table></div></div>`;
+  renderInvoiceList();
+}
+function renderInvoiceList(s=''){
+  const l=DB.invoices.filter(i=>!s||i.invNo.toLowerCase().includes(s.toLowerCase())||i.dealerName.toLowerCase().includes(s.toLowerCase())).slice().reverse();
+  const el=document.getElementById('invoiceList');if(!el)return;
+  el.innerHTML=l.length?l.map(i=>{const o=DB.orders.find(x=>x.id===i.orderId);const sb={'dispatched':'<span class="badge dispatch">Dispatched</span>','delivered':'<span class="badge info">Delivered</span>','approved':'<span class="badge warning">Pending</span>'}[o?.status]||'<span class="badge primary">Direct</span>';return `<tr><td><strong>${i.invNo}</strong></td><td>${formatDate(i.date)}</td><td>${i.dealerName}</td><td>${i.saleType==='B2B'?'<span class="badge success">B2B</span>':'<span class="badge muted">B2C</span>'}</td><td>${sb}</td><td class="text-right"><strong>${fmt(i.total)}</strong></td><td><button class="btn btn-danger btn-sm" onclick="deleteInvoice(${i.id})">🗑️</button></td></tr>`}).join(''):'<tr><td colspan="7" class="empty">No invoices</td></tr>';
+}
+function deleteInvoice(id){if(!confirm('Delete?'))return;DB.invoices=DB.invoices.filter(i=>i.id!==id);save();renderInvoiceList();toast('Deleted')}
+function exportInvoicesExcel(){
+  if(!DB.invoices.length){toast('None','error');return}
+  exportToExcel(DB.invoices.map(i=>({'Invoice':i.invNo,'Date':formatDate(i.date),'Dealer':i.dealerName,'GSTIN':i.gstin,'Type':i.saleType,'Items':i.itemName,'Taxable':i.taxable,'CGST':i.cgst,'SGST':i.sgst,'IGST':i.igst,'TCS':i.tcs,'Total':i.total})),'invoices_'+today());
+}
+
+/* ============ TDS/TCS ============ */
+function renderTDSPage(){
+  const td=DB.tdstcs.filter(t=>t.type==='TDS').reduce((s,t)=>s+t.tax,0),tc=DB.tdstcs.filter(t=>t.type==='TCS').reduce((s,t)=>s+t.tax,0);
+  document.getElementById('page-tdstcs').innerHTML=`<div class="stats-grid"><div class="stat-card warning"><h3>TDS</h3><div class="value">${fmt(td)}</div></div><div class="stat-card success"><h3>TCS</h3><div class="value">${fmt(tc)}</div></div></div><div class="card"><div class="card-title">TDS/TCS <button class="btn btn-excel btn-sm" onclick="exportTDSExcel()">📥 Export</button></div><div class="table-wrapper"><table><thead><tr><th>Date</th><th>Type</th><th>Party</th><th class="text-right">Base</th><th class="text-right">Tax</th></tr></thead><tbody>${DB.tdstcs.length?DB.tdstcs.slice().reverse().map(t=>`<tr><td>${formatDate(t.date)}</td><td><span class="badge ${t.type==='TDS'?'warning':'success'}">${t.type}</span></td><td>${t.party}</td><td class="text-right">${fmt(t.base)}</td><td class="text-right"><strong>${fmt(t.tax)}</strong></td></tr>`).join(''):'<tr><td colspan="5" class="empty">None</td></tr>'}</tbody></table></div></div>`;
+}
+function exportTDSExcel(){if(!DB.tdstcs.length){toast('None','error');return}exportToExcel(DB.tdstcs.map(t=>({'Date':formatDate(t.date),'Type':t.type,'Party':t.party,'PAN':t.pan,'Base':t.base,'Tax':t.tax})),'tds_tcs_'+today())}
+
+/* ============ LEDGER ============ */
+function renderLedger(){
+  let f=DB.ledger.slice();
+  if(FILTERS.ledger.dealerId!=='all')f=f.filter(l=>l.dealerId==FILTERS.ledger.dealerId);
+  if(FILTERS.ledger.type!=='all')f=f.filter(l=>l.type===FILTERS.ledger.type);
+  if(FILTERS.ledger.fromDate)f=f.filter(l=>l.date>=FILTERS.ledger.fromDate);
+  if(FILTERS.ledger.toDate)f=f.filter(l=>l.date<=FILTERS.ledger.toDate);
+  f=f.reverse();
+  const td=f.reduce((s,l)=>s+(l.debit||0),0),tc=f.reduce((s,l)=>s+(l.credit||0),0);
+  const sd=FILTERS.ledger.dealerId!=='all'?DB.dealers.find(d=>d.id==FILTERS.ledger.dealerId):null;
+  document.getElementById('page-ledger').innerHTML=`<div class="card"><div class="card-title">📒 General Ledger <button class="btn btn-excel btn-sm" onclick="exportLedgerExcel()">📥 Export</button></div>
+    <div class="filter-bar"><div class="filter-bar-title">🔍 Filter</div>
+      <div class="filter-row">
+        <div class="filter-group"><label>Dealer</label><select id="ld" onchange="applyLedgerFilter()"><option value="all">All Dealers</option>${DB.dealers.map(d=>`<option value="${d.id}" ${FILTERS.ledger.dealerId==d.id?'selected':''}>${d.name}</option>`).join('')}</select></div>
+        <div class="filter-group"><label>Type</label><select id="lt" onchange="applyLedgerFilter()"><option value="all">All</option><option value="Invoice">Invoice</option><option value="Payment">Payment</option><option value="Dispatch">Dispatch</option><option value="Delivery">Delivery</option></select></div>
+        <div class="filter-group"><label>From</label><input type="date" id="lfd" value="${FILTERS.ledger.fromDate}" onchange="applyLedgerFilter()"></div>
+        <div class="filter-group"><label>To</label><input type="date" id="ltd" value="${FILTERS.ledger.toDate}" onchange="applyLedgerFilter()"></div>
+        <div class="filter-group"><label>&nbsp;</label><button class="btn btn-outline btn-block" onclick="resetLedgerFilter()">🔄</button></div>
       </div>
     </div>
-  `;
+    <div style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #bfdbfe;border-radius:var(--radius);padding:14px;margin-bottom:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div><span style="font-size:10px;color:var(--primary-dark);text-transform:uppercase;font-weight:600">Records</span><br><strong style="font-size:16px;color:var(--primary-dark)">${f.length}</strong></div>
+      <div><span style="font-size:10px;color:var(--primary-dark);text-transform:uppercase;font-weight:600">Debit</span><br><strong style="font-size:16px;color:var(--primary-dark)">${fmt(td)}</strong></div>
+      <div><span style="font-size:10px;color:var(--primary-dark);text-transform:uppercase;font-weight:600">Credit</span><br><strong style="font-size:16px;color:var(--primary-dark)">${fmt(tc)}</strong></div>
+      <div><span style="font-size:10px;color:var(--primary-dark);text-transform:uppercase;font-weight:600">${sd?sd.name+' - ':''}Balance</span><br><strong style="font-size:16px;color:var(--primary-dark)">${fmt(td-tc)}</strong></div>
+    </div>
+    ${f.length?`<div class="table-wrapper"><table><thead><tr><th>Date</th><th>Voucher</th><th>Type</th><th>Dealer</th><th>Account</th><th>Particulars</th><th class="text-right">Debit</th><th class="text-right">Credit</th></tr></thead><tbody>${f.map(l=>`<tr><td>${formatDate(l.date)}</td><td><code>${l.voucher}</code></td><td><span class="badge ${l.type==='Dispatch'?'dispatch':l.type==='Invoice'?'success':l.type==='Payment'?'info':'muted'}">${l.type}</span></td><td>${l.dealerName||'-'}</td><td><strong>${l.account}</strong></td><td>${l.particulars}</td><td class="text-right">${l.debit?fmt(l.debit):'-'}</td><td class="text-right">${l.credit?fmt(l.credit):'-'}</td></tr>`).join('')}</tbody><tfoot><tr class="total-row"><td colspan="6">Total</td><td class="text-right">${fmt(td)}</td><td class="text-right">${fmt(tc)}</td></tr></tfoot></table></div>`:'<div class="empty">No entries</div>'}</div>`;
+}
+function applyLedgerFilter(){FILTERS.ledger.dealerId=document.getElementById('ld').value;FILTERS.ledger.type=document.getElementById('lt').value;FILTERS.ledger.fromDate=document.getElementById('lfd').value;FILTERS.ledger.toDate=document.getElementById('ltd').value;renderLedger()}
+function resetLedgerFilter(){FILTERS.ledger={dealerId:'all',type:'all',fromDate:'',toDate:''};renderLedger()}
+function exportLedgerExcel(){
+  let f=DB.ledger.slice();
+  if(FILTERS.ledger.dealerId!=='all')f=f.filter(l=>l.dealerId==FILTERS.ledger.dealerId);
+  if(FILTERS.ledger.type!=='all')f=f.filter(l=>l.type===FILTERS.ledger.type);
+  if(!f.length){toast('None','error');return}
+  exportToExcel(f.map(l=>({'Date':formatDate(l.date),'Voucher':l.voucher,'Type':l.type,'Dealer':l.dealerName,'Account':l.account,'Particulars':l.particulars,'Debit':l.debit||0,'Credit':l.credit||0})),'ledger_'+today());
 }
 
-function toggleDealerStatus(id){
-  const d = DB.dealers.find(x=>x.id===id);
-  if(!d) return;
-  const newStatus = d.status === 'active' ? 'inactive' : 'active';
-  if(newStatus === 'inactive'){
-    if(!confirm(`Deactivate dealer "${d.name}"?\n\nThey will NOT be able to login until reactivated.`)) return;
-  }
-  d.status = newStatus;
-  save();
-  toast(`${d.name} is now ${newStatus.toUpperCase()}`);
-  renderDealers();
+/* ============ INVENTORY ============ */
+function renderInventory(){
+  document.getElementById('page-inventory').innerHTML=`<div class="grid-2"><div class="card"><div class="card-title">Add Item</div>
+    <div class="form-group"><label>Name</label><input type="text" class="form-control" id="iName"></div>
+    <div class="form-row"><div class="form-group"><label>HSN</label><input type="text" class="form-control" id="iHsn"></div><div class="form-group"><label>GST %</label><select class="form-control" id="iGst"><option>0</option><option>5</option><option>12</option><option selected>18</option><option>28</option></select></div></div>
+    <div class="form-row"><div class="form-group"><label>Rate (₹)</label><input type="number" class="form-control" id="iRate" value="0" min="0"></div><div class="form-group"><label>Stock</label><input type="number" class="form-control" id="iStock" value="100"></div></div>
+    <div class="form-group"><label>Notes</label><input type="text" class="form-control" id="iNotes"></div>
+    <button class="btn btn-success btn-block" onclick="addItem()">➕ Add</button></div>
+    <div class="card"><div class="card-title">Inventory <span class="badge primary">${DB.inventory.length}</span><button class="btn btn-excel btn-sm" onclick="exportInventoryExcel()">📥 Export</button></div><div class="table-wrapper"><table><thead><tr><th>Item</th><th>HSN</th><th class="text-right">Rate</th><th class="text-right">Stock</th><th>Action</th></tr></thead><tbody>${DB.inventory.map(i=>`<tr><td><strong>${i.name}</strong>${i.isFree?' <span class="badge free">FREE</span>':''}</td><td>${i.hsn}</td><td class="text-right">${i.rate===0?'<span class="badge free">FREE</span>':fmt(i.rate)}</td><td class="text-right"><span class="badge ${i.stock<50?'danger':'success'}">${i.stock}</span></td><td><button class="btn btn-danger btn-sm" onclick="deleteItem(${i.id})">🗑️</button></td></tr>`).join('')}</tbody></table></div></div></div>`;
+}
+function addItem(){
+  const n=document.getElementById('iName').value.trim(),h=document.getElementById('iHsn').value.trim(),g=parseInt(document.getElementById('iGst').value),r=parseFloat(document.getElementById('iRate').value),s=parseInt(document.getElementById('iStock').value),nt=document.getElementById('iNotes').value.trim();
+  if(!n||!h){toast('Name & HSN required','error');return}
+  if(isNaN(r)||r<0){toast('Invalid rate','error');return}
+  DB.inventory.push({id:Date.now(),name:n,hsn:h,gst:g,rate:r||0,stock:Math.max(0,s||0),lastUpdated:today(),isFree:r===0,notes:nt});
+  save();renderInventory();toast('✅ Added');
+}
+function deleteItem(id){if(!confirm('Delete?'))return;DB.inventory=DB.inventory.filter(i=>i.id!==id);save();renderInventory();toast('Deleted')}
+function exportInventoryExcel(){
+  if(!DB.inventory.length){toast('None','error');return}
+  exportToExcel(DB.inventory.map(i=>({'Name':i.name,'HSN':i.hsn,'GST%':i.gst,'Rate':i.rate,'Stock':i.stock,'Value':i.rate*i.stock,'Free':i.isFree?'Yes':'No','Notes':i.notes||''})),'inventory_'+today());
 }
 
-function addDealer(){
-  const name=document.getElementById('dName').value.trim();
-  const gstin=document.getElementById('dGstin').value.trim().toUpperCase();
-  const pan=document.getElementById('dPan').value.trim().toUpperCase();
-  const state=document.getElementById('dState').value.trim();
-  const phone=document.getElementById('dPhone').value.trim();
-  const email=document.getElementById('dEmail').value.trim();
-  const code=document.getElementById('dCode').value.trim().toUpperCase();
-  const pass=document.getElementById('dPass').value.trim();
-  if(!name||!code||!pass){toast('Name, Code and Password required','error');return;}
-  if(gstin && gstin.length !== 15){toast('GSTIN must be 15 chars (or leave blank)','error');return;}
-  if(DB.dealers.some(d=>d.dealerCode===code)){toast('Dealer code exists','error');return;}
-  DB.dealers.push({id:Date.now(),name,gstin,pan,state,phone,email,dealerCode:code,password:pass,status:'active'});
-  save(); renderDealers(); toast(`Dealer added (Active)`);
+/* ============ SETTINGS ============ */
+function loadSettings(){
+  const s=DB.settings;
+  document.getElementById('page-settings').innerHTML=`<div class="card"><div class="card-title">Company Profile</div>
+    <div class="form-row"><div class="form-group"><label>Company</label><input type="text" class="form-control" id="sCompany" value="${s.company}"></div><div class="form-group"><label>GSTIN</label><input type="text" class="form-control" id="sGstin" value="${s.gstin}" style="text-transform:uppercase"></div></div>
+    <div class="form-row"><div class="form-group"><label>PAN</label><input type="text" class="form-control" id="sPan" value="${s.pan}" style="text-transform:uppercase"></div><div class="form-group"><label>State</label><input type="text" class="form-control" id="sState" value="${s.state}"></div></div>
+    <div class="form-row"><div class="form-group"><label>Phone</label><input type="text" class="form-control" id="sPhone" value="${s.phone||''}"></div><div class="form-group"><label>Email</label><input type="email" class="form-control" id="sEmail" value="${s.email||''}"></div></div>
+    <div class="form-row"><div class="form-group"><label>FY</label><select class="form-control" id="sFY"><option ${s.fy==='2025-26'?'selected':''}>2025-26</option><option ${s.fy==='2026-27'?'selected':''}>2026-27</option><option ${s.fy==='2027-28'?'selected':''}>2027-28</option></select></div><div class="form-group"><label>State Code</label><input type="text" class="form-control" id="sStateCode" value="${s.stateCode}" maxlength="2"></div></div>
+    <div class="form-group"><label>Address</label><textarea class="form-control" id="sAddress" rows="2">${s.address}</textarea></div>
+    <button class="btn btn-primary" onclick="saveSettings()">💾 Save</button></div>`;
+}
+function saveSettings(){
+  DB.settings.company=document.getElementById('sCompany').value;DB.settings.gstin=document.getElementById('sGstin').value.toUpperCase();DB.settings.pan=document.getElementById('sPan').value.toUpperCase();DB.settings.state=document.getElementById('sState').value;DB.settings.phone=document.getElementById('sPhone').value;DB.settings.email=document.getElementById('sEmail').value;DB.settings.stateCode=document.getElementById('sStateCode').value;DB.settings.fy=document.getElementById('sFY').value;DB.settings.address=document.getElementById('sAddress').value;
+  save();toast('✅ Saved');
 }
 
-function deleteDealer(id){
-  if(!confirm('Delete dealer? This will remove all their data.'))return;
-  DB.dealers=DB.dealers.filter(d=>d.id!==id);
-  save(); renderDealers(); toast('Dealer deleted');
+/* ============ DEALER DASHBOARD ============ */
+function renderDealerDashboard(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId),isReg=isRegisteredDealer(d);
+  const mo=DB.orders.filter(o=>o.dealerId===d.id),mi=DB.invoices.filter(i=>i.dealerId===d.id),mp=DB.payments.filter(p=>p.dealerId===d.id);
+  const p=mo.filter(o=>o.status==='pending').length,di=mo.filter(o=>o.status==='dispatched').length,de=mo.filter(o=>o.status==='delivered').length;
+  const ts=mi.reduce((s,i)=>s+i.total,0),tp=mp.filter(p=>p.status==='approved').reduce((s,p)=>s+p.amount,0),pp=mp.filter(p=>p.status==='pending').length;
+  const ml=DB.ledger.filter(l=>l.dealerId===d.id),td=ml.reduce((s,l)=>s+(l.debit||0),0),tc=ml.reduce((s,l)=>s+(l.credit||0),0),os=td-tc;
+  document.getElementById('page-d-dashboard').innerHTML=`
+    <div class="alert ${isReg?'alert-success':'alert-warning'}">👋 Welcome, <strong>${d.name}</strong>! ${isReg?'B2B - ITC eligible':'Unregistered (B2C)'}</div>
+    <div class="stats-grid">
+      <div class="stat-card warning"><h3>Pending</h3><div class="value">${p}</div></div>
+      <div class="stat-card info"><h3>Dispatched</h3><div class="value">${di}</div></div>
+      <div class="stat-card success"><h3>Delivered</h3><div class="value">${de}</div></div>
+      <div class="stat-card"><h3>Purchases</h3><div class="value">${fmt(ts)}</div></div>
+      <div class="stat-card success"><h3>Paid</h3><div class="value">${fmt(tp)}</div></div>
+      <div class="stat-card ${os>0?'danger':'success'}"><h3>Outstanding</h3><div class="value">${fmt(Math.abs(os))}</div><div class="sub">${os>0?'Payable':'Credit'} ${pp>0?'| '+pp+' pending':''}</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><div class="card-title">Quick Actions</div>
+        <button class="btn btn-primary btn-block" onclick="navigateTo('d-today-prices')" style="margin-bottom:10px">📊 Today's Prices</button>
+        <button class="btn btn-success btn-block" onclick="navigateTo('d-place-order')" style="margin-bottom:10px">📝 Place Order</button>
+        <button class="btn btn-warning btn-block" onclick="navigateTo('d-my-dispatches')" style="margin-bottom:10px">🚚 My Dispatches</button>
+        <button class="btn btn-outline btn-block" onclick="navigateTo('d-make-payment')">💳 Make Payment</button>
+      </div>
+      <div class="card"><div class="card-title">Recent Activity</div>${mo.length||mp.length?`${mp.slice(-3).reverse().map(p=>`<div style="padding:8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font-size:12px"><div>💳 ${p.paymentNo}</div><div><strong>${fmt(p.amount)}</strong> <span class="badge ${p.status==='pending'?'warning':p.status==='approved'?'success':'danger'}">${p.status}</span></div></div>`).join('')}${mo.slice(-3).reverse().map(o=>`<div style="padding:8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font-size:12px"><div>📦 ${o.orderNo}</div><div><strong>${fmt(o.total)}</strong> <span class="badge ${o.status==='pending'?'warning':o.status==='approved'?'success':o.status==='dispatched'?'dispatch':o.status==='delivered'?'info':'danger'}">${o.status}</span></div></div>`).join('')}`:'<div class="empty">No activity</div>'}</div>
+    </div>`;
 }
 
-function exportDealersExcel(){
-  if(!DB.dealers.length){ toast('No dealers to export','error'); return; }
-  const data = DB.dealers.map(d=>({
-    'Dealer Name': d.name,
-    'Dealer Code': d.dealerCode,
-    'Password': d.password,
-    'GSTIN': d.gstin || 'N/A',
-    'PAN': d.pan || 'N/A',
-    'State': d.state || '',
-    'Phone': d.phone || '',
-    'Email': d.email || '',
-    'Type': isRegisteredDealer(d) ? 'B2B' : 'B2C',
-    'Status': d.status === 'active' ? 'Active' : 'Inactive',
-    'Notes': d.notes || ''
-  }));
-  exportToExcel(data, `dealers_${today()}`, 'Dealers');
+/* ============ DEALER TODAY'S PRICES ============ */
+function renderDealerTodayPrices(){
+  const td=today();
+  document.getElementById('page-d-today-prices').innerHTML=`<div class="alert alert-info">📊 Rate card effective <strong>${formatDate(td)}</strong></div>
+    <div class="card"><div class="card-title">Today's Rate Card <span class="badge success">${td}</span></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px">${DB.inventory.map(i=>{const pg=i.rate*(1+i.gst/100);return `<div class="price-card"><div class="price-header"><div class="price-name">${i.name} ${i.isFree?'<span class="badge free">FREE</span>':''}</div><div class="price-amount">${i.rate===0?'<span style="color:#ec4899">FREE</span>':fmt(i.rate)}</div></div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span class="badge primary">HSN: ${i.hsn}</span><span class="badge success">GST: ${i.gst}%</span></div><div class="price-meta">${i.rate>0?`With GST: <strong>${fmt(pg)}</strong><br>`:''}Stock: <strong>${i.stock}</strong><br>Updated: ${formatDate(i.lastUpdated)}</div></div>`}).join('')}</div></div>
+    <button class="btn btn-primary btn-block" onclick="navigateTo('d-place-order')">📝 Place Order</button>`;
 }
 
-/* ============ EXCEL EXPORT ============ */
-function exportToExcel(data, filename, sheetName='Sheet1'){
-  if(typeof XLSX === 'undefined'){
-    toast('Excel library not loaded. Check internet connection.','error');
-    return;
-  }
-  try{
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, sheetName);
-    
-    const colWidths = Object.keys(data[0] || {}).map(key => {
-      const maxLen = Math.max(
-        key.length,
-        ...data.map(row => String(row[key] || '').length)
-      );
-      return { wch: Math.min(maxLen + 2, 40) };
-    });
-    ws['!cols'] = colWidths;
-    
-    XLSX.writeFile(wb, `${filename}.xlsx`);
-    toast(`✅ Exported: ${filename}.xlsx`);
-  } catch(e){
-    console.error(e);
-    toast('Export failed: '+e.message,'error');
-  }
+/* ============ DEALER PLACE ORDER ============ */
+function renderPlaceOrder(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId);if(!isDealerActive(d)){toast('Inactive','error');navigateTo('d-dashboard');return}
+  orderItems=[];
+  document.getElementById('page-d-place-order').innerHTML=`<div class="grid-2"><div class="card"><div class="card-title">Order Items</div><div id="oil"></div><button class="btn btn-outline" onclick="addOrderItem()" style="margin-top:10px">➕ Add</button><div class="form-group" style="margin-top:14px"><label>Notes</label><textarea class="form-control" id="on"></textarea></div><button class="btn btn-primary btn-block" onclick="submitOrder()">📤 Submit</button></div><div class="card"><div class="card-title">Summary</div><div id="osum"><div class="empty">Add items</div></div></div></div>`;
+  addOrderItem();
+}
+function addOrderItem(){orderItems.push({itemId:'',qty:1});renderOrderItems()}
+function removeOrderItem(i){orderItems.splice(i,1);renderOrderItems()}
+function updateOrderItem(i,f,v){orderItems[i][f]=f==='qty'?parseInt(v)||0:v;renderOrderSummary()}
+function renderOrderItems(){
+  const el=document.getElementById('oil');if(!el)return;
+  if(!orderItems.length){el.innerHTML='<div class="empty">None</div>';renderOrderSummary();return}
+  el.innerHTML=orderItems.map((it,i)=>{const item=DB.inventory.find(x=>x.id==it.itemId);return `<div class="order-item-row"><div><label style="font-size:11px;color:var(--text-mut)">Item</label><select class="form-control" onchange="updateOrderItem(${i},'itemId',this.value)"><option value="">-- Select --</option>${DB.inventory.map(x=>`<option value="${x.id}" ${it.itemId==x.id?'selected':''}>${x.name} - ${x.rate===0?'FREE':fmt(x.rate)} (Stock: ${x.stock})</option>`).join('')}</select></div><div><label style="font-size:11px;color:var(--text-mut)">HSN</label><input type="text" class="form-control" value="${item?.hsn||'-'}" readonly></div><div><label style="font-size:11px;color:var(--text-mut)">Qty</label><input type="number" class="form-control" value="${it.qty}" min="1" onchange="updateOrderItem(${i},'qty',this.value)"></div><div><label style="font-size:11px;color:var(--text-mut)">Amount</label><input type="text" class="form-control" value="${item?(item.rate===0?'FREE':fmt(item.rate*it.qty)):'-'}" readonly></div><button class="remove-item" onclick="removeOrderItem(${i})">✕</button></div>`}).join('');
+  renderOrderSummary();
+}
+function renderOrderSummary(){
+  const el=document.getElementById('osum');if(!el)return;
+  const vi=orderItems.filter(it=>it.itemId&&it.qty>0).map(it=>{const item=DB.inventory.find(x=>x.id==it.itemId);return {...item,qty:it.qty,amount:item.rate*it.qty}});
+  if(!vi.length){el.innerHTML='<div class="empty">Add items</div>';return}
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId),isReg=isRegisteredDealer(d),st=vi.reduce((s,i)=>s+i.amount,0),gr=vi[0].gst;
+  const bs=isReg?getStateFromGSTIN(d.gstin):DB.settings.stateCode,isI=isReg&&bs&&bs!==DB.settings.stateCode;
+  let cg=0,sg=0,ig=0;if(isI)ig=(st*gr)/100;else{cg=(st*gr/2)/100;sg=(st*gr/2)/100}
+  const est=st+cg+sg+ig;
+  el.innerHTML=`<table><tr><td>Subtotal</td><td class="text-right">${fmt(st)}</td></tr>${isI?`<tr><td>IGST (${gr}%)</td><td class="text-right">${fmt(ig)}</td></tr>`:`<tr><td>CGST (${gr/2}%)</td><td class="text-right">${fmt(cg)}</td></tr><tr><td>SGST (${gr/2}%)</td><td class="text-right">${fmt(sg)}</td></tr>`}<tr class="total-row"><td>Total</td><td class="text-right">${fmt(est)}</td></tr></table>`;
+}
+function submitOrder(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId);if(!isDealerActive(d)){toast('Inactive','error');return}
+  const vi=orderItems.filter(it=>it.itemId&&it.qty>0);if(!vi.length){toast('Add items','error');return}
+  const isReg=isRegisteredDealer(d);let items;
+  try{items=vi.map(it=>{const item=DB.inventory.find(x=>x.id==it.itemId);if(item.stock<it.qty){toast(`Low stock: ${item.name}`,'error');throw new Error()}return {itemId:item.id,name:item.name,hsn:item.hsn,gst:item.gst,qty:it.qty,rate:item.rate,amount:item.rate*it.qty}})}catch(e){return}
+  const st=items.reduce((s,i)=>s+i.amount,0),gr=items.find(i=>i.rate>0)?.gst||items[0].gst;
+  const bs=isReg?getStateFromGSTIN(d.gstin):DB.settings.stateCode,isI=isReg&&bs&&bs!==DB.settings.stateCode;
+  let cg=0,sg=0,ig=0,tc=0;if(isI)ig=(st*gr)/100;else{cg=(st*gr/2)/100;sg=(st*gr/2)/100}
+  if(st>=500000)tc=(st*0.1)/100;const tot=st+cg+sg+ig+tc;
+  const on='ORD-'+new Date().getFullYear()+'-'+String(DB.orders.length+1).padStart(4,'0');
+  DB.orders.push({id:Date.now(),orderNo:on,dealerId:d.id,dealerName:d.name,isRegistered:isReg,date:today(),time:new Date().toLocaleTimeString('en-IN'),items,subtotal:st,cgst:cg,sgst:sg,igst:ig,tcs:tc,total:tot,gstRate:gr,status:'pending',notes:document.getElementById('on')?.value||''});
+  save();toast(`✅ ${on} submitted`);navigateTo('d-my-orders');
 }
 
-/* ============ OTHER FUNCTIONS (Abbreviated for space) ============ */
-// ... [All other functions from previous version remain the same]
-// Dashboard, Orders, Payments, Dispatch, Invoices, Ledger, Inventory, Settings, Dealer pages
+/* ============ DEALER MY ORDERS ============ */
+function renderMyOrders(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId),mo=DB.orders.filter(o=>o.dealerId===d.id).reverse();
+  document.getElementById('page-d-my-orders').innerHTML=`<div class="card"><div class="card-title">My Orders <span class="badge primary">${mo.length}</span><button class="btn btn-excel btn-sm" onclick="exportMyOrdersExcel()">📥 Export</button></div>${mo.length?mo.map(o=>renderOrderCard(o,'view')).join(''):'<div class="empty">No orders. <a href="#" onclick="navigateTo(\'d-place-order\');return false;">Place first order →</a></div>'}</div>`;
+}
+function exportMyOrdersExcel(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId),mo=DB.orders.filter(o=>o.dealerId===d.id);if(!mo.length){toast('None','error');return}
+  exportToExcel(mo.map(o=>({'Order':o.orderNo,'Date':formatDate(o.date),'Items':o.items.map(i=>`${i.name}×${i.qty}`).join('; '),'Taxable':o.subtotal,'CGST':o.cgst,'SGST':o.sgst,'IGST':o.igst,'Total':o.total,'Status':o.status,'Invoice':o.invoiceNo||''})),`my_orders_${d.dealerCode}_${today()}`);
+}
+
+/* ============ DEALER DISPATCHES ============ */
+function renderDealerDispatches(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const md=DB.orders.filter(o=>o.dealerId===d.id&&(o.status==='dispatched'||o.status==='delivered'));
+  let f=md;if(FILTERS.dealerDispatch.status!=='all')f=f.filter(o=>o.status===FILTERS.dealerDispatch.status);
+  f=f.reverse();
+  const td=md.filter(o=>o.status==='dispatched').length,tl=md.filter(o=>o.status==='delivered').length;
+  document.getElementById('page-d-my-dispatches').innerHTML=`
+    <div class="alert alert-info">🚚 Track all your dispatches & deliveries.</div>
+    <div class="stats-grid">
+      <div class="stat-card info"><h3>Total</h3><div class="value">${md.length}</div></div>
+      <div class="stat-card warning"><h3>In Transit</h3><div class="value">${td}</div></div>
+      <div class="stat-card success"><h3>Delivered</h3><div class="value">${tl}</div></div>
+    </div>
+    <div class="card"><div class="card-title">🚚 My Dispatches <button class="btn btn-excel btn-sm" onclick="exportMyDispatchesExcel()">📥 Export</button></div>
+      <div class="filter-bar"><div class="quick-filters"><span class="quick-filter ${FILTERS.dealerDispatch.status==='all'?'active':''}" onclick="setDDF('all')">All (${md.length})</span><span class="quick-filter ${FILTERS.dealerDispatch.status==='dispatched'?'active':''}" onclick="setDDF('dispatched')">🚚 In Transit (${td})</span><span class="quick-filter ${FILTERS.dealerDispatch.status==='delivered'?'active':''}" onclick="setDDF('delivered')">📦 Delivered (${tl})</span></div></div>
+      ${f.length?f.map(o=>renderDealerDispatchCard(o)).join(''):'<div class="empty">No dispatches yet</div>'}
+    </div>`;
+}
+function setDDF(s){FILTERS.dealerDispatch.status=s;renderDealerDispatches()}
+function renderDealerDispatchCard(o){
+  const isD=o.status==='delivered';
+  return `<div class="dispatch-card ${isD?'delivered':''}">
+    <div class="order-header"><div><div class="order-no">${o.orderNo} ${isD?'<span class="badge info">📦 Delivered</span>':'<span class="badge dispatch">🚚 In Transit</span>'}</div><div class="order-meta"><strong>Invoice:</strong> ${o.invoiceNo||'N/A'}<br><strong>Order:</strong> ${formatDate(o.date)} | <strong>Dispatch:</strong> ${formatDate(o.dispatchDate)}</div></div><div style="text-align:right"><div class="order-total">${fmt(o.total)}</div></div></div>
+    <div class="dispatch-info">
+      <div class="dispatch-info-item"><span class="dispatch-info-label">📄 Challan</span><span class="dispatch-info-value"><code>${o.challanNo||o.dcNo||'N/A'}</code></span></div>
+      <div class="dispatch-info-item"><span class="dispatch-info-label">🚗 Vehicle</span><span class="dispatch-info-value">${o.dispatchDetails?.vehicleNo||'N/A'}</span></div>
+      <div class="dispatch-info-item"><span class="dispatch-info-label">📍 Tracking</span><span class="dispatch-info-value">${o.dispatchDetails?.trackingNo||'N/A'}</span></div>
+      <div class="dispatch-info-item"><span class="dispatch-info-label">👤 By</span><span class="dispatch-info-value">${o.dispatchedBy||'Admin'}</span></div>
+    </div>
+    <div class="order-items"><strong>📦 Items:</strong><br>${o.items.map(it=>`• ${it.name} (HSN: ${it.hsn}) × ${it.qty} @ ${fmt(it.rate)}`).join('<br>')}</div>
+    <div class="timeline">
+      <div class="timeline-item warning"><div class="timeline-date">${formatDate(o.date)}</div><div class="timeline-title">Order Placed</div></div>
+      ${o.approvedDate?`<div class="timeline-item success"><div class="timeline-date">${o.approvedDate}</div><div class="timeline-title">Approved - Invoice ${o.invoiceNo}</div></div>`:''}
+      ${o.dispatchDate?`<div class="timeline-item info"><div class="timeline-date">${formatDate(o.dispatchDate)}</div><div class="timeline-title">Dispatched - Challan ${o.challanNo||o.dcNo}</div></div>`:''}
+      ${isD?`<div class="timeline-item success"><div class="timeline-date">Delivered</div><div class="timeline-title">Delivered Successfully</div></div>`:''}
+    </div>
+    <div class="order-actions"><button class="btn btn-primary btn-sm" onclick="printChallan(${o.id})">📄 Print Challan</button><button class="btn btn-outline btn-sm" onclick="downloadChallan(${o.id})">📥 Download PDF</button></div>
+  </div>`;
+}
+function exportMyDispatchesExcel(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId);let md=DB.orders.filter(o=>o.dealerId===d.id&&(o.status==='dispatched'||o.status==='delivered'));
+  if(FILTERS.dealerDispatch.status!=='all')md=md.filter(o=>o.status===FILTERS.dealerDispatch.status);
+  if(!md.length){toast('None','error');return}
+  exportToExcel(md.map(o=>({'Order':o.orderNo,'Invoice':o.invoiceNo,'Dispatch Date':formatDate(o.dispatchDate),'Challan':o.challanNo,'Vehicle':o.dispatchDetails?.vehicleNo,'Tracking':o.dispatchDetails?.trackingNo,'Items':o.items.reduce((s,i)=>s+i.qty,0),'Amount':o.total,'Status':o.status})),`my_dispatches_${d.dealerCode}_${today()}`);
+}
+function printChallan(id){
+  const o=DB.orders.find(x=>x.id===id);if(!o)return;const d=DB.dealers.find(x=>x.id===o.dealerId),s=DB.settings;
+  const h=`<div class="challan-print"><h2>DELIVERY CHALLAN</h2><div style="text-align:center;margin-bottom:20px;font-size:12px"><strong>${s.company}</strong><br>GSTIN: ${s.gstin} | PAN: ${s.pan}<br>${s.address}<br>Phone: ${s.phone||'-'}</div>
+  <table><tr><th>Challan:</th><td>${o.challanNo||o.dcNo}</td><th>Date:</th><td>${formatDate(o.dispatchDate)}</td></tr><tr><th>Order:</th><td>${o.orderNo}</td><th>Invoice:</th><td>${o.invoiceNo||'N/A'}</td></tr><tr><th>Vehicle:</th><td>${o.dispatchDetails?.vehicleNo||'N/A'}</td><th>Tracking:</th><td>${o.dispatchDetails?.trackingNo||'N/A'}</td></tr></table>
+  <h3 style="margin-top:20px">Bill To:</h3><table><tr><th>Name:</th><td>${d?.name||'N/A'}</td></tr><tr><th>GSTIN:</th><td>${d?.gstin||'N/A'}</td></tr><tr><th>Phone:</th><td>${d?.phone||'-'}</td></tr></table>
+  <table style="margin-top:20px"><thead><tr><th>Sr</th><th>Item</th><th>HSN</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead><tbody>${o.items.map((it,i)=>`<tr><td>${i+1}</td><td>${it.name}</td><td>${it.hsn}</td><td>${it.qty}</td><td>${fmt(it.rate)}</td><td>${fmt(it.amount)}</td></tr>`).join('')}</tbody><tfoot><tr><td colspan="5" style="text-align:right"><strong>Total:</strong></td><td><strong>${fmt(o.total)}</strong></td></tr></tfoot></table>
+  <div class="signatures"><div class="signature-box">Receiver</div><div class="signature-box">For ${s.company}</div></div></div>`;
+  const pa=document.getElementById('challanPrintArea');pa.innerHTML=h;pa.style.display='block';window.print();setTimeout(()=>pa.style.display='none',500);
+}
+function downloadChallan(id){toast('Select "Save as PDF" in print dialog');setTimeout(()=>printChallan(id),500)}
+
+/* ============ DEALER INVOICES ============ */
+function renderMyInvoices(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId),mi=DB.invoices.filter(i=>i.dealerId===d.id).reverse();
+  document.getElementById('page-d-my-invoices').innerHTML=`<div class="card"><div class="card-title">My Invoices <span class="badge success">${mi.length}</span><button class="btn btn-excel btn-sm" onclick="exportMyInvoicesExcel()">📥 Export</button></div><div class="table-wrapper"><table><thead><tr><th>Inv No.</th><th>Date</th><th>Type</th><th>Items</th><th>Status</th><th class="text-right">Total</th></tr></thead><tbody>${mi.length?mi.map(i=>{const o=DB.orders.find(x=>x.id===i.orderId);const sb={'dispatched':'<span class="badge dispatch">🚚</span>','delivered':'<span class="badge info">📦</span>','approved':'<span class="badge warning">Pending</span>'}[o?.status]||'<span class="badge primary">-</span>';return `<tr><td><strong>${i.invNo}</strong></td><td>${formatDate(i.date)}</td><td>${i.saleType==='B2B'?'<span class="badge success">B2B</span>':'<span class="badge muted">B2C</span>'}</td><td>${i.itemName.substring(0,30)}</td><td>${sb}</td><td class="text-right"><strong>${fmt(i.total)}</strong></td></tr>`}).join(''):'<tr><td colspan="6" class="empty">None</td></tr>'}</tbody></table></div></div>`;
+}
+function exportMyInvoicesExcel(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId),mi=DB.invoices.filter(i=>i.dealerId===d.id);if(!mi.length){toast('None','error');return}
+  exportToExcel(mi.map(i=>({'Invoice':i.invNo,'Date':formatDate(i.date),'Type':i.saleType,'Items':i.itemName,'Taxable':i.taxable,'CGST':i.cgst,'SGST':i.sgst,'IGST':i.igst,'Total':i.total})),'my_invoices_'+d.dealerCode+'_'+today());
+}
+
+/* ============ DEALER PAYMENT ============ */
+function renderMakePayment(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId);if(!isDealerActive(d)){toast('Inactive','error');navigateTo('d-dashboard');return}
+  const ml=DB.ledger.filter(l=>l.dealerId===d.id),td=ml.reduce((s,l)=>s+(l.debit||0),0),tc=ml.reduce((s,l)=>s+(l.credit||0),0),os=td-tc;
+  document.getElementById('page-d-make-payment').innerHTML=`<div class="alert alert-info">💳 Record payment. Admin approves, then ledger updates.</div>
+    <div class="stats-grid"><div class="stat-card ${os>0?'danger':'success'}"><h3>Outstanding</h3><div class="value">${fmt(Math.abs(os))}</div></div><div class="stat-card warning"><h3>Pending</h3><div class="value">${DB.payments.filter(p=>p.dealerId===d.id&&p.status==='pending').length}</div></div></div>
+    <div class="card"><div class="card-title">Record Payment</div>
+      <div class="form-row"><div class="form-group"><label>Amount (₹) <span style="color:var(--danger)">*</span></label><input type="number" class="form-control" id="pa" min="1" value="${os>0?os:''}"></div><div class="form-group"><label>Mode <span style="color:var(--danger)">*</span></label><select class="form-control" id="pm"><option>NEFT</option><option>RTGS</option><option>UPI</option><option>Cheque</option><option>Cash</option><option>IMPS</option></select></div></div>
+      <div class="form-row"><div class="form-group"><label>Date <span style="color:var(--danger)">*</span></label><input type="date" class="form-control" id="pd" value="${today()}"></div><div class="form-group"><label>Reference No.</label><input type="text" class="form-control" id="pr" placeholder="UTR/Cheque"></div></div>
+      <div class="form-group"><label>Bank</label><input type="text" class="form-control" id="pb"></div>
+      <div class="form-group"><label>Remarks</label><textarea class="form-control" id="prm" rows="2"></textarea></div>
+      <button class="btn btn-primary btn-block" onclick="submitPayment()">📤 Submit</button>
+    </div>`;
+}
+function submitPayment(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId);if(!isDealerActive(d)){toast('Inactive','error');return}
+  const a=parseFloat(document.getElementById('pa').value),m=document.getElementById('pm').value,dt=document.getElementById('pd').value,r=document.getElementById('pr').value.trim(),b=document.getElementById('pb').value.trim(),rm=document.getElementById('prm').value.trim();
+  if(!a||a<=0){toast('Invalid amount','error');return}
+  if(!dt){toast('Select date','error');return}
+  if(m!=='Cash'&&!r){toast('Reference required','error');return}
+  const pn='PAY-'+new Date().getFullYear()+'-'+String(DB.payments.filter(p=>p.dealerId===d.id).length+1).padStart(4,'0');
+  DB.payments.push({id:Date.now(),paymentNo:pn,dealerId:d.id,dealerName:d.name,amount:a,mode:m,date:dt,time:new Date().toLocaleTimeString('en-IN'),referenceNo:r,bankName:b,remarks:rm,status:'pending',submittedAt:now()});
+  save();toast(`✅ ${pn} submitted`);navigateTo('d-payment-history');
+}
+
+/* ============ DEALER PAYMENT HISTORY ============ */
+function renderPaymentHistory(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId),mp=DB.payments.filter(p=>p.dealerId===d.id).reverse();
+  const ta=mp.filter(p=>p.status==='approved').reduce((s,p)=>s+p.amount,0),tp=mp.filter(p=>p.status==='pending').reduce((s,p)=>s+p.amount,0);
+  document.getElementById('page-d-payment-history').innerHTML=`<div class="stats-grid"><div class="stat-card"><h3>Total</h3><div class="value">${mp.length}</div></div><div class="stat-card success"><h3>Approved</h3><div class="value">${fmt(ta)}</div></div><div class="stat-card warning"><h3>Pending</h3><div class="value">${fmt(tp)}</div></div><div class="stat-card danger"><h3>Rejected</h3><div class="value">${mp.filter(p=>p.status==='rejected').length}</div></div></div>
+    <div class="card"><div class="card-title">Payment History <button class="btn btn-excel btn-sm" onclick="exportMyPaymentsExcel()">📥 Export</button></div>${mp.length?mp.map(p=>{const sb={'pending':'<span class="badge warning">⏳ Pending</span>','approved':'<span class="badge success">✅ Approved</span>','rejected':'<span class="badge danger">❌ Rejected</span>'}[p.status];return `<div class="payment-card ${p.status}"><div class="order-header"><div><div class="order-no">${p.paymentNo} ${sb}</div><div class="order-meta">Date: ${formatDate(p.date)}<br>Mode: <strong>${p.mode}</strong> ${p.referenceNo?'| Ref: '+p.referenceNo:''}${p.status==='approved'?'<br>Receipt: <strong>'+p.receiptNo+'</strong>':''}</div></div><div style="text-align:right"><div class="order-total">${fmt(p.amount)}</div></div></div></div>`}).join(''):'<div class="empty">No payments. <a href="#" onclick="navigateTo(\'d-make-payment\');return false;">Make first payment →</a></div>'}</div>`;
+}
+function exportMyPaymentsExcel(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId),mp=DB.payments.filter(p=>p.dealerId===d.id);if(!mp.length){toast('None','error');return}
+  exportToExcel(mp.map(p=>({'Payment':p.paymentNo,'Date':formatDate(p.date),'Amount':p.amount,'Mode':p.mode,'Reference':p.referenceNo,'Bank':p.bankName,'Status':p.status,'Receipt':p.receiptNo||''})),'my_payments_'+d.dealerCode+'_'+today());
+}
+
+/* ============ DEALER LEDGER ============ */
+function renderDealerLedger(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId),ml=DB.ledger.filter(l=>l.dealerId===d.id).reverse();
+  const td=ml.reduce((s,l)=>s+(l.debit||0),0),tc=ml.reduce((s,l)=>s+(l.credit||0),0),b=td-tc;
+  document.getElementById('page-d-my-ledger').innerHTML=`<div class="alert alert-info">📒 Your ledger. Payments appear after admin approval.</div>
+    <div class="stats-grid"><div class="stat-card"><h3>Debit</h3><div class="value">${fmt(td)}</div></div><div class="stat-card success"><h3>Credit</h3><div class="value">${fmt(tc)}</div></div><div class="stat-card ${b>0?'danger':'success'}"><h3>Balance</h3><div class="value">${fmt(Math.abs(b))}</div><div class="sub">${b>0?'Payable':'Credit'}</div></div></div>
+    <div class="card"><div class="card-title">Ledger <button class="btn btn-excel btn-sm" onclick="exportMyLedgerExcel()">📥 Export</button></div>${ml.length?`<div class="table-wrapper"><table><thead><tr><th>Date</th><th>Voucher</th><th>Type</th><th>Particulars</th><th class="text-right">Debit</th><th class="text-right">Credit</th></tr></thead><tbody>${ml.map(l=>`<tr><td>${formatDate(l.date)}</td><td><code>${l.voucher}</code></td><td><span class="badge ${l.type==='Dispatch'?'dispatch':l.type==='Invoice'?'success':l.type==='Payment'?'info':'muted'}">${l.type}</span></td><td>${l.particulars}</td><td class="text-right">${l.debit?fmt(l.debit):'-'}</td><td class="text-right">${l.credit?fmt(l.credit):'-'}</td></tr>`).join('')}</tbody><tfoot><tr class="total-row"><td colspan="4">Balance</td><td class="text-right">${fmt(td)}</td><td class="text-right">${fmt(tc)}</td></tr></tfoot></table></div>`:'<div class="empty">No entries</div>'}</div>`;
+}
+function exportMyLedgerExcel(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId),ml=DB.ledger.filter(l=>l.dealerId===d.id);if(!ml.length){toast('None','error');return}
+  exportToExcel(ml.map(l=>({'Date':formatDate(l.date),'Voucher':l.voucher,'Type':l.type,'Particulars':l.particulars,'Debit':l.debit||0,'Credit':l.credit||0})),'my_ledger_'+d.dealerCode+'_'+today());
+}
+
+/* ============ DEALER PROFILE ============ */
+function renderDealerProfile(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId),isReg=isRegisteredDealer(d);
+  document.getElementById('page-d-profile').innerHTML=`<div class="grid-2"><div class="card"><div class="card-title">My Profile ${isReg?'<span class="badge success">B2B</span>':'<span class="badge muted">B2C</span>'}</div><table><tr><td><strong>Name</strong></td><td>${d.name}</td></tr><tr><td><strong>Code</strong></td><td><code>${d.dealerCode}</code></td></tr><tr><td><strong>Status</strong></td><td>${d.status==='active'?'<span class="badge success">✓ Active</span>':'<span class="badge inactive">⛔ Inactive</span>'}</td></tr><tr><td><strong>GSTIN</strong></td><td>${d.gstin||'<em style="color:var(--text-mut)">N/A</em>'}</td></tr><tr><td><strong>PAN</strong></td><td>${d.pan||'<em style="color:var(--text-mut)">N/A</em>'}</td></tr><tr><td><strong>State</strong></td><td>${d.state||'-'}</td></tr><tr><td><strong>Phone</strong></td><td>${d.phone||'-'}</td></tr><tr><td><strong>Email</strong></td><td>${d.email||'-'}</td></tr></table></div>
+    <div class="card"><div class="card-title">🔐 Change Password</div><div class="alert alert-warning">🔒 Enter current password to set new one.</div><div class="form-group"><label>Current Password</label><input type="password" class="form-control" id="cp"></div><div class="form-group"><label>New Password</label><input type="password" class="form-control" id="np"></div><div class="form-group"><label>Confirm Password</label><input type="password" class="form-control" id="cn"></div><button class="btn btn-primary btn-block" onclick="changeDealerPassword()">🔑 Update</button></div></div>`;
+}
+function changeDealerPassword(){
+  const d=DB.dealers.find(x=>x.id===DB.user.dealerId);if(!d)return;
+  const cp=document.getElementById('cp').value,np=document.getElementById('np').value,cn=document.getElementById('cn').value;
+  if(!cp){toast('Enter current','error');return}
+  if(cp!==d.password){toast('Wrong current password','error');return}
+  if(!np){toast('Enter new','error');return}
+  if(np.length<6){toast('Min 6 chars','error');return}
+  if(np===cp){toast('Must be different','error');return}
+  if(np!==cn){toast('Do not match','error');return}
+  d.password=np;save();
+  document.getElementById('cp').value='';document.getElementById('np').value='';document.getElementById('cn').value='';
+  toast('🔐 Password changed');
+}
 
 /* ============ INIT ============ */
-if(DB.user){ 
-  if(DB.user.role==='dealer'){
-    const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
-    if(!d || !isDealerActive(d)){
-      localStorage.removeItem('dc_user');
-      location.reload();
-    } else {
-      showApp();
-    }
-  } else {
-    showApp();
-  }
+if(DB.user){
+  if(DB.user.role==='dealer'){const d=DB.dealers.find(x=>x.id===DB.user.dealerId);if(!d||!isDealerActive(d)){localStorage.removeItem('dc_user');location.reload()}else showApp()}
+  else showApp();
 }
-document.getElementById('adminPass').addEventListener('keypress',e=>{if(e.key==='Enter')doAdminLogin();});
-document.getElementById('dealerPass').addEventListener('keypress',e=>{if(e.key==='Enter')doDealerLogin();});
-
-// Close modal on outside click
-document.getElementById('passwordModal').addEventListener('click', function(e){
-  if(e.target === this) closePasswordModal();
-});
+document.getElementById('adminPass').addEventListener('keypress',e=>{if(e.key==='Enter')doAdminLogin()});
+document.getElementById('dealerPass').addEventListener('keypress',e=>{if(e.key==='Enter')doDealerLogin()});
+document.getElementById('passwordModal').addEventListener('click',function(e){if(e.target===this)closePasswordModal()});
 </script>
 </body>
 </html>
