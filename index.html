@@ -3,163 +3,234 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DealerConnect v4.0 | Payments & Dealer Status</title>
+<title>DealerConnect v5.0 | Professional Edition</title>
 <style>
-:root{--primary:#2563eb;--primary-dark:#1e40af;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--bg:#f3f4f6;--card:#fff;--text:#1f2937;--muted:#6b7280;--border:#e5e7eb;--shadow:0 4px 6px -1px rgba(0,0,0,.05),0 2px 4px -1px rgba(0,0,0,.03)}
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
-body{background:var(--bg);color:var(--text);min-height:100vh}
+:root{
+  --primary:#2563eb;--primary-dark:#1e40af;--primary-light:#dbeafe;
+  --success:#10b981;--success-dark:#047857;--success-light:#d1fae5;
+  --warning:#f59e0b;--warning-dark:#b45309;--warning-light:#fef3c7;
+  --danger:#ef4444;--danger-dark:#b91c1c;--danger-light:#fee2e2;
+  --info:#8b5cf6;--info-light:#ede9fe;
+  --bg:#f8fafc;--bg-alt:#f1f5f9;
+  --card:#ffffff;--text:#0f172a;--text-secondary:#475569;--text-muted:#64748b;
+  --border:#e2e8f0;--border-dark:#cbd5e1;
+  --shadow-sm:0 1px 2px 0 rgba(0,0,0,0.05);
+  --shadow:0 1px 3px 0 rgba(0,0,0,0.1),0 1px 2px -1px rgba(0,0,0,0.1);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -2px rgba(0,0,0,0.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -4px rgba(0,0,0,0.1);
+  --radius:10px;--radius-lg:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif}
+body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
 
-.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e40af 0%,#2563eb 50%,#3b82f6 100%);padding:20px}
-.login-card{background:#fff;border-radius:16px;padding:32px;width:100%;max-width:440px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
-.login-logo{text-align:center;margin-bottom:20px}
-.login-logo .icon{width:60px;height:60px;background:var(--primary);border-radius:14px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:26px;margin-bottom:10px}
-.login-logo h1{font-size:22px}
-.login-logo p{color:var(--muted);font-size:12px;margin-top:4px}
-.login-tabs{display:flex;background:#f1f5f9;border-radius:10px;padding:4px;margin-bottom:20px}
-.login-tab{flex:1;padding:10px;text-align:center;border-radius:8px;cursor:pointer;font-weight:600;font-size:13px;color:var(--muted);transition:.2s}
-.login-tab.active{background:#fff;color:var(--primary);box-shadow:var(--shadow)}
-.form-group{margin-bottom:14px}
-.form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
-.form-group label .optional{font-weight:400;color:var(--muted);font-size:11px;margin-left:4px}
-.form-control{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:#f9fafb}
-.form-control:focus{outline:none;border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
-.login-btn{width:100%;padding:12px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer;margin-top:6px}
-.login-btn:hover{background:var(--primary-dark)}
-.login-hint{margin-top:14px;padding:12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;font-size:11px;color:#1e40af;text-align:center;line-height:1.6}
-.login-error{background:#fef2f2;color:#991b1b;border:1px solid #fecaca;padding:10px;border-radius:8px;font-size:12px;margin-bottom:10px;display:none}
+/* LOGIN */
+.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 50%,#3b82f6 100%);padding:20px;position:relative;overflow:hidden}
+.login-page::before{content:'';position:absolute;width:500px;height:500px;background:rgba(255,255,255,0.05);border-radius:50%;top:-200px;right:-200px}
+.login-page::after{content:'';position:absolute;width:400px;height:400px;background:rgba(255,255,255,0.05);border-radius:50%;bottom:-150px;left:-150px}
+.login-card{background:#fff;border-radius:var(--radius-lg);padding:36px;width:100%;max-width:440px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);position:relative;z-index:1}
+.login-logo{text-align:center;margin-bottom:24px}
+.login-logo .icon{width:64px;height:64px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:16px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:28px;margin-bottom:12px;box-shadow:0 10px 25px -5px rgba(37,99,235,0.5)}
+.login-logo h1{font-size:24px;font-weight:700;color:var(--text);letter-spacing:-0.5px}
+.login-logo p{color:var(--text-muted);font-size:13px;margin-top:4px}
+.login-tabs{display:flex;background:var(--bg-alt);border-radius:var(--radius);padding:4px;margin-bottom:22px}
+.login-tab{flex:1;padding:10px;text-align:center;border-radius:8px;cursor:pointer;font-weight:600;font-size:13px;color:var(--text-muted);transition:all .2s}
+.login-tab.active{background:#fff;color:var(--primary);box-shadow:var(--shadow-sm)}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--text)}
+.form-group label .optional{font-weight:400;color:var(--text-muted);font-size:11px;margin-left:4px}
+.form-control{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:#fff;transition:all .2s;color:var(--text)}
+.form-control:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,0.1)}
+.form-control::placeholder{color:#94a3b8}
+.login-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer;margin-top:8px;transition:all .2s;box-shadow:0 4px 12px rgba(37,99,235,0.3)}
+.login-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(37,99,235,0.4)}
+.login-hint{margin-top:16px;padding:14px;background:var(--primary-light);border:1px solid #bfdbfe;border-radius:8px;font-size:11px;color:var(--primary-dark);text-align:center;line-height:1.6}
+.login-error{background:var(--danger-light);color:var(--danger-dark);border:1px solid #fecaca;padding:10px;border-radius:8px;font-size:12px;margin-bottom:12px;display:none}
 .login-form{display:none}
-.login-form.active{display:block}
+.login-form.active{display:block;animation:fadeIn .3s}
 
+/* APP LAYOUT */
 .app{display:none;min-height:100vh}
 .app.active{display:flex}
-.sidebar{width:260px;background:#0f172a;color:#fff;position:fixed;height:100vh;display:flex;flex-direction:column;transition:transform .3s;z-index:50;overflow-y:auto}
-.logo{padding:22px 24px;font-size:20px;font-weight:700;border-bottom:1px solid #334155;display:flex;align-items:center;gap:10px}
-.logo span{color:var(--primary)}
-.logo .role-tag{font-size:10px;padding:3px 8px;background:var(--primary);border-radius:10px;font-weight:600;margin-left:auto}
-.nav-menu{list-style:none;margin-top:10px;flex:1}
-.nav-menu li a{display:flex;align-items:center;gap:12px;padding:11px 24px;color:#94a3b8;text-decoration:none;font-size:14px;cursor:pointer;transition:.2s;border-left:3px solid transparent}
-.nav-menu li a:hover{background:#1e293b;color:#fff}
-.nav-menu li a.active{background:#1e293b;color:#fff;border-left-color:var(--primary)}
-.sidebar-footer{padding:14px 24px;border-top:1px solid #334155;font-size:11px;color:#64748b}
+.sidebar{width:260px;background:linear-gradient(180deg,#0f172a 0%,#1e293b 100%);color:#fff;position:fixed;height:100vh;display:flex;flex-direction:column;transition:transform .3s;z-index:50;overflow-y:auto;box-shadow:var(--shadow-lg)}
+.logo{padding:24px;font-size:20px;font-weight:700;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:10px}
+.logo span{color:#60a5fa}
+.logo .role-tag{font-size:9px;padding:3px 8px;background:rgba(96,165,250,0.2);color:#60a5fa;border-radius:10px;font-weight:700;margin-left:auto;letter-spacing:0.5px}
+.nav-menu{list-style:none;margin-top:12px;flex:1;padding:0 8px}
+.nav-menu li{margin-bottom:2px}
+.nav-menu li a{display:flex;align-items:center;gap:12px;padding:11px 16px;color:#94a3b8;text-decoration:none;font-size:13px;cursor:pointer;transition:all .2s;border-radius:8px;border-left:3px solid transparent;font-weight:500}
+.nav-menu li a:hover{background:rgba(255,255,255,0.05);color:#fff}
+.nav-menu li a.active{background:linear-gradient(90deg,rgba(37,99,235,0.2),rgba(37,99,235,0.05));color:#fff;border-left-color:#60a5fa;font-weight:600}
+.sidebar-footer{padding:16px 24px;border-top:1px solid rgba(255,255,255,0.08);font-size:11px;color:#64748b}
 
-.main{flex:1;margin-left:260px;padding:22px;min-height:100vh}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
-.header h1{font-size:22px;font-weight:700}
-.header p{color:var(--muted);font-size:12px;margin-top:2px}
-.user-profile{display:flex;align-items:center;gap:10px;background:#fff;padding:7px 14px;border-radius:50px;box-shadow:var(--shadow)}
-.avatar{width:34px;height:34px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px}
-.logout-btn{background:#fee2e2;color:#991b1b;border:none;padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;font-weight:600}
+.main{flex:1;margin-left:260px;padding:0;min-height:100vh;background:var(--bg)}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:16px 28px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:40;box-shadow:var(--shadow-sm)}
+.topbar-left h1{font-size:20px;font-weight:700;color:var(--text);letter-spacing:-0.3px}
+.topbar-left p{color:var(--text-muted);font-size:12px;margin-top:2px}
+.user-profile{display:flex;align-items:center;gap:10px;background:var(--bg);padding:6px 14px 6px 6px;border-radius:50px;border:1px solid var(--border)}
+.avatar{width:34px;height:34px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px}
+.logout-btn{background:var(--danger-light);color:var(--danger-dark);border:none;padding:6px 12px;border-radius:6px;font-size:11px;cursor:pointer;font-weight:600;transition:all .2s}
+.logout-btn:hover{background:#fecaca}
 
+.page-content{padding:28px}
 .page{display:none}
 .page.active{display:block;animation:fadeIn .3s}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:24px}
-.stat-card{background:#fff;padding:18px;border-radius:12px;box-shadow:var(--shadow);border-left:4px solid var(--primary)}
-.stat-card.success{border-left-color:var(--success)}
-.stat-card.warning{border-left-color:var(--warning)}
-.stat-card.danger{border-left-color:var(--danger)}
-.stat-card.info{border-left-color:#8b5cf6}
-.stat-card h3{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
-.stat-card .value{font-size:22px;font-weight:700;margin-top:6px}
-.stat-card .sub{font-size:11px;color:var(--muted);margin-top:3px}
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{background:#fff;padding:20px;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);transition:all .2s;position:relative;overflow:hidden}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.stat-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--primary)}
+.stat-card.success::before{background:var(--success)}
+.stat-card.warning::before{background:var(--warning)}
+.stat-card.danger::before{background:var(--danger)}
+.stat-card.info::before{background:var(--info)}
+.stat-card h3{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;margin-bottom:8px}
+.stat-card .value{font-size:24px;font-weight:700;margin-bottom:4px;color:var(--text);letter-spacing:-0.5px}
+.stat-card .sub{font-size:11px;color:var(--text-muted)}
 
-.card{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:22px;margin-bottom:18px}
-.card-title{font-size:16px;font-weight:600;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-.badge{font-size:10px;padding:3px 9px;background:#dbeafe;color:var(--primary);border-radius:20px;font-weight:600;display:inline-block}
-.badge.success{background:#d1fae5;color:#065f46}
-.badge.warning{background:#fef3c7;color:#92400e}
-.badge.danger{background:#fee2e2;color:#991b1b}
-.badge.info{background:#ede9fe;color:#6d28d9}
-.badge.muted{background:#f1f5f9;color:#475569}
+/* CARDS */
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-bottom:18px;border:1px solid var(--border)}
+.card-title{font-size:15px;font-weight:700;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;color:var(--text);letter-spacing:-0.2px}
+
+/* BADGES */
+.badge{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600;display:inline-block;letter-spacing:0.3px}
+.badge.primary{background:var(--primary-light);color:var(--primary-dark)}
+.badge.success{background:var(--success-light);color:var(--success-dark)}
+.badge.warning{background:var(--warning-light);color:var(--warning-dark)}
+.badge.danger{background:var(--danger-light);color:var(--danger-dark)}
+.badge.info{background:var(--info-light);color:#6d28d9}
+.badge.muted{background:var(--bg-alt);color:var(--text-secondary)}
 .badge.dispatch{background:#fef3c7;color:#92400e}
 .badge.free{background:#fce7f3;color:#9d174d}
-.badge.inactive{background:#fee2e2;color:#991b1b}
+.badge.inactive{background:var(--danger-light);color:var(--danger-dark)}
 
-.btn{padding:9px 16px;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px;transition:.2s;display:inline-flex;align-items:center;gap:6px}
-.btn-primary{background:var(--primary);color:#fff}
-.btn-primary:hover{background:var(--primary-dark)}
+/* BUTTONS */
+.btn{padding:9px 16px;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 2px 4px rgba(37,99,235,0.2)}
+.btn-primary:hover{background:var(--primary-dark);box-shadow:0 4px 8px rgba(37,99,235,0.3)}
 .btn-success{background:var(--success);color:#fff}
-.btn-success:hover{background:#059669}
+.btn-success:hover{background:var(--success-dark)}
 .btn-danger{background:var(--danger);color:#fff}
-.btn-danger:hover{background:#dc2626}
+.btn-danger:hover{background:var(--danger-dark)}
 .btn-warning{background:var(--warning);color:#fff}
 .btn-outline{background:#fff;border:1px solid var(--border);color:var(--text)}
+.btn-outline:hover{background:var(--bg)}
 .btn-sm{padding:5px 10px;font-size:11px}
 .btn-block{width:100%;justify-content:center}
 
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+/* FORMS */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.form-row-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 
-.alert{padding:11px 14px;border-radius:8px;font-size:12px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.alert-info{background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe}
-.alert-warning{background:#fffbeb;color:#92400e;border:1px solid #fde68a}
-.alert-success{background:#f0fdf4;color:#065f46;border:1px solid #bbf7d0}
-.alert-danger{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+/* ALERTS */
+.alert{padding:12px 16px;border-radius:8px;font-size:12px;margin-bottom:14px;display:flex;align-items:center;gap:10px;border:1px solid}
+.alert-info{background:#eff6ff;color:#1e40af;border-color:#bfdbfe}
+.alert-warning{background:#fffbeb;color:#92400e;border-color:#fde68a}
+.alert-success{background:#f0fdf4;color:#065f46;border-color:#bbf7d0}
+.alert-danger{background:#fef2f2;color:#991b1b;border-color:#fecaca}
 
+/* TABLES */
+.table-wrapper{overflow-x:auto;border-radius:8px;border:1px solid var(--border)}
 table{width:100%;border-collapse:collapse}
-th,td{padding:10px;text-align:left;border-bottom:1px solid var(--border);font-size:12px}
-th{background:#f8fafc;font-weight:600;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px}
-tr:hover{background:#f9fafb}
+th,td{padding:12px 14px;text-align:left;font-size:13px}
+th{background:var(--bg-alt);font-weight:600;color:var(--text-secondary);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--border)}
+td{border-bottom:1px solid var(--border);color:var(--text)}
+tbody tr{transition:background .15s}
+tbody tr:hover{background:var(--bg)}
+tbody tr:last-child td{border-bottom:none}
 .total-row{font-weight:700;font-size:14px;background:#f0fdf4!important;color:#065f46}
 .text-right{text-align:right}
 .text-center{text-align:center}
-.empty{text-align:center;padding:30px;color:var(--muted);font-size:13px}
+.empty{text-align:center;padding:40px 20px;color:var(--text-muted);font-size:13px}
+.empty-icon{font-size:40px;margin-bottom:10px;opacity:0.5}
 
+/* GRID */
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.search-box{padding:9px 12px;border:1px solid var(--border);border-radius:8px;width:100%;max-width:260px;font-size:13px}
+.search-box{padding:9px 14px;border:1.5px solid var(--border);border-radius:8px;width:100%;max-width:280px;font-size:13px;background:#fff}
+.search-box:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,0.1)}
 
-.toast{position:fixed;top:20px;right:20px;background:#10b981;color:#fff;padding:12px 18px;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.2);z-index:1000;animation:slideIn .3s;font-weight:600;font-size:13px}
+/* FILTER BAR */
+.filter-bar{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:18px;box-shadow:var(--shadow-sm)}
+.filter-bar-title{font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.filter-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;align-items:end}
+.filter-group label{display:block;font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px}
+.filter-group select,.filter-group input{padding:8px 10px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;background:#fff;width:100%}
+.filter-group select:focus,.filter-group input:focus{outline:none;border-color:var(--primary)}
+.quick-filters{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.quick-filter{padding:5px 12px;background:var(--bg-alt);border:1px solid var(--border);border-radius:20px;font-size:11px;cursor:pointer;font-weight:600;color:var(--text-secondary);transition:all .15s}
+.quick-filter:hover{background:var(--primary-light);color:var(--primary-dark);border-color:var(--primary)}
+.quick-filter.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+/* TOAST */
+.toast{position:fixed;top:24px;right:24px;background:var(--success);color:#fff;padding:14px 20px;border-radius:var(--radius);box-shadow:var(--shadow-lg);z-index:1000;animation:slideIn .3s;font-weight:600;font-size:13px;display:flex;align-items:center;gap:10px;max-width:380px}
 .toast.error{background:var(--danger)}
-@keyframes slideIn{from{transform:translateX(400px)}to{transform:translateX(0)}}
+@keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
 
-.order-item-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px;padding:10px;background:#f9fafb;border-radius:8px}
+/* ORDER ITEMS */
+.order-item-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px;padding:12px;background:var(--bg);border-radius:8px;border:1px solid var(--border)}
 .order-item-row select,.order-item-row input{padding:8px;font-size:12px}
-.remove-item{background:#fee2e2;color:#991b1b;border:none;padding:8px 10px;border-radius:6px;cursor:pointer;font-weight:600}
+.remove-item{background:var(--danger-light);color:var(--danger-dark);border:none;padding:8px 10px;border-radius:6px;cursor:pointer;font-weight:600;transition:all .15s}
+.remove-item:hover{background:#fecaca}
 
-.order-card{border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;background:#fff}
+.order-card{border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;background:#fff;transition:all .2s}
+.order-card:hover{box-shadow:var(--shadow-md)}
 .order-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:10px;flex-wrap:wrap;gap:8px}
-.order-no{font-weight:700;font-size:14px}
-.order-meta{font-size:11px;color:var(--muted);margin-top:3px}
-.order-items{background:#f8fafc;padding:10px;border-radius:6px;margin:10px 0;font-size:12px}
-.order-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:end}
-.order-total{text-align:right;font-weight:700;font-size:15px;margin-top:8px;color:var(--primary-dark)}
+.order-no{font-weight:700;font-size:14px;color:var(--text)}
+.order-meta{font-size:11px;color:var(--text-muted);margin-top:3px;line-height:1.6}
+.order-items{background:var(--bg);padding:12px;border-radius:8px;margin:10px 0;font-size:12px;border:1px solid var(--border)}
+.order-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:end}
+.order-total{text-align:right;font-weight:700;font-size:17px;margin-top:8px;color:var(--primary-dark);letter-spacing:-0.3px}
 
-.payment-card{border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;background:#fff;border-left:4px solid var(--warning)}
+.payment-card{border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;background:#fff;border-left:4px solid var(--warning);transition:all .2s}
+.payment-card:hover{box-shadow:var(--shadow-md)}
 .payment-card.approved{border-left-color:var(--success)}
 .payment-card.rejected{border-left-color:var(--danger)}
 
-.price-card{border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;background:#fff;transition:.2s}
-.price-card:hover{box-shadow:var(--shadow)}
-.price-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.price-name{font-weight:700;font-size:15px}
-.price-amount{font-size:22px;font-weight:700;color:var(--primary-dark)}
-.price-meta{font-size:11px;color:var(--muted);margin-top:4px}
+.price-card{border:1px solid var(--border);border-radius:var(--radius);padding:18px;background:#fff;transition:all .2s}
+.price-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.price-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.price-name{font-weight:700;font-size:15px;color:var(--text)}
+.price-amount{font-size:22px;font-weight:700;color:var(--primary-dark);letter-spacing:-0.5px}
+.price-meta{font-size:11px;color:var(--text-muted);margin-top:4px;line-height:1.6}
 .price-change{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 8px;border-radius:12px;font-weight:600}
-.price-up{background:#d1fae5;color:#065f46}
-.price-down{background:#fee2e2;color:#991b1b}
-.price-same{background:#f1f5f9;color:#475569}
+.price-up{background:var(--success-light);color:var(--success-dark)}
+.price-down{background:var(--danger-light);color:var(--danger-dark)}
+.price-same{background:var(--bg-alt);color:var(--text-secondary)}
 
 textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
 .menu-toggle{display:none;background:var(--primary);color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
 
 .timeline{border-left:3px solid var(--border);padding-left:20px;margin:14px 0}
 .timeline-item{position:relative;padding-bottom:14px}
-.timeline-item::before{content:'';position:absolute;left:-26px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--primary);border:2px solid #fff}
+.timeline-item::before{content:'';position:absolute;left:-26px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--primary);border:2px solid #fff;box-shadow:var(--shadow-sm)}
 .timeline-item.success::before{background:var(--success)}
 .timeline-item.warning::before{background:var(--warning)}
-.timeline-item.info::before{background:#8b5cf6}
+.timeline-item.info::before{background:var(--info)}
 .timeline-item.danger::before{background:var(--danger)}
-.timeline-date{font-size:11px;color:var(--muted)}
-.timeline-title{font-weight:600;font-size:13px;margin-top:2px}
-.timeline-desc{font-size:12px;color:var(--muted);margin-top:2px}
+.timeline-date{font-size:11px;color:var(--text-muted)}
+.timeline-title{font-weight:600;font-size:13px;margin-top:2px;color:var(--text)}
+.timeline-desc{font-size:12px;color:var(--text-muted);margin-top:2px}
 
-.toggle-btn{background:none;border:1px solid var(--border);padding:4px 10px;border-radius:12px;font-size:11px;cursor:pointer;font-weight:600;transition:.2s}
-.toggle-btn.active{background:#d1fae5;color:#065f46;border-color:#10b981}
-.toggle-btn.inactive{background:#fee2e2;color:#991b1b;border-color:#ef4444}
+.toggle-btn{background:none;border:1px solid var(--border);padding:5px 12px;border-radius:20px;font-size:11px;cursor:pointer;font-weight:600;transition:all .15s}
+.toggle-btn.active{background:var(--success-light);color:var(--success-dark);border-color:var(--success)}
+.toggle-btn.inactive{background:var(--danger-light);color:var(--danger-dark);border-color:var(--danger)}
+.toggle-btn:hover{transform:scale(1.05)}
 
-@media(max-width:1024px){.grid-2{grid-template-columns:1fr}.form-row-3{grid-template-columns:1fr}.order-item-row{grid-template-columns:1fr}}
-@media(max-width:768px){.sidebar{transform:translateX(-100%);z-index:100}.sidebar.active{transform:translateX(0)}.main{margin-left:0}.menu-toggle{display:block}}
+/* PASSWORD SECTION */
+.password-section{background:linear-gradient(135deg,#f8fafc,#f1f5f9);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:20px}
+.password-section h4{font-size:14px;font-weight:700;margin-bottom:14px;color:var(--text);display:flex;align-items:center;gap:8px}
+
+/* SUMMARY BAR */
+.summary-bar{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #bfdbfe;border-radius:var(--radius);padding:14px 18px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.summary-bar-item{display:flex;flex-direction:column}
+.summary-bar-label{font-size:10px;color:var(--primary-dark);text-transform:uppercase;letter-spacing:0.5px;font-weight:600}
+.summary-bar-value{font-size:16px;font-weight:700;color:var(--primary-dark);margin-top:2px}
+
+@media(max-width:1024px){.grid-2{grid-template-columns:1fr}.form-row-3,.form-row-4{grid-template-columns:1fr 1fr}.order-item-row{grid-template-columns:1fr}}
+@media(max-width:768px){.sidebar{transform:translateX(-100%);z-index:100}.sidebar.active{transform:translateX(0)}.main{margin-left:0}.menu-toggle{display:block}.filter-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -169,7 +240,7 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
     <div class="login-logo">
       <div class="icon">🧾</div>
       <h1>DealerConnect</h1>
-      <p>v4.0 - Payments & Dealer Status</p>
+      <p>Professional Edition v5.0</p>
     </div>
     <div class="login-tabs">
       <div class="login-tab active" onclick="switchLoginTab('admin')">👨‍💼 Admin</div>
@@ -198,12 +269,12 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
   <aside class="sidebar" id="sidebar">
     <div class="logo">🧾 Dealer<span>Connect</span><span class="role-tag" id="roleTag">ADMIN</span></div>
     <ul class="nav-menu" id="navMenu"></ul>
-    <div class="sidebar-footer">DealerConnect v4.0<br>© 2026 GST Compliant</div>
+    <div class="sidebar-footer">DealerConnect v5.0<br>© 2026 Professional Edition</div>
   </aside>
 
   <main class="main">
-    <div class="header">
-      <div>
+    <div class="topbar">
+      <div class="topbar-left">
         <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">☰</button>
         <h1 id="pageTitle">Dashboard</h1>
         <p id="pageSubtitle">Financial Year: 2026-27</p>
@@ -212,32 +283,34 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
         <div class="avatar" id="userAvatar">A</div>
         <div>
           <div style="font-weight:600;font-size:13px" id="userName">Admin</div>
-          <div style="font-size:11px;color:var(--muted)" id="userRole">Administrator</div>
+          <div style="font-size:10px;color:var(--text-muted)" id="userRole">Administrator</div>
         </div>
         <button class="logout-btn" onclick="doLogout()">Logout</button>
       </div>
     </div>
 
-    <div class="page" id="page-dashboard"></div>
-    <div class="page" id="page-prices"></div>
-    <div class="page" id="page-approvals"></div>
-    <div class="page" id="page-payment-approvals"></div>
-    <div class="page" id="page-dispatch"></div>
-    <div class="page" id="page-invoices"></div>
-    <div class="page" id="page-tdstcs"></div>
-    <div class="page" id="page-ledger"></div>
-    <div class="page" id="page-dealers"></div>
-    <div class="page" id="page-inventory"></div>
-    <div class="page" id="page-settings"></div>
-    <div class="page" id="page-d-dashboard"></div>
-    <div class="page" id="page-d-today-prices"></div>
-    <div class="page" id="page-d-place-order"></div>
-    <div class="page" id="page-d-my-orders"></div>
-    <div class="page" id="page-d-my-invoices"></div>
-    <div class="page" id="page-d-make-payment"></div>
-    <div class="page" id="page-d-payment-history"></div>
-    <div class="page" id="page-d-my-ledger"></div>
-    <div class="page" id="page-d-profile"></div>
+    <div class="page-content">
+      <div class="page" id="page-dashboard"></div>
+      <div class="page" id="page-prices"></div>
+      <div class="page" id="page-approvals"></div>
+      <div class="page" id="page-payment-approvals"></div>
+      <div class="page" id="page-dispatch"></div>
+      <div class="page" id="page-invoices"></div>
+      <div class="page" id="page-tdstcs"></div>
+      <div class="page" id="page-ledger"></div>
+      <div class="page" id="page-dealers"></div>
+      <div class="page" id="page-inventory"></div>
+      <div class="page" id="page-settings"></div>
+      <div class="page" id="page-d-dashboard"></div>
+      <div class="page" id="page-d-today-prices"></div>
+      <div class="page" id="page-d-place-order"></div>
+      <div class="page" id="page-d-my-orders"></div>
+      <div class="page" id="page-d-my-invoices"></div>
+      <div class="page" id="page-d-make-payment"></div>
+      <div class="page" id="page-d-payment-history"></div>
+      <div class="page" id="page-d-my-ledger"></div>
+      <div class="page" id="page-d-profile"></div>
+    </div>
   </main>
 </div>
 
@@ -255,7 +328,7 @@ const DB = {
     {id:2,name:'Gupta Enterprises',gstin:'29BBBPD1234K1Z5',pan:'BBBPD1234K',state:'Karnataka',phone:'+91 98456 12345',dealerCode:'GUPT01',password:'dealer123',email:'gupta@example.com',status:'active'},
     {id:3,name:'Patel & Sons',gstin:'24CCCCQ5678L1Z2',pan:'CCCCQ5678L',state:'Gujarat',phone:'+91 98123 45678',dealerCode:'PATE01',password:'dealer123',email:'patel@example.com',status:'active'},
     {id:4,name:'Small Local Shop',gstin:'',pan:'',state:'Maharashtra',phone:'+91 99887 76655',dealerCode:'SHOP01',password:'dealer123',email:'',status:'active'},
-    {id:5,name:'Test Inactive Dealer',gstin:'',pan:'',state:'Maharashtra',phone:'',dealerCode:'INAC01',password:'dealer123',email:'',status:'inactive',notes:'Demo inactive dealer - cannot login'}
+    {id:5,name:'Test Inactive Dealer',gstin:'',pan:'',state:'Maharashtra',phone:'',dealerCode:'INAC01',password:'dealer123',email:'',status:'inactive'}
   ],
   inventory: JSON.parse(localStorage.getItem('dc_inventory') || 'null') || [
     {id:1,name:'Industrial Bearings',hsn:'8482',gst:18,rate:10000,stock:250,lastUpdated:today()},
@@ -273,8 +346,15 @@ const DB = {
   payments: JSON.parse(localStorage.getItem('dc_payments') || 'null') || []
 };
 
+// Filter states
+const FILTERS = {
+  dispatch: {fromDate:'', toDate:'', status:'all'},
+  ledger: {dealerId:'all', type:'all', fromDate:'', toDate:''}
+};
+
 function today(){ return new Date().toISOString().split('T')[0]; }
 function now(){ return new Date().toLocaleString('en-IN'); }
+function formatDate(d){ if(!d) return '-'; try{ return new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); }catch(e){ return d; } }
 
 const save = () => {
   Object.entries({
@@ -444,7 +524,7 @@ function navigateTo(page){
 function toast(msg, type='success'){
   const t = document.createElement('div');
   t.className = 'toast' + (type==='error'?' error':'');
-  t.textContent = msg;
+  t.innerHTML = (type==='error'?'⚠️ ':'✅ ') + msg;
   document.body.appendChild(t);
   setTimeout(()=>t.remove(), 3000);
 }
@@ -469,19 +549,20 @@ function renderPriceManagement(){
   const todayUpdates = DB.priceHistory.filter(p=>p.date===todayDate).length;
   
   document.getElementById('page-prices').innerHTML = `
-    <div class="alert alert-info">💡 Update daily prices. Zero-rate items (freebies) are also supported.</div>
+    <div class="alert alert-info">💡 Update daily prices. Zero-rate items (freebies) are supported.</div>
     <div class="stats-grid">
       <div class="stat-card"><h3>Total Items</h3><div class="value">${DB.inventory.length}</div><div class="sub">${DB.inventory.filter(i=>i.rate===0).length} Free items</div></div>
       <div class="stat-card success"><h3>Today's Updates</h3><div class="value">${todayUpdates}</div></div>
-      <div class="stat-card warning"><h3>Total History</h3><div class="value">${DB.priceHistory.length}</div></div>
+      <div class="stat-card info"><h3>Total History</h3><div class="value">${DB.priceHistory.length}</div></div>
     </div>
     <div class="card">
       <div class="card-title">Update Daily Prices <span class="badge success">${todayDate}</span></div>
+      <div class="table-wrapper">
       <table>
-        <thead><tr><th>Item</th><th>HSN</th><th>GST</th><th class="text-right">Current Price</th><th class="text-right">New Price</th><th>Action</th></tr></thead>
+        <thead><tr><th>Item</th><th>HSN</th><th>GST</th><th class="text-right">Current</th><th class="text-right">New Price</th><th>Action</th></tr></thead>
         <tbody>
           ${DB.inventory.map(item=>`<tr>
-            <td><strong>${item.name}</strong>${item.isFree?' <span class="badge free">FREE</span>':''}<br><small style="color:var(--muted)">Last: ${item.lastUpdated||'N/A'}</small></td>
+            <td><strong>${item.name}</strong>${item.isFree?' <span class="badge free">FREE</span>':''}<br><small style="color:var(--text-muted)">Last: ${item.lastUpdated||'N/A'}</small></td>
             <td>${item.hsn}</td><td>${item.gst}%</td>
             <td class="text-right">${item.rate===0?'<span class="badge free">FREE</span>':fmt(item.rate)}</td>
             <td class="text-right"><input type="number" class="form-control" id="newprice-${item.id}" value="${item.rate}" min="0" style="width:130px;display:inline-block;padding:6px 10px"></td>
@@ -489,6 +570,7 @@ function renderPriceManagement(){
           </tr>`).join('')}
         </tbody>
       </table>
+      </div>
       <button class="btn btn-success" style="margin-top:14px" onclick="updateAllPrices()">💾 Update All Prices</button>
     </div>
   `;
@@ -498,7 +580,7 @@ function updateItemPrice(itemId){
   const newPrice = parseFloat(document.getElementById('newprice-'+itemId).value);
   const item = DB.inventory.find(i=>i.id===itemId);
   if(!item){ toast('Item not found','error'); return; }
-  if(isNaN(newPrice) || newPrice < 0){ toast('Enter valid price (0 or more)','error'); return; }
+  if(isNaN(newPrice) || newPrice < 0){ toast('Enter valid price','error'); return; }
   if(newPrice === item.rate){ toast('Price unchanged','error'); return; }
   const oldPrice = item.rate;
   DB.priceHistory.push({id:Date.now(),itemId,date:today(),timestamp:now(),oldPrice,newPrice,updatedBy:DB.user.name});
@@ -506,7 +588,7 @@ function updateItemPrice(itemId){
   item.lastUpdated = today();
   item.isFree = newPrice === 0;
   save();
-  toast(`✅ ${item.name}: ${fmt(oldPrice)} → ${newPrice===0?'FREE':fmt(newPrice)}`);
+  toast(`${item.name}: ${fmt(oldPrice)} → ${newPrice===0?'FREE':fmt(newPrice)}`);
   renderPriceManagement();
 }
 
@@ -526,7 +608,7 @@ function updateAllPrices(){
   });
   if(updated===0){ toast('No prices changed','error'); return; }
   save();
-  toast(`✅ ${updated} price(s) updated`);
+  toast(`${updated} price(s) updated`);
   renderPriceManagement();
 }
 
@@ -545,9 +627,9 @@ function renderDashboard(){
       <div class="stat-card"><h3>Total Sales</h3><div class="value">${fmt(totalSales)}</div><div class="sub">${DB.invoices.length} Invoices</div></div>
       <div class="stat-card success"><h3>GST Collected</h3><div class="value">${fmt(totalGST)}</div></div>
       <div class="stat-card warning"><h3>Pending Orders</h3><div class="value">${pendingOrders}</div></div>
-      <div class="stat-card info"><h3>Pending Payments</h3><div class="value">${pendingPayments}</div><div class="sub">Awaiting approval</div></div>
-      <div class="stat-card success"><h3>Payments Received</h3><div class="value">${fmt(approvedPayments)}</div><div class="sub">Approved this FY</div></div>
-      <div class="stat-card"><h3>Active Dealers</h3><div class="value">${activeDealers}/${DB.dealers.length}</div><div class="sub">${DB.dealers.length-activeDealers} inactive</div></div>
+      <div class="stat-card info"><h3>Pending Payments</h3><div class="value">${pendingPayments}</div></div>
+      <div class="stat-card success"><h3>Payments Received</h3><div class="value">${fmt(approvedPayments)}</div></div>
+      <div class="stat-card"><h3>Active Dealers</h3><div class="value">${activeDealers}/${DB.dealers.length}</div></div>
     </div>
     <div class="grid-2">
       <div class="card">
@@ -555,13 +637,15 @@ function renderDashboard(){
         ${renderPendingPayments()}
       </div>
       <div class="card">
-        <div class="card-title">Dealer Status</div>
+        <div class="card-title">Dealer Status Overview</div>
+        <div class="table-wrapper">
         <table><thead><tr><th>Dealer</th><th>Code</th><th>Status</th><th>Action</th></tr></thead>
         <tbody>${DB.dealers.slice(0,8).map(d=>`
           <tr><td>${d.name}</td><td><code>${d.dealerCode}</code></td>
           <td>${d.status==='active'?'<span class="badge success">Active</span>':'<span class="badge inactive">Inactive</span>'}</td>
-          <td><button class="toggle-btn ${d.status==='active'?'active':'inactive'}" onclick="toggleDealerStatus(${d.id})">${d.status==='active'?'✓ Active':'⛔ Deactivate'}</button></td></tr>
+          <td><button class="toggle-btn ${d.status==='active'?'active':'inactive'}" onclick="toggleDealerStatus(${d.id})">${d.status==='active'?'✓ Active':'⛔ Inactive'}</button></td></tr>
         `).join('')}</tbody></table>
+        </div>
       </div>
     </div>
   `;
@@ -569,17 +653,17 @@ function renderDashboard(){
 
 function renderPendingPayments(){
   const pending = DB.payments.filter(p=>p.status==='pending').slice(-5).reverse();
-  if(!pending.length) return '<div class="empty">No pending payments 🎉</div>';
+  if(!pending.length) return '<div class="empty"><div class="empty-icon">💳</div>No pending payments</div>';
   return pending.map(p=>{
     const d = DB.dealers.find(x=>x.id===p.dealerId);
     return `<div class="payment-card">
       <div class="order-header">
         <div><div class="order-no">${p.paymentNo}</div>
-        <div class="order-meta">${d?.name||'Unknown'} • ${p.date}</div></div>
+        <div class="order-meta">${d?.name||'Unknown'} • ${formatDate(p.date)}</div></div>
         <div style="text-align:right"><div class="order-total">${fmt(p.amount)}</div>
         <span class="badge warning">Pending</span></div>
       </div>
-      <div style="font-size:12px;color:var(--muted)">Mode: ${p.mode} | Ref: ${p.referenceNo||'N/A'}</div>
+      <div style="font-size:12px;color:var(--text-muted)">Mode: ${p.mode} | Ref: ${p.referenceNo||'N/A'}</div>
       <div class="order-actions"><button class="btn btn-primary btn-sm" onclick="navigateTo('payment-approvals')">Review →</button></div>
     </div>`;
   }).join('');
@@ -593,7 +677,7 @@ function renderApprovals(){
     <div class="alert alert-info">📌 Approve dealer orders. Only active dealers' orders should be processed.</div>
     <div class="card">
       <div class="card-title">Pending Orders <span class="badge warning">${pending.length}</span></div>
-      ${pending.length ? pending.map(o=>renderOrderCard(o,'approve')).join('') : '<div class="empty">No pending orders 🎉</div>'}
+      ${pending.length ? pending.map(o=>renderOrderCard(o,'approve')).join('') : '<div class="empty"><div class="empty-icon">📝</div>No pending orders</div>'}
     </div>
     <div class="card">
       <div class="card-title">Recently Processed</div>
@@ -631,19 +715,19 @@ function renderOrderCard(o, mode){
         <div class="order-meta">
           <strong>${d?.name||'Unknown'}</strong><br>
           ${isReg ? `GSTIN: ${d.gstin}` : '<em>Unregistered Dealer</em>'}<br>
-          Placed: ${o.date} ${o.time||''}
+          Placed: ${formatDate(o.date)} ${o.time||''}
         </div>
       </div>
       <div style="text-align:right">
         <div class="order-total">${fmt(o.total)}</div>
-        ${o.invoiceNo ? `<div style="font-size:11px;color:var(--muted);margin-top:4px">Invoice: ${o.invoiceNo}</div>` : ''}
+        ${o.invoiceNo ? `<div style="font-size:11px;color:var(--text-muted);margin-top:4px">Invoice: ${o.invoiceNo}</div>` : ''}
       </div>
     </div>
     <div class="order-items">
       <strong>Items:</strong><br>
       ${o.items.map(it=>`• ${it.name} ${it.rate===0?'<span class="badge free">FREE</span>':''} (HSN: ${it.hsn}) × ${it.qty} @ ${fmt(it.rate)} = ${fmt(it.amount)}`).join('<br>')}
     </div>
-    ${o.remarks ? `<div style="padding:8px;background:#f1f5f9;border-radius:6px;font-size:12px;margin-top:8px"><strong>Remarks:</strong> ${o.remarks}</div>` : ''}
+    ${o.remarks ? `<div style="padding:8px;background:var(--bg);border-radius:6px;font-size:12px;margin-top:8px;border:1px solid var(--border)"><strong>Remarks:</strong> ${o.remarks}</div>` : ''}
     ${actions}
   </div>`;
 }
@@ -674,12 +758,12 @@ function approveOrder(id){
     orderId:o.id,qty:o.items.reduce((s,i)=>s+i.qty,0),taxable,cgst,sgst,igst,tcs,total,gstRate,irn,
     status:'Generated',source:'Dealer Order',isRegistered:isReg,saleType:isReg?'B2B':'B2C'});
   
-  DB.ledger.push({id:Date.now()+1,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,account:'Sundry Debtors (Dr)',particulars:`${isReg?'B2B':'B2C'} Invoice to ${d?.name} (${o.orderNo})`,debit:total,credit:0});
-  DB.ledger.push({id:Date.now()+2,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,account:'Sales A/c (Cr)',particulars:`Sale against ${o.orderNo}`,debit:0,credit:taxable});
-  if(isInter) DB.ledger.push({id:Date.now()+3,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,account:'IGST Payable (Cr)',particulars:`IGST @ ${gstRate}%`,debit:0,credit:igst});
-  else { DB.ledger.push({id:Date.now()+3,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,account:'CGST Payable (Cr)',particulars:`CGST @ ${gstRate/2}%`,debit:0,credit:cgst});
-    DB.ledger.push({id:Date.now()+4,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,account:'SGST Payable (Cr)',particulars:`SGST @ ${gstRate/2}%`,debit:0,credit:sgst}); }
-  if(tcs>0) DB.ledger.push({id:Date.now()+5,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,account:'TCS Collected (Cr)',particulars:`TCS u/s 206C(1H)`,debit:0,credit:tcs});
+  DB.ledger.push({id:Date.now()+1,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,dealerName:d?.name,account:'Sundry Debtors (Dr)',particulars:`${isReg?'B2B':'B2C'} Invoice to ${d?.name} (${o.orderNo})`,debit:total,credit:0});
+  DB.ledger.push({id:Date.now()+2,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,dealerName:d?.name,account:'Sales A/c (Cr)',particulars:`Sale against ${o.orderNo}`,debit:0,credit:taxable});
+  if(isInter) DB.ledger.push({id:Date.now()+3,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,dealerName:d?.name,account:'IGST Payable (Cr)',particulars:`IGST @ ${gstRate}%`,debit:0,credit:igst});
+  else { DB.ledger.push({id:Date.now()+3,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,dealerName:d?.name,account:'CGST Payable (Cr)',particulars:`CGST @ ${gstRate/2}%`,debit:0,credit:cgst});
+    DB.ledger.push({id:Date.now()+4,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,dealerName:d?.name,account:'SGST Payable (Cr)',particulars:`SGST @ ${gstRate/2}%`,debit:0,credit:sgst}); }
+  if(tcs>0) DB.ledger.push({id:Date.now()+5,date:today(),voucher:invNo,type:'Invoice',dealerId:d?.id,dealerName:d?.name,account:'TCS Collected (Cr)',particulars:`TCS u/s 206C(1H)`,debit:0,credit:tcs});
   
   o.status = 'approved';
   o.remarks = document.getElementById('remark-'+id)?.value || '';
@@ -687,7 +771,7 @@ function approveOrder(id){
   o.approvedBy = DB.user.name;
   o.invoiceNo = invNo;
   save();
-  toast(`✅ Order ${o.orderNo} approved! Invoice ${invNo} generated.`);
+  toast(`Order ${o.orderNo} approved! Invoice ${invNo} generated.`);
   renderApprovals();
   updateBadges();
 }
@@ -707,7 +791,7 @@ function rejectOrder(id){
   updateBadges();
 }
 
-/* ============ PAYMENT APPROVALS (ADMIN) ============ */
+/* ============ PAYMENT APPROVALS ============ */
 function renderPaymentApprovals(){
   const pending = DB.payments.filter(p=>p.status==='pending').reverse();
   const processed = DB.payments.filter(p=>p.status!=='pending').reverse();
@@ -715,15 +799,15 @@ function renderPaymentApprovals(){
   const totalApproved = DB.payments.filter(p=>p.status==='approved').reduce((s,p)=>s+p.amount,0);
   
   document.getElementById('page-payment-approvals').innerHTML = `
-    <div class="alert alert-info">💳 Review dealer payments. On approval, ledger will auto-update (Bank Dr / Sundry Debtors Cr).</div>
+    <div class="alert alert-info">💳 Review dealer payments. On approval, ledger will auto-update.</div>
     <div class="stats-grid">
       <div class="stat-card warning"><h3>Pending Payments</h3><div class="value">${pending.length}</div><div class="sub">Total: ${fmt(totalPending)}</div></div>
-      <div class="stat-card success"><h3>Approved (FY)</h3><div class="value">${fmt(totalApproved)}</div><div class="sub">${DB.payments.filter(p=>p.status==='approved').length} payments</div></div>
+      <div class="stat-card success"><h3>Approved (FY)</h3><div class="value">${fmt(totalApproved)}</div></div>
       <div class="stat-card danger"><h3>Rejected</h3><div class="value">${DB.payments.filter(p=>p.status==='rejected').length}</div></div>
     </div>
     <div class="card">
       <div class="card-title">Pending Payments <span class="badge warning">${pending.length}</span></div>
-      ${pending.length ? pending.map(p=>renderPaymentCard(p,'approve')).join('') : '<div class="empty">No pending payments 🎉</div>'}
+      ${pending.length ? pending.map(p=>renderPaymentCard(p,'approve')).join('') : '<div class="empty"><div class="empty-icon">💳</div>No pending payments</div>'}
     </div>
     <div class="card">
       <div class="card-title">Payment History</div>
@@ -755,17 +839,17 @@ function renderPaymentCard(p, mode){
         <div class="order-no">${p.paymentNo} ${statusBadge}</div>
         <div class="order-meta">
           <strong>${d?.name||'Unknown'}</strong> | ${isRegisteredDealer(d)?'B2B':'B2C'}<br>
-          Submitted: ${p.date} ${p.time||''}
+          Submitted: ${formatDate(p.date)} ${p.time||''}
           ${p.approvedDate ? '<br>Processed: '+p.approvedDate : ''}
         </div>
       </div>
       <div style="text-align:right">
         <div class="order-total">${fmt(p.amount)}</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:4px">Mode: ${p.mode}</div>
-        ${p.referenceNo ? `<div style="font-size:11px;color:var(--muted)">Ref: ${p.referenceNo}</div>` : ''}
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">Mode: ${p.mode}</div>
+        ${p.referenceNo ? `<div style="font-size:11px;color:var(--text-muted)">Ref: ${p.referenceNo}</div>` : ''}
       </div>
     </div>
-    ${p.remarks ? `<div style="padding:8px;background:#f1f5f9;border-radius:6px;font-size:12px;margin-top:8px"><strong>Remarks:</strong> ${p.remarks}</div>` : ''}
+    ${p.remarks ? `<div style="padding:8px;background:var(--bg);border-radius:6px;font-size:12px;margin-top:8px;border:1px solid var(--border)"><strong>Remarks:</strong> ${p.remarks}</div>` : ''}
     ${actions}
   </div>`;
 }
@@ -774,32 +858,16 @@ function approvePayment(id){
   const p = DB.payments.find(x=>x.id===id);
   if(!p) return;
   const d = DB.dealers.find(x=>x.id===p.dealerId);
-  
-  // Auto-generate payment receipt number
   const receiptNo = 'RCPT-' + new Date().getFullYear() + '-' + String(DB.payments.filter(x=>x.status==='approved').length+1).padStart(4,'0');
   
-  // UPDATE DEALER LEDGER
-  // Entry 1: Bank/Cash Dr (money received)
-  DB.ledger.push({
-    id: Date.now()+1, date: today(), voucher: receiptNo, type:'Payment',
-    dealerId: d?.id, dealerName: d?.name,
-    account: p.mode === 'Cash' ? 'Cash A/c (Dr)' : 'Bank A/c (Dr)',
-    particulars: `Payment received from ${d?.name} via ${p.mode}${p.referenceNo?' | Ref: '+p.referenceNo:''}`,
-    debit: p.amount, credit: 0,
-    refPayment: p.paymentNo
-  });
+  DB.ledger.push({id:Date.now()+1,date:today(),voucher:receiptNo,type:'Payment',dealerId:d?.id,dealerName:d?.name,
+    account:p.mode==='Cash'?'Cash A/c (Dr)':'Bank A/c (Dr)',
+    particulars:`Payment received from ${d?.name} via ${p.mode}${p.referenceNo?' | Ref: '+p.referenceNo:''}`,
+    debit:p.amount,credit:0,refPayment:p.paymentNo});
+  DB.ledger.push({id:Date.now()+2,date:today(),voucher:receiptNo,type:'Payment',dealerId:d?.id,dealerName:d?.name,
+    account:'Sundry Debtors (Cr)',particulars:`Against payment ${p.paymentNo} from ${d?.name}`,
+    debit:0,credit:p.amount,refPayment:p.paymentNo});
   
-  // Entry 2: Sundry Debtors Cr (reduces dealer's outstanding)
-  DB.ledger.push({
-    id: Date.now()+2, date: today(), voucher: receiptNo, type:'Payment',
-    dealerId: d?.id, dealerName: d?.name,
-    account: 'Sundry Debtors (Cr)',
-    particulars: `Against payment ${p.paymentNo} from ${d?.name}`,
-    debit: 0, credit: p.amount,
-    refPayment: p.paymentNo
-  });
-  
-  // Update payment record
   p.status = 'approved';
   p.approvedDate = now();
   p.approvedBy = DB.user.name;
@@ -807,7 +875,7 @@ function approvePayment(id){
   p.adminRemarks = document.getElementById('pay-remark-'+id)?.value || '';
   
   save();
-  toast(`✅ Payment ${p.paymentNo} approved! Receipt: ${receiptNo}. Dealer ledger updated.`);
+  toast(`Payment ${p.paymentNo} approved! Receipt: ${receiptNo}. Ledger updated.`);
   renderPaymentApprovals();
   updateBadges();
 }
@@ -827,21 +895,155 @@ function rejectPayment(id){
   updateBadges();
 }
 
-/* ============ DISPATCH ============ */
+/* ============ DISPATCH WITH DATE FILTER ============ */
 function renderDispatch(){
+  const allDispatched = DB.orders.filter(o=>o.status==='dispatched' || o.status==='delivered');
+  
+  // Apply filters
+  let filtered = allDispatched.slice();
+  if(FILTERS.dispatch.fromDate){
+    filtered = filtered.filter(o=>o.dispatchDate >= FILTERS.dispatch.fromDate);
+  }
+  if(FILTERS.dispatch.toDate){
+    filtered = filtered.filter(o=>o.dispatchDate <= FILTERS.dispatch.toDate);
+  }
+  if(FILTERS.dispatch.status !== 'all'){
+    filtered = filtered.filter(o=>o.status === FILTERS.dispatch.status);
+  }
+  filtered = filtered.reverse();
+  
+  const totalValue = filtered.reduce((s,o)=>s+o.total,0);
+  const totalItems = filtered.reduce((s,o)=>s+o.items.reduce((a,i)=>a+i.qty,0),0);
+  
+  // Get to-dispatch (unfiltered)
   const toDispatch = DB.orders.filter(o=>o.status==='approved').reverse();
-  const dispatched = DB.orders.filter(o=>o.status==='dispatched' || o.status==='delivered').reverse();
+  
   document.getElementById('page-dispatch').innerHTML = `
-    <div class="alert alert-info">🚚 Dispatch approved orders. System auto-updates dealer ledger.</div>
+    <div class="alert alert-info">🚚 Dispatch approved orders. Filter dispatch history by date range and status.</div>
+    
     <div class="card">
       <div class="card-title">Ready to Dispatch <span class="badge dispatch">${toDispatch.length}</span></div>
-      ${toDispatch.length ? toDispatch.map(o=>renderDispatchCard(o)).join('') : '<div class="empty">No orders awaiting dispatch 🎉</div>'}
+      ${toDispatch.length ? toDispatch.map(o=>renderDispatchCard(o)).join('') : '<div class="empty"><div class="empty-icon">🚚</div>No orders awaiting dispatch</div>'}
     </div>
+    
     <div class="card">
-      <div class="card-title">Dispatch History</div>
-      ${dispatched.length ? dispatched.map(o=>renderOrderCard(o,'view')).join('') : '<div class="empty">No dispatches yet</div>'}
+      <div class="card-title">📅 Dispatch History (Filter by Date)</div>
+      
+      <div class="filter-bar">
+        <div class="filter-bar-title">🔍 Filter Dispatch Records</div>
+        <div class="filter-row">
+          <div class="filter-group">
+            <label>From Date</label>
+            <input type="date" id="dispFromDate" value="${FILTERS.dispatch.fromDate}" onchange="applyDispatchFilter()">
+          </div>
+          <div class="filter-group">
+            <label>To Date</label>
+            <input type="date" id="dispToDate" value="${FILTERS.dispatch.toDate}" onchange="applyDispatchFilter()">
+          </div>
+          <div class="filter-group">
+            <label>Status</label>
+            <select id="dispStatus" onchange="applyDispatchFilter()">
+              <option value="all" ${FILTERS.dispatch.status==='all'?'selected':''}>All Status</option>
+              <option value="dispatched" ${FILTERS.dispatch.status==='dispatched'?'selected':''}>Dispatched Only</option>
+              <option value="delivered" ${FILTERS.dispatch.status==='delivered'?'selected':''}>Delivered Only</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>&nbsp;</label>
+            <button class="btn btn-outline btn-block" onclick="resetDispatchFilter()">🔄 Reset</button>
+          </div>
+        </div>
+        <div class="quick-filters">
+          <span class="quick-filter" onclick="setDispatchQuickFilter('today')">Today</span>
+          <span class="quick-filter" onclick="setDispatchQuickFilter('week')">This Week</span>
+          <span class="quick-filter" onclick="setDispatchQuickFilter('month')">This Month</span>
+          <span class="quick-filter" onclick="setDispatchQuickFilter('quarter')">This Quarter</span>
+          <span class="quick-filter" onclick="setDispatchQuickFilter('year')">This FY</span>
+        </div>
+      </div>
+      
+      <div class="summary-bar">
+        <div class="summary-bar-item">
+          <span class="summary-bar-label">Filtered Records</span>
+          <span class="summary-bar-value">${filtered.length}</span>
+        </div>
+        <div class="summary-bar-item">
+          <span class="summary-bar-label">Total Items Dispatched</span>
+          <span class="summary-bar-value">${totalItems}</span>
+        </div>
+        <div class="summary-bar-item">
+          <span class="summary-bar-label">Total Value</span>
+          <span class="summary-bar-value">${fmt(totalValue)}</span>
+        </div>
+        <div class="summary-bar-item">
+          <span class="summary-bar-label">Date Range</span>
+          <span class="summary-bar-value" style="font-size:12px">${FILTERS.dispatch.fromDate?formatDate(FILTERS.dispatch.fromDate):'Start'} → ${FILTERS.dispatch.toDate?formatDate(FILTERS.dispatch.toDate):'Today'}</span>
+        </div>
+      </div>
+      
+      ${filtered.length ? `<div class="table-wrapper"><table>
+        <thead><tr><th>Dispatch Date</th><th>Order No.</th><th>Dealer</th><th>Challan</th><th>Vehicle</th><th>Items</th><th>Status</th><th class="text-right">Value</th></tr></thead>
+        <tbody>${filtered.map(o=>{
+          const d = DB.dealers.find(x=>x.id===o.dealerId);
+          return `<tr>
+            <td>${formatDate(o.dispatchDate)}<br><small style="color:var(--text-muted)">${o.dispatchTime||''}</small></td>
+            <td><strong>${o.orderNo}</strong><br><small style="color:var(--text-muted)">${o.invoiceNo||''}</small></td>
+            <td>${d?.name||'Unknown'}</td>
+            <td><code>${o.challanNo||o.dcNo||'-'}</code></td>
+            <td>${o.dispatchDetails?.vehicleNo||'-'}</td>
+            <td>${o.items.reduce((s,i)=>s+i.qty,0)} items</td>
+            <td>${o.status==='delivered'?'<span class="badge info">📦 Delivered</span>':'<span class="badge dispatch">🚚 Dispatched</span>'}</td>
+            <td class="text-right"><strong>${fmt(o.total)}</strong></td>
+          </tr>`;
+        }).join('')}</tbody>
+        <tfoot><tr class="total-row">
+          <td colspan="5">Total</td>
+          <td>${totalItems} items</td>
+          <td>${filtered.length} records</td>
+          <td class="text-right">${fmt(totalValue)}</td>
+        </tr></tfoot>
+      </table></div>` : '<div class="empty"><div class="empty-icon">📅</div>No dispatches found for selected criteria</div>'}
     </div>
   `;
+}
+
+function applyDispatchFilter(){
+  FILTERS.dispatch.fromDate = document.getElementById('dispFromDate').value;
+  FILTERS.dispatch.toDate = document.getElementById('dispToDate').value;
+  FILTERS.dispatch.status = document.getElementById('dispStatus').value;
+  renderDispatch();
+}
+
+function resetDispatchFilter(){
+  FILTERS.dispatch = {fromDate:'', toDate:'', status:'all'};
+  renderDispatch();
+}
+
+function setDispatchQuickFilter(range){
+  const now = new Date();
+  let fromDate = '';
+  const toDate = today();
+  
+  if(range==='today'){
+    fromDate = today();
+  } else if(range==='week'){
+    const d = new Date(now);
+    d.setDate(d.getDate() - d.getDay());
+    fromDate = d.toISOString().split('T')[0];
+  } else if(range==='month'){
+    fromDate = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
+  } else if(range==='quarter'){
+    const qMonth = Math.floor(now.getMonth()/3)*3;
+    fromDate = new Date(now.getFullYear(), qMonth, 1).toISOString().split('T')[0];
+  } else if(range==='year'){
+    // Indian FY: April 1
+    const fyStart = now.getMonth() < 3 ? now.getFullYear()-1 : now.getFullYear();
+    fromDate = `${fyStart}-04-01`;
+  }
+  
+  FILTERS.dispatch.fromDate = fromDate;
+  FILTERS.dispatch.toDate = toDate;
+  renderDispatch();
 }
 
 function renderDispatchCard(o){
@@ -858,14 +1060,14 @@ function renderDispatchCard(o){
       <strong>Items:</strong><br>
       ${o.items.map(it=>`• ${it.name} × ${it.qty} ${it.rate===0?'<span class="badge free">FREE</span>':''}`).join('<br>')}
     </div>
-    <div style="background:#f8fafc;padding:12px;border-radius:8px;margin-top:10px">
+    <div style="background:var(--bg);padding:14px;border-radius:8px;margin-top:10px;border:1px solid var(--border)">
       <strong style="font-size:13px">🚚 Dispatch Details:</strong>
       <div class="form-row-3" style="margin-top:10px">
         <div class="form-group" style="margin:0"><label>Dispatch Date</label><input type="date" class="form-control" id="disp-date-${o.id}" value="${today()}"></div>
         <div class="form-group" style="margin:0"><label>Vehicle No.</label><input type="text" class="form-control" id="disp-vehicle-${o.id}" placeholder="MH12AB1234"></div>
         <div class="form-group" style="margin:0"><label>Challan No.</label><input type="text" class="form-control" id="disp-challan-${o.id}" placeholder="DC-001"></div>
       </div>
-      <div class="form-row">
+      <div class="form-row" style="margin-top:10px">
         <div class="form-group" style="margin:0"><label>Tracking / LR No.</label><input type="text" class="form-control" id="disp-tracking-${o.id}"></div>
         <div class="form-group" style="margin:0"><label>Remarks</label><input type="text" class="form-control" id="disp-remarks-${o.id}"></div>
       </div>
@@ -915,7 +1117,7 @@ function dispatchOrder(id, markDelivered=false){
   }
   
   save();
-  toast(`✅ Dispatched! Challan: ${dcNo}. Ledger updated.`);
+  toast(`Dispatched! Challan: ${dcNo}. Ledger updated.`);
   renderDispatch();
   updateBadges();
 }
@@ -926,9 +1128,11 @@ function dispatchAndDeliver(id){ dispatchOrder(id, true); }
 function renderInvoicePage(){
   document.getElementById('page-invoices').innerHTML = `
     <div class="card">
-      <div class="card-title">All Invoices <input type="text" class="search-box" placeholder="Search..." oninput="renderInvoiceList(this.value)"></div>
+      <div class="card-title">All Invoices <input type="text" class="search-box" placeholder="🔍 Search..." oninput="renderInvoiceList(this.value)"></div>
+      <div class="table-wrapper">
       <table><thead><tr><th>Inv No.</th><th>Date</th><th>Dealer</th><th>Type</th><th>Status</th><th class="text-right">Total</th><th>Action</th></tr></thead>
       <tbody id="invoiceList"></tbody></table>
+      </div>
     </div>
   `;
   renderInvoiceList();
@@ -944,8 +1148,8 @@ function renderInvoiceList(search=''){
       'dispatched':'<span class="badge dispatch">Dispatched</span>',
       'delivered':'<span class="badge info">Delivered</span>',
       'approved':'<span class="badge warning">Pending Dispatch</span>'
-    }[order?.status] || '<span class="badge">Direct</span>';
-    return `<tr><td><strong>${i.invNo}</strong></td><td>${i.date}</td><td>${i.dealerName}</td>
+    }[order?.status] || '<span class="badge primary">Direct</span>';
+    return `<tr><td><strong>${i.invNo}</strong></td><td>${formatDate(i.date)}</td><td>${i.dealerName}</td>
     <td>${typeBadge}</td><td>${statusBadge}</td>
     <td class="text-right"><strong>${fmt(i.total)}</strong></td>
     <td><button class="btn btn-danger btn-sm" onclick="deleteInvoice(${i.id})">🗑️</button></td></tr>`;
@@ -969,30 +1173,131 @@ function renderTDSPage(){
     </div>
     <div class="card">
       <div class="card-title">TDS/TCS Transactions</div>
+      <div class="table-wrapper">
       <table><thead><tr><th>Date</th><th>Type</th><th>Party</th><th class="text-right">Base</th><th class="text-right">Tax</th></tr></thead>
       <tbody>${DB.tdstcs.length ? DB.tdstcs.slice().reverse().map(t=>`
-        <tr><td>${t.date}</td><td><span class="badge ${t.type==='TDS'?'warning':'success'}">${t.type}</span></td>
+        <tr><td>${formatDate(t.date)}</td><td><span class="badge ${t.type==='TDS'?'warning':'success'}">${t.type}</span></td>
         <td>${t.party}</td><td class="text-right">${fmt(t.base)}</td><td class="text-right"><strong>${fmt(t.tax)}</strong></td></tr>
       `).join('') : '<tr><td colspan="5" class="empty">No TDS/TCS transactions</td></tr>'}</tbody></table>
+      </div>
     </div>
   `;
 }
 
-/* ============ LEDGER (ADMIN) ============ */
+/* ============ LEDGER WITH DEALER SEARCH ============ */
 function renderLedger(){
+  // Get unique dealers from ledger
+  const dealerIds = [...new Set(DB.ledger.map(l=>l.dealerId).filter(Boolean))];
+  const dealersList = dealerIds.map(id=>DB.dealers.find(d=>d.id===id)).filter(Boolean);
+  
+  // Apply filters
+  let filtered = DB.ledger.slice();
+  if(FILTERS.ledger.dealerId !== 'all'){
+    filtered = filtered.filter(l=>l.dealerId == FILTERS.ledger.dealerId);
+  }
+  if(FILTERS.ledger.type !== 'all'){
+    filtered = filtered.filter(l=>l.type === FILTERS.ledger.type);
+  }
+  if(FILTERS.ledger.fromDate){
+    filtered = filtered.filter(l=>l.date >= FILTERS.ledger.fromDate);
+  }
+  if(FILTERS.ledger.toDate){
+    filtered = filtered.filter(l=>l.date <= FILTERS.ledger.toDate);
+  }
+  filtered = filtered.reverse();
+  
+  const totalDebit = filtered.reduce((s,l)=>s+(l.debit||0),0);
+  const totalCredit = filtered.reduce((s,l)=>s+(l.credit||0),0);
+  const selectedDealer = FILTERS.ledger.dealerId !== 'all' ? DB.dealers.find(d=>d.id==FILTERS.ledger.dealerId) : null;
+  
   document.getElementById('page-ledger').innerHTML = `
     <div class="card">
-      <div class="card-title">General Ledger <span class="badge">Ind AS</span></div>
-      <table><thead><tr><th>Date</th><th>Voucher</th><th>Type</th><th>Dealer</th><th>Account</th><th>Particulars</th><th class="text-right">Debit</th><th class="text-right">Credit</th></tr></thead>
-      <tbody>${DB.ledger.length ? DB.ledger.slice().reverse().map(l=>`
-        <tr><td>${l.date}</td><td>${l.voucher}</td>
-        <td><span class="badge ${l.type==='Dispatch'?'dispatch':l.type==='Invoice'?'success':l.type==='Payment'?'info':'muted'}">${l.type}</span></td>
-        <td>${l.dealerName||'-'}</td>
-        <td><strong>${l.account}</strong></td><td>${l.particulars}</td>
-        <td class="text-right">${l.debit?fmt(l.debit):'-'}</td><td class="text-right">${l.credit?fmt(l.credit):'-'}</td></tr>
-      `).join('') : '<tr><td colspan="8" class="empty">No entries yet</td></tr>'}</tbody></table>
+      <div class="card-title">📒 General Ledger <span class="badge primary">Ind AS Compliant</span></div>
+      
+      <div class="filter-bar">
+        <div class="filter-bar-title">🔍 Filter Ledger Entries</div>
+        <div class="filter-row">
+          <div class="filter-group">
+            <label>Search by Dealer</label>
+            <select id="ledgerDealer" onchange="applyLedgerFilter()">
+              <option value="all" ${FILTERS.ledger.dealerId==='all'?'selected':''}>🏢 All Dealers</option>
+              ${DB.dealers.map(d=>`<option value="${d.id}" ${FILTERS.ledger.dealerId==d.id?'selected':''}>${d.name}${d.gstin?' ('+d.gstin+')':''}</option>`).join('')}
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Transaction Type</label>
+            <select id="ledgerType" onchange="applyLedgerFilter()">
+              <option value="all" ${FILTERS.ledger.type==='all'?'selected':''}>All Types</option>
+              <option value="Invoice" ${FILTERS.ledger.type==='Invoice'?'selected':''}>📄 Invoice</option>
+              <option value="Payment" ${FILTERS.ledger.type==='Payment'?'selected':''}>💳 Payment</option>
+              <option value="Dispatch" ${FILTERS.ledger.type==='Dispatch'?'selected':''}>🚚 Dispatch</option>
+              <option value="Delivery" ${FILTERS.ledger.type==='Delivery'?'selected':''}>📦 Delivery</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>From Date</label>
+            <input type="date" id="ledgerFromDate" value="${FILTERS.ledger.fromDate}" onchange="applyLedgerFilter()">
+          </div>
+          <div class="filter-group">
+            <label>To Date</label>
+            <input type="date" id="ledgerToDate" value="${FILTERS.ledger.toDate}" onchange="applyLedgerFilter()">
+          </div>
+          <div class="filter-group">
+            <label>&nbsp;</label>
+            <button class="btn btn-outline btn-block" onclick="resetLedgerFilter()">🔄 Reset</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="summary-bar">
+        <div class="summary-bar-item">
+          <span class="summary-bar-label">Filtered Records</span>
+          <span class="summary-bar-value">${filtered.length}</span>
+        </div>
+        <div class="summary-bar-item">
+          <span class="summary-bar-label">Total Debit</span>
+          <span class="summary-bar-value">${fmt(totalDebit)}</span>
+        </div>
+        <div class="summary-bar-item">
+          <span class="summary-bar-label">Total Credit</span>
+          <span class="summary-bar-value">${fmt(totalCredit)}</span>
+        </div>
+        <div class="summary-bar-item">
+          <span class="summary-bar-label">${selectedDealer?selectedDealer.name+' - ':'All Dealers - '}Balance</span>
+          <span class="summary-bar-value">${fmt(totalDebit-totalCredit)}</span>
+        </div>
+      </div>
+      
+      ${filtered.length ? `<div class="table-wrapper"><table>
+        <thead><tr><th>Date</th><th>Voucher</th><th>Type</th><th>Dealer</th><th>Account</th><th>Particulars</th><th class="text-right">Debit</th><th class="text-right">Credit</th></tr></thead>
+        <tbody>${filtered.map(l=>`
+          <tr><td>${formatDate(l.date)}</td><td><code>${l.voucher}</code></td>
+          <td><span class="badge ${l.type==='Dispatch'?'dispatch':l.type==='Invoice'?'success':l.type==='Payment'?'info':l.type==='Delivery'?'warning':'muted'}">${l.type}</span></td>
+          <td>${l.dealerName||'-'}</td>
+          <td><strong>${l.account}</strong></td><td>${l.particulars}</td>
+          <td class="text-right">${l.debit?fmt(l.debit):'-'}</td><td class="text-right">${l.credit?fmt(l.credit):'-'}</td></tr>
+        `).join('')}</tbody>
+        <tfoot><tr class="total-row">
+          <td colspan="6">Total (${filtered.length} entries)</td>
+          <td class="text-right">${fmt(totalDebit)}</td>
+          <td class="text-right">${fmt(totalCredit)}</td>
+        </tr></tfoot>
+      </table></div>` : '<div class="empty"><div class="empty-icon">📒</div>No ledger entries found for selected criteria</div>'}
     </div>
   `;
+}
+
+function applyLedgerFilter(){
+  FILTERS.ledger.dealerId = document.getElementById('ledgerDealer').value;
+  FILTERS.ledger.type = document.getElementById('ledgerType').value;
+  FILTERS.ledger.fromDate = document.getElementById('ledgerFromDate').value;
+  FILTERS.ledger.toDate = document.getElementById('ledgerToDate').value;
+  renderLedger();
+}
+
+function resetLedgerFilter(){
+  FILTERS.ledger = {dealerId:'all', type:'all', fromDate:'', toDate:''};
+  renderLedger();
 }
 
 /* ============ DEALERS ============ */
@@ -1000,7 +1305,7 @@ function renderDealers(){
   const activeCount = DB.dealers.filter(d=>d.status==='active').length;
   const inactiveCount = DB.dealers.length - activeCount;
   document.getElementById('page-dealers').innerHTML = `
-    <div class="alert alert-info">ℹ️ <strong>GSTIN and PAN are OPTIONAL.</strong> Admin can activate/deactivate dealers. Inactive dealers cannot login.</div>
+    <div class="alert alert-info">ℹ️ <strong>GSTIN and PAN are OPTIONAL.</strong> Admin can activate/deactivate dealers.</div>
     <div class="stats-grid">
       <div class="stat-card success"><h3>Active Dealers</h3><div class="value">${activeCount}</div></div>
       <div class="stat-card danger"><h3>Inactive Dealers</h3><div class="value">${inactiveCount}</div></div>
@@ -1024,18 +1329,20 @@ function renderDealers(){
         <button class="btn btn-success btn-block" onclick="addDealer()">➕ Add Dealer (Active)</button>
       </div>
       <div class="card">
-        <div class="card-title">Dealer Directory <span class="badge">${DB.dealers.length}</span></div>
+        <div class="card-title">Dealer Directory <span class="badge primary">${DB.dealers.length}</span></div>
+        <div class="table-wrapper">
         <table><thead><tr><th>Name</th><th>Code</th><th>Type</th><th>Status</th><th>Action</th></tr></thead>
         <tbody>${DB.dealers.map(d=>{
           const isReg = isRegisteredDealer(d);
           const isActive = d.status !== 'inactive';
           return `<tr>
-            <td><strong>${d.name}</strong><br><small style="color:var(--muted)">${d.phone||''}</small></td>
+            <td><strong>${d.name}</strong><br><small style="color:var(--text-muted)">${d.phone||''}</small></td>
             <td><code>${d.dealerCode}</code></td>
             <td>${isReg ? '<span class="badge success">B2B</span>' : '<span class="badge muted">B2C</span>'}</td>
             <td><button class="toggle-btn ${isActive?'active':'inactive'}" onclick="toggleDealerStatus(${d.id})">${isActive?'✓ Active':'⛔ Inactive'}</button></td>
             <td><button class="btn btn-danger btn-sm" onclick="deleteDealer(${d.id})">🗑️</button></td></tr>`;
         }).join('')}</tbody></table>
+        </div>
       </div>
     </div>
   `;
@@ -1053,7 +1360,7 @@ function addDealer(){
   if(gstin && gstin.length !== 15){toast('GSTIN must be 15 chars (or leave blank)','error');return;}
   if(DB.dealers.some(d=>d.dealerCode===code)){toast('Dealer code exists','error');return;}
   DB.dealers.push({id:Date.now(),name,gstin,pan,state,phone,email,dealerCode:code,password:pass,status:'active'});
-  save(); renderDealers(); toast(`✅ Dealer added (Active)`);
+  save(); renderDealers(); toast(`Dealer added (Active)`);
 }
 function deleteDealer(id){
   if(!confirm('Delete dealer? This will remove all their data.'))return;
@@ -1064,7 +1371,7 @@ function deleteDealer(id){
 /* ============ INVENTORY ============ */
 function renderInventory(){
   document.getElementById('page-inventory').innerHTML = `
-    <div class="alert alert-info">💡 You can add items with <strong>₹0 rate</strong> for freebies, samples, or promotional items. These will show as "FREE" in dealer portals.</div>
+    <div class="alert alert-info">💡 You can add items with <strong>₹0 rate</strong> for freebies, samples, or promotional items.</div>
     <div class="grid-2">
       <div class="card">
         <div class="card-title">Add Item</div>
@@ -1079,19 +1386,21 @@ function renderInventory(){
           <div class="form-group"><label>Rate (₹) <span class="optional">(0 for free items)</span></label><input type="number" class="form-control" id="iRate" value="0" min="0"></div>
           <div class="form-group"><label>Stock</label><input type="number" class="form-control" id="iStock" value="100"></div>
         </div>
-        <div class="form-group"><label>Notes <span class="optional">(Optional)</span></label><input type="text" class="form-control" id="iNotes" placeholder="e.g., Free sample, promotional"></div>
+        <div class="form-group"><label>Notes <span class="optional">(Optional)</span></label><input type="text" class="form-control" id="iNotes"></div>
         <button class="btn btn-success btn-block" onclick="addItem()">➕ Add Item</button>
       </div>
       <div class="card">
-        <div class="card-title">Inventory <span class="badge">${DB.inventory.length} items</span></div>
+        <div class="card-title">Inventory <span class="badge primary">${DB.inventory.length} items</span></div>
+        <div class="table-wrapper">
         <table><thead><tr><th>Item</th><th>HSN</th><th class="text-right">Rate</th><th class="text-right">Stock</th><th>Action</th></tr></thead>
         <tbody>${DB.inventory.map(i=>`
-          <tr><td><strong>${i.name}</strong>${i.isFree?' <span class="badge free">FREE</span>':''}<br><small style="color:var(--muted)">${i.notes||''}</small></td>
+          <tr><td><strong>${i.name}</strong>${i.isFree?' <span class="badge free">FREE</span>':''}<br><small style="color:var(--text-muted)">${i.notes||''}</small></td>
           <td>${i.hsn}</td>
           <td class="text-right">${i.rate===0?'<span class="badge free">FREE</span>':fmt(i.rate)}</td>
           <td class="text-right"><span class="badge ${i.stock<50?'danger':'success'}">${i.stock}</span></td>
           <td><button class="btn btn-danger btn-sm" onclick="deleteItem(${i.id})">🗑️</button></td></tr>
         `).join('')}</tbody></table>
+        </div>
       </div>
     </div>
   `;
@@ -1106,7 +1415,7 @@ function addItem(){
   if(!name||!hsn){toast('Name and HSN required','error');return;}
   if(isNaN(rate) || rate < 0){toast('Rate must be 0 or more','error');return;}
   DB.inventory.push({id:Date.now(),name,hsn,gst,rate:rate||0,stock:Math.max(0,stock||0),lastUpdated:today(),isFree:rate===0,notes});
-  save(); renderInventory(); toast(`✅ Item added ${rate===0?'(FREE)':''}`);
+  save(); renderInventory(); toast(`Item added ${rate===0?'(FREE)':''}`);
 }
 function deleteItem(id){
   if(!confirm('Delete item?'))return;
@@ -1147,7 +1456,7 @@ function saveSettings(){
   DB.settings.stateCode=document.getElementById('sStateCode').value;
   DB.settings.fy=document.getElementById('sFY').value;
   DB.settings.address=document.getElementById('sAddress').value;
-  save(); toast('✅ Settings saved');
+  save(); toast('Settings saved');
 }
 
 /* ============ DEALER: DASHBOARD ============ */
@@ -1158,14 +1467,12 @@ function renderDealerDashboard(){
   const myInvoices = DB.invoices.filter(i=>i.dealerId===d.id);
   const myPayments = DB.payments.filter(p=>p.dealerId===d.id);
   const pending = myOrders.filter(o=>o.status==='pending').length;
-  const approved = myOrders.filter(o=>o.status==='approved').length;
   const dispatched = myOrders.filter(o=>o.status==='dispatched').length;
   const delivered = myOrders.filter(o=>o.status==='delivered').length;
   const totalSpent = myInvoices.reduce((s,i)=>s+i.total,0);
   const totalPaid = myPayments.filter(p=>p.status==='approved').reduce((s,p)=>s+p.amount,0);
   const pendingPayments = myPayments.filter(p=>p.status==='pending').length;
   
-  // Calculate outstanding from ledger
   const myLedger = DB.ledger.filter(l=>l.dealerId===d.id);
   const totalDebit = myLedger.reduce((s,l)=>s+(l.debit||0),0);
   const totalCredit = myLedger.reduce((s,l)=>s+(l.credit||0),0);
@@ -1181,8 +1488,8 @@ function renderDealerDashboard(){
       <div class="stat-card info"><h3>Dispatched</h3><div class="value">${dispatched}</div></div>
       <div class="stat-card success"><h3>Delivered</h3><div class="value">${delivered}</div></div>
       <div class="stat-card"><h3>Total Purchases</h3><div class="value">${fmt(totalSpent)}</div></div>
-      <div class="stat-card success"><h3>Total Paid</h3><div class="value">${fmt(totalPaid)}</div><div class="sub">${myPayments.filter(p=>p.status==='approved').length} payments</div></div>
-      <div class="stat-card ${outstanding>0?'danger':'success'}"><h3>Outstanding</h3><div class="value">${fmt(Math.abs(outstanding))}</div><div class="sub">${outstanding>0?'Payable':'Credit Balance'} ${pendingPayments>0?'| '+pendingPayments+' pending':''}</div></div>
+      <div class="stat-card success"><h3>Total Paid</h3><div class="value">${fmt(totalPaid)}</div></div>
+      <div class="stat-card ${outstanding>0?'danger':'success'}"><h3>Outstanding</h3><div class="value">${fmt(Math.abs(outstanding))}</div><div class="sub">${outstanding>0?'Payable':'Credit'} ${pendingPayments>0?'| '+pendingPayments+' pending':''}</div></div>
     </div>
     <div class="grid-2">
       <div class="card">
@@ -1198,18 +1505,18 @@ function renderDealerDashboard(){
           ${myPayments.slice(-3).reverse().map(p=>{
             const statusBadge = {'pending':'<span class="badge warning">⏳</span>','approved':'<span class="badge success">✅</span>','rejected':'<span class="badge danger">❌</span>'}[p.status];
             return `<div style="padding:8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font-size:12px">
-              <div>💳 ${p.paymentNo} <small style="color:var(--muted)">${p.date}</small></div>
+              <div>💳 ${p.paymentNo} <small style="color:var(--text-muted)">${formatDate(p.date)}</small></div>
               <div><strong>${fmt(p.amount)}</strong> ${statusBadge}</div>
             </div>`;
           }).join('')}
           ${myOrders.slice(-3).reverse().map(o=>{
             const statusBadge = {'pending':'<span class="badge warning">⏳</span>','approved':'<span class="badge success">✅</span>','dispatched':'<span class="badge dispatch">🚚</span>','delivered':'<span class="badge info">📦</span>','rejected':'<span class="badge danger">❌</span>'}[o.status];
             return `<div style="padding:8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font-size:12px">
-              <div>📦 ${o.orderNo} <small style="color:var(--muted)">${o.date}</small></div>
+              <div>📦 ${o.orderNo} <small style="color:var(--text-muted)">${formatDate(o.date)}</small></div>
               <div><strong>${fmt(o.total)}</strong> ${statusBadge}</div>
             </div>`;
           }).join('')}
-        ` : '<div class="empty">No activity yet</div>'}
+        ` : '<div class="empty"><div class="empty-icon">📋</div>No activity yet</div>'}
       </div>
     </div>
   `;
@@ -1220,7 +1527,7 @@ function renderDealerTodayPrices(){
   const todayDate = today();
   const todayChanges = DB.priceHistory.filter(p=>p.date===todayDate);
   document.getElementById('page-d-today-prices').innerHTML = `
-    <div class="alert alert-info">📊 Daily rate card effective <strong>${todayDate}</strong>. Free items shown with FREE badge.</div>
+    <div class="alert alert-info">📊 Daily rate card effective <strong>${formatDate(todayDate)}</strong>.</div>
     <div class="stats-grid">
       <div class="stat-card"><h3>Total Items</h3><div class="value">${DB.inventory.length}</div></div>
       <div class="stat-card success"><h3>Today's Changes</h3><div class="value">${todayChanges.length}</div></div>
@@ -1248,13 +1555,13 @@ function renderDealerTodayPrices(){
               <div class="price-amount">${item.rate===0?'<span style="color:#ec4899">FREE</span>':fmt(item.rate)}</div>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-              <span class="badge">HSN: ${item.hsn}</span>
+              <span class="badge primary">HSN: ${item.hsn}</span>
               <span class="badge success">GST: ${item.gst}%</span>
             </div>
             <div class="price-meta">
               ${item.rate>0 ? `Price with GST: <strong>${fmt(priceWithGST)}</strong><br>` : ''}
               Available Stock: <strong>${item.stock} units</strong><br>
-              Last Updated: ${item.lastUpdated||'N/A'}
+              Last Updated: ${formatDate(item.lastUpdated)}
               ${item.notes ? `<br><em>${item.notes}</em>` : ''}
             </div>
             <div style="margin-top:8px">${changeHtml}</div>
@@ -1311,19 +1618,19 @@ function renderOrderItems(){
   el.innerHTML = orderItems.map((it,idx)=>{
     const item = DB.inventory.find(x=>x.id==it.itemId);
     return `<div class="order-item-row">
-      <div><label style="font-size:11px;color:var(--muted)">Item</label>
+      <div><label style="font-size:11px;color:var(--text-muted)">Item</label>
         <select class="form-control" onchange="updateOrderItem(${idx},'itemId',this.value)">
           <option value="">-- Select --</option>
           ${DB.inventory.map(i=>`<option value="${i.id}" ${it.itemId==i.id?'selected':''}>${i.name} - ${i.rate===0?'FREE':fmt(i.rate)} (Stock: ${i.stock})</option>`).join('')}
         </select>
       </div>
-      <div><label style="font-size:11px;color:var(--muted)">HSN</label>
+      <div><label style="font-size:11px;color:var(--text-muted)">HSN</label>
         <input type="text" class="form-control" value="${item?.hsn||'-'}" readonly>
       </div>
-      <div><label style="font-size:11px;color:var(--muted)">Qty</label>
+      <div><label style="font-size:11px;color:var(--text-muted)">Qty</label>
         <input type="number" class="form-control" value="${it.qty}" min="1" onchange="updateOrderItem(${idx},'qty',this.value)">
       </div>
-      <div><label style="font-size:11px;color:var(--muted)">Amount</label>
+      <div><label style="font-size:11px;color:var(--text-muted)">Amount</label>
         <input type="text" class="form-control" value="${item?(item.rate===0?'FREE':fmt(item.rate*it.qty)):'-'}" readonly>
       </div>
       <button class="remove-item" onclick="removeOrderItem(${idx})">✕</button>
@@ -1354,7 +1661,7 @@ function renderOrderSummary(){
   
   el.innerHTML = `
     <table>
-      <tr><td>Effective Date</td><td class="text-right"><strong>${today()}</strong></td></tr>
+      <tr><td>Effective Date</td><td class="text-right"><strong>${formatDate(today())}</strong></td></tr>
       <tr><td>Paid Items</td><td class="text-right">${validItems.length - freeItems}</td></tr>
       ${freeItems>0?`<tr><td>Free Items</td><td class="text-right"><span class="badge free">${freeItems} FREE</span></td></tr>`:''}
       <tr><td>Subtotal</td><td class="text-right">${fmt(subtotal)}</td></tr>
@@ -1399,7 +1706,7 @@ function submitOrder(){
     status:'pending', notes:document.getElementById('orderNotes')?.value||''
   });
   save();
-  toast(`✅ Order ${orderNo} submitted!`);
+  toast(`Order ${orderNo} submitted!`);
   navigateTo('d-my-orders');
 }
 
@@ -1409,8 +1716,8 @@ function renderMyOrders(){
   const myOrders = DB.orders.filter(o=>o.dealerId===d.id).reverse();
   document.getElementById('page-d-my-orders').innerHTML = `
     <div class="card">
-      <div class="card-title">My Orders <span class="badge">${myOrders.length}</span></div>
-      ${myOrders.length ? myOrders.map(o=>renderOrderCard(o,'view')).join('') : '<div class="empty">No orders yet. <a href="#" onclick="navigateTo(\'d-place-order\');return false;" style="color:var(--primary)">Place your first order →</a></div>'}
+      <div class="card-title">My Orders <span class="badge primary">${myOrders.length}</span></div>
+      ${myOrders.length ? myOrders.map(o=>renderOrderCard(o,'view')).join('') : '<div class="empty"><div class="empty-icon">📦</div>No orders yet. <a href="#" onclick="navigateTo(\'d-place-order\');return false;" style="color:var(--primary)">Place your first order →</a></div>'}
     </div>
   `;
 }
@@ -1422,6 +1729,7 @@ function renderMyInvoices(){
   document.getElementById('page-d-my-invoices').innerHTML = `
     <div class="card">
       <div class="card-title">My Invoices <span class="badge success">${myInv.length}</span></div>
+      <div class="table-wrapper">
       <table><thead><tr><th>Inv No.</th><th>Date</th><th>Type</th><th>Items</th><th>Status</th><th class="text-right">Total</th></tr></thead>
       <tbody>${myInv.length ? myInv.map(i=>{
         const typeBadge = i.saleType==='B2B' ? '<span class="badge success">B2B</span>' : '<span class="badge muted">B2C</span>';
@@ -1430,11 +1738,12 @@ function renderMyInvoices(){
           'dispatched':'<span class="badge dispatch">🚚 Dispatched</span>',
           'delivered':'<span class="badge info">📦 Delivered</span>',
           'approved':'<span class="badge warning">Pending Dispatch</span>'
-        }[order?.status] || '<span class="badge">-</span>';
-        return `<tr><td><strong>${i.invNo}</strong></td><td>${i.date}</td><td>${typeBadge}</td>
+        }[order?.status] || '<span class="badge primary">-</span>';
+        return `<tr><td><strong>${i.invNo}</strong></td><td>${formatDate(i.date)}</td><td>${typeBadge}</td>
         <td>${i.itemName.substring(0,30)}</td><td>${statusBadge}</td>
         <td class="text-right"><strong>${fmt(i.total)}</strong></td></tr>`;
       }).join('') : '<tr><td colspan="6" class="empty">No invoices yet</td></tr>'}</tbody></table>
+      </div>
     </div>
   `;
 }
@@ -1444,17 +1753,16 @@ function renderMakePayment(){
   const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
   if(!isDealerActive(d)){ toast('Account inactive','error'); navigateTo('d-dashboard'); return; }
   
-  // Calculate outstanding
   const myLedger = DB.ledger.filter(l=>l.dealerId===d.id);
   const totalDebit = myLedger.reduce((s,l)=>s+(l.debit||0),0);
   const totalCredit = myLedger.reduce((s,l)=>s+(l.credit||0),0);
   const outstanding = totalDebit - totalCredit;
   
   document.getElementById('page-d-make-payment').innerHTML = `
-    <div class="alert alert-info">💳 Record your payment. Admin will review and approve. Once approved, your ledger will auto-update.</div>
+    <div class="alert alert-info">💳 Record your payment. Admin will review and approve. Ledger auto-updates on approval.</div>
     <div class="stats-grid">
       <div class="stat-card ${outstanding>0?'danger':'success'}"><h3>Current Outstanding</h3><div class="value">${fmt(Math.abs(outstanding))}</div><div class="sub">${outstanding>0?'You need to pay':'Credit balance'}</div></div>
-      <div class="stat-card warning"><h3>Pending Payments</h3><div class="value">${DB.payments.filter(p=>p.dealerId===d.id && p.status==='pending').length}</div><div class="sub">Awaiting admin approval</div></div>
+      <div class="stat-card warning"><h3>Pending Payments</h3><div class="value">${DB.payments.filter(p=>p.dealerId===d.id && p.status==='pending').length}</div></div>
     </div>
     <div class="card">
       <div class="card-title">Record New Payment</div>
@@ -1475,16 +1783,13 @@ function renderMakePayment(){
       <div class="form-row">
         <div class="form-group"><label>Payment Date <span style="color:var(--danger)">*</span></label>
           <input type="date" class="form-control" id="payDate" value="${today()}"></div>
-        <div class="form-group"><label>Reference / Transaction No. <span class="optional">(Optional for Cash)</span></label>
+        <div class="form-group"><label>Reference / Transaction No.</label>
           <input type="text" class="form-control" id="payRef" placeholder="UTR/Cheque No."></div>
       </div>
       <div class="form-group"><label>Bank Name (if applicable)</label>
         <input type="text" class="form-control" id="payBank" placeholder="e.g., HDFC Bank, SBI"></div>
       <div class="form-group"><label>Remarks</label>
-        <textarea class="form-control" id="payRemarks" placeholder="Against which invoice(s)? Any notes?" rows="2"></textarea></div>
-      <div class="alert alert-warning" style="margin-top:10px">
-        ⚠️ <strong>Note:</strong> Your payment will be marked as <strong>"Pending"</strong> until admin approves. Ledger will update only after approval.
-      </div>
+        <textarea class="form-control" id="payRemarks" placeholder="Against which invoice(s)?" rows="2"></textarea></div>
       <button class="btn btn-primary btn-block" onclick="submitPayment()">📤 Submit Payment for Approval</button>
     </div>
   `;
@@ -1503,7 +1808,7 @@ function submitPayment(){
   
   if(!amount || amount <= 0){ toast('Enter valid amount','error'); return; }
   if(!date){ toast('Select payment date','error'); return; }
-  if(mode !== 'Cash' && !referenceNo){ toast('Reference number required for non-cash payments','error'); return; }
+  if(mode !== 'Cash' && !referenceNo){ toast('Reference number required','error'); return; }
   
   const paymentNo = 'PAY-' + new Date().getFullYear() + '-' + String(DB.payments.filter(p=>p.dealerId===d.id).length+1).padStart(4,'0');
   
@@ -1515,7 +1820,7 @@ function submitPayment(){
   });
   
   save();
-  toast(`✅ Payment ${paymentNo} submitted! Awaiting admin approval.`);
+  toast(`Payment ${paymentNo} submitted! Awaiting admin approval.`);
   navigateTo('d-payment-history');
 }
 
@@ -1534,7 +1839,7 @@ function renderPaymentHistory(){
       <div class="stat-card danger"><h3>Rejected</h3><div class="value">${myPayments.filter(p=>p.status==='rejected').length}</div></div>
     </div>
     <div class="card">
-      <div class="card-title">My Payment History <span class="badge">${myPayments.length}</span></div>
+      <div class="card-title">My Payment History <span class="badge primary">${myPayments.length}</span></div>
       ${myPayments.length ? myPayments.map(p=>{
         const statusBadge = {
           'pending':'<span class="badge warning">⏳ Pending Approval</span>',
@@ -1546,7 +1851,7 @@ function renderPaymentHistory(){
             <div>
               <div class="order-no">${p.paymentNo} ${statusBadge}</div>
               <div class="order-meta">
-                Date: ${p.date} ${p.time||''}<br>
+                Date: ${formatDate(p.date)} ${p.time||''}<br>
                 Mode: <strong>${p.mode}</strong> ${p.referenceNo?'| Ref: '+p.referenceNo:''}
                 ${p.bankName?'| Bank: '+p.bankName:''}<br>
                 ${p.status==='approved' ? 'Receipt: <strong>'+p.receiptNo+'</strong> | Approved: '+p.approvedDate : ''}
@@ -1557,9 +1862,9 @@ function renderPaymentHistory(){
               <div class="order-total">${fmt(p.amount)}</div>
             </div>
           </div>
-          ${p.remarks ? `<div style="padding:8px;background:#f1f5f9;border-radius:6px;font-size:12px;margin-top:8px"><strong>Your Remarks:</strong> ${p.remarks}</div>` : ''}
+          ${p.remarks ? `<div style="padding:8px;background:var(--bg);border-radius:6px;font-size:12px;margin-top:8px;border:1px solid var(--border)"><strong>Your Remarks:</strong> ${p.remarks}</div>` : ''}
         </div>`;
-      }).join('') : '<div class="empty">No payments made yet. <a href="#" onclick="navigateTo(\'d-make-payment\');return false;" style="color:var(--primary)">Make your first payment →</a></div>'}
+      }).join('') : '<div class="empty"><div class="empty-icon">💳</div>No payments made yet. <a href="#" onclick="navigateTo(\'d-make-payment\');return false;" style="color:var(--primary)">Make your first payment →</a></div>'}
     </div>
   `;
 }
@@ -1572,63 +1877,129 @@ function renderDealerLedger(){
   const totalCredit = myLedger.reduce((s,l)=>s+(l.credit||0),0);
   const balance = totalDebit - totalCredit;
   const totalInvoices = myLedger.filter(l=>l.type==='Invoice').length;
-  const totalDispatches = myLedger.filter(l=>l.type==='Dispatch').length;
   const totalPayments = myLedger.filter(l=>l.type==='Payment').length;
   
   document.getElementById('page-d-my-ledger').innerHTML = `
     <div class="alert alert-info">📒 Your complete ledger. Payments appear here only after admin approval.</div>
     <div class="stats-grid">
-      <div class="stat-card"><h3>Total Debit</h3><div class="value">${fmt(totalDebit)}</div><div class="sub">Invoices</div></div>
-      <div class="stat-card success"><h3>Total Credit</h3><div class="value">${fmt(totalCredit)}</div><div class="sub">Payments/Adjustments</div></div>
+      <div class="stat-card"><h3>Total Debit</h3><div class="value">${fmt(totalDebit)}</div></div>
+      <div class="stat-card success"><h3>Total Credit</h3><div class="value">${fmt(totalCredit)}</div></div>
       <div class="stat-card ${balance>0?'danger':'success'}"><h3>Balance</h3><div class="value">${fmt(Math.abs(balance))}</div><div class="sub">${balance>0?'Payable':'Credit Balance'}</div></div>
       <div class="stat-card info"><h3>Transactions</h3><div class="value">${myLedger.length}</div><div class="sub">${totalInvoices} invoices, ${totalPayments} payments</div></div>
     </div>
     <div class="card">
-      <div class="card-title">Ledger Statement <span class="badge">${d.name}</span></div>
-      <table><thead><tr><th>Date</th><th>Voucher</th><th>Type</th><th>Particulars</th><th class="text-right">Debit</th><th class="text-right">Credit</th></tr></thead>
-      <tbody>${myLedger.length ? myLedger.map(l=>`
-        <tr><td>${l.date}</td><td>${l.voucher}</td>
-        <td><span class="badge ${l.type==='Dispatch'?'dispatch':l.type==='Invoice'?'success':l.type==='Payment'?'info':l.type==='Delivery'?'warning':'muted'}">${l.type}</span></td>
-        <td>${l.particulars}</td>
-        <td class="text-right">${l.debit?fmt(l.debit):'-'}</td>
-        <td class="text-right">${l.credit?fmt(l.credit):'-'}</td></tr>
-      `).join('') : '<tr><td colspan="6" class="empty">No ledger entries yet</td></tr>'}</tbody>
-      ${myLedger.length ? `<tfoot><tr class="total-row">
-        <td colspan="4">Balance (${balance>0?'Payable':'Favourite'})</td>
-        <td class="text-right">${fmt(totalDebit)}</td>
-        <td class="text-right">${fmt(totalCredit)}</td>
-      </tr></tfoot>` : ''}
-      </table>
+      <div class="card-title">Ledger Statement <span class="badge primary">${d.name}</span></div>
+      ${myLedger.length ? `<div class="table-wrapper"><table>
+        <thead><tr><th>Date</th><th>Voucher</th><th>Type</th><th>Particulars</th><th class="text-right">Debit</th><th class="text-right">Credit</th></tr></thead>
+        <tbody>${myLedger.map(l=>`
+          <tr><td>${formatDate(l.date)}</td><td><code>${l.voucher}</code></td>
+          <td><span class="badge ${l.type==='Dispatch'?'dispatch':l.type==='Invoice'?'success':l.type==='Payment'?'info':l.type==='Delivery'?'warning':'muted'}">${l.type}</span></td>
+          <td>${l.particulars}</td>
+          <td class="text-right">${l.debit?fmt(l.debit):'-'}</td>
+          <td class="text-right">${l.credit?fmt(l.credit):'-'}</td></tr>
+        `).join('')}</tbody>
+        <tfoot><tr class="total-row">
+          <td colspan="4">Balance (${balance>0?'Payable':'Favourite'})</td>
+          <td class="text-right">${fmt(totalDebit)}</td>
+          <td class="text-right">${fmt(totalCredit)}</td>
+        </tr></tfoot>
+      </table></div>` : '<div class="empty"><div class="empty-icon">📒</div>No ledger entries yet</div>'}
     </div>
   `;
 }
 
-/* ============ DEALER: PROFILE ============ */
+/* ============ DEALER: PROFILE WITH PASSWORD CHANGE ============ */
 function renderDealerProfile(){
   const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
   const isReg = isRegisteredDealer(d);
   document.getElementById('page-d-profile').innerHTML = `
-    <div class="card">
-      <div class="card-title">My Profile ${isReg ? '<span class="badge success">B2B Registered</span>' : '<span class="badge muted">B2C Unregistered</span>'}</div>
-      <table>
-        <tr><td><strong>Dealer Name</strong></td><td>${d.name}</td></tr>
-        <tr><td><strong>Dealer Code</strong></td><td><code>${d.dealerCode}</code></td></tr>
-        <tr><td><strong>Account Status</strong></td><td>${d.status==='active'?'<span class="badge success">✓ Active</span>':'<span class="badge inactive">⛔ Inactive</span>'}</td></tr>
-        <tr><td><strong>Registration Type</strong></td><td>${isReg ? 'GST Registered (B2B) - ITC Eligible' : 'Unregistered (B2C) - No ITC'}</td></tr>
-        <tr><td><strong>GSTIN</strong></td><td>${d.gstin || '<em style="color:var(--muted)">Not Provided</em>'}</td></tr>
-        <tr><td><strong>PAN</strong></td><td>${d.pan || '<em style="color:var(--muted)">Not Provided</em>'}</td></tr>
-        <tr><td><strong>State</strong></td><td>${d.state || '<em style="color:var(--muted)">Not Provided</em>'}</td></tr>
-        <tr><td><strong>Phone</strong></td><td>${d.phone || '<em style="color:var(--muted)">Not Provided</em>'}</td></tr>
-        <tr><td><strong>Email</strong></td><td>${d.email || '<em style="color:var(--muted)">Not Provided</em>'}</td></tr>
-      </table>
-      <div class="alert alert-info" style="margin-top:14px">ℹ️ Contact admin to update profile or change password.</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">My Profile ${isReg ? '<span class="badge success">B2B Registered</span>' : '<span class="badge muted">B2C Unregistered</span>'}</div>
+        <table>
+          <tr><td><strong>Dealer Name</strong></td><td>${d.name}</td></tr>
+          <tr><td><strong>Dealer Code</strong></td><td><code>${d.dealerCode}</code></td></tr>
+          <tr><td><strong>Account Status</strong></td><td>${d.status==='active'?'<span class="badge success">✓ Active</span>':'<span class="badge inactive">⛔ Inactive</span>'}</td></tr>
+          <tr><td><strong>Registration Type</strong></td><td>${isReg ? 'GST Registered (B2B) - ITC Eligible' : 'Unregistered (B2C) - No ITC'}</td></tr>
+          <tr><td><strong>GSTIN</strong></td><td>${d.gstin || '<em style="color:var(--text-muted)">Not Provided</em>'}</td></tr>
+          <tr><td><strong>PAN</strong></td><td>${d.pan || '<em style="color:var(--text-muted)">Not Provided</em>'}</td></tr>
+          <tr><td><strong>State</strong></td><td>${d.state || '<em style="color:var(--text-muted)">Not Provided</em>'}</td></tr>
+          <tr><td><strong>Phone</strong></td><td>${d.phone || '<em style="color:var(--text-muted)">Not Provided</em>'}</td></tr>
+          <tr><td><strong>Email</strong></td><td>${d.email || '<em style="color:var(--text-muted)">Not Provided</em>'}</td></tr>
+        </table>
+        <div class="alert alert-info" style="margin-top:14px">ℹ️ Contact admin to update profile details.</div>
+      </div>
+      
+      <div class="card">
+        <div class="card-title">🔐 Change Password</div>
+        <div class="alert alert-warning">
+          🔒 For security, you must enter your current password to set a new one.
+        </div>
+        <div class="form-group">
+          <label>Current Password <span style="color:var(--danger)">*</span></label>
+          <input type="password" class="form-control" id="currentPass" placeholder="Enter current password">
+        </div>
+        <div class="form-group">
+          <label>New Password <span style="color:var(--danger)">*</span></label>
+          <input type="password" class="form-control" id="newPass" placeholder="Minimum 6 characters">
+          <small style="color:var(--text-muted);font-size:11px;margin-top:4px;display:block">Use at least 6 characters with letters and numbers</small>
+        </div>
+        <div class="form-group">
+          <label>Confirm New Password <span style="color:var(--danger)">*</span></label>
+          <input type="password" class="form-control" id="confirmPass" placeholder="Re-enter new password">
+        </div>
+        <button class="btn btn-primary btn-block" onclick="changeDealerPassword()">🔑 Update Password</button>
+        
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
+          <h4 style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-secondary)">🛡️ Password Guidelines</h4>
+          <ul style="font-size:12px;color:var(--text-muted);line-height:1.8;padding-left:18px">
+            <li>Minimum 6 characters required</li>
+            <li>Avoid using your dealer code as password</li>
+            <li>Use a mix of letters and numbers</li>
+            <li>Don't share your password with anyone</li>
+            <li>Change password periodically for security</li>
+          </ul>
+        </div>
+      </div>
     </div>
   `;
 }
 
+/* ============ DEALER PASSWORD CHANGE FUNCTION ============ */
+function changeDealerPassword(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  if(!d) return;
+  
+  const currentPass = document.getElementById('currentPass').value;
+  const newPass = document.getElementById('newPass').value;
+  const confirmPass = document.getElementById('confirmPass').value;
+  
+  // Validation
+  if(!currentPass){ toast('Please enter current password','error'); return; }
+  if(currentPass !== d.password){ 
+    toast('Current password is incorrect','error'); 
+    document.getElementById('currentPass').value = '';
+    return; 
+  }
+  if(!newPass){ toast('Please enter new password','error'); return; }
+  if(newPass.length < 6){ toast('New password must be at least 6 characters','error'); return; }
+  if(newPass === currentPass){ toast('New password must be different from current','error'); return; }
+  if(newPass !== confirmPass){ toast('New passwords do not match','error'); return; }
+  
+  // Update password
+  d.password = newPass;
+  save();
+  
+  // Clear form
+  document.getElementById('currentPass').value = '';
+  document.getElementById('newPass').value = '';
+  document.getElementById('confirmPass').value = '';
+  
+  toast('🔐 Password changed successfully! Please use new password on next login.');
+}
+
 /* ============ INIT ============ */
 if(DB.user){ 
-  // Check if logged-in dealer is still active
   if(DB.user.role==='dealer'){
     const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
     if(!d || !isDealerActive(d)){
