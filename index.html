@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DealerConnect v5.0 | Professional Edition</title>
+<title>DealerConnect v6.0 | Excel Export & Dealer Dispatches</title>
+<!-- SheetJS for Excel Export -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
 :root{
   --primary:#2563eb;--primary-dark:#1e40af;--primary-light:#dbeafe;
@@ -40,7 +42,6 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 .form-group label .optional{font-weight:400;color:var(--text-muted);font-size:11px;margin-left:4px}
 .form-control{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:#fff;transition:all .2s;color:var(--text)}
 .form-control:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,0.1)}
-.form-control::placeholder{color:#94a3b8}
 .login-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer;margin-top:8px;transition:all .2s;box-shadow:0 4px 12px rgba(37,99,235,0.3)}
 .login-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(37,99,235,0.4)}
 .login-hint{margin-top:16px;padding:14px;background:var(--primary-light);border:1px solid #bfdbfe;border-radius:8px;font-size:11px;color:var(--primary-dark);text-align:center;line-height:1.6}
@@ -109,7 +110,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 .btn{padding:9px 16px;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
 .btn:hover{transform:translateY(-1px)}
 .btn-primary{background:var(--primary);color:#fff;box-shadow:0 2px 4px rgba(37,99,235,0.2)}
-.btn-primary:hover{background:var(--primary-dark);box-shadow:0 4px 8px rgba(37,99,235,0.3)}
+.btn-primary:hover{background:var(--primary-dark)}
 .btn-success{background:var(--success);color:#fff}
 .btn-success:hover{background:var(--success-dark)}
 .btn-danger{background:var(--danger);color:#fff}
@@ -117,13 +118,14 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 .btn-warning{background:var(--warning);color:#fff}
 .btn-outline{background:#fff;border:1px solid var(--border);color:var(--text)}
 .btn-outline:hover{background:var(--bg)}
+.btn-excel{background:#1d6f42;color:#fff}
+.btn-excel:hover{background:#14532d}
 .btn-sm{padding:5px 10px;font-size:11px}
 .btn-block{width:100%;justify-content:center}
 
 /* FORMS */
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-.form-row-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 
 /* ALERTS */
 .alert{padding:12px 16px;border-radius:8px;font-size:12px;margin-bottom:14px;display:flex;align-items:center;gap:10px;border:1px solid}
@@ -169,7 +171,6 @@ tbody tr:last-child td{border-bottom:none}
 .toast.error{background:var(--danger)}
 @keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
 
-/* ORDER ITEMS */
 .order-item-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px;padding:12px;background:var(--bg);border-radius:8px;border:1px solid var(--border)}
 .order-item-row select,.order-item-row input{padding:8px;font-size:12px}
 .remove-item{background:var(--danger-light);color:var(--danger-dark);border:none;padding:8px 10px;border-radius:6px;cursor:pointer;font-weight:600;transition:all .15s}
@@ -219,17 +220,39 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
 .toggle-btn.inactive{background:var(--danger-light);color:var(--danger-dark);border-color:var(--danger)}
 .toggle-btn:hover{transform:scale(1.05)}
 
-/* PASSWORD SECTION */
-.password-section{background:linear-gradient(135deg,#f8fafc,#f1f5f9);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:20px}
-.password-section h4{font-size:14px;font-weight:700;margin-bottom:14px;color:var(--text);display:flex;align-items:center;gap:8px}
+/* DISPATCH CARD FOR DEALER */
+.dispatch-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;transition:all .2s;border-left:4px solid var(--warning)}
+.dispatch-card:hover{box-shadow:var(--shadow-md)}
+.dispatch-card.delivered{border-left-color:var(--success)}
+.dispatch-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.dispatch-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0;padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border)}
+.dispatch-info-item{display:flex;flex-direction:column}
+.dispatch-info-label{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;margin-bottom:3px}
+.dispatch-info-value{font-size:13px;font-weight:600;color:var(--text)}
 
-/* SUMMARY BAR */
-.summary-bar{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #bfdbfe;border-radius:var(--radius);padding:14px 18px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.summary-bar-item{display:flex;flex-direction:column}
-.summary-bar-label{font-size:10px;color:var(--primary-dark);text-transform:uppercase;letter-spacing:0.5px;font-weight:600}
-.summary-bar-value{font-size:16px;font-weight:700;color:var(--primary-dark);margin-top:2px}
+/* CHALLAN PRINT */
+@media print{
+  body *{visibility:hidden}
+  #challanPrintArea, #challanPrintArea *{visibility:visible}
+  #challanPrintArea{position:absolute;left:0;top:0;width:100%;padding:20px}
+  .no-print{display:none!important}
+}
+.challan-print{background:#fff;padding:30px;border:2px solid #000;font-family:'Courier New',monospace}
+.challan-print h2{text-align:center;margin-bottom:10px;font-size:20px}
+.challan-print .company-info{text-align:center;margin-bottom:20px;font-size:12px}
+.challan-print table{width:100%;border-collapse:collapse;margin:15px 0}
+.challan-print table th,.challan-print table td{border:1px solid #000;padding:8px;font-size:12px;text-align:left}
+.challan-print .signatures{display:flex;justify-content:space-between;margin-top:50px}
+.challan-print .signature-box{width:45%;text-align:center;border-top:1px solid #000;padding-top:5px}
 
-@media(max-width:1024px){.grid-2{grid-template-columns:1fr}.form-row-3,.form-row-4{grid-template-columns:1fr 1fr}.order-item-row{grid-template-columns:1fr}}
+/* DEPLOYMENT GUIDE */
+.deploy-guide{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #bfdbfe;border-radius:var(--radius-lg);padding:24px;margin:20px 0}
+.deploy-guide h3{color:var(--primary-dark);margin-bottom:14px;font-size:18px}
+.deploy-guide ol{padding-left:20px;line-height:1.8}
+.deploy-guide li{margin-bottom:8px}
+.deploy-guide code{background:#fff;padding:2px 6px;border-radius:4px;font-size:12px;color:var(--primary-dark);border:1px solid #bfdbfe}
+
+@media(max-width:1024px){.grid-2{grid-template-columns:1fr}.form-row-3{grid-template-columns:1fr 1fr}.order-item-row{grid-template-columns:1fr}}
 @media(max-width:768px){.sidebar{transform:translateX(-100%);z-index:100}.sidebar.active{transform:translateX(0)}.main{margin-left:0}.menu-toggle{display:block}.filter-row{grid-template-columns:1fr}}
 </style>
 </head>
@@ -240,7 +263,7 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
     <div class="login-logo">
       <div class="icon">🧾</div>
       <h1>DealerConnect</h1>
-      <p>Professional Edition v5.0</p>
+      <p>Professional Edition v6.0</p>
     </div>
     <div class="login-tabs">
       <div class="login-tab active" onclick="switchLoginTab('admin')">👨‍💼 Admin</div>
@@ -269,7 +292,7 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
   <aside class="sidebar" id="sidebar">
     <div class="logo">🧾 Dealer<span>Connect</span><span class="role-tag" id="roleTag">ADMIN</span></div>
     <ul class="nav-menu" id="navMenu"></ul>
-    <div class="sidebar-footer">DealerConnect v5.0<br>© 2026 Professional Edition</div>
+    <div class="sidebar-footer">DealerConnect v6.0<br>© 2026 Professional Edition</div>
   </aside>
 
   <main class="main">
@@ -305,6 +328,7 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
       <div class="page" id="page-d-today-prices"></div>
       <div class="page" id="page-d-place-order"></div>
       <div class="page" id="page-d-my-orders"></div>
+      <div class="page" id="page-d-my-dispatches"></div>
       <div class="page" id="page-d-my-invoices"></div>
       <div class="page" id="page-d-make-payment"></div>
       <div class="page" id="page-d-payment-history"></div>
@@ -314,6 +338,9 @@ textarea.form-control{resize:vertical;min-height:60px;font-family:inherit}
   </main>
 </div>
 
+<!-- Hidden area for printing challan -->
+<div id="challanPrintArea" style="display:none"></div>
+
 <script>
 /* ============ DATA STORE ============ */
 const DB = {
@@ -321,14 +348,14 @@ const DB = {
   settings: JSON.parse(localStorage.getItem('dc_settings') || 'null') || {
     company: 'DealerConnect Pvt Ltd', gstin: '27AABCU9603R1ZM', pan: 'AABCU9603R',
     state: 'Maharashtra', stateCode: '27', fy: '2026-27',
-    address: 'Plot 42, MIDC Industrial Area, Pune, Maharashtra - 411019'
+    address: 'Plot 42, MIDC Industrial Area, Pune, Maharashtra - 411019',
+    phone: '+91 20 1234 5678', email: 'info@dealerconnect.in'
   },
   dealers: JSON.parse(localStorage.getItem('dc_dealers') || 'null') || [
     {id:1,name:'Sharma Traders',gstin:'27AABCU9603R1ZM',pan:'AABCU9603R',state:'Maharashtra',phone:'+91 98765 43210',dealerCode:'SHAR01',password:'dealer123',email:'sharma@example.com',status:'active'},
     {id:2,name:'Gupta Enterprises',gstin:'29BBBPD1234K1Z5',pan:'BBBPD1234K',state:'Karnataka',phone:'+91 98456 12345',dealerCode:'GUPT01',password:'dealer123',email:'gupta@example.com',status:'active'},
     {id:3,name:'Patel & Sons',gstin:'24CCCCQ5678L1Z2',pan:'CCCCQ5678L',state:'Gujarat',phone:'+91 98123 45678',dealerCode:'PATE01',password:'dealer123',email:'patel@example.com',status:'active'},
-    {id:4,name:'Small Local Shop',gstin:'',pan:'',state:'Maharashtra',phone:'+91 99887 76655',dealerCode:'SHOP01',password:'dealer123',email:'',status:'active'},
-    {id:5,name:'Test Inactive Dealer',gstin:'',pan:'',state:'Maharashtra',phone:'',dealerCode:'INAC01',password:'dealer123',email:'',status:'inactive'}
+    {id:4,name:'Small Local Shop',gstin:'',pan:'',state:'Maharashtra',phone:'+91 99887 76655',dealerCode:'SHOP01',password:'dealer123',email:'',status:'active'}
   ],
   inventory: JSON.parse(localStorage.getItem('dc_inventory') || 'null') || [
     {id:1,name:'Industrial Bearings',hsn:'8482',gst:18,rate:10000,stock:250,lastUpdated:today()},
@@ -346,15 +373,16 @@ const DB = {
   payments: JSON.parse(localStorage.getItem('dc_payments') || 'null') || []
 };
 
-// Filter states
 const FILTERS = {
   dispatch: {fromDate:'', toDate:'', status:'all'},
-  ledger: {dealerId:'all', type:'all', fromDate:'', toDate:''}
+  ledger: {dealerId:'all', type:'all', fromDate:'', toDate:''},
+  dealerDispatch: {status:'all'}
 };
 
 function today(){ return new Date().toISOString().split('T')[0]; }
 function now(){ return new Date().toLocaleString('en-IN'); }
 function formatDate(d){ if(!d) return '-'; try{ return new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); }catch(e){ return d; } }
+function formatDateTime(d){ if(!d) return '-'; try{ return new Date(d).toLocaleString('en-IN'); }catch(e){ return d; } }
 
 const save = () => {
   Object.entries({
@@ -365,9 +393,64 @@ const save = () => {
 };
 
 const fmt = n => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',minimumFractionDigits:2,maximumFractionDigits:2}).format(n||0);
+const fmtNum = n => new Intl.NumberFormat('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}).format(n||0);
 const isRegisteredDealer = d => d && d.gstin && d.gstin.length === 15;
 const getStateFromGSTIN = g => (g && g.length >= 2) ? g.substring(0,2) : null;
 const isDealerActive = d => d && d.status !== 'inactive';
+
+/* ============ EXCEL EXPORT FUNCTION ============ */
+function exportToExcel(data, filename, sheetName='Sheet1'){
+  if(typeof XLSX === 'undefined'){
+    toast('Excel library not loaded. Check internet connection.','error');
+    return;
+  }
+  try{
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+    
+    // Auto-width columns
+    const colWidths = Object.keys(data[0] || {}).map(key => {
+      const maxLen = Math.max(
+        key.length,
+        ...data.map(row => String(row[key] || '').length)
+      );
+      return { wch: Math.min(maxLen + 2, 40) };
+    });
+    ws['!cols'] = colWidths;
+    
+    XLSX.writeFile(wb, `${filename}.xlsx`);
+    toast(`✅ Exported: ${filename}.xlsx`);
+  } catch(e){
+    console.error(e);
+    toast('Export failed: '+e.message,'error');
+  }
+}
+
+function exportArrayToExcel(headers, rows, filename, sheetName='Sheet1'){
+  if(typeof XLSX === 'undefined'){
+    toast('Excel library not loaded. Check internet connection.','error');
+    return;
+  }
+  try{
+    const data = [headers, ...rows];
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+    const colWidths = headers.map((h, i) => {
+      const maxLen = Math.max(
+        String(h).length,
+        ...rows.map(row => String(row[i] || '').length)
+      );
+      return { wch: Math.min(maxLen + 2, 40) };
+    });
+    ws['!cols'] = colWidths;
+    XLSX.writeFile(wb, `${filename}.xlsx`);
+    toast(`✅ Exported: ${filename}.xlsx`);
+  } catch(e){
+    toast('Export failed: '+e.message,'error');
+  }
+}
 
 /* ============ AUTH ============ */
 function switchLoginTab(tab){
@@ -463,6 +546,7 @@ function buildNavMenu(){
       <li><a data-page="d-today-prices">📊 Today's Prices</a></li>
       <li><a data-page="d-place-order">📝 Place New Order</a></li>
       <li><a data-page="d-my-orders">📦 My Orders</a></li>
+      <li><a data-page="d-my-dispatches">🚚 My Dispatches & Deliveries</a></li>
       <li><a data-page="d-my-invoices">🧾 My Invoices</a></li>
       <li><a data-page="d-make-payment">💳 Make Payment</a></li>
       <li><a data-page="d-payment-history">📋 Payment History</a></li>
@@ -503,7 +587,8 @@ function navigateTo(page){
     'tdstcs':'TDS / TCS Reports','ledger':'General Ledger','dealers':'Dealers Management',
     'inventory':'Inventory (HSN)','settings':'Settings',
     'd-dashboard':'My Dashboard','d-today-prices':"Today's Prices",'d-place-order':'Place New Order',
-    'd-my-orders':'My Orders','d-my-invoices':'My Invoices','d-make-payment':'Make Payment',
+    'd-my-orders':'My Orders','d-my-dispatches':'My Dispatches & Deliveries',
+    'd-my-invoices':'My Invoices','d-make-payment':'Make Payment',
     'd-payment-history':'Payment History','d-my-ledger':'My Ledger','d-profile':'My Profile'
   };
   document.getElementById('pageTitle').textContent = titles[page]||'Dashboard';
@@ -515,6 +600,7 @@ function navigateTo(page){
     'settings':loadSettings,
     'd-dashboard':renderDealerDashboard,'d-today-prices':renderDealerTodayPrices,
     'd-place-order':renderPlaceOrder,'d-my-orders':renderMyOrders,
+    'd-my-dispatches':renderDealerDispatches,
     'd-my-invoices':renderMyInvoices,'d-make-payment':renderMakePayment,
     'd-payment-history':renderPaymentHistory,'d-my-ledger':renderDealerLedger,'d-profile':renderDealerProfile
   };
@@ -539,7 +625,7 @@ function toggleDealerStatus(id){
   }
   d.status = newStatus;
   save();
-  toast(`✅ ${d.name} is now ${newStatus.toUpperCase()}`);
+  toast(`${d.name} is now ${newStatus.toUpperCase()}`);
   renderDealers();
 }
 
@@ -806,7 +892,9 @@ function renderPaymentApprovals(){
       <div class="stat-card danger"><h3>Rejected</h3><div class="value">${DB.payments.filter(p=>p.status==='rejected').length}</div></div>
     </div>
     <div class="card">
-      <div class="card-title">Pending Payments <span class="badge warning">${pending.length}</span></div>
+      <div class="card-title">Pending Payments <span class="badge warning">${pending.length}</span>
+        <button class="btn btn-excel btn-sm" onclick="exportPendingPayments()">📥 Export Excel</button>
+      </div>
       ${pending.length ? pending.map(p=>renderPaymentCard(p,'approve')).join('') : '<div class="empty"><div class="empty-icon">💳</div>No pending payments</div>'}
     </div>
     <div class="card">
@@ -895,11 +983,32 @@ function rejectPayment(id){
   updateBadges();
 }
 
+function exportPendingPayments(){
+  const pending = DB.payments.filter(p=>p.status==='pending');
+  if(!pending.length){ toast('No pending payments to export','error'); return; }
+  const data = pending.map(p=>{
+    const d = DB.dealers.find(x=>x.id===p.dealerId);
+    return {
+      'Payment No': p.paymentNo,
+      'Date': formatDate(p.date),
+      'Dealer': d?.name || 'Unknown',
+      'Dealer Code': d?.dealerCode || '',
+      'GSTIN': d?.gstin || 'N/A',
+      'Amount': p.amount,
+      'Mode': p.mode,
+      'Reference': p.referenceNo || '',
+      'Bank': p.bankName || '',
+      'Remarks': p.remarks || '',
+      'Status': p.status
+    };
+  });
+  exportToExcel(data, `pending_payments_${today()}`, 'Pending Payments');
+}
+
 /* ============ DISPATCH WITH DATE FILTER ============ */
 function renderDispatch(){
   const allDispatched = DB.orders.filter(o=>o.status==='dispatched' || o.status==='delivered');
   
-  // Apply filters
   let filtered = allDispatched.slice();
   if(FILTERS.dispatch.fromDate){
     filtered = filtered.filter(o=>o.dispatchDate >= FILTERS.dispatch.fromDate);
@@ -914,8 +1023,6 @@ function renderDispatch(){
   
   const totalValue = filtered.reduce((s,o)=>s+o.total,0);
   const totalItems = filtered.reduce((s,o)=>s+o.items.reduce((a,i)=>a+i.qty,0),0);
-  
-  // Get to-dispatch (unfiltered)
   const toDispatch = DB.orders.filter(o=>o.status==='approved').reverse();
   
   document.getElementById('page-dispatch').innerHTML = `
@@ -927,7 +1034,9 @@ function renderDispatch(){
     </div>
     
     <div class="card">
-      <div class="card-title">📅 Dispatch History (Filter by Date)</div>
+      <div class="card-title">📅 Dispatch History (Filter by Date)
+        <button class="btn btn-excel btn-sm" onclick="exportDispatchExcel()">📥 Export Excel</button>
+      </div>
       
       <div class="filter-bar">
         <div class="filter-bar-title">🔍 Filter Dispatch Records</div>
@@ -962,23 +1071,11 @@ function renderDispatch(){
         </div>
       </div>
       
-      <div class="summary-bar">
-        <div class="summary-bar-item">
-          <span class="summary-bar-label">Filtered Records</span>
-          <span class="summary-bar-value">${filtered.length}</span>
-        </div>
-        <div class="summary-bar-item">
-          <span class="summary-bar-label">Total Items Dispatched</span>
-          <span class="summary-bar-value">${totalItems}</span>
-        </div>
-        <div class="summary-bar-item">
-          <span class="summary-bar-label">Total Value</span>
-          <span class="summary-bar-value">${fmt(totalValue)}</span>
-        </div>
-        <div class="summary-bar-item">
-          <span class="summary-bar-label">Date Range</span>
-          <span class="summary-bar-value" style="font-size:12px">${FILTERS.dispatch.fromDate?formatDate(FILTERS.dispatch.fromDate):'Start'} → ${FILTERS.dispatch.toDate?formatDate(FILTERS.dispatch.toDate):'Today'}</span>
-        </div>
+      <div class="summary-bar" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #bfdbfe;border-radius:var(--radius);padding:14px 18px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+        <div><span style="font-size:10px;color:var(--primary-dark);text-transform:uppercase;letter-spacing:0.5px;font-weight:600">Filtered Records</span><br><span style="font-size:16px;font-weight:700;color:var(--primary-dark)">${filtered.length}</span></div>
+        <div><span style="font-size:10px;color:var(--primary-dark);text-transform:uppercase;letter-spacing:0.5px;font-weight:600">Total Items</span><br><span style="font-size:16px;font-weight:700;color:var(--primary-dark)">${totalItems}</span></div>
+        <div><span style="font-size:10px;color:var(--primary-dark);text-transform:uppercase;letter-spacing:0.5px;font-weight:600">Total Value</span><br><span style="font-size:16px;font-weight:700;color:var(--primary-dark)">${fmt(totalValue)}</span></div>
+        <div><span style="font-size:10px;color:var(--primary-dark);text-transform:uppercase;letter-spacing:0.5px;font-weight:600">Date Range</span><br><span style="font-size:12px;font-weight:700;color:var(--primary-dark)">${FILTERS.dispatch.fromDate?formatDate(FILTERS.dispatch.fromDate):'Start'} → ${FILTERS.dispatch.toDate?formatDate(FILTERS.dispatch.toDate):'Today'}</span></div>
       </div>
       
       ${filtered.length ? `<div class="table-wrapper"><table>
@@ -1024,11 +1121,9 @@ function setDispatchQuickFilter(range){
   let fromDate = '';
   const toDate = today();
   
-  if(range==='today'){
-    fromDate = today();
-  } else if(range==='week'){
-    const d = new Date(now);
-    d.setDate(d.getDate() - d.getDay());
+  if(range==='today'){ fromDate = today(); }
+  else if(range==='week'){
+    const d = new Date(now); d.setDate(d.getDate() - d.getDay());
     fromDate = d.toISOString().split('T')[0];
   } else if(range==='month'){
     fromDate = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
@@ -1036,7 +1131,6 @@ function setDispatchQuickFilter(range){
     const qMonth = Math.floor(now.getMonth()/3)*3;
     fromDate = new Date(now.getFullYear(), qMonth, 1).toISOString().split('T')[0];
   } else if(range==='year'){
-    // Indian FY: April 1
     const fyStart = now.getMonth() < 3 ? now.getFullYear()-1 : now.getFullYear();
     fromDate = `${fyStart}-04-01`;
   }
@@ -1044,6 +1138,41 @@ function setDispatchQuickFilter(range){
   FILTERS.dispatch.fromDate = fromDate;
   FILTERS.dispatch.toDate = toDate;
   renderDispatch();
+}
+
+function exportDispatchExcel(){
+  const allDispatched = DB.orders.filter(o=>o.status==='dispatched' || o.status==='delivered');
+  let filtered = allDispatched.slice();
+  if(FILTERS.dispatch.fromDate) filtered = filtered.filter(o=>o.dispatchDate >= FILTERS.dispatch.fromDate);
+  if(FILTERS.dispatch.toDate) filtered = filtered.filter(o=>o.dispatchDate <= FILTERS.dispatch.toDate);
+  if(FILTERS.dispatch.status !== 'all') filtered = filtered.filter(o=>o.status === FILTERS.dispatch.status);
+  
+  if(!filtered.length){ toast('No dispatches to export','error'); return; }
+  
+  const data = filtered.map(o=>{
+    const d = DB.dealers.find(x=>x.id===o.dealerId);
+    return {
+      'Dispatch Date': formatDate(o.dispatchDate),
+      'Dispatch Time': o.dispatchTime || '',
+      'Order No': o.orderNo,
+      'Invoice No': o.invoiceNo || '',
+      'Dealer': d?.name || 'Unknown',
+      'Dealer GSTIN': d?.gstin || 'N/A',
+      'Challan No': o.challanNo || o.dcNo || '',
+      'DC No': o.dcNo || '',
+      'Vehicle No': o.dispatchDetails?.vehicleNo || '',
+      'Tracking No': o.dispatchDetails?.trackingNo || '',
+      'Items': o.items.map(i=>`${i.name}×${i.qty}`).join('; '),
+      'Total Qty': o.items.reduce((s,i)=>s+i.qty,0),
+      'Taxable Value': o.subtotal,
+      'GST': o.cgst+o.sgst+o.igst,
+      'Total Amount': o.total,
+      'Status': o.status,
+      'Dispatched By': o.dispatchedBy || '',
+      'Remarks': o.dispatchDetails?.remarks || ''
+    };
+  });
+  exportToExcel(data, `dispatch_report_${today()}`, 'Dispatch Report');
 }
 
 function renderDispatchCard(o){
@@ -1128,7 +1257,12 @@ function dispatchAndDeliver(id){ dispatchOrder(id, true); }
 function renderInvoicePage(){
   document.getElementById('page-invoices').innerHTML = `
     <div class="card">
-      <div class="card-title">All Invoices <input type="text" class="search-box" placeholder="🔍 Search..." oninput="renderInvoiceList(this.value)"></div>
+      <div class="card-title">All Invoices 
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="text" class="search-box" placeholder="🔍 Search..." oninput="renderInvoiceList(this.value)">
+          <button class="btn btn-excel btn-sm" onclick="exportInvoicesExcel()">📥 Export Excel</button>
+        </div>
+      </div>
       <div class="table-wrapper">
       <table><thead><tr><th>Inv No.</th><th>Date</th><th>Dealer</th><th>Type</th><th>Status</th><th class="text-right">Total</th><th>Action</th></tr></thead>
       <tbody id="invoiceList"></tbody></table>
@@ -1161,6 +1295,34 @@ function deleteInvoice(id){
   save(); renderInvoiceList(); toast('Invoice deleted');
 }
 
+function exportInvoicesExcel(){
+  if(!DB.invoices.length){ toast('No invoices to export','error'); return; }
+  const data = DB.invoices.map(i=>{
+    const order = DB.orders.find(o=>o.id===i.orderId);
+    return {
+      'Invoice No': i.invNo,
+      'IRN': i.irn || '',
+      'Date': formatDate(i.date),
+      'Dealer': i.dealerName,
+      'Dealer GSTIN': i.gstin || 'N/A',
+      'Type': i.saleType || 'B2C',
+      'Order No': order?.orderNo || '',
+      'HSN Codes': i.hsn || '',
+      'Items': i.itemName,
+      'Qty': i.qty,
+      'Taxable Value': i.taxable,
+      'CGST': i.cgst,
+      'SGST': i.sgst,
+      'IGST': i.igst,
+      'TCS': i.tcs,
+      'Total Amount': i.total,
+      'Status': order?.status || 'Generated',
+      'Source': i.source || ''
+    };
+  });
+  exportToExcel(data, `invoices_${today()}`, 'Invoices');
+}
+
 /* ============ TDS/TCS ============ */
 function renderTDSPage(){
   const totalTDS = DB.tdstcs.filter(t=>t.type==='TDS').reduce((s,t)=>s+t.tax,0);
@@ -1172,7 +1334,9 @@ function renderTDSPage(){
       <div class="stat-card success"><h3>Total TCS</h3><div class="value">${fmt(totalTCS)}</div></div>
     </div>
     <div class="card">
-      <div class="card-title">TDS/TCS Transactions</div>
+      <div class="card-title">TDS/TCS Transactions 
+        <button class="btn btn-excel btn-sm" onclick="exportTDSExcel()">📥 Export Excel</button>
+      </div>
       <div class="table-wrapper">
       <table><thead><tr><th>Date</th><th>Type</th><th>Party</th><th class="text-right">Base</th><th class="text-right">Tax</th></tr></thead>
       <tbody>${DB.tdstcs.length ? DB.tdstcs.slice().reverse().map(t=>`
@@ -1184,13 +1348,22 @@ function renderTDSPage(){
   `;
 }
 
+function exportTDSExcel(){
+  if(!DB.tdstcs.length){ toast('No TDS/TCS transactions','error'); return; }
+  const data = DB.tdstcs.map(t=>({
+    'Date': formatDate(t.date),
+    'Type': t.type,
+    'Party': t.party,
+    'PAN': t.pan || 'N/A',
+    'Base Amount': t.base,
+    'Tax Amount': t.tax,
+    'Status': t.status || 'Recorded'
+  }));
+  exportToExcel(data, `tds_tcs_${today()}`, 'TDS TCS');
+}
+
 /* ============ LEDGER WITH DEALER SEARCH ============ */
 function renderLedger(){
-  // Get unique dealers from ledger
-  const dealerIds = [...new Set(DB.ledger.map(l=>l.dealerId).filter(Boolean))];
-  const dealersList = dealerIds.map(id=>DB.dealers.find(d=>d.id===id)).filter(Boolean);
-  
-  // Apply filters
   let filtered = DB.ledger.slice();
   if(FILTERS.ledger.dealerId !== 'all'){
     filtered = filtered.filter(l=>l.dealerId == FILTERS.ledger.dealerId);
@@ -1212,7 +1385,9 @@ function renderLedger(){
   
   document.getElementById('page-ledger').innerHTML = `
     <div class="card">
-      <div class="card-title">📒 General Ledger <span class="badge primary">Ind AS Compliant</span></div>
+      <div class="card-title">📒 General Ledger <span class="badge primary">Ind AS Compliant</span>
+        <button class="btn btn-excel btn-sm" onclick="exportLedgerExcel()">📥 Export Excel</button>
+      </div>
       
       <div class="filter-bar">
         <div class="filter-bar-title">🔍 Filter Ledger Entries</div>
@@ -1249,23 +1424,11 @@ function renderLedger(){
         </div>
       </div>
       
-      <div class="summary-bar">
-        <div class="summary-bar-item">
-          <span class="summary-bar-label">Filtered Records</span>
-          <span class="summary-bar-value">${filtered.length}</span>
-        </div>
-        <div class="summary-bar-item">
-          <span class="summary-bar-label">Total Debit</span>
-          <span class="summary-bar-value">${fmt(totalDebit)}</span>
-        </div>
-        <div class="summary-bar-item">
-          <span class="summary-bar-label">Total Credit</span>
-          <span class="summary-bar-value">${fmt(totalCredit)}</span>
-        </div>
-        <div class="summary-bar-item">
-          <span class="summary-bar-label">${selectedDealer?selectedDealer.name+' - ':'All Dealers - '}Balance</span>
-          <span class="summary-bar-value">${fmt(totalDebit-totalCredit)}</span>
-        </div>
+      <div style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #bfdbfe;border-radius:var(--radius);padding:14px 18px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+        <div><span style="font-size:10px;color:var(--primary-dark);text-transform:uppercase;letter-spacing:0.5px;font-weight:600">Records</span><br><span style="font-size:16px;font-weight:700;color:var(--primary-dark)">${filtered.length}</span></div>
+        <div><span style="font-size:10px;color:var(--primary-dark);text-transform:uppercase;letter-spacing:0.5px;font-weight:600">Total Debit</span><br><span style="font-size:16px;font-weight:700;color:var(--primary-dark)">${fmt(totalDebit)}</span></div>
+        <div><span style="font-size:10px;color:var(--primary-dark);text-transform:uppercase;letter-spacing:0.5px;font-weight:600">Total Credit</span><br><span style="font-size:16px;font-weight:700;color:var(--primary-dark)">${fmt(totalCredit)}</span></div>
+        <div><span style="font-size:10px;color:var(--primary-dark);text-transform:uppercase;letter-spacing:0.5px;font-weight:600">${selectedDealer?selectedDealer.name+' - ':'All Dealers - '}Balance</span><br><span style="font-size:16px;font-weight:700;color:var(--primary-dark)">${fmt(totalDebit-totalCredit)}</span></div>
       </div>
       
       ${filtered.length ? `<div class="table-wrapper"><table>
@@ -1282,7 +1445,7 @@ function renderLedger(){
           <td class="text-right">${fmt(totalDebit)}</td>
           <td class="text-right">${fmt(totalCredit)}</td>
         </tr></tfoot>
-      </table></div>` : '<div class="empty"><div class="empty-icon">📒</div>No ledger entries found for selected criteria</div>'}
+      </table></div>` : '<div class="empty"><div class="empty-icon">📒</div>No ledger entries found</div>'}
     </div>
   `;
 }
@@ -1298,6 +1461,28 @@ function applyLedgerFilter(){
 function resetLedgerFilter(){
   FILTERS.ledger = {dealerId:'all', type:'all', fromDate:'', toDate:''};
   renderLedger();
+}
+
+function exportLedgerExcel(){
+  let filtered = DB.ledger.slice();
+  if(FILTERS.ledger.dealerId !== 'all') filtered = filtered.filter(l=>l.dealerId == FILTERS.ledger.dealerId);
+  if(FILTERS.ledger.type !== 'all') filtered = filtered.filter(l=>l.type === FILTERS.ledger.type);
+  if(FILTERS.ledger.fromDate) filtered = filtered.filter(l=>l.date >= FILTERS.ledger.fromDate);
+  if(FILTERS.ledger.toDate) filtered = filtered.filter(l=>l.date <= FILTERS.ledger.toDate);
+  
+  if(!filtered.length){ toast('No ledger entries to export','error'); return; }
+  
+  const data = filtered.map(l=>({
+    'Date': formatDate(l.date),
+    'Voucher No': l.voucher,
+    'Type': l.type,
+    'Dealer': l.dealerName || '-',
+    'Account': l.account,
+    'Particulars': l.particulars,
+    'Debit (₹)': l.debit || 0,
+    'Credit (₹)': l.credit || 0
+  }));
+  exportToExcel(data, `ledger_${today()}`, 'Ledger');
 }
 
 /* ============ DEALERS ============ */
@@ -1329,7 +1514,9 @@ function renderDealers(){
         <button class="btn btn-success btn-block" onclick="addDealer()">➕ Add Dealer (Active)</button>
       </div>
       <div class="card">
-        <div class="card-title">Dealer Directory <span class="badge primary">${DB.dealers.length}</span></div>
+        <div class="card-title">Dealer Directory <span class="badge primary">${DB.dealers.length}</span>
+          <button class="btn btn-excel btn-sm" onclick="exportDealersExcel()">📥 Export</button>
+        </div>
         <div class="table-wrapper">
         <table><thead><tr><th>Name</th><th>Code</th><th>Type</th><th>Status</th><th>Action</th></tr></thead>
         <tbody>${DB.dealers.map(d=>{
@@ -1368,6 +1555,23 @@ function deleteDealer(id){
   save(); renderDealers(); toast('Dealer deleted');
 }
 
+function exportDealersExcel(){
+  if(!DB.dealers.length){ toast('No dealers to export','error'); return; }
+  const data = DB.dealers.map(d=>({
+    'Dealer Name': d.name,
+    'Dealer Code': d.dealerCode,
+    'GSTIN': d.gstin || 'N/A',
+    'PAN': d.pan || 'N/A',
+    'State': d.state || '',
+    'Phone': d.phone || '',
+    'Email': d.email || '',
+    'Type': isRegisteredDealer(d) ? 'B2B' : 'B2C',
+    'Status': d.status === 'active' ? 'Active' : 'Inactive',
+    'Notes': d.notes || ''
+  }));
+  exportToExcel(data, `dealers_${today()}`, 'Dealers');
+}
+
 /* ============ INVENTORY ============ */
 function renderInventory(){
   document.getElementById('page-inventory').innerHTML = `
@@ -1390,14 +1594,17 @@ function renderInventory(){
         <button class="btn btn-success btn-block" onclick="addItem()">➕ Add Item</button>
       </div>
       <div class="card">
-        <div class="card-title">Inventory <span class="badge primary">${DB.inventory.length} items</span></div>
+        <div class="card-title">Inventory <span class="badge primary">${DB.inventory.length} items</span>
+          <button class="btn btn-excel btn-sm" onclick="exportInventoryExcel()">📥 Export</button>
+        </div>
         <div class="table-wrapper">
-        <table><thead><tr><th>Item</th><th>HSN</th><th class="text-right">Rate</th><th class="text-right">Stock</th><th>Action</th></tr></thead>
+        <table><thead><tr><th>Item</th><th>HSN</th><th class="text-right">Rate</th><th class="text-right">Stock</th><th>Last Updated</th><th>Action</th></tr></thead>
         <tbody>${DB.inventory.map(i=>`
           <tr><td><strong>${i.name}</strong>${i.isFree?' <span class="badge free">FREE</span>':''}<br><small style="color:var(--text-muted)">${i.notes||''}</small></td>
           <td>${i.hsn}</td>
           <td class="text-right">${i.rate===0?'<span class="badge free">FREE</span>':fmt(i.rate)}</td>
           <td class="text-right"><span class="badge ${i.stock<50?'danger':'success'}">${i.stock}</span></td>
+          <td><small>${formatDate(i.lastUpdated)}</small></td>
           <td><button class="btn btn-danger btn-sm" onclick="deleteItem(${i.id})">🗑️</button></td></tr>
         `).join('')}</tbody></table>
         </div>
@@ -1423,6 +1630,22 @@ function deleteItem(id){
   save(); renderInventory(); toast('Deleted');
 }
 
+function exportInventoryExcel(){
+  if(!DB.inventory.length){ toast('No inventory to export','error'); return; }
+  const data = DB.inventory.map(i=>({
+    'Item Name': i.name,
+    'HSN Code': i.hsn,
+    'GST %': i.gst,
+    'Rate (₹)': i.rate,
+    'Stock Qty': i.stock,
+    'Stock Value (₹)': i.rate * i.stock,
+    'Last Updated': formatDate(i.lastUpdated),
+    'Is Free': i.isFree ? 'Yes' : 'No',
+    'Notes': i.notes || ''
+  }));
+  exportToExcel(data, `inventory_${today()}`, 'Inventory');
+}
+
 /* ============ SETTINGS ============ */
 function loadSettings(){
   const s = DB.settings;
@@ -1436,6 +1659,10 @@ function loadSettings(){
       <div class="form-row">
         <div class="form-group"><label>PAN</label><input type="text" class="form-control" id="sPan" value="${s.pan}" style="text-transform:uppercase"></div>
         <div class="form-group"><label>State</label><input type="text" class="form-control" id="sState" value="${s.state}"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Phone</label><input type="text" class="form-control" id="sPhone" value="${s.phone||''}"></div>
+        <div class="form-group"><label>Email</label><input type="email" class="form-control" id="sEmail" value="${s.email||''}"></div>
       </div>
       <div class="form-row">
         <div class="form-group"><label>Financial Year</label>
@@ -1453,6 +1680,8 @@ function saveSettings(){
   DB.settings.gstin=document.getElementById('sGstin').value.toUpperCase();
   DB.settings.pan=document.getElementById('sPan').value.toUpperCase();
   DB.settings.state=document.getElementById('sState').value;
+  DB.settings.phone=document.getElementById('sPhone').value;
+  DB.settings.email=document.getElementById('sEmail').value;
   DB.settings.stateCode=document.getElementById('sStateCode').value;
   DB.settings.fy=document.getElementById('sFY').value;
   DB.settings.address=document.getElementById('sAddress').value;
@@ -1466,9 +1695,10 @@ function renderDealerDashboard(){
   const myOrders = DB.orders.filter(o=>o.dealerId===d.id);
   const myInvoices = DB.invoices.filter(i=>i.dealerId===d.id);
   const myPayments = DB.payments.filter(p=>p.dealerId===d.id);
+  const myDispatches = DB.orders.filter(o=>o.dealerId===d.id && (o.status==='dispatched' || o.status==='delivered'));
   const pending = myOrders.filter(o=>o.status==='pending').length;
-  const dispatched = myOrders.filter(o=>o.status==='dispatched').length;
-  const delivered = myOrders.filter(o=>o.status==='delivered').length;
+  const dispatched = myDispatches.filter(o=>o.status==='dispatched').length;
+  const delivered = myDispatches.filter(o=>o.status==='delivered').length;
   const totalSpent = myInvoices.reduce((s,i)=>s+i.total,0);
   const totalPaid = myPayments.filter(p=>p.status==='approved').reduce((s,p)=>s+p.amount,0);
   const pendingPayments = myPayments.filter(p=>p.status==='pending').length;
@@ -1496,8 +1726,8 @@ function renderDealerDashboard(){
         <div class="card-title">Quick Actions</div>
         <button class="btn btn-primary btn-block" onclick="navigateTo('d-today-prices')" style="margin-bottom:10px">📊 View Today's Prices</button>
         <button class="btn btn-success btn-block" onclick="navigateTo('d-place-order')" style="margin-bottom:10px">📝 Place New Order</button>
-        <button class="btn btn-warning btn-block" onclick="navigateTo('d-make-payment')" style="margin-bottom:10px">💳 Make Payment</button>
-        <button class="btn btn-outline btn-block" onclick="navigateTo('d-my-ledger')">📒 View My Ledger</button>
+        <button class="btn btn-warning btn-block" onclick="navigateTo('d-my-dispatches')" style="margin-bottom:10px">🚚 View My Dispatches</button>
+        <button class="btn btn-outline btn-block" onclick="navigateTo('d-make-payment')">💳 Make Payment</button>
       </div>
       <div class="card">
         <div class="card-title">Recent Activity</div>
@@ -1716,10 +1946,301 @@ function renderMyOrders(){
   const myOrders = DB.orders.filter(o=>o.dealerId===d.id).reverse();
   document.getElementById('page-d-my-orders').innerHTML = `
     <div class="card">
-      <div class="card-title">My Orders <span class="badge primary">${myOrders.length}</span></div>
+      <div class="card-title">My Orders <span class="badge primary">${myOrders.length}</span>
+        <button class="btn btn-excel btn-sm" onclick="exportMyOrdersExcel()">📥 Export</button>
+      </div>
       ${myOrders.length ? myOrders.map(o=>renderOrderCard(o,'view')).join('') : '<div class="empty"><div class="empty-icon">📦</div>No orders yet. <a href="#" onclick="navigateTo(\'d-place-order\');return false;" style="color:var(--primary)">Place your first order →</a></div>'}
     </div>
   `;
+}
+
+function exportMyOrdersExcel(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const myOrders = DB.orders.filter(o=>o.dealerId===d.id);
+  if(!myOrders.length){ toast('No orders to export','error'); return; }
+  const data = myOrders.map(o=>({
+    'Order No': o.orderNo,
+    'Date': formatDate(o.date),
+    'Time': o.time || '',
+    'Items': o.items.map(i=>`${i.name}×${i.qty}`).join('; '),
+    'Total Qty': o.items.reduce((s,i)=>s+i.qty,0),
+    'Taxable Value': o.subtotal,
+    'CGST': o.cgst,
+    'SGST': o.sgst,
+    'IGST': o.igst,
+    'TCS': o.tcs,
+    'Total Amount': o.total,
+    'Status': o.status,
+    'Invoice No': o.invoiceNo || '',
+    'Challan No': o.challanNo || '',
+    'Dispatch Date': o.dispatchDate ? formatDate(o.dispatchDate) : '',
+    'Remarks': o.remarks || ''
+  }));
+  exportToExcel(data, `my_orders_${d.dealerCode}_${today()}`, 'My Orders');
+}
+
+/* ============ DEALER: MY DISPATCHES & DELIVERIES ============ */
+function renderDealerDispatches(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const myDispatches = DB.orders.filter(o=>o.dealerId===d.id && (o.status==='dispatched' || o.status==='delivered'));
+  
+  // Apply status filter
+  let filtered = myDispatches;
+  if(FILTERS.dealerDispatch.status !== 'all'){
+    filtered = filtered.filter(o=>o.status === FILTERS.dealerDispatch.status);
+  }
+  filtered = filtered.reverse();
+  
+  const totalDispatched = myDispatches.filter(o=>o.status==='dispatched').length;
+  const totalDelivered = myDispatches.filter(o=>o.status==='delivered').length;
+  const totalValue = filtered.reduce((s,o)=>s+o.total,0);
+  const totalItems = filtered.reduce((s,o)=>s+o.items.reduce((a,i)=>a+i.qty,0),0);
+  
+  document.getElementById('page-d-my-dispatches').innerHTML = `
+    <div class="alert alert-info">🚚 Track all your dispatches and deliveries. View challan details, vehicle info, and tracking numbers.</div>
+    
+    <div class="stats-grid">
+      <div class="stat-card info"><h3>Total Dispatches</h3><div class="value">${myDispatches.length}</div><div class="sub">All time</div></div>
+      <div class="stat-card warning"><h3>In Transit</h3><div class="value">${totalDispatched}</div><div class="sub">Dispatched, not delivered</div></div>
+      <div class="stat-card success"><h3>Delivered</h3><div class="value">${totalDelivered}</div><div class="sub">Completed</div></div>
+      <div class="stat-card"><h3>Filtered Value</h3><div class="value">${fmt(totalValue)}</div><div class="sub">${totalItems} items</div></div>
+    </div>
+    
+    <div class="card">
+      <div class="card-title">🚚 My Dispatches & Deliveries <span class="badge primary">${filtered.length}</span>
+        <button class="btn btn-excel btn-sm" onclick="exportMyDispatchesExcel()">📥 Export Excel</button>
+      </div>
+      
+      <div class="filter-bar">
+        <div class="filter-bar-title">🔍 Filter by Status</div>
+        <div class="quick-filters">
+          <span class="quick-filter ${FILTERS.dealerDispatch.status==='all'?'active':''}" onclick="setDealerDispatchFilter('all')">All (${myDispatches.length})</span>
+          <span class="quick-filter ${FILTERS.dealerDispatch.status==='dispatched'?'active':''}" onclick="setDealerDispatchFilter('dispatched')">🚚 In Transit (${totalDispatched})</span>
+          <span class="quick-filter ${FILTERS.dealerDispatch.status==='delivered'?'active':''}" onclick="setDealerDispatchFilter('delivered')">📦 Delivered (${totalDelivered})</span>
+        </div>
+      </div>
+      
+      ${filtered.length ? filtered.map(o=>renderDealerDispatchCard(o)).join('') : '<div class="empty"><div class="empty-icon">🚚</div>No dispatches yet. Orders will appear here once admin dispatches them.</div>'}
+    </div>
+  `;
+}
+
+function setDealerDispatchFilter(status){
+  FILTERS.dealerDispatch.status = status;
+  renderDealerDispatches();
+}
+
+function renderDealerDispatchCard(o){
+  const isDelivered = o.status === 'delivered';
+  
+  return `<div class="dispatch-card ${isDelivered?'delivered':''}">
+    <div class="dispatch-header">
+      <div>
+        <div class="order-no">
+          ${o.orderNo} 
+          ${isDelivered ? '<span class="badge info">📦 Delivered</span>' : '<span class="badge dispatch">🚚 In Transit</span>'}
+        </div>
+        <div class="order-meta">
+          <strong>Invoice:</strong> ${o.invoiceNo||'N/A'}<br>
+          <strong>Order Date:</strong> ${formatDate(o.date)} | 
+          <strong>Dispatch Date:</strong> ${formatDate(o.dispatchDate)}
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div class="order-total">${fmt(o.total)}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">${o.items.reduce((s,i)=>s+i.qty,0)} items</div>
+      </div>
+    </div>
+    
+    <div class="dispatch-info">
+      <div class="dispatch-info-item">
+        <span class="dispatch-info-label">📄 Delivery Challan</span>
+        <span class="dispatch-info-value"><code>${o.challanNo||o.dcNo||'N/A'}</code></span>
+      </div>
+      <div class="dispatch-info-item">
+        <span class="dispatch-info-label">🚗 Vehicle No.</span>
+        <span class="dispatch-info-value">${o.dispatchDetails?.vehicleNo||'N/A'}</span>
+      </div>
+      <div class="dispatch-info-item">
+        <span class="dispatch-info-label">📍 Tracking / LR No.</span>
+        <span class="dispatch-info-value">${o.dispatchDetails?.trackingNo||'N/A'}</span>
+      </div>
+      <div class="dispatch-info-item">
+        <span class="dispatch-info-label">👤 Dispatched By</span>
+        <span class="dispatch-info-value">${o.dispatchedBy||'Admin'}</span>
+      </div>
+      <div class="dispatch-info-item">
+        <span class="dispatch-info-label">📅 Dispatch Time</span>
+        <span class="dispatch-info-value">${o.dispatchTime||'-'}</span>
+      </div>
+      <div class="dispatch-info-item">
+        <span class="dispatch-info-label">💬 Remarks</span>
+        <span class="dispatch-info-value">${o.dispatchDetails?.remarks||'None'}</span>
+      </div>
+    </div>
+    
+    <div class="order-items">
+      <strong>📦 Items Dispatched:</strong><br>
+      ${o.items.map(it=>`• ${it.name} (HSN: ${it.hsn}) × ${it.qty} @ ${fmt(it.rate)} = ${fmt(it.amount)}`).join('<br>')}
+      <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-weight:600">
+        Total: ${fmt(o.total)}
+      </div>
+    </div>
+    
+    <!-- Timeline -->
+    <div class="timeline">
+      <div class="timeline-item warning">
+        <div class="timeline-date">${formatDate(o.date)} ${o.time||''}</div>
+        <div class="timeline-title">Order Placed</div>
+        <div class="timeline-desc">Order ${o.orderNo} submitted</div>
+      </div>
+      ${o.approvedDate ? `<div class="timeline-item success">
+        <div class="timeline-date">${o.approvedDate}</div>
+        <div class="timeline-title">Order Approved</div>
+        <div class="timeline-desc">Invoice ${o.invoiceNo} generated</div>
+      </div>` : ''}
+      ${o.dispatchDate ? `<div class="timeline-item info">
+        <div class="timeline-date">${formatDate(o.dispatchDate)} ${o.dispatchTime||''}</div>
+        <div class="timeline-title">Dispatched</div>
+        <div class="timeline-desc">Challan: ${o.challanNo||o.dcNo} | Vehicle: ${o.dispatchDetails?.vehicleNo||'N/A'}${o.dispatchDetails?.trackingNo?' | Tracking: '+o.dispatchDetails.trackingNo:''}</div>
+      </div>` : ''}
+      ${isDelivered ? `<div class="timeline-item success">
+        <div class="timeline-date">Delivered</div>
+        <div class="timeline-title">Delivered Successfully</div>
+        <div class="timeline-desc">Goods received at your location</div>
+      </div>` : ''}
+    </div>
+    
+    <div class="order-actions">
+      <button class="btn btn-primary btn-sm" onclick="printChallan(${o.id})">📄 Print Challan</button>
+      <button class="btn btn-outline btn-sm" onclick="downloadChallan(${o.id})">📥 Download PDF</button>
+    </div>
+  </div>`;
+}
+
+function exportMyDispatchesExcel(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  let myDispatches = DB.orders.filter(o=>o.dealerId===d.id && (o.status==='dispatched' || o.status==='delivered'));
+  if(FILTERS.dealerDispatch.status !== 'all'){
+    myDispatches = myDispatches.filter(o=>o.status === FILTERS.dealerDispatch.status);
+  }
+  if(!myDispatches.length){ toast('No dispatches to export','error'); return; }
+  const data = myDispatches.map(o=>({
+    'Order No': o.orderNo,
+    'Invoice No': o.invoiceNo || '',
+    'Order Date': formatDate(o.date),
+    'Dispatch Date': formatDate(o.dispatchDate),
+    'Dispatch Time': o.dispatchTime || '',
+    'Challan No': o.challanNo || o.dcNo || '',
+    'DC No': o.dcNo || '',
+    'Vehicle No': o.dispatchDetails?.vehicleNo || '',
+    'Tracking No': o.dispatchDetails?.trackingNo || '',
+    'Items': o.items.map(i=>`${i.name}×${i.qty}`).join('; '),
+    'Total Qty': o.items.reduce((s,i)=>s+i.qty,0),
+    'Total Amount': o.total,
+    'Status': o.status === 'delivered' ? 'Delivered' : 'In Transit',
+    'Dispatched By': o.dispatchedBy || '',
+    'Remarks': o.dispatchDetails?.remarks || ''
+  }));
+  exportToExcel(data, `my_dispatches_${d.dealerCode}_${today()}`, 'My Dispatches');
+}
+
+/* ============ CHALLAN PRINT / DOWNLOAD ============ */
+function printChallan(orderId){
+  const o = DB.orders.find(x=>x.id===orderId);
+  if(!o) return;
+  const d = DB.dealers.find(x=>x.id===o.dealerId);
+  const s = DB.settings;
+  
+  const html = `
+    <div class="challan-print">
+      <h2>DELIVERY CHALLAN</h2>
+      <div class="company-info">
+        <strong>${s.company}</strong><br>
+        GSTIN: ${s.gstin} | PAN: ${s.pan}<br>
+        ${s.address}<br>
+        Phone: ${s.phone||'-'} | Email: ${s.email||'-'}
+      </div>
+      <table>
+        <tr>
+          <th>Challan No:</th><td>${o.challanNo||o.dcNo}</td>
+          <th>Date:</th><td>${formatDate(o.dispatchDate)}</td>
+        </tr>
+        <tr>
+          <th>Order No:</th><td>${o.orderNo}</td>
+          <th>Invoice No:</th><td>${o.invoiceNo||'N/A'}</td>
+        </tr>
+        <tr>
+          <th>Vehicle No:</th><td>${o.dispatchDetails?.vehicleNo||'N/A'}</td>
+          <th>Tracking No:</th><td>${o.dispatchDetails?.trackingNo||'N/A'}</td>
+        </tr>
+      </table>
+      
+      <h3 style="margin-top:20px;font-size:14px">Bill To:</h3>
+      <table>
+        <tr><th>Name:</th><td>${d?.name||'N/A'}</td></tr>
+        <tr><th>GSTIN:</th><td>${d?.gstin||'N/A'}</td></tr>
+        <tr><th>Address:</th><td>${d?.state||'-'}</td></tr>
+        <tr><th>Phone:</th><td>${d?.phone||'-'}</td></tr>
+      </table>
+      
+      <table style="margin-top:20px">
+        <thead>
+          <tr>
+            <th>Sr.</th>
+            <th>Item Description</th>
+            <th>HSN</th>
+            <th>Qty</th>
+            <th>Rate</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${o.items.map((it,idx)=>`
+            <tr>
+              <td>${idx+1}</td>
+              <td>${it.name}</td>
+              <td>${it.hsn}</td>
+              <td>${it.qty}</td>
+              <td>${fmt(it.rate)}</td>
+              <td>${fmt(it.amount)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5" style="text-align:right"><strong>Total:</strong></td>
+            <td><strong>${fmt(o.total)}</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+      
+      <div style="margin-top:20px;font-size:11px">
+        <strong>Remarks:</strong> ${o.dispatchDetails?.remarks||'None'}<br>
+        <strong>Dispatched By:</strong> ${o.dispatchedBy||'Admin'}
+      </div>
+      
+      <div class="signatures">
+        <div class="signature-box">Receiver's Signature</div>
+        <div class="signature-box">For ${s.company}<br>Authorized Signatory</div>
+      </div>
+      
+      <div style="margin-top:30px;font-size:10px;text-align:center;color:#666">
+        This is a computer-generated delivery challan.
+      </div>
+    </div>
+  `;
+  
+  const printArea = document.getElementById('challanPrintArea');
+  printArea.innerHTML = html;
+  printArea.style.display = 'block';
+  window.print();
+  setTimeout(()=>{ printArea.style.display = 'none'; }, 500);
+}
+
+function downloadChallan(orderId){
+  toast('Opening print dialog - Select "Save as PDF" as destination');
+  setTimeout(()=>printChallan(orderId), 500);
 }
 
 /* ============ DEALER: MY INVOICES ============ */
@@ -1728,7 +2249,9 @@ function renderMyInvoices(){
   const myInv = DB.invoices.filter(i=>i.dealerId===d.id).reverse();
   document.getElementById('page-d-my-invoices').innerHTML = `
     <div class="card">
-      <div class="card-title">My Invoices <span class="badge success">${myInv.length}</span></div>
+      <div class="card-title">My Invoices <span class="badge success">${myInv.length}</span>
+        <button class="btn btn-excel btn-sm" onclick="exportMyInvoicesExcel()">📥 Export</button>
+      </div>
       <div class="table-wrapper">
       <table><thead><tr><th>Inv No.</th><th>Date</th><th>Type</th><th>Items</th><th>Status</th><th class="text-right">Total</th></tr></thead>
       <tbody>${myInv.length ? myInv.map(i=>{
@@ -1746,6 +2269,32 @@ function renderMyInvoices(){
       </div>
     </div>
   `;
+}
+
+function exportMyInvoicesExcel(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const myInv = DB.invoices.filter(i=>i.dealerId===d.id);
+  if(!myInv.length){ toast('No invoices to export','error'); return; }
+  const data = myInv.map(i=>{
+    const order = DB.orders.find(o=>o.id===i.orderId);
+    return {
+      'Invoice No': i.invNo,
+      'IRN': i.irn || '',
+      'Date': formatDate(i.date),
+      'Type': i.saleType || 'B2C',
+      'Order No': order?.orderNo || '',
+      'Items': i.itemName,
+      'Qty': i.qty,
+      'Taxable Value': i.taxable,
+      'CGST': i.cgst,
+      'SGST': i.sgst,
+      'IGST': i.igst,
+      'TCS': i.tcs,
+      'Total Amount': i.total,
+      'Status': order?.status || 'Generated'
+    };
+  });
+  exportToExcel(data, `my_invoices_${d.dealerCode}_${today()}`, 'My Invoices');
 }
 
 /* ============ DEALER: MAKE PAYMENT ============ */
@@ -1839,7 +2388,9 @@ function renderPaymentHistory(){
       <div class="stat-card danger"><h3>Rejected</h3><div class="value">${myPayments.filter(p=>p.status==='rejected').length}</div></div>
     </div>
     <div class="card">
-      <div class="card-title">My Payment History <span class="badge primary">${myPayments.length}</span></div>
+      <div class="card-title">My Payment History <span class="badge primary">${myPayments.length}</span>
+        <button class="btn btn-excel btn-sm" onclick="exportMyPaymentsExcel()">📥 Export</button>
+      </div>
       ${myPayments.length ? myPayments.map(p=>{
         const statusBadge = {
           'pending':'<span class="badge warning">⏳ Pending Approval</span>',
@@ -1869,6 +2420,26 @@ function renderPaymentHistory(){
   `;
 }
 
+function exportMyPaymentsExcel(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const myPayments = DB.payments.filter(p=>p.dealerId===d.id);
+  if(!myPayments.length){ toast('No payments to export','error'); return; }
+  const data = myPayments.map(p=>({
+    'Payment No': p.paymentNo,
+    'Date': formatDate(p.date),
+    'Time': p.time || '',
+    'Amount': p.amount,
+    'Mode': p.mode,
+    'Reference No': p.referenceNo || '',
+    'Bank': p.bankName || '',
+    'Remarks': p.remarks || '',
+    'Status': p.status,
+    'Receipt No': p.receiptNo || '',
+    'Approved Date': p.approvedDate || ''
+  }));
+  exportToExcel(data, `my_payments_${d.dealerCode}_${today()}`, 'My Payments');
+}
+
 /* ============ DEALER: MY LEDGER ============ */
 function renderDealerLedger(){
   const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
@@ -1888,7 +2459,9 @@ function renderDealerLedger(){
       <div class="stat-card info"><h3>Transactions</h3><div class="value">${myLedger.length}</div><div class="sub">${totalInvoices} invoices, ${totalPayments} payments</div></div>
     </div>
     <div class="card">
-      <div class="card-title">Ledger Statement <span class="badge primary">${d.name}</span></div>
+      <div class="card-title">Ledger Statement <span class="badge primary">${d.name}</span>
+        <button class="btn btn-excel btn-sm" onclick="exportMyLedgerExcel()">📥 Export</button>
+      </div>
       ${myLedger.length ? `<div class="table-wrapper"><table>
         <thead><tr><th>Date</th><th>Voucher</th><th>Type</th><th>Particulars</th><th class="text-right">Debit</th><th class="text-right">Credit</th></tr></thead>
         <tbody>${myLedger.map(l=>`
@@ -1906,6 +2479,21 @@ function renderDealerLedger(){
       </table></div>` : '<div class="empty"><div class="empty-icon">📒</div>No ledger entries yet</div>'}
     </div>
   `;
+}
+
+function exportMyLedgerExcel(){
+  const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
+  const myLedger = DB.ledger.filter(l=>l.dealerId===d.id);
+  if(!myLedger.length){ toast('No ledger entries to export','error'); return; }
+  const data = myLedger.map(l=>({
+    'Date': formatDate(l.date),
+    'Voucher No': l.voucher,
+    'Type': l.type,
+    'Particulars': l.particulars,
+    'Debit (₹)': l.debit || 0,
+    'Credit (₹)': l.credit || 0
+  }));
+  exportToExcel(data, `my_ledger_${d.dealerCode}_${today()}`, 'My Ledger');
 }
 
 /* ============ DEALER: PROFILE WITH PASSWORD CHANGE ============ */
@@ -1942,30 +2530,17 @@ function renderDealerProfile(){
         <div class="form-group">
           <label>New Password <span style="color:var(--danger)">*</span></label>
           <input type="password" class="form-control" id="newPass" placeholder="Minimum 6 characters">
-          <small style="color:var(--text-muted);font-size:11px;margin-top:4px;display:block">Use at least 6 characters with letters and numbers</small>
         </div>
         <div class="form-group">
           <label>Confirm New Password <span style="color:var(--danger)">*</span></label>
           <input type="password" class="form-control" id="confirmPass" placeholder="Re-enter new password">
         </div>
         <button class="btn btn-primary btn-block" onclick="changeDealerPassword()">🔑 Update Password</button>
-        
-        <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
-          <h4 style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text-secondary)">🛡️ Password Guidelines</h4>
-          <ul style="font-size:12px;color:var(--text-muted);line-height:1.8;padding-left:18px">
-            <li>Minimum 6 characters required</li>
-            <li>Avoid using your dealer code as password</li>
-            <li>Use a mix of letters and numbers</li>
-            <li>Don't share your password with anyone</li>
-            <li>Change password periodically for security</li>
-          </ul>
-        </div>
       </div>
     </div>
   `;
 }
 
-/* ============ DEALER PASSWORD CHANGE FUNCTION ============ */
 function changeDealerPassword(){
   const d = DB.dealers.find(x=>x.id===DB.user.dealerId);
   if(!d) return;
@@ -1974,7 +2549,6 @@ function changeDealerPassword(){
   const newPass = document.getElementById('newPass').value;
   const confirmPass = document.getElementById('confirmPass').value;
   
-  // Validation
   if(!currentPass){ toast('Please enter current password','error'); return; }
   if(currentPass !== d.password){ 
     toast('Current password is incorrect','error'); 
@@ -1983,19 +2557,17 @@ function changeDealerPassword(){
   }
   if(!newPass){ toast('Please enter new password','error'); return; }
   if(newPass.length < 6){ toast('New password must be at least 6 characters','error'); return; }
-  if(newPass === currentPass){ toast('New password must be different from current','error'); return; }
+  if(newPass === currentPass){ toast('New password must be different','error'); return; }
   if(newPass !== confirmPass){ toast('New passwords do not match','error'); return; }
   
-  // Update password
   d.password = newPass;
   save();
   
-  // Clear form
   document.getElementById('currentPass').value = '';
   document.getElementById('newPass').value = '';
   document.getElementById('confirmPass').value = '';
   
-  toast('🔐 Password changed successfully! Please use new password on next login.');
+  toast('🔐 Password changed successfully!');
 }
 
 /* ============ INIT ============ */
