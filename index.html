@@ -26,7 +26,8 @@ header{position:sticky;top:40px;z-index:50;background:var(--card);border-bottom:
 header .wrap{display:flex;align-items:center;gap:18px;padding-top:10px;padding-bottom:10px}
 .logo{font:800 1.15rem 'Trebuchet MS',sans-serif;color:var(--brand);letter-spacing:.04em;white-space:nowrap;cursor:pointer}
 nav{display:flex;gap:14px;flex:1;overflow-x:auto;font-size:.85rem;font-weight:600}
-nav a{color:var(--mute);white-space:nowrap}nav a:hover{color:var(--brand)}
+nav a{color:var(--mute);white-space:nowrap;transition:.2s}
+nav a:hover{color:var(--brand)}
 .btn{display:inline-block;border:0;border-radius:999px;padding:12px 24px;font-weight:800;font-size:.9rem;cursor:pointer;text-decoration:none;background:var(--brand);color:#fff;letter-spacing:.03em;transition:.2s}
 .btn.alt{background:transparent;color:var(--brand);border:2px solid var(--brand)}.btn.gold{background:var(--accent);color:#1b1405}
 .btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
@@ -100,7 +101,6 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
 .form-control:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,107,58,.1)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-.form-row-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .alert{padding:12px 16px;border-radius:8px;font-size:12px;margin-bottom:14px;display:flex;align-items:center;gap:10px;border:1px solid}
 .alert-info{background:#eff6ff;color:#1e40af;border-color:#bfdbfe}
 .alert-warning{background:#fffbeb;color:#92400e;border-color:#fde68a}
@@ -140,7 +140,6 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
 .summary-bar-item{display:flex;flex-direction:column}
 .summary-bar-label{font-size:10px;color:#1e40af;text-transform:uppercase;letter-spacing:.5px;font-weight:700}
 .summary-bar-value{font-size:18px;font-weight:700;color:#1e40af;margin-top:2px}
-/* Professional Ledger Styles */
 .ledger-table{font-family:'Trebuchet MS',sans-serif}
 .ledger-table thead{background:linear-gradient(180deg,#1d4a27,#2f6b3a);color:#fff}
 .ledger-table th{color:#fff;padding:14px 12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-bottom:2px solid var(--accent)}
@@ -166,23 +165,12 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
 .order-items{background:var(--bg);padding:12px;border-radius:8px;margin:10px 0;font-size:12px;border:1px solid var(--line)}
 .order-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:end}
 .order-total{text-align:right;font-weight:700;font-size:17px;margin-top:8px;color:var(--brand)}
-.dispatch-card{border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px;border-left:4px solid var(--warn);background:#fff}
-.dispatch-card.delivered{border-left-color:var(--success)}
-.dispatch-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0;padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--line)}
-.dispatch-info-item{display:flex;flex-direction:column}
-.dispatch-info-label{font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:3px}
-.dispatch-info-value{font-size:13px;font-weight:600}
-.timeline{border-left:3px solid var(--line);padding-left:20px;margin:14px 0}
-.timeline-item{position:relative;padding-bottom:14px}
-.timeline-item::before{content:'';position:absolute;left:-26px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--brand);border:2px solid #fff}
-.timeline-item.success::before{background:var(--success)}
-.timeline-item.warning::before{background:var(--warn)}
-.timeline-item.info::before{background:var(--info)}
-.timeline-date{font-size:11px;color:var(--mute)}
-.timeline-title{font-weight:600;font-size:13px;margin-top:2px}
-.timeline-desc{font-size:12px;color:var(--mute);margin-top:2px}
 .content-editor{background:linear-gradient(135deg,#f8fafc,#f1f5f9);border:1px solid var(--line);border-radius:12px;padding:24px}
 .content-editor h4{color:var(--brand);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+
+/* Smooth Scrolling Fix */
+html { scroll-behavior: smooth; scroll-padding-top: 120px; }
+
 @media(max-width:820px){
   .hero .wrap{grid-template-columns:1fr}
   .tk{display:none}.mtk{display:flex}
@@ -194,7 +182,7 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
   .menu-toggle{display:block!important}
   section{padding:46px 0}
   .hero{padding:44px 0}
-  .form-row,.form-row-3,.form-row-4{grid-template-columns:1fr}
+  .form-row,.form-row-3{grid-template-columns:1fr}
   .filter-row{grid-template-columns:1fr}
 }
 .menu-toggle{display:none;background:var(--brand);color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
@@ -216,35 +204,37 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
  <div class="mtk"><b class="m1">🍄 CHAKADOLA</b><b class="m2">Login for Prices</b></div>
 </div>
 <header><div class="wrap">
- <a class="logo" href="#" onclick="showPublic()">🍄 <span id="site-brand">CHAKADOLA MUSHROOM</span></a>
+ <a class="logo" href="#home" onclick="showPublic()">🍄 <span id="site-brand">CHAKADOLA MUSHROOM</span></a>
  <nav>
-  <a href="#" onclick="scrollToId('home')">Home</a>
-  <a href="#" onclick="scrollToId('about')">About</a>
-  <a href="#" onclick="scrollToId('products')">Products</a>
-  <a href="#" onclick="scrollToId('price')">Price</a>
-  <a href="#" onclick="scrollToId('bulk')">Bulk Orders</a>
-  <a href="#" onclick="scrollToId('contact')">Contact</a>
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#products">Products</a>
+  <a href="#price">Price</a>
+  <a href="#bulk">Bulk Orders</a>
+  <a href="#contact">Contact</a>
  </nav>
  <button class="btn" onclick="showLoginModal()">🔐 Dealer Login</button>
 </div></header>
 
 <main>
-<div class="hero" id="home"><div class="wrap">
- <div>
-  <div class="eyebrow" style="color:#f0c56d" id="hero-eyebrow">Odisha's premier mushroom farm</div>
-  <h1 id="hero-title">Fresh Mushrooms. Naturally Grown. Professionally Delivered.</h1>
-  <p id="hero-subtitle">Chakadola Mushroom produces fresh, hygienically cultivated button mushrooms for homes, restaurants, retailers, wholesalers and food businesses across Odisha.</p>
-  <p><a class="btn gold call-link" href="#">📞 CALL US</a> &nbsp; <a class="btn alt" style="color:#fff;border-color:#fff" href="#" onclick="showLoginModal()">🔐 Dealer Login for Prices</a></p>
+<div class="hero" id="home">
+ <div class="wrap">
+  <div>
+   <div class="eyebrow" style="color:#f0c56d" id="hero-eyebrow">Odisha's premier mushroom farm</div>
+   <h1 id="hero-title">Fresh Mushrooms. Naturally Grown. Professionally Delivered.</h1>
+   <p id="hero-subtitle">Chakadola Mushroom produces fresh, hygienically cultivated button mushrooms for homes, restaurants, retailers, wholesalers and food businesses across Odisha.</p>
+   <p><a class="btn gold call-link" href="#">📞 CALL US</a> &nbsp; <a class="btn alt" style="color:#fff;border-color:#fff" href="#" onclick="showLoginModal()">🔐 Dealer Login for Prices</a></p>
+  </div>
+  <div class="pricebox">
+   <small>🍄 LIVE PRICE STATUS</small>
+   <div class="lock-icon" style="font-size:3rem;margin:16px 0">🔒</div>
+   <div class="big" style="font-size:1.5rem;color:var(--warn)">Dealer Login Required</div>
+   <span class="pill lock">RESTRICTED ACCESS</span>
+   <p class="sans" style="margin:12px 0;font-size:.85rem;color:var(--mute)">Today's live prices are available only to registered dealers.</p>
+   <button class="btn" onclick="showLoginModal()" style="margin-top:10px">Login to View Prices</button>
+  </div>
  </div>
- <div class="pricebox">
-  <small>🍄 LIVE PRICE STATUS</small>
-  <div class="lock-icon" style="font-size:3rem;margin:16px 0">🔒</div>
-  <div class="big" style="font-size:1.5rem;color:var(--warn)">Dealer Login Required</div>
-  <span class="pill lock">RESTRICTED ACCESS</span>
-  <p class="sans" style="margin:12px 0;font-size:.85rem;color:var(--mute)">Today's live prices are available only to registered dealers.</p>
-  <button class="btn" onclick="showLoginModal()" style="margin-top:10px">Login to View Prices</button>
- </div>
-</div></div>
+</div>
 
 <section id="about"><div class="wrap" style="display:grid;gap:30px;grid-template-columns:1fr 1fr;align-items:center">
  <div><div class="eyebrow">About Us</div><h2>A professional mushroom farming enterprise</h2>
@@ -272,7 +262,7 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
   <h3>Restricted Access</h3>
   <p>Today's live prices (Retail, Wholesale, Bulk) are exclusively available to registered dealers.</p>
   <button class="btn" onclick="showLoginModal()" style="margin-top:14px">Login as Dealer to View</button>
-  <p class="note" style="margin-top:10px">Don't have a dealer account? <a href="#" onclick="scrollToId('contact')" style="color:var(--brand);font-weight:600">Contact us</a> to become a registered dealer.</p>
+  <p class="note" style="margin-top:10px">Don't have a dealer account? <a href="#contact" style="color:var(--brand);font-weight:600">Contact us</a> to become a registered dealer.</p>
  </div>
 </div></section>
 
@@ -309,7 +299,8 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
   <div class="form-group"><label>Username / Dealer Code</label><input type="text" class="form-control" id="loginUser" placeholder="admin or SHAR01"></div>
   <div class="form-group"><label>Password</label><input type="password" class="form-control" id="loginPass" placeholder="Enter password"></div>
   <button class="btn btn-block" onclick="doLogin()" style="margin-top:10px">Sign In</button>
-  <p class="note" style="margin-top:14px;text-align:center"><b>Demo:</b> Admin: <code>login ID</code> / <code>Password</code><br> </div>
+  <p class="note" style="margin-top:14px;text-align:center"><b>Demo:</b> Admin: <code>admin</code> / <code>admin123</code><br>Dealer: <code>SHAR01</code> / <code>dealer123</code></p>
+ </div>
 </div>
 
 <!-- ============ PASSWORD MODAL ============ -->
@@ -361,8 +352,6 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
    <div class="page" id="page-dealers"></div>
    <div class="page" id="page-website"></div>
    <div class="page" id="page-settings"></div>
-   
-   <!-- Dealer Pages -->
    <div class="page" id="page-d-dashboard"></div>
    <div class="page" id="page-d-live-price"></div>
    <div class="page" id="page-d-place-order"></div>
@@ -425,7 +414,6 @@ function cur() { const k=dkey(); return DB.livePrices.find(p => p.date===k); }
 
 /* ============ PUBLIC SITE ============ */
 function renderPublic() {
-  // Apply website content
   document.getElementById('site-brand').textContent = DB.website.brand;
   document.getElementById('footer-brand').textContent = DB.website.brand;
   document.getElementById('footer-tagline').textContent = DB.website.tagline;
@@ -435,7 +423,6 @@ function renderPublic() {
   document.getElementById('about-text').textContent = DB.website.aboutText;
   document.getElementById('contact-address').textContent = DB.settings.address;
   
-  // WhatsApp/Call
   const n = (DB.settings.whatsapp || '').replace(/\D/g, '');
   const m = `Hello ${DB.website.brand}, I am interested in fresh button mushrooms. Please share today's price.`;
   const waUrl = n ? `https://wa.me/${n}?text=${encodeURIComponent(m)}` : '#contact';
@@ -577,10 +564,6 @@ function toast(msg, type='success') {
   setTimeout(() => t.remove(), 3000);
 }
 
-function scrollToId(id) {
-  document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
-}
-
 /* ============ EXCEL EXPORT ============ */
 function exportToExcel(data, filename, sheetName='Sheet1') {
   if (typeof XLSX === 'undefined') { toast('Excel library not loaded','error'); return; }
@@ -707,9 +690,8 @@ function exportPriceHistory() {
   })), `mushroom_prices_${dkey()}`, 'Price History');
 }
 
-/* ============ ADMIN: ORDER APPROVALS (with Date Filter & Excel) ============ */
+/* ============ ADMIN: ORDER APPROVALS ============ */
 function renderOrders() {
-  // Apply filters
   let filtered = [...DB.orders];
   if (FILTERS.orders.fromDate) filtered = filtered.filter(o => o.date >= FILTERS.orders.fromDate);
   if (FILTERS.orders.toDate) filtered = filtered.filter(o => o.date <= FILTERS.orders.toDate);
@@ -853,7 +835,6 @@ function approveOrder(id) {
   o.approvedBy = DB.user.name;
   o.invoiceNo = 'INV-' + new Date().getFullYear() + '-' + String(DB.orders.filter(x=>x.invoiceNo).length+1).padStart(4,'0');
   
-  // Auto-ledger entry
   DB.ledger.push({
     id: Date.now(), date: dkey(), voucher: o.invoiceNo, type: 'Invoice', lf: 'JV',
     dealerId: o.dealerId, dealerName: d?.name,
@@ -884,7 +865,7 @@ function rejectOrder(id) {
   renderOrders();
 }
 
-/* ============ ADMIN: DISPATCH (with Date Filter, Excel, Auto Ledger) ============ */
+/* ============ ADMIN: DISPATCH ============ */
 function renderDispatch() {
   let filtered = DB.orders.filter(o => o.status === 'dispatched' || o.status === 'delivered');
   if (FILTERS.dispatch.fromDate) filtered = filtered.filter(o => o.dispatchDate >= FILTERS.dispatch.fromDate);
@@ -1043,7 +1024,6 @@ function dispatchOrder(id, isDelivered) {
   o.dispatchedBy = DB.user.name;
   o.dispatchedAt = Date.now();
   
-  // AUTO LEDGER UPDATE ON DISPATCH
   DB.ledger.push({
     id: Date.now()+10, date: dd, voucher: dcNo, type: 'Dispatch', lf: 'DC',
     dealerId: o.dealerId, dealerName: d?.name,
@@ -1131,7 +1111,6 @@ function approvePayment(id) {
   p.approvedBy = DB.user.name;
   p.adminRemarks = document.getElementById('pr-' + id)?.value || '';
   
-  // Auto-ledger: Bank/Cash Dr, Debtors Cr
   DB.ledger.push({
     id: Date.now(), date: dkey(), voucher: rc, type: 'Payment', lf: 'BR',
     dealerId: p.dealerId, dealerName: d?.name,
@@ -1187,7 +1166,6 @@ function renderLedger() {
   if (FILTERS.ledger.fromDate) filtered = filtered.filter(l => l.date >= FILTERS.ledger.fromDate);
   if (FILTERS.ledger.toDate) filtered = filtered.filter(l => l.date <= FILTERS.ledger.toDate);
   
-  // Sort by date then ID
   filtered.sort((a,b) => a.date.localeCompare(b.date) || a.id - b.id);
   
   const totalDebit = filtered.reduce((s,l) => s + (l.debit||0), 0);
@@ -1195,7 +1173,6 @@ function renderLedger() {
   const balance = totalDebit - totalCredit;
   const selectedDealer = FILTERS.ledger.dealerId !== 'all' ? DB.dealers.find(d => d.id == FILTERS.ledger.dealerId) : null;
   
-  // Calculate running balance
   let running = 0;
   const ledgerWithBalance = filtered.map(l => {
     running += (l.debit || 0) - (l.credit || 0);
@@ -1326,7 +1303,6 @@ function exportLedgerExcel() {
     };
   });
   
-  // Add totals row
   const totalDebit = filtered.reduce((s,l) => s + (l.debit||0), 0);
   const totalCredit = filtered.reduce((s,l) => s + (l.credit||0), 0);
   data.push({});
@@ -1670,7 +1646,7 @@ function renderDealerDashboard() {
   `;
 }
 
-/* ============ DEALER: LIVE PRICE (Dealer Can View) ============ */
+/* ============ DEALER: LIVE PRICE ============ */
 function renderDealerLivePrice() {
   const t = cur();
   const sortedPrices = [...DB.livePrices].sort((a,b) => b.date.localeCompare(a.date));
@@ -1809,7 +1785,7 @@ function renderDealerMyOrders() {
           ${o.challanNo ? `<div style="background:var(--bg);padding:12px;border-radius:8px;margin-top:10px;font-size:12px"><strong>🚚 Dispatch Details:</strong><br>Challan: <code>${o.challanNo}</code> ${o.vehicleNo?'| Vehicle: '+o.vehicleNo:''} ${o.trackingNo?'| Tracking: '+o.trackingNo:''}</div>` : ''}
           ${o.status === 'dispatched' || o.status === 'delivered' ? `<div style="margin-top:10px"><button class="btn btn-sm btn-outline" onclick="printDealerChallan(${o.id})">📄 Print Challan</button></div>` : ''}
         </div>`;
-      }).join('') : '<div class="empty">No orders placed yet. <a href="#" onclick="navigateTo(\'d-place-order\');return false;" style="color:var(--brand);font-weight:600">Place your first order →</a></div>'}
+      }).join('') : '<div class="empty">No orders placed yet. <a href="#home" onclick="showPublic();return false;" style="color:var(--brand);font-weight:600">Return to Home →</a></div>'}
     </div>
   `;
 }
