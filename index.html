@@ -3,15 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Chakadola Mushroom | Live Price & Dealer Portal</title>
-<meta name="description" content="Chakadola Mushroom, Bhadrak, Odisha: fresh button mushroom supplier with today's live mushroom price, wholesale and bulk supply.">
+<title>Chakadola Mushroom Pro | Fresh Mushroom Supplier & B2B Portal</title>
+<meta name="description" content="Chakadola Mushroom, Bhadrak, Odisha: Professional button mushroom supplier with B2B dealer portal, live pricing, and bulk supply.">
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
-:root{--bg:#faf7f0;--card:#fff;--ink:#22301f;--mute:#5d6b58;--brand:#2f6b3a;--brand2:#1d4a27;--accent:#c98a2b;--line:#e4dfd0;--bar:#1d4a27;--barink:#fff;--warn:#b7791f;--danger:#ef4444;--success:#10b981;--info:#8b5cf6}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141a13;--card:#1d261c;--ink:#eef2e8;--mute:#a9b7a3;--brand:#6fbf7d;--brand2:#3f8a4d;--accent:#e0a54a;--line:#2f3b2d;--bar:#0e2a15}}
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 110px);scroll-behavior:smooth}
-*,*:before,*:after{box-sizing:inherit}
+:root{--bg:#faf7f0;--card:#fff;--ink:#22301f;--mute:#5d6b58;--brand:#2f6b3a;--brand2:#1d4a27;--accent:#c98a2b;--line:#e4dfd0;--bar:#1d4a27;--barink:#fff;--warn:#b7791f;--danger:#dc2626;--success:#059669;--info:#7c3aed}
+*,*:before,*:after{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.6}
 h1,h2,h3,.sans,button,input,select,textarea,nav,.tk{font-family:'Trebuchet MS','Segoe UI',system-ui,sans-serif}
 h1,h2,h3{line-height:1.2;margin:0 0 .5em}
@@ -20,25 +17,29 @@ a{color:inherit;text-decoration:none}
 section{padding:64px 0}
 .eyebrow{color:var(--accent);font:700 .8rem 'Trebuchet MS',sans-serif;letter-spacing:.15em;text-transform:uppercase}
 h2{font-size:clamp(1.6rem,3.5vw,2.3rem);color:var(--brand)}
-.tkwrap{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:var(--bar);color:var(--barink);overflow:hidden;border-bottom:3px solid var(--accent)}
+.tkwrap{position:sticky;top:0;z-index:60;background:var(--bar);color:var(--barink);overflow:hidden;border-bottom:3px solid var(--accent)}
 .tk{display:flex;white-space:nowrap;width:max-content;animation:sc 38s linear infinite;padding:9px 0;font-weight:700;font-size:.95rem}
 .tk span{padding:0 40px}.tkwrap:hover .tk{animation-play-state:paused}
 @keyframes sc{to{transform:translateX(-50%)}}
 .mtk{display:none;padding:8px 14px;font:800 1.25rem 'Trebuchet MS',sans-serif;justify-content:space-between}
-header{position:sticky;top:calc(env(safe-area-inset-top,0px) + 40px);z-index:50;background:var(--card);border-bottom:1px solid var(--line)}
+header{position:sticky;top:40px;z-index:50;background:var(--card);border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;gap:18px;padding-top:10px;padding-bottom:10px}
 .logo{font:800 1.15rem 'Trebuchet MS',sans-serif;color:var(--brand);letter-spacing:.04em;white-space:nowrap;cursor:pointer}
 nav{display:flex;gap:14px;flex:1;overflow-x:auto;font-size:.85rem;font-weight:600}
 nav a{color:var(--mute);white-space:nowrap}nav a:hover{color:var(--brand)}
-.btn{display:inline-block;border:0;border-radius:999px;padding:12px 24px;font-weight:800;font-size:.9rem;cursor:pointer;text-decoration:none;background:var(--brand);color:#fff;letter-spacing:.03em}
+.btn{display:inline-block;border:0;border-radius:999px;padding:12px 24px;font-weight:800;font-size:.9rem;cursor:pointer;text-decoration:none;background:var(--brand);color:#fff;letter-spacing:.03em;transition:.2s}
 .btn.alt{background:transparent;color:var(--brand);border:2px solid var(--brand)}.btn.gold{background:var(--accent);color:#1b1405}
-.btn:hover{filter:brightness(1.1)}
+.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
 .btn-sm{padding:6px 12px;font-size:11px;border-radius:6px}
 .btn-danger{background:var(--danger);color:#fff}
 .btn-success{background:var(--success);color:#fff}
-.btn-outline{background:transparent;border:1px solid var(--line);color:var(--ink)}
-.hero{background:linear-gradient(135deg,#1d4a27,#2f6b3a 60%,#4b8a52);color:#fff;padding:70px 0}
-.hero .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;align-items:center}
+.btn-warning{background:var(--warn);color:#fff}
+.btn-outline{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.btn-excel{background:#1d6f42;color:#fff}
+.btn-block{width:100%;justify-content:center}
+.hero{background:linear-gradient(135deg,#1d4a27,#2f6b3a 60%,#4b8a52);color:#fff;padding:70px 0;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(255,255,255,.08),transparent);border-radius:50%}
+.hero .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;align-items:center;position:relative}
 .hero h1{font-size:clamp(2rem,5vw,3.3rem)}.hero p{opacity:.92;font-size:1.05rem;max-width:520px}
 .pricebox{background:var(--card);color:var(--ink);border-radius:20px;padding:26px;text-align:center;box-shadow:0 14px 40px rgba(0,0,0,.25)}
 .pricebox small{font:700 .8rem 'Trebuchet MS',sans-serif;letter-spacing:.12em;color:var(--mute)}
@@ -46,6 +47,7 @@ nav a{color:var(--mute);white-space:nowrap}nav a:hover{color:var(--brand)}
 .big em{font-size:1.2rem;font-style:normal;color:var(--mute)}
 .pill{display:inline-block;border-radius:999px;padding:4px 14px;font:800 .8rem 'Trebuchet MS',sans-serif;background:#e6f4e8;color:#1d6b2b}
 .pill.y{background:#fdf1d6;color:#8a5a06}.pill.r{background:#fbe0dd;color:#a1291d}
+.pill.lock{background:#fee2e2;color:#991b1b}
 .grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
 .card h3{color:var(--brand)}.card .pr{font:800 1.4rem 'Trebuchet MS',sans-serif;color:var(--accent)}
@@ -55,21 +57,22 @@ th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}th{c
 .steps{counter-reset:s;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
 .steps div{background:var(--card);border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;font-family:'Trebuchet MS',sans-serif;font-weight:600}
 .steps div:before{counter-increment:s;content:counter(s);display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;margin-right:10px;font-size:.85rem}
-.gal{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-.gal button{aspect-ratio:4/3;border:1px dashed var(--line);border-radius:14px;background:var(--card);cursor:pointer;color:var(--mute);font-weight:600}
 .b2b{background:var(--brand2);color:#fff;border-radius:22px;padding:40px}.b2b h2{color:#fff}
 .chips span{display:inline-block;background:rgba(255,255,255,.14);border-radius:999px;padding:4px 14px;margin:3px;font:600 .85rem sans-serif}
 footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-serif;font-size:.9rem}
 .note{font-size:.85rem;color:var(--mute);font-family:sans-serif}
+.locked-box{background:linear-gradient(135deg,#fef3c7,#fde68a);border:2px solid var(--accent);border-radius:16px;padding:24px;text-align:center;margin:20px 0}
+.locked-box h3{color:var(--warn);margin-bottom:8px}
+.locked-box .lock-icon{font-size:3rem;margin-bottom:8px}
 
-/* APP SPECIFIC STYLES */
+/* APP STYLES */
 .app{display:none;min-height:100vh}
 .app.active{display:flex}
 .sidebar{width:260px;background:linear-gradient(180deg,#0f172a,#1d4a27);color:#fff;position:fixed;height:100vh;display:flex;flex-direction:column;z-index:50;overflow-y:auto}
 .sidebar .logo{color:#fff;border-bottom:1px solid rgba(255,255,255,.1);padding:24px;margin-bottom:12px}
 .nav-menu{list-style:none;padding:0 8px;flex:1}
 .nav-menu li{margin-bottom:2px}
-.nav-menu li a{display:flex;align-items:center;gap:12px;padding:11px 16px;color:#94a3b8;font-size:13px;border-radius:8px;border-left:3px solid transparent;font-weight:500}
+.nav-menu li a{display:flex;align-items:center;gap:12px;padding:11px 16px;color:#94a3b8;font-size:13px;border-radius:8px;border-left:3px solid transparent;font-weight:500;cursor:pointer}
 .nav-menu li a:hover{background:rgba(255,255,255,.05);color:#fff}
 .nav-menu li a.active{background:linear-gradient(90deg,rgba(111,191,125,.2),rgba(111,191,125,.05));color:#fff;border-left-color:#6fbf7d;font-weight:600}
 .main{flex:1;margin-left:260px;min-height:100vh;background:var(--bg)}
@@ -80,21 +83,34 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
 .page{display:none}.page.active{display:block;animation:fadeIn .3s}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:24px}
-.stat-card{background:var(--card);padding:20px;border-radius:12px;border:1px solid var(--line);position:relative;overflow:hidden}
+.stat-card{background:var(--card);padding:20px;border-radius:12px;border:1px solid var(--line);position:relative;overflow:hidden;transition:.2s}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
 .stat-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--brand)}
 .stat-card.success::before{background:var(--success)}
 .stat-card.warning::before{background:var(--warn)}
 .stat-card.danger::before{background:var(--danger)}
+.stat-card.info::before{background:var(--info)}
 .stat-card h3{font-size:11px;color:var(--mute);text-transform:uppercase;font-weight:600;margin-bottom:8px}
 .stat-card .value{font-size:24px;font-weight:700;margin-bottom:4px}
+.stat-card .sub{font-size:11px;color:var(--mute);margin-top:2px}
 .form-group{margin-bottom:16px}
 .form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
-.form-control{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:14px;background:var(--bg);color:var(--ink)}
-.form-control:focus{outline:none;border-color:var(--brand)}
+.form-group .optional{font-weight:400;color:var(--mute);font-size:11px;margin-left:4px}
+.form-control{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:14px;background:#fff;color:var(--ink)}
+.form-control:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,107,58,.1)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-.table-wrapper{overflow-x:auto;border-radius:8px;border:1px solid var(--line)}
-.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--brand);color:#fff;padding:12px 22px;border-radius:999px;font:700 .9rem sans-serif;display:none;z-index:120}
+.form-row-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.alert{padding:12px 16px;border-radius:8px;font-size:12px;margin-bottom:14px;display:flex;align-items:center;gap:10px;border:1px solid}
+.alert-info{background:#eff6ff;color:#1e40af;border-color:#bfdbfe}
+.alert-warning{background:#fffbeb;color:#92400e;border-color:#fde68a}
+.alert-success{background:#f0fdf4;color:#065f46;border-color:#bbf7d0}
+.alert-danger{background:#fef2f2;color:#991b1b;border-color:#fecaca}
+.table-wrapper{overflow-x:auto;border-radius:8px;border:1px solid var(--line);background:#fff}
+.table-wrapper table{background:#fff}
+.toast{position:fixed;right:24px;top:24px;background:var(--success);color:#fff;padding:14px 22px;border-radius:10px;font:700 .9rem sans-serif;z-index:120;box-shadow:0 10px 30px rgba(0,0,0,.2);animation:slideIn .3s}
+.toast.error{background:var(--danger)}
+@keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;place-items:center;z-index:100}
 .modal-overlay.active{display:grid}
 .modal{background:var(--card);border-radius:16px;padding:28px;width:90%;max-width:500px;box-shadow:0 25px 50px rgba(0,0,0,.25)}
@@ -106,13 +122,71 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
 .badge.danger{background:#fee2e2;color:#b91c1c}
 .badge.info{background:#ede9fe;color:#6d28d9}
 .badge.dispatch{background:#fef3c7;color:#92400e}
+.badge.primary{background:#dbeafe;color:#1e40af}
+.badge.muted{background:var(--line);color:var(--mute)}
 .toggle-btn{background:none;border:1px solid var(--line);padding:5px 12px;border-radius:20px;font-size:11px;cursor:pointer;font-weight:600}
 .toggle-btn.active{background:#d1fae5;color:#047857;border-color:#10b981}
 .toggle-btn.inactive{background:#fee2e2;color:#b91c1c;border-color:#ef4444}
+.filter-bar{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:18px}
+.filter-bar-title{font-size:13px;font-weight:700;color:var(--brand);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.filter-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;align-items:end}
+.filter-group label{display:block;font-size:11px;font-weight:600;color:var(--mute);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.filter-group select,.filter-group input{padding:8px 10px;border:1.5px solid var(--line);border-radius:6px;font-size:13px;background:#fff;width:100%}
+.quick-filters{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.quick-filter{padding:5px 12px;background:var(--bg);border:1px solid var(--line);border-radius:20px;font-size:11px;cursor:pointer;font-weight:600;color:var(--mute);transition:.15s}
+.quick-filter:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
+.quick-filter.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.summary-bar{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #bfdbfe;border-radius:12px;padding:16px 20px;margin-bottom:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.summary-bar-item{display:flex;flex-direction:column}
+.summary-bar-label{font-size:10px;color:#1e40af;text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+.summary-bar-value{font-size:18px;font-weight:700;color:#1e40af;margin-top:2px}
+/* Professional Ledger Styles */
+.ledger-table{font-family:'Trebuchet MS',sans-serif}
+.ledger-table thead{background:linear-gradient(180deg,#1d4a27,#2f6b3a);color:#fff}
+.ledger-table th{color:#fff;padding:14px 12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-bottom:2px solid var(--accent)}
+.ledger-table td{padding:12px;border-bottom:1px solid var(--line);font-size:13px}
+.ledger-table tbody tr:nth-child(even){background:#fafaf5}
+.ledger-table tbody tr:hover{background:#f5f5e8}
+.ledger-table .debit-col,.ledger-table .credit-col{text-align:right;font-family:'Courier New',monospace;font-weight:600}
+.ledger-table .total-row{background:#fef3c7!important;font-weight:700;border-top:3px double var(--brand)}
+.ledger-table .total-row td{padding:14px 12px}
+.ledger-table .balance-row{background:#d1fae5!important;font-weight:700;border-top:2px solid var(--brand)}
+.ledger-table .voucher{font-family:'Courier New',monospace;font-size:12px;color:var(--brand);font-weight:600}
+.ledger-table .lf-col{font-family:'Courier New',monospace;font-size:11px;color:var(--mute);font-style:italic}
+.password-display{display:flex;align-items:center;gap:6px;font-family:'Courier New',monospace;font-size:12px;background:var(--bg);padding:5px 8px;border-radius:6px;border:1px solid var(--line)}
+.password-text{flex:1;letter-spacing:1px;min-width:60px}
+.password-actions{display:flex;gap:2px}
+.password-btn{background:none;border:none;cursor:pointer;padding:3px 5px;border-radius:4px;font-size:13px}
+.password-btn:hover{background:var(--line)}
+.order-card{border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:12px;background:#fff;transition:.2s}
+.order-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.order-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.order-no{font-weight:700;font-size:14px;color:var(--ink)}
+.order-meta{font-size:11px;color:var(--mute);margin-top:3px;line-height:1.6}
+.order-items{background:var(--bg);padding:12px;border-radius:8px;margin:10px 0;font-size:12px;border:1px solid var(--line)}
+.order-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:end}
+.order-total{text-align:right;font-weight:700;font-size:17px;margin-top:8px;color:var(--brand)}
+.dispatch-card{border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px;border-left:4px solid var(--warn);background:#fff}
+.dispatch-card.delivered{border-left-color:var(--success)}
+.dispatch-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0;padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--line)}
+.dispatch-info-item{display:flex;flex-direction:column}
+.dispatch-info-label{font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:3px}
+.dispatch-info-value{font-size:13px;font-weight:600}
+.timeline{border-left:3px solid var(--line);padding-left:20px;margin:14px 0}
+.timeline-item{position:relative;padding-bottom:14px}
+.timeline-item::before{content:'';position:absolute;left:-26px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--brand);border:2px solid #fff}
+.timeline-item.success::before{background:var(--success)}
+.timeline-item.warning::before{background:var(--warn)}
+.timeline-item.info::before{background:var(--info)}
+.timeline-date{font-size:11px;color:var(--mute)}
+.timeline-title{font-weight:600;font-size:13px;margin-top:2px}
+.timeline-desc{font-size:12px;color:var(--mute);margin-top:2px}
+.content-editor{background:linear-gradient(135deg,#f8fafc,#f1f5f9);border:1px solid var(--line);border-radius:12px;padding:24px}
+.content-editor h4{color:var(--brand);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 @media(max-width:820px){
   .hero .wrap{grid-template-columns:1fr}
   .tk{display:none}.mtk{display:flex}
-  header{top:calc(env(safe-area-inset-top,0px) + 42px)}
+  header{top:42px}
   nav{display:none}
   .sidebar{transform:translateX(-100%);z-index:100}
   .sidebar.active{transform:translateX(0)}
@@ -120,51 +194,61 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
   .menu-toggle{display:block!important}
   section{padding:46px 0}
   .hero{padding:44px 0}
+  .form-row,.form-row-3,.form-row-4{grid-template-columns:1fr}
+  .filter-row{grid-template-columns:1fr}
 }
 .menu-toggle{display:none;background:var(--brand);color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
+@media print{body *{visibility:hidden}#printArea,#printArea *{visibility:visible}#printArea{position:absolute;left:0;top:0;width:100%;padding:20px}}
+.print-challan{background:#fff;padding:30px;border:2px solid #000;font-family:'Courier New',monospace}
+.print-challan h2{text-align:center;margin-bottom:10px}
+.print-challan table{width:100%;border-collapse:collapse;margin:15px 0}
+.print-challan table th,.print-challan table td{border:1px solid #000;padding:8px;font-size:12px;text-align:left}
+.print-challan .signatures{display:flex;justify-content:space-between;margin-top:50px}
+.print-challan .signature-box{width:45%;text-align:center;border-top:1px solid #000;padding-top:5px}
 </style>
 </head>
 <body>
 
-<!-- ============ PUBLIC WEBSITE VIEW ============ -->
+<!-- ============ PUBLIC WEBSITE ============ -->
 <div id="public-site">
-<div class="tkwrap" id="top">
- <div class="tk"><span class="tkc"></span><span class="tkc"></span></div>
- <div class="mtk"><b class="m1">🍄 TODAY —</b><b class="m2">…</b></div>
+<div class="tkwrap">
+ <div class="tk"><span class="tkc">🍄 CHAKADOLA MUSHROOM | Fresh Button Mushroom Supplier | Bhadrak, Odisha | Wholesale & Bulk Orders Available | Login for Live Prices | 📞 Contact Us Today</span><span class="tkc">🍄 CHAKADOLA MUSHROOM | Fresh Button Mushroom Supplier | Bhadrak, Odisha | Wholesale & Bulk Orders Available | Login for Live Prices | 📞 Contact Us Today</span></div>
+ <div class="mtk"><b class="m1">🍄 CHAKADOLA</b><b class="m2">Login for Prices</b></div>
 </div>
 <header><div class="wrap">
- <a class="logo" href="#" onclick="showPublic()">🍄 CHAKADOLA MUSHROOM</a>
+ <a class="logo" href="#" onclick="showPublic()">🍄 <span id="site-brand">CHAKADOLA MUSHROOM</span></a>
  <nav>
   <a href="#" onclick="scrollToId('home')">Home</a>
   <a href="#" onclick="scrollToId('about')">About</a>
   <a href="#" onclick="scrollToId('products')">Products</a>
-  <a href="#" onclick="scrollToId('price')">Live Price</a>
+  <a href="#" onclick="scrollToId('price')">Price</a>
   <a href="#" onclick="scrollToId('bulk')">Bulk Orders</a>
   <a href="#" onclick="scrollToId('contact')">Contact</a>
  </nav>
- <button class="btn" onclick="showLoginModal()">🔐 Dealer/Admin Login</button>
+ <button class="btn" onclick="showLoginModal()">🔐 Dealer Login</button>
 </div></header>
 
 <main>
 <div class="hero" id="home"><div class="wrap">
  <div>
-  <div class="eyebrow" style="color:#f0c56d">Odisha's premier mushroom farm</div>
-  <h1>Fresh Mushrooms. Naturally Grown. Professionally Delivered.</h1>
-  <p>Chakadola Mushroom produces fresh, hygienically cultivated button mushrooms for homes, restaurants, retailers, wholesalers and food businesses across Odisha.</p>
-  <p><a class="btn gold wa-link" href="#">BUY FRESH MUSHROOMS</a> &nbsp; <a class="btn alt wa-link" style="color:#fff;border-color:#fff" href="#">BULK ORDER</a></p>
+  <div class="eyebrow" style="color:#f0c56d" id="hero-eyebrow">Odisha's premier mushroom farm</div>
+  <h1 id="hero-title">Fresh Mushrooms. Naturally Grown. Professionally Delivered.</h1>
+  <p id="hero-subtitle">Chakadola Mushroom produces fresh, hygienically cultivated button mushrooms for homes, restaurants, retailers, wholesalers and food businesses across Odisha.</p>
+  <p><a class="btn gold call-link" href="#">📞 CALL US</a> &nbsp; <a class="btn alt" style="color:#fff;border-color:#fff" href="#" onclick="showLoginModal()">🔐 Dealer Login for Prices</a></p>
  </div>
  <div class="pricebox">
-  <small>🍄 TODAY'S LIVE PRICE</small>
-  <div class="big"><span class="p-retail">—</span><em> / KG</em></div>
-  <span class="pill p-status">Loading…</span>
-  <p class="sans" style="margin:12px 0 4px;font-size:.85rem">ORDER TIME <b class="ordertime">10:30 AM to 12:30 PM</b></p>
-  <p class="note p-upd"></p>
+  <small>🍄 LIVE PRICE STATUS</small>
+  <div class="lock-icon" style="font-size:3rem;margin:16px 0">🔒</div>
+  <div class="big" style="font-size:1.5rem;color:var(--warn)">Dealer Login Required</div>
+  <span class="pill lock">RESTRICTED ACCESS</span>
+  <p class="sans" style="margin:12px 0;font-size:.85rem;color:var(--mute)">Today's live prices are available only to registered dealers.</p>
+  <button class="btn" onclick="showLoginModal()" style="margin-top:10px">Login to View Prices</button>
  </div>
 </div></div>
 
 <section id="about"><div class="wrap" style="display:grid;gap:30px;grid-template-columns:1fr 1fr;align-items:center">
  <div><div class="eyebrow">About Us</div><h2>A professional mushroom farming enterprise</h2>
- <p>Chakadola Mushroom is focused on fresh button mushroom production in Bhadrak, Odisha. We grow, harvest, sort and pack with a simple aim: consistent, clean mushrooms delivered on time.</p></div>
+ <p id="about-text">Chakadola Mushroom is focused on fresh button mushroom production in Bhadrak, Odisha. We grow, harvest, sort and pack with a simple aim: consistent, clean mushrooms delivered on time.</p></div>
  <div class="grid" style="grid-template-columns:1fr 1fr">
   <div class="card">🌱 Professional cultivation</div><div class="card">🌡️ Controlled environment</div>
   <div class="card">🧼 Hygienic production</div><div class="card">✂️ Fresh harvesting</div>
@@ -175,28 +259,20 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
 <section id="products" style="background:var(--card)"><div class="wrap">
  <div class="eyebrow">Our Products</div><h2>What we supply</h2>
  <div class="grid">
-  <div class="card"><h3>Fresh Button Mushroom</h3><p>Freshly harvested mushrooms for household use.</p><div class="pr">Today: <span class="p-retail">—</span> / KG</div></div>
-  <div class="card"><h3>Wholesale Supply</h3><p>For retailers, supermarkets and vegetable shops.</p><div class="pr">Today: <span class="p-wholesale">—</span> / KG</div></div>
-  <div class="card"><h3>Bulk Commercial</h3><p>For hotels, restaurants, caterers and distributors.</p><div class="pr">Today: <span class="p-bulk">—</span> / KG</div></div>
+  <div class="card"><h3>Fresh Button Mushroom</h3><p>Freshly harvested mushrooms for household use.</p><div class="pr">Login for Today's Price</div></div>
+  <div class="card"><h3>Wholesale Supply</h3><p>For retailers, supermarkets and vegetable shops.</p><div class="pr">Login for Wholesale Price</div></div>
+  <div class="card"><h3>Bulk Commercial</h3><p>For hotels, restaurants, caterers and distributors.</p><div class="pr">Login for Bulk Price</div></div>
  </div>
 </div></section>
 
 <section id="price"><div class="wrap">
  <div class="eyebrow">Live Price</div><h2>Today's Mushroom Price</h2>
- <div class="card" style="text-align:center">
-  <div class="sans" style="font-weight:800;color:var(--brand)">🍄 CHAKADOLA MUSHROOM · TODAY'S FRESH BUTTON MUSHROOM PRICE</div>
-  <div class="big"><span class="p-retail">—</span><em> / KG</em></div>
-  <span class="pill p-status">Loading…</span> <span class="pill p-live">…</span>
-  <p class="note p-upd"></p>
-  <div class="scroll"><table style="max-width:460px;margin:10px auto"><tr><th>Price Type</th><th>Today's Rate</th></tr>
-   <tr><td>Retail</td><td class="p-retail">—</td></tr><tr><td>Wholesale</td><td class="p-wholesale">—</td></tr><tr><td>Bulk</td><td class="p-bulk">—</td></tr></table></div>
-  <p class="note p-notes"></p>
-  <a class="btn wa-link" href="#">ORDER NOW</a> <a class="btn alt call-link" href="#">CALL NOW</a>
- </div>
-
- <h3 style="margin-top:40px">Daily Price History</h3>
- <div class="card"><div id="chart"></div>
-  <div class="scroll"><table><thead><tr><th>Date</th><th>Product</th><th>Retail/Kg</th><th>Wholesale/Kg</th><th>Availability</th></tr></thead><tbody id="hist"></tbody></table></div>
+ <div class="locked-box">
+  <div class="lock-icon">🔐</div>
+  <h3>Restricted Access</h3>
+  <p>Today's live prices (Retail, Wholesale, Bulk) are exclusively available to registered dealers.</p>
+  <button class="btn" onclick="showLoginModal()" style="margin-top:14px">Login as Dealer to View</button>
+  <p class="note" style="margin-top:10px">Don't have a dealer account? <a href="#" onclick="scrollToId('contact')" style="color:var(--brand);font-weight:600">Contact us</a> to become a registered dealer.</p>
  </div>
 </div></section>
 
@@ -204,24 +280,24 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
  <div class="eyebrow" style="color:#f0c56d">Wholesale / B2B</div>
  <h2>Reliable Mushroom Supply for Your Business</h2>
  <div class="chips"><span>Hotels</span><span>Restaurants</span><span>Cafés</span><span>Caterers</span><span>Supermarkets</span><span>Retailers</span><span>Distributors</span></div>
- <p class="sans" style="font-size:1.2rem;font-weight:800">Today's Wholesale Price: <span class="p-wholesale">—</span> / KG</p>
- <a class="btn gold wa-link" href="#">REQUEST WHOLESALE PRICE</a>
+ <p class="sans" style="font-size:1.2rem;font-weight:800;margin-top:20px">Become a registered dealer for live wholesale pricing</p>
+ <a class="btn gold call-link" href="#" style="margin-top:14px">REQUEST DEALER ACCOUNT</a>
 </div></div></section>
 
 <section id="contact"><div class="wrap">
- <div class="eyebrow">Contact</div><h2>How to order</h2>
+ <div class="eyebrow">Contact</div><h2>How to reach us</h2>
  <div class="grid">
-  <div class="card"><h3>💬 WhatsApp</h3><p>Message us with today's price pre-filled.</p><a class="btn wa-link" href="#">ORDER ON WHATSAPP</a></div>
-  <div class="card"><h3>📞 Call</h3><p class="phone">Loading phone number...</p><a class="btn alt call-link" href="#">CALL NOW</a></div>
-  <div class="card"><h3>📍 Location</h3><p>Parabati/chatabar / Bhadrak, Odisha, India</p></div>
+  <div class="card"><h3>💬 WhatsApp</h3><p>Message us for inquiries.</p><a class="btn wa-link" href="#">CONTACT ON WHATSAPP</a></div>
+  <div class="card"><h3>📞 Call</h3><p class="phone" id="contact-phone">Loading...</p><a class="btn alt call-link" href="#">CALL NOW</a></div>
+  <div class="card"><h3>📍 Location</h3><p id="contact-address">Parabati/chatabar / Bhadrak, Odisha, India</p></div>
  </div>
 </div></section>
 </main>
 
 <footer><div class="wrap">
- <b>CHAKADOLA MUSHROOM</b> · Fresh button mushroom supplier · Bhadrak, Odisha<br>
- <span style="opacity:.7;font-size:.85rem">Today's mushroom price Odisha · Wholesale mushroom Odisha · Mushroom farm Odisha</span><br><br>
- <a href="#" onclick="showLoginModal()" style="color:var(--accent);font-size:.85rem">🔐 Admin / Dealer Login</a>
+ <b id="footer-brand">CHAKADOLA MUSHROOM</b> · Fresh button mushroom supplier · Bhadrak, Odisha<br>
+ <span style="opacity:.7;font-size:.85rem" id="footer-tagline">Today's mushroom price Odisha · Wholesale mushroom Odisha · Mushroom farm Odisha</span><br><br>
+ <a href="#" onclick="showLoginModal()" style="color:var(--accent);font-size:.85rem">🔐 Dealer / Admin Portal</a>
 </div></footer>
 </div>
 
@@ -229,6 +305,7 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
 <div class="modal-overlay" id="loginModal">
  <div class="modal">
   <div class="modal-header"><div class="modal-title">🔐 Portal Login</div><button class="modal-close" onclick="closeLoginModal()">×</button></div>
+  <div class="alert alert-info">💡 Dealers can view live prices and place orders. Admins manage the full portal.</div>
   <div class="form-group"><label>Username / Dealer Code</label><input type="text" class="form-control" id="loginUser" placeholder="admin or SHAR01"></div>
   <div class="form-group"><label>Password</label><input type="password" class="form-control" id="loginPass" placeholder="Enter password"></div>
   <button class="btn btn-block" onclick="doLogin()" style="margin-top:10px">Sign In</button>
@@ -236,19 +313,35 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
  </div>
 </div>
 
-<!-- ============ APP VIEW (DealerConnect Backend) ============ -->
+<!-- ============ PASSWORD MODAL ============ -->
+<div class="modal-overlay" id="passwordModal">
+ <div class="modal">
+  <div class="modal-header"><div class="modal-title">🔐 Update Dealer Password</div><button class="modal-close" onclick="closePasswordModal()">×</button></div>
+  <div class="alert alert-warning">🔒 <strong>Security:</strong> Only share with authorized personnel.</div>
+  <div class="form-group"><label>Dealer Name</label><input type="text" class="form-control" id="modalDealerName" readonly></div>
+  <div class="form-group"><label>Dealer Code</label><input type="text" class="form-control" id="modalDealerCode" readonly></div>
+  <div class="form-group"><label>New Password <span style="color:var(--danger)">*</span></label><input type="password" class="form-control" id="modalNewPassword" placeholder="Min 6 characters"></div>
+  <div class="form-group"><label>Confirm Password <span style="color:var(--danger)">*</span></label><input type="password" class="form-control" id="modalConfirmPassword"></div>
+  <div style="display:flex;gap:10px;margin-top:20px">
+   <button class="btn" style="flex:1" onclick="updateDealerPassword()">🔑 Update Password</button>
+   <button class="btn btn-outline" onclick="closePasswordModal()">Cancel</button>
+  </div>
+ </div>
+</div>
+
+<!-- ============ APP VIEW ============ -->
 <div class="app" id="app-site">
  <aside class="sidebar" id="sidebar">
-  <div class="logo" onclick="showPublic()" style="cursor:pointer">🍄 Chakadola <span style="color:#6fbf7d">Admin</span></div>
+  <div class="logo" onclick="showPublic()" style="cursor:pointer">🍄 Chakadola <span style="color:#6fbf7d">Pro</span></div>
   <ul class="nav-menu" id="navMenu"></ul>
-  <div style="padding:16px 24px;border-top:1px solid rgba(255,255,255,.1);font-size:11px;color:#64748b">v1.0 Unified System</div>
+  <div style="padding:16px 24px;border-top:1px solid rgba(255,255,255,.1);font-size:11px;color:#64748b">v2.0 Professional</div>
  </aside>
  <main class="main">
   <div class="topbar">
    <div>
     <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')" style="margin-right:12px">☰</button>
     <h1 id="pageTitle" style="font-size:20px;font-weight:700;margin:0">Dashboard</h1>
-    <p id="pageSubtitle" style="color:var(--mute);font-size:12px;margin:2px 0 0">FY: 2026-27</p>
+    <p id="pageSubtitle" style="color:var(--mute);font-size:12px;margin:2px 0 0">Professional Portal</p>
    </div>
    <div class="user-profile">
     <div class="avatar" id="userAvatar">A</div>
@@ -267,10 +360,12 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
    <div class="page" id="page-payments"></div>
    <div class="page" id="page-ledger"></div>
    <div class="page" id="page-dealers"></div>
+   <div class="page" id="page-website"></div>
    <div class="page" id="page-settings"></div>
    
    <!-- Dealer Pages -->
    <div class="page" id="page-d-dashboard"></div>
+   <div class="page" id="page-d-live-price"></div>
    <div class="page" id="page-d-place-order"></div>
    <div class="page" id="page-d-my-orders"></div>
    <div class="page" id="page-d-my-ledger"></div>
@@ -279,20 +374,29 @@ footer{background:var(--bar);color:#dfe8da;padding:36px 0 90px;font-family:sans-
  </main>
 </div>
 
-<div class="toast" id="toast">✓ Success</div>
+<div id="printArea" style="display:none"></div>
 
 <script>
 /* ============ DATA STORE ============ */
 const DB = {
   user: JSON.parse(localStorage.getItem('cm_user') || 'null'),
   settings: JSON.parse(localStorage.getItem('cm_settings') || 'null') || {
-    whatsapp: '919439059864', phone: '+91 9178861085', orderTime: '10:30 AM to 12:30 PM'
+    whatsapp: '919439059864', phone: '+91 9178861085', orderTime: '10:30 AM to 12:30 PM',
+    address: 'Parabati/chatabar / Bhadrak, Odisha, India'
+  },
+  website: JSON.parse(localStorage.getItem('cm_website') || 'null') || {
+    brand: 'CHAKADOLA MUSHROOM',
+    tagline: 'Today\'s mushroom price Odisha · Wholesale mushroom Odisha · Mushroom farm Odisha',
+    heroEyebrow: 'Odisha\'s premier mushroom farm',
+    heroTitle: 'Fresh Mushrooms. Naturally Grown. Professionally Delivered.',
+    heroSubtitle: 'Chakadola Mushroom produces fresh, hygienically cultivated button mushrooms for homes, restaurants, retailers, wholesalers and food businesses across Odisha.',
+    aboutText: 'Chakadola Mushroom is focused on fresh button mushroom production in Bhadrak, Odisha. We grow, harvest, sort and pack with a simple aim: consistent, clean mushrooms delivered on time.'
   },
   livePrices: JSON.parse(localStorage.getItem('cm_livePrices') || 'null') || [],
   dealers: JSON.parse(localStorage.getItem('cm_dealers') || 'null') || [
-    {id:1,name:'Sharma Traders',gstin:'27AABCU9603R1ZM',state:'Odisha',phone:'+91 98765 43210',dealerCode:'SHAR01',password:'dealer123',status:'active'},
-    {id:2,name:'Gupta Enterprises',gstin:'29BBBPD1234K1Z5',state:'Odisha',phone:'+91 98456 12345',dealerCode:'GUPT01',password:'dealer123',status:'active'},
-    {id:3,name:'Patel & Sons',gstin:'24CCCCQ5678L1Z2',state:'Odisha',phone:'+91 98123 45678',dealerCode:'PATE01',password:'dealer123',status:'active'}
+    {id:1,name:'Sharma Traders',gstin:'27AABCU9603R1ZM',state:'Odisha',phone:'+91 98765 43210',dealerCode:'SHAR01',password:'dealer123',email:'sharma@example.com',status:'active'},
+    {id:2,name:'Gupta Enterprises',gstin:'29BBBPD1234K1Z5',state:'Odisha',phone:'+91 98456 12345',dealerCode:'GUPT01',password:'dealer123',email:'gupta@example.com',status:'active'},
+    {id:3,name:'Patel & Sons',gstin:'24CCCCQ5678L1Z2',state:'Odisha',phone:'+91 98123 45678',dealerCode:'PATE01',password:'dealer123',email:'patel@example.com',status:'active'}
   ],
   orders: JSON.parse(localStorage.getItem('cm_orders') || 'null') || [],
   ledger: JSON.parse(localStorage.getItem('cm_ledger') || 'null') || [],
@@ -300,91 +404,52 @@ const DB = {
 };
 
 const TZ = 'Asia/Kolkata';
+const FILTERS = {orders:{fromDate:'',toDate:'',status:'all'},dispatch:{fromDate:'',toDate:'',status:'all'},ledger:{dealerId:'all',type:'all',fromDate:'',toDate:''}};
+let passwordVisibility = {};
+let currentPasswordDealerId = null;
+let orderItems = [];
+
 function dkey() { return new Intl.DateTimeFormat('en-CA', {timeZone:TZ}).format(new Date()); }
-function fD(k) { return new Date(k+'T12:00:00+05:30').toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric',timeZone:TZ}); }
-function fT(t) { return new Date(t).toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit',hour12:true,timeZone:TZ}).toUpperCase(); }
-function rs(v) { return (v||v===0)&&v!=='' ? '₹'+v : '—'; }
+function fD(k) { if(!k) return '-'; try { return new Date(k+'T12:00:00+05:30').toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric',timeZone:TZ}); } catch(e) { return k; } }
+function fT(t) { if(!t) return '-'; try { return new Date(t).toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit',hour12:true,timeZone:TZ}).toUpperCase(); } catch(e) { return t; } }
+function rs(v) { return (v||v===0)&&v!=='' ? '₹'+v.toLocaleString('en-IN') : '—'; }
 function save() {
-  Object.entries({cm_settings:DB.settings, cm_livePrices:DB.livePrices, cm_dealers:DB.dealers, cm_orders:DB.orders, cm_ledger:DB.ledger, cm_payments:DB.payments})
+  Object.entries({cm_settings:DB.settings, cm_website:DB.website, cm_livePrices:DB.livePrices, cm_dealers:DB.dealers, cm_orders:DB.orders, cm_ledger:DB.ledger, cm_payments:DB.payments})
   .forEach(([k,v]) => localStorage.setItem(k, JSON.stringify(v)));
 }
+const fmt = n => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',minimumFractionDigits:2}).format(n||0);
+const isRegisteredDealer = d => d && d.gstin && d.gstin.length === 15;
+const isDealerActive = d => d && d.status !== 'inactive';
 
-const AV = {available:['🟢 AVAILABLE','','Available'], limited:['🟡 LIMITED STOCK','y','Limited'], soldout:['🔴 SOLD OUT','r','Sold Out']};
+const AV = {available:['🟢 AVAILABLE','Available'], limited:['🟡 LIMITED','Limited'], soldout:['🔴 SOLD OUT','Sold Out']};
 function cur() { const k=dkey(); return DB.livePrices.find(p => p.date===k); }
-function set(sel, txt) { document.querySelectorAll(sel).forEach(e => e.textContent = txt); }
 
-/* ============ PUBLIC SITE RENDER ============ */
+/* ============ PUBLIC SITE ============ */
 function renderPublic() {
-  const t = cur(), ot = DB.settings.orderTime || '10:30 AM to 12:30 PM', a = t ? AV[t.availability] : AV.available;
-  set('.p-retail', t ? rs(t.retail) : '—');
-  set('.p-wholesale', t ? rs(t.wholesale) : '—');
-  set('.p-bulk', t ? rs(t.bulk) : '—');
-  set('.ordertime', ot);
+  // Apply website content
+  document.getElementById('site-brand').textContent = DB.website.brand;
+  document.getElementById('footer-brand').textContent = DB.website.brand;
+  document.getElementById('footer-tagline').textContent = DB.website.tagline;
+  document.getElementById('hero-eyebrow').textContent = DB.website.heroEyebrow;
+  document.getElementById('hero-title').textContent = DB.website.heroTitle;
+  document.getElementById('hero-subtitle').textContent = DB.website.heroSubtitle;
+  document.getElementById('about-text').textContent = DB.website.aboutText;
+  document.getElementById('contact-address').textContent = DB.settings.address;
   
-  const st = t ? a[0] : '🟡 TODAY\'S PRICE WILL BE UPDATED SOON';
-  document.querySelectorAll('.p-status').forEach(e => { e.textContent = st; e.className = 'pill p-status ' + (t ? a[1] : 'y'); });
-  document.querySelectorAll('.p-live').forEach(e => { e.textContent = t ? '🟢 LIVE TODAY' : 'PREVIOUS DAY PRICES IN HISTORY ONLY'; e.className = 'pill p-live' + (t ? '' : ' y'); });
-  set('.p-upd', t ? 'Last Updated: ' + fD(t.date) + ' | ' + fT(t.updatedAt) : 'Last Updated: awaiting today\'s update');
-  set('.p-notes', t && t.notes ? t.notes : '');
-  
-  const tick = t ? '🍄 CHAKADOLA MUSHROOM | TODAY\'S PRICE '+rs(t.retail)+'/KG | 🟢 LIVE | WHOLESALE '+rs(t.wholesale)+'/KG | '+a[0]+' | ORDER TIME: '+ot+' | '+fD(t.date) : '🍄 CHAKADOLA MUSHROOM | 🟡 TODAY\'S PRICE WILL BE UPDATED SOON | FRESH BUTTON MUSHROOM | BULK ORDERS AVAILABLE';
-  set('.tkc', tick);
-  const m1 = document.querySelector('.m1'), m2 = document.querySelector('.m2');
-  if(m1) m1.textContent = '🍄 TODAY';
-  if(m2) m2.textContent = t ? rs(t.retail)+'/KG | LIVE 🟢' : 'PRICE SOON 🟡';
-
-  // WhatsApp & Call Links
+  // WhatsApp/Call
   const n = (DB.settings.whatsapp || '').replace(/\D/g, '');
-  const m = t ? `Hello Chakadola Mushroom, today's fresh button mushroom price is ${rs(t.retail)}/KG. I would like to place an order.` : `Hello Chakadola Mushroom, I would like to place an order for fresh button mushroom.`;
+  const m = `Hello ${DB.website.brand}, I am interested in fresh button mushrooms. Please share today's price.`;
   const waUrl = n ? `https://wa.me/${n}?text=${encodeURIComponent(m)}` : '#contact';
   document.querySelectorAll('.wa-link').forEach(e => { e.href = waUrl; e.target = '_blank'; e.rel = 'noopener'; });
   
   if (DB.settings.phone) {
     const tel = 'tel:' + DB.settings.phone.replace(/[^\d+]/g, '');
     document.querySelectorAll('.call-link').forEach(e => e.href = tel);
-    set('.phone', DB.settings.phone);
+    document.getElementById('contact-phone').textContent = DB.settings.phone;
   }
-  
-  renderHistory();
 }
 
-function renderHistory() {
-  const b = document.getElementById('hist'); if(!b) return;
-  b.innerHTML = '';
-  const sorted = [...DB.livePrices].sort((a,b) => b.date.localeCompare(a.date));
-  if (!sorted.length) { b.innerHTML = '<tr><td colspan="5">No price records yet.</td></tr>'; renderChart(); return; }
-  
-  sorted.forEach(p => {
-    const tr = document.createElement('tr');
-    const a = (AV[p.availability] || AV.available)[2].trim();
-    [fD(p.date), 'Button Mushroom', rs(p.retail), rs(p.wholesale), a].forEach(v => {
-      const td = document.createElement('td'); td.textContent = v; tr.appendChild(td);
-    });
-    b.appendChild(tr);
-  });
-  renderChart();
-}
-
-function renderChart() {
-  const d = [...DB.livePrices].sort((a,b) => a.date.localeCompare(b.date)).slice(-14).filter(p => p.retail != null && p.retail !== '');
-  const el = document.getElementById('chart'); if(!el) return;
-  if (d.length < 2) { el.innerHTML = '<p class="note">The price chart appears once two or more days are recorded.</p>'; return; }
-  
-  const W = 640, H = 180, P = 30;
-  const v = d.map(p => +p.retail);
-  const mn = Math.min(...v) - 5, mx = Math.max(...v) + 5;
-  const pts = d.map((p, i) => [P + i * (W - 2 * P) / (d.length - 1), H - P - ((p.retail - mn) / (mx - mn)) * (H - 2 * P)]);
-  
-  let s = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" role="img" aria-label="Daily price movement chart"><polyline fill="none" stroke="var(--brand)" stroke-width="3" points="${pts.map(q => q.join(',')).join(' ')}"/>`;
-  pts.forEach((q, i) => {
-    s += `<circle cx="${q[0]}" cy="${q[1]}" r="4" fill="var(--accent)"/>`;
-    s += `<text x="${q[0]}" y="${q[1]-9}" font-size="11" text-anchor="middle" fill="currentColor">${d[i].retail}</text>`;
-    s += `<text x="${q[0]}" y="${H-8}" font-size="9" text-anchor="middle" fill="var(--mute)">${d[i].date.slice(5)}</text>`;
-  });
-  el.innerHTML = s + '</svg>';
-}
-
-/* ============ NAVIGATION & AUTH ============ */
+/* ============ NAVIGATION ============ */
 function showPublic() {
   document.getElementById('public-site').style.display = 'block';
   document.getElementById('app-site').classList.remove('active');
@@ -428,10 +493,11 @@ function showApp() {
   document.getElementById('app-site').classList.add('active');
   document.getElementById('userName').textContent = DB.user.name;
   document.getElementById('userAvatar').textContent = DB.user.name.charAt(0).toUpperCase();
+  document.getElementById('userRole').textContent = DB.user.role === 'admin' ? 'Administrator' : 'Authorized Dealer';
   
   buildNavMenu();
   if (DB.user.role === 'admin') {
-    document.getElementById('pageSubtitle').textContent = `Live Price: ${cur() ? rs(cur().retail)+'/KG' : 'Not Set Today'}`;
+    document.getElementById('pageSubtitle').textContent = `FY: 2026-27 | ${DB.website.brand}`;
     navigateTo('dashboard');
   } else {
     document.getElementById('pageSubtitle').textContent = `Dealer: ${DB.user.dealerCode}`;
@@ -444,23 +510,25 @@ function buildNavMenu() {
   if (DB.user.role === 'admin') {
     menu.innerHTML = `
       <li><a class="active" data-page="dashboard">📊 Dashboard</a></li>
-      <li><a data-page="live-price">💰 Set Live Daily Price</a></li>
+      <li><a data-page="live-price">💰 Live Price Manager</a></li>
       <li><a data-page="orders">📝 Order Approvals</a></li>
       <li><a data-page="dispatch">🚚 Dispatch Management</a></li>
       <li><a data-page="payments">💳 Payment Approvals</a></li>
       <li><a data-page="ledger">📒 General Ledger</a></li>
       <li><a data-page="dealers">👥 Dealer Management</a></li>
-      <li><a data-page="settings">⚙️ Website Settings</a></li>
-      <li><a onclick="showPublic()" style="margin-top:20px;border-top:1px solid rgba(255,255,255,.1);padding-top:16px">🌐 View Public Website</a></li>
+      <li><a data-page="website">🌐 Website Content</a></li>
+      <li><a data-page="settings">⚙️ Settings</a></li>
+      <li><a onclick="showPublic()" style="margin-top:20px;border-top:1px solid rgba(255,255,255,.1);padding-top:16px">🌐 View Public Site</a></li>
     `;
   } else {
     menu.innerHTML = `
       <li><a class="active" data-page="d-dashboard">🏠 My Dashboard</a></li>
-      <li><a data-page="d-place-order">📝 Place New Order</a></li>
+      <li><a data-page="d-live-price">💰 Today's Live Price</a></li>
+      <li><a data-page="d-place-order">📝 Place Order</a></li>
       <li><a data-page="d-my-orders">📦 My Orders</a></li>
       <li><a data-page="d-my-ledger">📒 My Ledger</a></li>
       <li><a data-page="d-profile">👤 My Profile</a></li>
-      <li><a onclick="showPublic()" style="margin-top:20px;border-top:1px solid rgba(255,255,255,.1);padding-top:16px">🌐 View Public Website</a></li>
+      <li><a onclick="showPublic()" style="margin-top:20px;border-top:1px solid rgba(255,255,255,.1);padding-top:16px">🌐 Public Site</a></li>
     `;
   }
   
@@ -483,33 +551,49 @@ function navigateTo(page) {
   if (el) el.classList.add('active');
   
   const titles = {
-    'dashboard': 'Admin Dashboard', 'live-price': 'Set Live Daily Price', 'orders': 'Order Approvals',
-    'dispatch': 'Dispatch Management', 'payments': 'Payment Approvals', 'ledger': 'General Ledger',
-    'dealers': 'Dealer Management', 'settings': 'Website Settings',
-    'd-dashboard': 'My Dashboard', 'd-place-order': 'Place New Order', 'd-my-orders': 'My Orders',
-    'd-my-ledger': 'My Ledger', 'd-profile': 'My Profile'
+    'dashboard':'Admin Dashboard','live-price':'Live Price Manager','orders':'Order Approvals',
+    'dispatch':'Dispatch Management','payments':'Payment Approvals','ledger':'General Ledger',
+    'dealers':'Dealer Management','website':'Website Content Manager','settings':'Settings',
+    'd-dashboard':'My Dashboard','d-live-price':"Today's Live Price",'d-place-order':'Place New Order',
+    'd-my-orders':'My Orders','d-my-ledger':'My Ledger','d-profile':'My Profile'
   };
   document.getElementById('pageTitle').textContent = titles[page] || 'Dashboard';
   
   const renderers = {
-    'dashboard': renderAdminDashboard, 'live-price': renderLivePriceAdmin, 'orders': renderOrders,
-    'dispatch': renderDispatch, 'payments': renderPayments, 'ledger': renderLedger,
-    'dealers': renderDealers, 'settings': renderSettings,
-    'd-dashboard': renderDealerDashboard, 'd-place-order': renderDealerPlaceOrder,
-    'd-my-orders': renderDealerMyOrders, 'd-my-ledger': renderDealerLedger, 'd-profile': renderDealerProfile
+    'dashboard':renderAdminDashboard,'live-price':renderLivePriceAdmin,'orders':renderOrders,
+    'dispatch':renderDispatch,'payments':renderPayments,'ledger':renderLedger,
+    'dealers':renderDealers,'website':renderWebsiteManager,'settings':renderSettings,
+    'd-dashboard':renderDealerDashboard,'d-live-price':renderDealerLivePrice,
+    'd-place-order':renderDealerPlaceOrder,'d-my-orders':renderDealerMyOrders,
+    'd-my-ledger':renderDealerLedger,'d-profile':renderDealerProfile
   };
   if (renderers[page]) renderers[page]();
 }
 
 function toast(msg, type='success') {
-  const t = document.getElementById('toast');
-  t.textContent = (type==='error'?'⚠️ ':'✅ ') + msg;
-  t.style.display = 'block';
-  setTimeout(() => t.style.display = 'none', 3000);
+  const t = document.createElement('div');
+  t.className = 'toast' + (type==='error' ? ' error' : '');
+  t.innerHTML = (type==='error'?'⚠️ ':'✅ ') + msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
 }
 
 function scrollToId(id) {
   document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+}
+
+/* ============ EXCEL EXPORT ============ */
+function exportToExcel(data, filename, sheetName='Sheet1') {
+  if (typeof XLSX === 'undefined') { toast('Excel library not loaded','error'); return; }
+  try {
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+    const cols = Object.keys(data[0] || {}).map(k => ({wch: Math.min(Math.max(k.length, ...data.map(r => String(r[k] || '').length)) + 2, 40)}));
+    ws['!cols'] = cols;
+    XLSX.writeFile(wb, `${filename}.xlsx`);
+    toast(`✅ Exported: ${filename}.xlsx`);
+  } catch(e) { toast('Export failed: '+e.message, 'error'); }
 }
 
 /* ============ ADMIN: DASHBOARD ============ */
@@ -518,21 +602,36 @@ function renderAdminDashboard() {
   const pendingOrders = DB.orders.filter(o => o.status === 'pending').length;
   const pendingPayments = DB.payments.filter(p => p.status === 'pending').length;
   const totalSales = DB.orders.filter(o => o.status !== 'rejected').reduce((s, o) => s + o.total, 0);
+  const readyDispatch = DB.orders.filter(o => o.status === 'approved').length;
+  const activeDealers = DB.dealers.filter(d => d.status === 'active').length;
   
   document.getElementById('page-dashboard').innerHTML = `
+    <div class="alert alert-success">👋 Welcome back, <strong>${DB.user.name}</strong>! Here's your business overview.</div>
     <div class="stats-grid">
-      <div class="stat-card"><h3>Today's Price</h3><div class="value">${t ? rs(t.retail)+'/KG' : 'Not Set'}</div><div class="sub">${t ? t.availability : 'Awaiting update'}</div></div>
-      <div class="stat-card warning"><h3>Pending Orders</h3><div class="value">${pendingOrders}</div></div>
-      <div class="stat-card"><h3>Pending Payments</h3><div class="value">${pendingPayments}</div></div>
-      <div class="stat-card success"><h3>Total Order Value</h3><div class="value">${rs(totalSales)}</div></div>
+      <div class="stat-card"><h3>Today's Live Price</h3><div class="value">${t ? rs(t.retail)+'/KG' : 'Not Set'}</div><div class="sub">${t ? AV[t.availability]?.[1] || t.availability : 'Awaiting update'}</div></div>
+      <div class="stat-card success"><h3>Total Sales</h3><div class="value">${fmt(totalSales)}</div><div class="sub">${DB.orders.length} orders</div></div>
+      <div class="stat-card warning"><h3>Pending Orders</h3><div class="value">${pendingOrders}</div><div class="sub">Awaiting approval</div></div>
+      <div class="stat-card info"><h3>Ready to Dispatch</h3><div class="value">${readyDispatch}</div><div class="sub">Approved orders</div></div>
+      <div class="stat-card"><h3>Pending Payments</h3><div class="value">${pendingPayments}</div><div class="sub">Awaiting approval</div></div>
+      <div class="stat-card success"><h3>Active Dealers</h3><div class="value">${activeDealers}</div><div class="sub">of ${DB.dealers.length} total</div></div>
     </div>
-    <div class="card">
-      <div class="card-title">Quick Actions</div>
-      <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <button class="btn" onclick="navigateTo('live-price')">💰 Update Today's Price</button>
-        <button class="btn btn-outline" onclick="navigateTo('orders')">📝 Review Orders</button>
-        <button class="btn btn-outline" onclick="navigateTo('dealers')">👥 Manage Dealers</button>
-     0</div>
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="card">
+        <div class="card-title">⚡ Quick Actions</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button class="btn" onclick="navigateTo('live-price')">💰 Update Live Price</button>
+          <button class="btn btn-outline" onclick="navigateTo('orders')">📝 Review Orders (${pendingOrders})</button>
+          <button class="btn btn-outline" onclick="navigateTo('dispatch')">🚚 Manage Dispatch (${readyDispatch})</button>
+          <button class="btn btn-outline" onclick="navigateTo('payments')">💳 Approve Payments (${pendingPayments})</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📈 Recent Activity</div>
+        ${DB.orders.slice(-5).reverse().map(o => {
+          const sb = {'pending':'<span class="badge warning">⏳</span>','approved':'<span class="badge success">✅</span>','dispatched':'<span class="badge dispatch">🚚</span>','delivered':'<span class="badge info">📦</span>','rejected':'<span class="badge danger">❌</span>'}[o.status];
+          return `<div style="padding:8px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;font-size:12px"><div>${o.orderNo} <small style="color:var(--mute)">${fD(o.date)}</small></div><div><strong>${fmt(o.total)}</strong> ${sb}</div></div>`;
+        }).join('') || '<div class="note" style="text-align:center;padding:20px">No recent activity</div>'}
+      </div>
     </div>
   `;
 }
@@ -541,16 +640,14 @@ function renderAdminDashboard() {
 function renderLivePriceAdmin() {
   const t = cur();
   document.getElementById('page-live-price').innerHTML = `
-    <div class="alert" style="background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;padding:16px;border-radius:8px;margin-bottom:20px">
-      💡 <strong>Live Pricing:</strong> Update today's mushroom prices. This will instantly reflect on the public website and dealer portals.
-    </div>
+    <div class="alert alert-info">💡 <strong>Important:</strong> Live prices are visible ONLY to registered dealers who are logged in. Public visitors cannot see prices.</div>
     <div class="card">
-      <div class="card-title">Set Today's Price (${fD(dkey())})</div>
-      <form id="priceForm" onsubmit="saveLivePrice(event)">
+      <div class="card-title">💰 Set Today's Price <span class="badge primary">${fD(dkey())}</span></div>
+      <form onsubmit="saveLivePrice(event)">
         <div class="form-row-3">
-          <div class="form-group"><label>Retail Price / KG (₹)</label><input type="number" class="form-control" name="retail" value="${t?t.retail:''}" min="0" required></div>
-          <div class="form-group"><label>Wholesale Price / KG (₹)</label><input type="number" class="form-control" name="wholesale" value="${t?t.wholesale:''}" min="0"></div>
-          <div class="form-group"><label>Bulk Price / KG (₹)</label><input type="number" class="form-control" name="bulk" value="${t?t.bulk:''}" min="0"></div>
+          <div class="form-group"><label>Retail Price / KG (₹) <span style="color:var(--danger)">*</span></label><input type="number" class="form-control" name="retail" value="${t?t.retail:''}" min="0" step="1" required></div>
+          <div class="form-group"><label>Wholesale / KG (₹)</label><input type="number" class="form-control" name="wholesale" value="${t?t.wholesale:''}" min="0" step="1"></div>
+          <div class="form-group"><label>Bulk / KG (₹)</label><input type="number" class="form-control" name="bulk" value="${t?t.bulk:''}" min="0" step="1"></div>
         </div>
         <div class="form-row">
           <div class="form-group"><label>Availability</label>
@@ -567,13 +664,15 @@ function renderLivePriceAdmin() {
     </div>
     
     <div class="card" style="margin-top:24px">
-      <div class="card-title">Price History <button class="btn btn-sm btn-outline" onclick="exportPriceHistory()">📥 Export Excel</button></div>
+      <div class="card-title">📜 Price History
+        <button class="btn btn-sm btn-excel" onclick="exportPriceHistory()">📥 Export Excel</button>
+      </div>
       <div class="table-wrapper">
-        <table><thead><tr><th>Date</th><th>Retail</th><th>Wholesale</th><th>Bulk</th><th>Availability</th><th>Updated At</th></tr></thead>
+        <table><thead><tr><th>Date</th><th>Product</th><th>Retail</th><th>Wholesale</th><th>Bulk</th><th>Availability</th><th>Updated</th></tr></thead>
         <tbody>${[...DB.livePrices].sort((a,b)=>b.date.localeCompare(a.date)).map(p => `
-          <tr><td>${fD(p.date)}</td><td>${rs(p.retail)}</td><td>${rs(p.wholesale)}</td><td>${rs(p.bulk)}</td>
+          <tr><td>${fD(p.date)}</td><td>${p.product||'Button Mushroom'}</td><td><strong>${rs(p.retail)}</strong></td><td>${rs(p.wholesale)}</td><td>${rs(p.bulk)}</td>
           <td>${AV[p.availability]?AV[p.availability][0]:p.availability}</td><td>${fT(p.updatedAt)}</td></tr>
-        `).join('') || '<tr><td colspan="6" class="text-center">No records</td></tr>'}</tbody></table>
+        `).join('') || '<tr><td colspan="7" style="text-align:center;padding:30px">No records</td></tr>'}</tbody></table>
       </div>
     </div>
   `;
@@ -598,184 +697,426 @@ function saveLivePrice(e) {
   else DB.livePrices.push(newPrice);
   
   save();
-  toast('✓ Live Price Published Successfully');
+  toast('✅ Live Price Published Successfully');
   renderLivePriceAdmin();
-  renderPublic(); // Update public site in background
 }
 
 function exportPriceHistory() {
-  if (!DB.livePrices.length) { toast('No data', 'error'); return; }
-  const data = DB.livePrices.map(p => ({
-    'Date': fD(p.date), 'Product': p.product, 'Retail': p.retail, 'Wholesale': p.wholesale, 'Bulk': p.bulk, 'Availability': p.availability, 'Notes': p.notes
-  }));
-  const ws = XLSX.utils.json_to_sheet(data);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Price History');
-  XLSX.writeFile(wb, `mushroom_prices_${dkey()}.xlsx`);
-  toast('✓ Exported');
+  if (!DB.livePrices.length) { toast('No data','error'); return; }
+  exportToExcel(DB.livePrices.map(p => ({
+    'Date': fD(p.date), 'Product': p.product, 'Retail (₹)': p.retail, 'Wholesale (₹)': p.wholesale, 'Bulk (₹)': p.bulk, 'Availability': p.availability, 'Notes': p.notes, 'Updated At': fT(p.updatedAt)
+  })), `mushroom_prices_${dkey()}`, 'Price History');
 }
 
-/* ============ ADMIN: ORDERS ============ */
+/* ============ ADMIN: ORDER APPROVALS (with Date Filter & Excel) ============ */
 function renderOrders() {
-  const pending = DB.orders.filter(o => o.status === 'pending').reverse();
-  const processed = DB.orders.filter(o => o.status !== 'pending').reverse().slice(0, 10);
+  // Apply filters
+  let filtered = [...DB.orders];
+  if (FILTERS.orders.fromDate) filtered = filtered.filter(o => o.date >= FILTERS.orders.fromDate);
+  if (FILTERS.orders.toDate) filtered = filtered.filter(o => o.date <= FILTERS.orders.toDate);
+  if (FILTERS.orders.status !== 'all') filtered = filtered.filter(o => o.status === FILTERS.orders.status);
+  
+  const pending = filtered.filter(o => o.status === 'pending').reverse();
+  const others = filtered.filter(o => o.status !== 'pending').reverse();
+  const totalValue = filtered.reduce((s,o) => s+o.total, 0);
   
   document.getElementById('page-orders').innerHTML = `
-    <div class="card"><div class="card-title">Pending Orders <span class="badge warning">${pending.length}</span></div>
-      ${pending.length ? pending.map(o => renderOrderCard(o, true)).join('') : '<div class="empty">No pending orders</div>'}
+    <div class="card">
+      <div class="card-title">📝 Order Approvals <span class="badge primary">${filtered.length} orders</span>
+        <button class="btn btn-sm btn-excel" onclick="exportOrdersExcel()">📥 Export Excel</button>
+      </div>
+      
+      <div class="filter-bar">
+        <div class="filter-bar-title">🔍 Filter Orders</div>
+        <div class="filter-row">
+          <div class="filter-group"><label>From Date</label><input type="date" id="orderFrom" value="${FILTERS.orders.fromDate}" onchange="applyOrderFilter()"></div>
+          <div class="filter-group"><label>To Date</label><input type="date" id="orderTo" value="${FILTERS.orders.toDate}" onchange="applyOrderFilter()"></div>
+          <div class="filter-group"><label>Status</label>
+            <select id="orderStatus" onchange="applyOrderFilter()">
+              <option value="all" ${FILTERS.orders.status==='all'?'selected':''}>All Status</option>
+              <option value="pending" ${FILTERS.orders.status==='pending'?'selected':''}>Pending</option>
+              <option value="approved" ${FILTERS.orders.status==='approved'?'selected':''}>Approved</option>
+              <option value="dispatched" ${FILTERS.orders.status==='dispatched'?'selected':''}>Dispatched</option>
+              <option value="delivered" ${FILTERS.orders.status==='delivered'?'selected':''}>Delivered</option>
+              <option value="rejected" ${FILTERS.orders.status==='rejected'?'selected':''}>Rejected</option>
+            </select>
+          </div>
+          <div class="filter-group"><label>&nbsp;</label><button class="btn btn-outline btn-sm btn-block" onclick="resetOrderFilter()">🔄 Reset</button></div>
+        </div>
+        <div class="quick-filters">
+          <span class="quick-filter" onclick="setOrderQuickFilter('today')">Today</span>
+          <span class="quick-filter" onclick="setOrderQuickFilter('week')">This Week</span>
+          <span class="quick-filter" onclick="setOrderQuickFilter('month')">This Month</span>
+          <span class="quick-filter" onclick="setOrderQuickFilter('year')">This FY</span>
+        </div>
+      </div>
+      
+      <div class="summary-bar">
+        <div class="summary-bar-item"><span class="summary-bar-label">Filtered Orders</span><span class="summary-bar-value">${filtered.length}</span></div>
+        <div class="summary-bar-item"><span class="summary-bar-label">Pending</span><span class="summary-bar-value">${pending.length}</span></div>
+        <div class="summary-bar-item"><span class="summary-bar-label">Total Value</span><span class="summary-bar-value">${fmt(totalValue)}</span></div>
+      </div>
     </div>
-    <div class="card"><div class="card-title">Recently Processed</div>
-      ${processed.length ? processed.map(o => renderOrderCard(o, false)).join('') : '<div class="empty">None yet</div>'}
-    </div>
+    
+    ${pending.length ? `<div class="card"><div class="card-title">⏳ Pending Orders (${pending.length})</div>${pending.map(o => renderOrderCard(o, true)).join('')}</div>` : ''}
+    ${others.length ? `<div class="card"><div class="card-title">📋 Other Orders (${others.length})</div>${others.slice(0,20).map(o => renderOrderCard(o, false)).join('')}</div>` : ''}
+    ${!filtered.length ? '<div class="card"><div class="empty">No orders match the filter criteria</div></div>' : ''}
   `;
 }
 
 function renderOrderCard(o, isPending) {
   const d = DB.dealers.find(x => x.id === o.dealerId);
   const statusBadge = {
-    'pending': '<span class="badge warning">⏳ Pending</span>',
-    'approved': '<span class="badge success">✅ Approved</span>',
-    'dispatched': '<span class="badge dispatch">🚚 Dispatched</span>',
-    'delivered': '<span class="badge info">📦 Delivered</span>',
-    'rejected': '<span class="badge danger">❌ Rejected</span>'
+    'pending':'<span class="badge warning">⏳ Pending</span>',
+    'approved':'<span class="badge success">✅ Approved</span>',
+    'dispatched':'<span class="badge dispatch">🚚 Dispatched</span>',
+    'delivered':'<span class="badge info">📦 Delivered</span>',
+    'rejected':'<span class="badge danger">❌ Rejected</span>'
   }[o.status];
   
   let actions = '';
   if (isPending) {
-    actions = `<div style="display:flex;gap:8px;margin-top:12px">
+    actions = `<div class="order-actions">
       <input type="text" class="form-control" id="rm-${o.id}" placeholder="Remarks (required for reject)" style="flex:1">
       <button class="btn btn-sm btn-success" onclick="approveOrder(${o.id})">✅ Approve</button>
       <button class="btn btn-sm btn-danger" onclick="rejectOrder(${o.id})">❌ Reject</button>
     </div>`;
   }
   
-  return `<div class="card" style="margin-bottom:12px;border-left:4px solid ${o.status==='pending'?'var(--warn)':o.status==='approved'?'var(--success)':'var(--mute)'}">
-    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
-      <div><strong>${o.orderNo}</strong> ${statusBadge}<br><span style="font-size:12px;color:var(--mute)">${d?.name || 'Unknown'} • ${fD(o.date)}</span></div>
-      <div style="text-align:right"><strong style="font-size:1.2rem;color:var(--brand)">${rs(o.total)}</strong></div>
+  return `<div class="order-card" style="border-left:4px solid ${o.status==='pending'?'var(--warn)':o.status==='approved'?'var(--success)':'var(--mute)'}">
+    <div class="order-header">
+      <div><div class="order-no">${o.orderNo} ${statusBadge}</div>
+      <div class="order-meta"><strong>${d?.name || 'Unknown'}</strong><br>Placed: ${fD(o.date)} ${o.time||''} ${o.invoiceNo?'<br>Invoice: '+o.invoiceNo:''} ${o.challanNo?'<br>Challan: '+o.challanNo:''}</div></div>
+      <div style="text-align:right"><div class="order-total">${fmt(o.total)}</div><div style="font-size:11px;color:var(--mute);margin-top:4px">${o.items.reduce((s,i)=>s+i.qty,0)} items</div></div>
     </div>
-    <div style="background:var(--bg);padding:12px;border-radius:8px;margin:10px 0;font-size:13px">
-      ${o.items.map(it => `• ${it.name} × ${it.qty} @ ${rs(it.rate)}`).join('<br>')}
-    </div>
-    ${o.remarks ? `<div style="font-size:12px;color:var(--mute)"><strong>Remarks:</strong> ${o.remarks}</div>` : ''}
+    <div class="order-items"><strong>Items:</strong><br>${o.items.map(it => `• ${it.name} × ${it.qty} KG @ ${rs(it.rate)} = ${fmt(it.qty*it.rate)}`).join('<br>')}</div>
+    ${o.notes ? `<div style="font-size:12px;color:var(--mute);margin-top:6px"><strong>Notes:</strong> ${o.notes}</div>` : ''}
+    ${o.remarks ? `<div style="font-size:12px;color:var(--mute);margin-top:4px"><strong>Remarks:</strong> ${o.remarks}</div>` : ''}
     ${actions}
   </div>`;
 }
 
+function applyOrderFilter() {
+  FILTERS.orders.fromDate = document.getElementById('orderFrom').value;
+  FILTERS.orders.toDate = document.getElementById('orderTo').value;
+  FILTERS.orders.status = document.getElementById('orderStatus').value;
+  renderOrders();
+}
+
+function resetOrderFilter() {
+  FILTERS.orders = {fromDate:'',toDate:'',status:'all'};
+  renderOrders();
+}
+
+function setOrderQuickFilter(range) {
+  const n = new Date();
+  let from = '';
+  const to = dkey();
+  if (range === 'today') from = dkey();
+  else if (range === 'week') { const d = new Date(n); d.setDate(d.getDate() - d.getDay()); from = d.toISOString().split('T')[0]; }
+  else if (range === 'month') from = new Date(n.getFullYear(), n.getMonth(), 1).toISOString().split('T')[0];
+  else if (range === 'year') { const fyStart = n.getMonth() < 3 ? n.getFullYear()-1 : n.getFullYear(); from = `${fyStart}-04-01`; }
+  FILTERS.orders.fromDate = from;
+  FILTERS.orders.toDate = to;
+  renderOrders();
+}
+
+function exportOrdersExcel() {
+  let filtered = [...DB.orders];
+  if (FILTERS.orders.fromDate) filtered = filtered.filter(o => o.date >= FILTERS.orders.fromDate);
+  if (FILTERS.orders.toDate) filtered = filtered.filter(o => o.date <= FILTERS.orders.toDate);
+  if (FILTERS.orders.status !== 'all') filtered = filtered.filter(o => o.status === FILTERS.orders.status);
+  
+  if (!filtered.length) { toast('No data to export','error'); return; }
+  
+  exportToExcel(filtered.map(o => {
+    const d = DB.dealers.find(x => x.id === o.dealerId);
+    return {
+      'Order No': o.orderNo, 'Date': fD(o.date), 'Time': o.time || '',
+      'Dealer': d?.name || 'Unknown', 'Dealer Code': d?.dealerCode || '',
+      'Items': o.items.map(i => `${i.name}×${i.qty}`).join('; '),
+      'Total Qty (KG)': o.items.reduce((s,i) => s+i.qty, 0),
+      'Total Amount (₹)': o.total, 'Status': o.status,
+      'Invoice No': o.invoiceNo || '', 'Challan No': o.challanNo || '',
+      'Dispatch Date': o.dispatchDate ? fD(o.dispatchDate) : '',
+      'Vehicle No': o.vehicleNo || '', 'Notes': o.notes || '', 'Remarks': o.remarks || ''
+    };
+  }), `orders_${dkey()}`, 'Orders');
+}
+
 function approveOrder(id) {
   const o = DB.orders.find(x => x.id === id); if (!o) return;
+  const d = DB.dealers.find(x => x.id === o.dealerId);
+  
   o.status = 'approved';
   o.remarks = document.getElementById('rm-' + id)?.value || '';
   o.approvedDate = new Date().toLocaleString('en-IN');
   o.approvedBy = DB.user.name;
+  o.invoiceNo = 'INV-' + new Date().getFullYear() + '-' + String(DB.orders.filter(x=>x.invoiceNo).length+1).padStart(4,'0');
   
   // Auto-ledger entry
   DB.ledger.push({
-    id: Date.now(), date: dkey(), voucher: o.orderNo, type: 'Order Approved',
-    dealerId: o.dealerId, dealerName: o.dealerName,
-    account: 'Sundry Debtors (Dr)', particulars: `Order ${o.orderNo} approved`,
+    id: Date.now(), date: dkey(), voucher: o.invoiceNo, type: 'Invoice', lf: 'JV',
+    dealerId: o.dealerId, dealerName: d?.name,
+    account: 'Sundry Debtors A/c (Dr)', particulars: `Being goods sold to ${d?.name} vide order ${o.orderNo}`,
     debit: o.total, credit: 0
+  });
+  DB.ledger.push({
+    id: Date.now()+1, date: dkey(), voucher: o.invoiceNo, type: 'Invoice', lf: 'JV',
+    dealerId: o.dealerId, dealerName: d?.name,
+    account: 'Sales A/c (Cr)', particulars: `Being sales against order ${o.orderNo}`,
+    debit: 0, credit: o.total
   });
   
   save();
-  toast('✅ Order Approved & Ledger Updated');
+  toast('✅ Order Approved & Invoice Generated');
   renderOrders();
 }
 
 function rejectOrder(id) {
   const o = DB.orders.find(x => x.id === id); if (!o) return;
   const rm = document.getElementById('rm-' + id)?.value;
-  if (!rm) { toast('Please add remarks for rejection', 'error'); return; }
+  if (!rm) { toast('Please add remarks for rejection','error'); return; }
   o.status = 'rejected';
   o.remarks = rm;
   o.approvedDate = new Date().toLocaleString('en-IN');
   save();
-  toast('Order Rejected', 'error');
+  toast('Order Rejected','error');
   renderOrders();
 }
 
-/* ============ ADMIN: DISPATCH ============ */
+/* ============ ADMIN: DISPATCH (with Date Filter, Excel, Auto Ledger) ============ */
 function renderDispatch() {
+  let filtered = DB.orders.filter(o => o.status === 'dispatched' || o.status === 'delivered');
+  if (FILTERS.dispatch.fromDate) filtered = filtered.filter(o => o.dispatchDate >= FILTERS.dispatch.fromDate);
+  if (FILTERS.dispatch.toDate) filtered = filtered.filter(o => o.dispatchDate <= FILTERS.dispatch.toDate);
+  if (FILTERS.dispatch.status !== 'all') filtered = filtered.filter(o => o.status === FILTERS.dispatch.status);
+  filtered = filtered.reverse();
+  
   const ready = DB.orders.filter(o => o.status === 'approved').reverse();
-  const done = DB.orders.filter(o => o.status === 'dispatched' || o.status === 'delivered').reverse();
+  const totalValue = filtered.reduce((s,o) => s+o.total, 0);
+  const totalItems = filtered.reduce((s,o) => s+o.items.reduce((a,i)=>a+i.qty,0), 0);
   
   document.getElementById('page-dispatch').innerHTML = `
-    <div class="card"><div class="card-title">Ready to Dispatch <span class="badge dispatch">${ready.length}</span></div>
+    <div class="card">
+      <div class="card-title">🚚 Ready to Dispatch <span class="badge dispatch">${ready.length}</span></div>
       ${ready.length ? ready.map(o => renderDispatchCard(o)).join('') : '<div class="empty">No orders awaiting dispatch</div>'}
     </div>
-    <div class="card"><div class="card-title">Dispatch History</div>
-      ${done.length ? done.map(o => renderOrderCard(o, false)).join('') : '<div class="empty">No dispatches yet</div>'}
+    
+    <div class="card">
+      <div class="card-title">📅 Dispatch History
+        <button class="btn btn-sm btn-excel" onclick="exportDispatchExcel()">📥 Export Excel</button>
+      </div>
+      
+      <div class="filter-bar">
+        <div class="filter-bar-title">🔍 Filter Dispatches</div>
+        <div class="filter-row">
+          <div class="filter-group"><label>From Date</label><input type="date" id="dispFrom" value="${FILTERS.dispatch.fromDate}" onchange="applyDispatchFilter()"></div>
+          <div class="filter-group"><label>To Date</label><input type="date" id="dispTo" value="${FILTERS.dispatch.toDate}" onchange="applyDispatchFilter()"></div>
+          <div class="filter-group"><label>Status</label>
+            <select id="dispStatus" onchange="applyDispatchFilter()">
+              <option value="all" ${FILTERS.dispatch.status==='all'?'selected':''}>All</option>
+              <option value="dispatched" ${FILTERS.dispatch.status==='dispatched'?'selected':''}>Dispatched</option>
+              <option value="delivered" ${FILTERS.dispatch.status==='delivered'?'selected':''}>Delivered</option>
+            </select>
+          </div>
+          <div class="filter-group"><label>&nbsp;</label><button class="btn btn-outline btn-sm btn-block" onclick="resetDispatchFilter()">🔄 Reset</button></div>
+        </div>
+        <div class="quick-filters">
+          <span class="quick-filter" onclick="setDispatchQuickFilter('today')">Today</span>
+          <span class="quick-filter" onclick="setDispatchQuickFilter('week')">This Week</span>
+          <span class="quick-filter" onclick="setDispatchQuickFilter('month')">This Month</span>
+          <span class="quick-filter" onclick="setDispatchQuickFilter('year')">This FY</span>
+        </div>
+      </div>
+      
+      <div class="summary-bar">
+        <div class="summary-bar-item"><span class="summary-bar-label">Records</span><span class="summary-bar-value">${filtered.length}</span></div>
+        <div class="summary-bar-item"><span class="summary-bar-label">Total Items</span><span class="summary-bar-value">${totalItems} KG</span></div>
+        <div class="summary-bar-item"><span class="summary-bar-label">Total Value</span><span class="summary-bar-value">${fmt(totalValue)}</span></div>
+      </div>
+      
+      ${filtered.length ? `<div class="table-wrapper"><table>
+        <thead><tr><th>Date</th><th>Order</th><th>Dealer</th><th>Challan</th><th>Vehicle</th><th>Items</th><th>Status</th><th class="text-right">Value</th></tr></thead>
+        <tbody>${filtered.map(o => {
+          const d = DB.dealers.find(x => x.id === o.dealerId);
+          return `<tr><td>${fD(o.dispatchDate)}</td><td><strong>${o.orderNo}</strong></td><td>${d?.name}</td><td><code>${o.challanNo||o.dcNo}</code></td><td>${o.vehicleNo||'-'}</td><td>${o.items.reduce((s,i)=>s+i.qty,0)} KG</td><td>${o.status==='delivered'?'<span class="badge info">📦 Delivered</span>':'<span class="badge dispatch">🚚 Dispatched</span>'}</td><td class="text-right"><strong>${fmt(o.total)}</strong></td></tr>`;
+        }).join('')}</tbody>
+        <tfoot><tr class="total-row"><td colspan="5">Total</td><td>${totalItems} KG</td><td>${filtered.length} records</td><td class="text-right">${fmt(totalValue)}</td></tr></tfoot>
+      </table></div>` : '<div class="empty">No dispatches match the filter</div>'}
     </div>
   `;
 }
 
 function renderDispatchCard(o) {
   const d = DB.dealers.find(x => x.id === o.dealerId);
-  return `<div class="card" style="margin-bottom:12px;border-left:4px solid var(--warn)">
-    <div style="display:flex;justify-content:space-between"><div><strong>${o.orderNo}</strong><br><span style="font-size:12px;color:var(--mute)">${d?.name}</span></div><div style="text-align:right"><strong>${rs(o.total)}</strong></div></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:12px 0">
-      <div><label style="font-size:11px;color:var(--mute)">Date</label><input type="date" class="form-control" id="dd-${o.id}" value="${dkey()}"></div>
-      <div><label style="font-size:11px;color:var(--mute)">Vehicle No.</label><input type="text" class="form-control" id="dv-${o.id}" placeholder="OD-XX-XXXX"></div>
-      <div><label style="font-size:11px;color:var(--mute)">Challan No.</label><input type="text" class="form-control" id="dc-${o.id}" placeholder="DC-001"></div>
-   3</div>
-    <div style="display:flex;gap:8px;margin-top:12px">
-      <button class="btn btn-sm" onclick="dispatchOrder(${o.id}, false)">🚚 Mark Dispatched</button>
-      <button class="btn btn-sm btn-success" onclick="dispatchOrder(${o.id}, true)">📦 Mark Delivered</button>
+  return `<div class="order-card" style="border-left:4px solid var(--warn)">
+    <div class="order-header">
+      <div><div class="order-no">${o.orderNo}</div><div class="order-meta"><strong>${d?.name}</strong><br>Invoice: ${o.invoiceNo||'N/A'}</div></div>
+      <div style="text-align:right"><div class="order-total">${fmt(o.total)}</div></div>
+    </div>
+    <div class="order-items">${o.items.map(it => `• ${it.name} × ${it.qty} KG`).join('<br>')}</div>
+    <div style="background:var(--bg);padding:14px;border-radius:8px;margin-top:10px">
+      <div class="form-row-3">
+        <div class="form-group" style="margin:0"><label>Date</label><input type="date" class="form-control" id="dd-${o.id}" value="${dkey()}"></div>
+        <div class="form-group" style="margin:0"><label>Vehicle No.</label><input type="text" class="form-control" id="dv-${o.id}" placeholder="OD-XX-XXXX"></div>
+        <div class="form-group" style="margin:0"><label>Challan No. <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="dc-${o.id}" placeholder="DC-001"></div>
+      </div>
+      <div class="form-row" style="margin-top:10px">
+        <div class="form-group" style="margin:0"><label>Tracking/LR No.</label><input type="text" class="form-control" id="dt-${o.id}"></div>
+        <div class="form-group" style="margin:0"><label>Remarks</label><input type="text" class="form-control" id="dr-${o.id}"></div>
+      </div>
+    </div>
+    <div class="order-actions" style="margin-top:12px">
+      <button class="btn btn-warning btn-sm" onclick="dispatchOrder(${o.id}, false)">🚚 Dispatch</button>
+      <button class="btn btn-success btn-sm" onclick="dispatchOrder(${o.id}, true)">📦 Dispatch + Delivered</button>
     </div>
   </div>`;
 }
 
+function applyDispatchFilter() {
+  FILTERS.dispatch.fromDate = document.getElementById('dispFrom').value;
+  FILTERS.dispatch.toDate = document.getElementById('dispTo').value;
+  FILTERS.dispatch.status = document.getElementById('dispStatus').value;
+  renderDispatch();
+}
+
+function resetDispatchFilter() {
+  FILTERS.dispatch = {fromDate:'',toDate:'',status:'all'};
+  renderDispatch();
+}
+
+function setDispatchQuickFilter(range) {
+  const n = new Date();
+  let from = '';
+  const to = dkey();
+  if (range === 'today') from = dkey();
+  else if (range === 'week') { const d = new Date(n); d.setDate(d.getDate() - d.getDay()); from = d.toISOString().split('T')[0]; }
+  else if (range === 'month') from = new Date(n.getFullYear(), n.getMonth(), 1).toISOString().split('T')[0];
+  else if (range === 'year') { const fyStart = n.getMonth() < 3 ? n.getFullYear()-1 : n.getFullYear(); from = `${fyStart}-04-01`; }
+  FILTERS.dispatch.fromDate = from;
+  FILTERS.dispatch.toDate = to;
+  renderDispatch();
+}
+
+function exportDispatchExcel() {
+  let filtered = DB.orders.filter(o => o.status === 'dispatched' || o.status === 'delivered');
+  if (FILTERS.dispatch.fromDate) filtered = filtered.filter(o => o.dispatchDate >= FILTERS.dispatch.fromDate);
+  if (FILTERS.dispatch.toDate) filtered = filtered.filter(o => o.dispatchDate <= FILTERS.dispatch.toDate);
+  if (FILTERS.dispatch.status !== 'all') filtered = filtered.filter(o => o.status === FILTERS.dispatch.status);
+  
+  if (!filtered.length) { toast('No data','error'); return; }
+  
+  exportToExcel(filtered.map(o => {
+    const d = DB.dealers.find(x => x.id === o.dealerId);
+    return {
+      'Dispatch Date': fD(o.dispatchDate), 'Order No': o.orderNo, 'Invoice No': o.invoiceNo,
+      'Dealer': d?.name, 'Dealer Code': d?.dealerCode,
+      'Challan No': o.challanNo, 'DC No': o.dcNo,
+      'Vehicle No': o.vehicleNo, 'Tracking No': o.trackingNo,
+      'Items': o.items.map(i => `${i.name}×${i.qty}`).join('; '),
+      'Total Qty (KG)': o.items.reduce((s,i) => s+i.qty, 0),
+      'Total Amount (₹)': o.total, 'Status': o.status,
+      'Dispatched By': o.dispatchedBy, 'Remarks': o.dispatchRemarks
+    };
+  }), `dispatch_${dkey()}`, 'Dispatch Records');
+}
+
 function dispatchOrder(id, isDelivered) {
   const o = DB.orders.find(x => x.id === id); if (!o) return;
+  const d = DB.dealers.find(x => x.id === o.dealerId);
   const dd = document.getElementById('dd-' + id)?.value || dkey();
   const vn = document.getElementById('dv-' + id)?.value.trim();
   const cn = document.getElementById('dc-' + id)?.value.trim();
-  if (!cn) { toast('Challan No. is required', 'error'); return; }
+  const tn = document.getElementById('dt-' + id)?.value.trim();
+  const rm = document.getElementById('dr-' + id)?.value.trim();
   
+  if (!cn) { toast('Challan No. is required','error'); return; }
+  
+  const dcNo = 'DC-' + new Date().getFullYear() + '-' + String(DB.orders.filter(x=>x.dcNo).length+1).padStart(4,'0');
   o.dispatchDate = dd;
   o.challanNo = cn;
+  o.dcNo = dcNo;
   o.vehicleNo = vn;
+  o.trackingNo = tn;
+  o.dispatchRemarks = rm;
   o.status = isDelivered ? 'delivered' : 'dispatched';
   o.dispatchedBy = DB.user.name;
+  o.dispatchedAt = Date.now();
   
+  // AUTO LEDGER UPDATE ON DISPATCH
   DB.ledger.push({
-    id: Date.now(), date: dd, voucher: cn, type: isDelivered ? 'Delivery' : 'Dispatch',
-    dealerId: o.dealerId, dealerName: o.dealerName,
-    account: isDelivered ? 'Delivery Confirmed' : 'Goods Dispatched',
-    particulars: `${isDelivered?'Delivered':'Dispatched'} against ${o.orderNo}`,
+    id: Date.now()+10, date: dd, voucher: dcNo, type: 'Dispatch', lf: 'DC',
+    dealerId: o.dealerId, dealerName: d?.name,
+    account: 'Stock Out (Cr)', particulars: `Being goods dispatched against order ${o.orderNo} via ${vn||'vehicle'}`,
+    debit: 0, credit: o.total
+  });
+  DB.ledger.push({
+    id: Date.now()+11, date: dd, voucher: dcNo, type: 'Dispatch', lf: 'DC',
+    dealerId: o.dealerId, dealerName: d?.name,
+    account: 'Delivery Challan (Memo)', particulars: `Dispatch challan ${cn} - ${o.items.map(i=>`${i.name}×${i.qty}`).join(', ')}`,
     debit: 0, credit: 0, note: true
   });
   
+  if (isDelivered) {
+    DB.ledger.push({
+      id: Date.now()+12, date: dd, voucher: o.invoiceNo, type: 'Delivery', lf: 'DL',
+      dealerId: o.dealerId, dealerName: d?.name,
+      account: 'Delivery Confirmed (Memo)', particulars: `Goods delivered to ${d?.name} against order ${o.orderNo}`,
+      debit: 0, credit: 0, note: true
+    });
+  }
+  
   save();
-  toast(`✅ ${isDelivered ? 'Delivered' : 'Dispatched'}! Challan: ${cn}`);
+  toast(`✅ ${isDelivered?'Delivered':'Dispatched'}! Challan: ${dcNo}. Ledger updated.`);
   renderDispatch();
 }
 
 /* ============ ADMIN: PAYMENTS ============ */
 function renderPayments() {
   const pending = DB.payments.filter(p => p.status === 'pending').reverse();
+  const processed = DB.payments.filter(p => p.status !== 'pending').reverse();
+  const tp = pending.reduce((s,p) => s+p.amount, 0);
+  const ta = DB.payments.filter(p => p.status === 'approved').reduce((s,p) => s+p.amount, 0);
+  
   document.getElementById('page-payments').innerHTML = `
-    <div class="card"><div class="card-title">Pending Payment Approvals <span class="badge warning">${pending.length}</span></div>
+    <div class="stats-grid">
+      <div class="stat-card warning"><h3>Pending</h3><div class="value">${pending.length}</div><div class="sub">${fmt(tp)}</div></div>
+      <div class="stat-card success"><h3>Approved (FY)</h3><div class="value">${fmt(ta)}</div></div>
+      <div class="stat-card danger"><h3>Rejected</h3><div class="value">${DB.payments.filter(p=>p.status==='rejected').length}</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">💳 Pending Payment Approvals <span class="badge warning">${pending.length}</span>
+        <button class="btn btn-sm btn-excel" onclick="exportPaymentsExcel()">📥 Export Excel</button>
+      </div>
       ${pending.length ? pending.map(p => renderPaymentCard(p, true)).join('') : '<div class="empty">No pending payments</div>'}
     </div>
+    ${processed.length ? `<div class="card"><div class="card-title">📋 Payment History</div>${processed.slice(0,10).map(p => renderPaymentCard(p, false)).join('')}</div>` : ''}
   `;
 }
 
 function renderPaymentCard(p, isPending) {
   const d = DB.dealers.find(x => x.id === p.dealerId);
+  const statusBadge = {'pending':'<span class="badge warning">⏳ Pending</span>','approved':'<span class="badge success">✅ Approved</span>','rejected':'<span class="badge danger">❌ Rejected</span>'}[p.status];
+  
   let actions = '';
   if (isPending) {
-    actions = `<div style="display:flex;gap:8px;margin-top:12px">
+    actions = `<div class="order-actions">
       <input type="text" class="form-control" id="pr-${p.id}" placeholder="Remarks" style="flex:1">
       <button class="btn btn-sm btn-success" onclick="approvePayment(${p.id})">✅ Approve</button>
       <button class="btn btn-sm btn-danger" onclick="rejectPayment(${p.id})">❌ Reject</button>
     </div>`;
   }
-  const statusBadge = {'pending':'<span class="badge warning">⏳</span>','approved':'<span class="badge success">✅</span>','rejected':'<span class="badge danger">❌</span>'}[p.status];
   
-  return `<div class="card" style="margin-bottom:12px;border-left:4px solid ${p.status==='pending'?'var(--warn)':p.status==='approved'?'var(--success)':'var(--danger)'}">
-    <div style="display:flex;justify-content:space-between"><div><strong>${p.paymentNo}</strong> ${statusBadge}<br><span style="font-size:12px;color:var(--mute)">${d?.name} • ${fD(p.date)}</span></div><div style="text-align:right"><strong>${rs(p.amount)}</strong><br><span style="font-size:11px;color:var(--mute)">${p.mode}</span></div></div>
-    ${p.referenceNo ? `<div style="font-size:12px;margin-top:8px"><strong>Ref:</strong> ${p.referenceNo} ${p.bankName ? '| Bank: '+p.bankName : ''}</div>` : ''}
+  return `<div class="order-card" style="border-left:4px solid ${p.status==='pending'?'var(--warn)':p.status==='approved'?'var(--success)':'var(--danger)'}">
+    <div class="order-header">
+      <div><div class="order-no">${p.paymentNo} ${statusBadge}</div>
+      <div class="order-meta"><strong>${d?.name}</strong><br>Date: ${fD(p.date)} ${p.time||''}${p.approvedDate?'<br>Processed: '+p.approvedDate:''}</div></div>
+      <div style="text-align:right"><div class="order-total">${fmt(p.amount)}</div><div style="font-size:11px;color:var(--mute);margin-top:4px">${p.mode}</div>${p.referenceNo?`<div style="font-size:11px;color:var(--mute)">Ref: ${p.referenceNo}</div>`:''}</div>
+    </div>
+    ${p.bankName?`<div style="font-size:12px;color:var(--mute);margin-top:6px"><strong>Bank:</strong> ${p.bankName}</div>`:''}
+    ${p.remarks?`<div style="font-size:12px;color:var(--mute);margin-top:4px"><strong>Remarks:</strong> ${p.remarks}</div>`:''}
+    ${p.status==='approved'&&p.receiptNo?`<div style="font-size:12px;color:var(--success);margin-top:4px"><strong>Receipt:</strong> ${p.receiptNo}</div>`:''}
     ${actions}
   </div>`;
 }
@@ -783,209 +1124,622 @@ function renderPaymentCard(p, isPending) {
 function approvePayment(id) {
   const p = DB.payments.find(x => x.id === id); if (!p) return;
   const d = DB.dealers.find(x => x.id === p.dealerId);
-  const rc = 'RCPT-' + new Date().getFullYear() + '-' + String(DB.payments.filter(x => x.status === 'approved').length + 1).padStart(4, '0');
+  const rc = 'RCPT-' + new Date().getFullYear() + '-' + String(DB.payments.filter(x => x.status === 'approved').length + 1).padStart(4,'0');
   
   p.status = 'approved';
   p.receiptNo = rc;
   p.approvedDate = new Date().toLocaleString('en-IN');
+  p.approvedBy = DB.user.name;
   p.adminRemarks = document.getElementById('pr-' + id)?.value || '';
   
-  // Auto-ledger: Bank Dr, Debtors Cr
+  // Auto-ledger: Bank/Cash Dr, Debtors Cr
   DB.ledger.push({
-    id: Date.now(), date: dkey(), voucher: rc, type: 'Payment Received',
-    dealerId: p.dealerId, dealerName: p.dealerName,
+    id: Date.now(), date: dkey(), voucher: rc, type: 'Payment', lf: 'BR',
+    dealerId: p.dealerId, dealerName: d?.name,
     account: p.mode === 'Cash' ? 'Cash A/c (Dr)' : 'Bank A/c (Dr)',
-    particulars: `Payment from ${p.dealerName} via ${p.mode}`,
+    particulars: `Being payment received from ${d?.name} via ${p.mode}${p.referenceNo?' vide ref '+p.referenceNo:''}`,
     debit: p.amount, credit: 0
   });
   DB.ledger.push({
-    id: Date.now()+1, date: dkey(), voucher: rc, type: 'Payment Received',
-    dealerId: p.dealerId, dealerName: p.dealerName,
-    account: 'Sundry Debtors (Cr)',
-    particulars: `Against payment ${p.paymentNo}`,
+    id: Date.now()+1, date: dkey(), voucher: rc, type: 'Payment', lf: 'BR',
+    dealerId: p.dealerId, dealerName: d?.name,
+    account: 'Sundry Debtors A/c (Cr)',
+    particulars: `Being ${d?.name}'s account adjusted against payment ${p.paymentNo}`,
     debit: 0, credit: p.amount
   });
   
   save();
-  toast(`✅ Payment Approved! Receipt: ${rc}`);
+  toast(`✅ Payment Approved! Receipt: ${rc}. Ledger auto-updated.`);
   renderPayments();
 }
 
 function rejectPayment(id) {
   const p = DB.payments.find(x => x.id === id); if (!p) return;
   const rm = document.getElementById('pr-' + id)?.value;
-  if (!rm) { toast('Add remarks', 'error'); return; }
+  if (!rm) { toast('Add remarks','error'); return; }
   p.status = 'rejected';
   p.adminRemarks = rm;
+  p.approvedDate = new Date().toLocaleString('en-IN');
   save();
-  toast('Payment Rejected', 'error');
+  toast('Payment Rejected','error');
   renderPayments();
 }
 
-/* ============ ADMIN: LEDGER ============ */
+function exportPaymentsExcel() {
+  if (!DB.payments.length) { toast('No data','error'); return; }
+  exportToExcel(DB.payments.map(p => {
+    const d = DB.dealers.find(x => x.id === p.dealerId);
+    return {
+      'Payment No': p.paymentNo, 'Date': fD(p.date), 'Time': p.time || '',
+      'Dealer': d?.name, 'Dealer Code': d?.dealerCode,
+      'Amount (₹)': p.amount, 'Mode': p.mode,
+      'Reference No': p.referenceNo, 'Bank': p.bankName,
+      'Remarks': p.remarks, 'Status': p.status,
+      'Receipt No': p.receiptNo, 'Approved Date': p.approvedDate
+    };
+  }), `payments_${dkey()}`, 'Payments');
+}
+
+/* ============ ADMIN: PROFESSIONAL GENERAL LEDGER ============ */
 function renderLedger() {
-  let f = [...DB.ledger].sort((a,b) => b.id - a.id);
-  const td = f.reduce((s,l) => s + (l.debit||0), 0);
-  const tc = f.reduce((s,l) => s + (l.credit||0), 0);
+  let filtered = [...DB.ledger];
+  if (FILTERS.ledger.dealerId !== 'all') filtered = filtered.filter(l => l.dealerId == FILTERS.ledger.dealerId);
+  if (FILTERS.ledger.type !== 'all') filtered = filtered.filter(l => l.type === FILTERS.ledger.type);
+  if (FILTERS.ledger.fromDate) filtered = filtered.filter(l => l.date >= FILTERS.ledger.fromDate);
+  if (FILTERS.ledger.toDate) filtered = filtered.filter(l => l.date <= FILTERS.ledger.toDate);
+  
+  // Sort by date then ID
+  filtered.sort((a,b) => a.date.localeCompare(b.date) || a.id - b.id);
+  
+  const totalDebit = filtered.reduce((s,l) => s + (l.debit||0), 0);
+  const totalCredit = filtered.reduce((s,l) => s + (l.credit||0), 0);
+  const balance = totalDebit - totalCredit;
+  const selectedDealer = FILTERS.ledger.dealerId !== 'all' ? DB.dealers.find(d => d.id == FILTERS.ledger.dealerId) : null;
+  
+  // Calculate running balance
+  let running = 0;
+  const ledgerWithBalance = filtered.map(l => {
+    running += (l.debit || 0) - (l.credit || 0);
+    return {...l, balance: running};
+  });
   
   document.getElementById('page-ledger').innerHTML = `
-    <div class="stats-grid">
-      <div class="stat-card"><h3>Total Debit</h3><div class="value">${rs(td)}</div></div>
-      <div class="stat-card success"><h3>Total Credit</h3><div class="value">${rs(tc)}</div></div>
-      <div class="stat-card warning"><h3>Net Balance</h3><div class="value">${rs(td - tc)}</div></div>
-    </div>
     <div class="card">
-      <div class="card-title">General Ledger <button class="btn btn-sm btn-outline" onclick="exportLedger()">📥 Export Excel</button></div>
-      <div class="table-wrapper">
-        <table><thead><tr><th>Date</th><th>Voucher</th><th>Type</th><th>Dealer</th><th>Account</th><th>Particulars</th><th class="text-right">Debit</th><th class="text-right">Credit</th></tr></thead>
-        <tbody>${f.map(l => `
-          <tr><td>${fD(l.date)}</td><td><code>${l.voucher}</code></td><td><span class="badge ${l.type.includes('Payment')?'success':'info'}">${l.type}</span></td>
-          <td>${l.dealerName||'-'}</td><td><strong>${l.account}</strong></td><td>${l.particulars}</td>
-          <td class="text-right">${l.debit?rs(l.debit):'-'}</td><td class="text-right">${l.credit?rs(l.credit):'-'}</td></tr>
-        `).join('') || '<tr><td colspan="8" class="text-center">No entries</td></tr>'}</tbody>
-        <tfoot><tr class="total-row"><td colspan="6">Total</td><td class="text-right">${rs(td)}</td><td class="text-right">${rs(tc)}</td></tr></tfoot></table>
+      <div class="card-title">📒 General Ledger <span class="badge primary">Double-Entry Bookkeeping</span>
+        <button class="btn btn-sm btn-excel" onclick="exportLedgerExcel()">📥 Export Excel</button>
       </div>
+      
+      <div class="filter-bar">
+        <div class="filter-bar-title">🔍 Ledger Filters</div>
+        <div class="filter-row">
+          <div class="filter-group"><label>Dealer</label>
+            <select id="ledgerDealer" onchange="applyLedgerFilter()">
+              <option value="all" ${FILTERS.ledger.dealerId==='all'?'selected':''}>🏢 All Dealers</option>
+              ${DB.dealers.map(d => `<option value="${d.id}" ${FILTERS.ledger.dealerId==d.id?'selected':''}>${d.name} (${d.dealerCode})</option>`).join('')}
+            </select>
+          </div>
+          <div class="filter-group"><label>Transaction Type</label>
+            <select id="ledgerType" onchange="applyLedgerFilter()">
+              <option value="all" ${FILTERS.ledger.type==='all'?'selected':''}>All Types</option>
+              <option value="Invoice" ${FILTERS.ledger.type==='Invoice'?'selected':''}>📄 Invoice</option>
+              <option value="Payment" ${FILTERS.ledger.type==='Payment'?'selected':''}>💳 Payment</option>
+              <option value="Dispatch" ${FILTERS.ledger.type==='Dispatch'?'selected':''}>🚚 Dispatch</option>
+              <option value="Delivery" ${FILTERS.ledger.type==='Delivery'?'selected':''}>📦 Delivery</option>
+            </select>
+          </div>
+          <div class="filter-group"><label>From Date</label><input type="date" id="ledgerFrom" value="${FILTERS.ledger.fromDate}" onchange="applyLedgerFilter()"></div>
+          <div class="filter-group"><label>To Date</label><input type="date" id="ledgerTo" value="${FILTERS.ledger.toDate}" onchange="applyLedgerFilter()"></div>
+          <div class="filter-group"><label>&nbsp;</label><button class="btn btn-outline btn-sm btn-block" onclick="resetLedgerFilter()">🔄 Reset</button></div>
+        </div>
+      </div>
+      
+      <div class="summary-bar">
+        <div class="summary-bar-item"><span class="summary-bar-label">${selectedDealer?selectedDealer.name:'All Dealers'}</span><span class="summary-bar-value" style="font-size:14px">Ledger Statement</span></div>
+        <div class="summary-bar-item"><span class="summary-bar-label">Entries</span><span class="summary-bar-value">${filtered.length}</span></div>
+        <div class="summary-bar-item"><span class="summary-bar-label">Total Debit</span><span class="summary-bar-value">${fmt(totalDebit)}</span></div>
+        <div class="summary-bar-item"><span class="summary-bar-label">Total Credit</span><span class="summary-bar-value">${fmt(totalCredit)}</span></div>
+        <div class="summary-bar-item"><span class="summary-bar-label">Net Balance</span><span class="summary-bar-value" style="color:${balance>=0?'#047857':'#dc2626'}">${fmt(Math.abs(balance))} ${balance>=0?'(Dr)':'(Cr)'}</span></div>
+      </div>
+      
+      ${filtered.length ? `<div class="table-wrapper">
+        <table class="ledger-table">
+          <thead><tr>
+            <th style="width:100px">Date</th>
+            <th>Particulars</th>
+            <th style="width:70px">L.F.</th>
+            <th style="width:120px;text-align:right">Debit (₹)</th>
+            <th style="width:120px;text-align:right">Credit (₹)</th>
+            <th style="width:120px;text-align:right">Balance (₹)</th>
+          </tr></thead>
+          <tbody>
+            <tr style="background:#fef3c7;font-weight:700">
+              <td colspan="3">Opening Balance</td>
+              <td class="debit-col">—</td>
+              <td class="credit-col">—</td>
+              <td class="debit-col">0.00</td>
+            </tr>
+            ${ledgerWithBalance.map(l => `
+              <tr>
+                <td>${fD(l.date)}</td>
+                <td>
+                  <div style="font-weight:600">${l.account}</div>
+                  <div style="font-size:11px;color:var(--mute);margin-top:2px">${l.particulars}</div>
+                  <div style="font-size:10px;color:var(--brand);margin-top:2px">Voucher: <span class="voucher">${l.voucher}</span> ${l.dealerName?'| '+l.dealerName:''}</div>
+                </td>
+                <td class="lf-col">${l.lf || '-'}</td>
+                <td class="debit-col">${l.debit ? l.debit.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}) : '—'}</td>
+                <td class="credit-col">${l.credit ? l.credit.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}) : '—'}</td>
+                <td class="debit-col" style="color:${l.balance>=0?'#047857':'#dc2626'}">${Math.abs(l.balance).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})} ${l.balance>=0?'Dr':'Cr'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+          <tfoot>
+            <tr class="total-row">
+              <td colspan="3"><strong>Total</strong></td>
+              <td class="debit-col"><strong>${totalDebit.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</strong></td>
+              <td class="credit-col"><strong>${totalCredit.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</strong></td>
+              <td class="debit-col">—</td>
+            </tr>
+            <tr class="balance-row">
+              <td colspan="3"><strong>Closing Balance</strong></td>
+              <td class="debit-col">${balance>0?balance.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}):'—'}</td>
+              <td class="credit-col">${balance<0?Math.abs(balance).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}):'—'}</td>
+              <td class="debit-col" style="color:${balance>=0?'#047857':'#dc2626'}"><strong>${Math.abs(balance).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})} ${balance>=0?'Dr':'Cr'}</strong></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>` : '<div class="empty"><div style="font-size:3rem;margin-bottom:10px">📒</div>No ledger entries match the filter</div>'}
     </div>
   `;
 }
 
-function exportLedger() {
-  if (!DB.ledger.length) { toast('No data', 'error'); return; }
-  const data = DB.ledger.map(l => ({'Date':fD(l.date),'Voucher':l.voucher,'Type':l.type,'Dealer':l.dealerName,'Account':l.account,'Particulars':l.particulars,'Debit':l.debit||0,'Credit':l.credit||0}));
-  const ws = XLSX.utils.json_to_sheet(data);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Ledger');
-  XLSX.writeFile(wb, `ledger_${dkey()}.xlsx`);
-  toast('✓ Exported');
+function applyLedgerFilter() {
+  FILTERS.ledger.dealerId = document.getElementById('ledgerDealer').value;
+  FILTERS.ledger.type = document.getElementById('ledgerType').value;
+  FILTERS.ledger.fromDate = document.getElementById('ledgerFrom').value;
+  FILTERS.ledger.toDate = document.getElementById('ledgerTo').value;
+  renderLedger();
+}
+
+function resetLedgerFilter() {
+  FILTERS.ledger = {dealerId:'all',type:'all',fromDate:'',toDate:''};
+  renderLedger();
+}
+
+function exportLedgerExcel() {
+  let filtered = [...DB.ledger];
+  if (FILTERS.ledger.dealerId !== 'all') filtered = filtered.filter(l => l.dealerId == FILTERS.ledger.dealerId);
+  if (FILTERS.ledger.type !== 'all') filtered = filtered.filter(l => l.type === FILTERS.ledger.type);
+  if (FILTERS.ledger.fromDate) filtered = filtered.filter(l => l.date >= FILTERS.ledger.fromDate);
+  if (FILTERS.ledger.toDate) filtered = filtered.filter(l => l.date <= FILTERS.ledger.toDate);
+  
+  if (!filtered.length) { toast('No data','error'); return; }
+  
+  let running = 0;
+  const data = filtered.map(l => {
+    running += (l.debit || 0) - (l.credit || 0);
+    return {
+      'Date': fD(l.date), 'Voucher': l.voucher, 'Type': l.type, 'L.F.': l.lf || '',
+      'Dealer': l.dealerName || '-', 'Account': l.account,
+      'Particulars': l.particulars,
+      'Debit (₹)': l.debit || 0, 'Credit (₹)': l.credit || 0,
+      'Running Balance (₹)': running
+    };
+  });
+  
+  // Add totals row
+  const totalDebit = filtered.reduce((s,l) => s + (l.debit||0), 0);
+  const totalCredit = filtered.reduce((s,l) => s + (l.credit||0), 0);
+  data.push({});
+  data.push({'Date':'TOTAL','Debit (₹)':totalDebit,'Credit (₹)':totalCredit,'Running Balance (₹)':running});
+  
+  exportToExcel(data, `general_ledger_${dkey()}`, 'General Ledger');
 }
 
 /* ============ ADMIN: DEALERS ============ */
 function renderDealers() {
+  const ac = DB.dealers.filter(d => d.status === 'active').length;
+  const ic = DB.dealers.length - ac;
+  
   document.getElementById('page-dealers').innerHTML = `
+    <div class="alert alert-info">ℹ️ <strong>Manage Dealers:</strong> Activate/deactivate accounts, view/update passwords, add new dealers.</div>
+    <div class="stats-grid">
+      <div class="stat-card success"><h3>Active</h3><div class="value">${ac}</div></div>
+      <div class="stat-card danger"><h3>Inactive</h3><div class="value">${ic}</div></div>
+      <div class="stat-card"><h3>Total</h3><div class="value">${DB.dealers.length}</div></div>
+    </div>
+    
     <div class="card">
-      <div class="card-title">Dealer Management <button class="btn btn-sm" onclick="showAddDealerModal()">➕ Add Dealer</button></div>
+      <div class="card-title">➕ Add New Dealer</div>
+      <form onsubmit="addDealer(event)">
+        <div class="form-row-3">
+          <div class="form-group"><label>Name <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" name="name" required></div>
+          <div class="form-group"><label>Code <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" name="code" style="text-transform:uppercase" required></div>
+          <div class="form-group"><label>Password <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" name="password" value="dealer123" required></div>
+        </div>
+        <div class="form-row-3">
+          <div class="form-group"><label>GSTIN <span class="optional">(Optional)</span></label><input type="text" class="form-control" name="gstin" style="text-transform:uppercase"></div>
+          <div class="form-group"><label>State</label><input type="text" class="form-control" name="state"></div>
+          <div class="form-group"><label>Phone</label><input type="text" class="form-control" name="phone"></div>
+        </div>
+        <div class="form-group"><label>Email <span class="optional">(Optional)</span></label><input type="email" class="form-control" name="email"></div>
+        <button type="submit" class="btn">➕ Add Dealer</button>
+      </form>
+    </div>
+    
+    <div class="card" style="margin-top:20px">
+      <div class="card-title">📋 Dealer Directory <span class="badge primary">${DB.dealers.length}</span>
+        <button class="btn btn-sm btn-excel" onclick="exportDealersExcel()">📥 Export Excel</button>
+      </div>
       <div class="table-wrapper">
-        <table><thead><tr><th>Name</th><th>Code</th><th>Phone</th><th>Status</th><th>Actions</th></tr></thead>
-        <tbody>${DB.dealers.map(d => `
-          <tr><td><strong>${d.name}</strong></td><td><code>${d.dealerCode}</code></td><td>${d.phone}</td>
-          <td><button class="toggle-btn ${d.status==='active'?'active':'inactive'}" onclick="toggleDealerStatus(${d.id})">${d.status==='active'?'✓ Active':'⛔ Inactive'}</button></td>
-          <td><button class="btn btn-sm btn-outline" onclick="resetDealerPassword(${d.id})">🔑 Reset PW</button></td></tr>
-        `).join('')}</tbody></table>
+        <table>
+          <thead><tr><th>Name</th><th>Code</th><th>Password</th><th>GSTIN</th><th>Phone</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>${DB.dealers.map(d => {
+            const isVisible = passwordVisibility[d.id];
+            return `<tr>
+              <td><strong>${d.name}</strong></td>
+              <td><code>${d.dealerCode}</code></td>
+              <td><div class="password-display"><span class="password-text">${isVisible?d.password:'••••••••'}</span>
+                <div class="password-actions">
+                  <button class="password-btn" onclick="togglePasswordVisibility(${d.id})" title="${isVisible?'Hide':'Show'}">${isVisible?'🙈':'👁️'}</button>
+                  <button class="password-btn" onclick="openPasswordModal(${d.id})" title="Update">✏️</button>
+                </div></div></td>
+              <td>${d.gstin || '<span class="badge muted">N/A</span>'}</td>
+              <td>${d.phone || '-'}</td>
+              <td><button class="toggle-btn ${d.status==='active'?'active':'inactive'}" onclick="toggleDealerStatus(${d.id})">${d.status==='active'?'✓ Active':'⛔ Inactive'}</button></td>
+              <td><button class="btn btn-sm btn-danger" onclick="deleteDealer(${d.id})">🗑️</button></td>
+            </tr>`;
+          }).join('')}</tbody>
+        </table>
       </div>
     </div>
   `;
 }
 
-function toggleDealerStatus(id) {
-  const d = DB.dealers.find(x => x.id === id);
-  d.status = d.status === 'active' ? 'inactive' : 'active';
-  save();
-  toast(`${d.name} is now ${d.status.toUpperCase()}`);
+function togglePasswordVisibility(id) {
+  passwordVisibility[id] = !passwordVisibility[id];
   renderDealers();
 }
 
-function resetDealerPassword(id) {
+function openPasswordModal(id) {
   const d = DB.dealers.find(x => x.id === id);
-  const newPw = prompt(`Enter new password for ${d.name}:`, 'dealer123');
-  if (newPw) {
-    d.password = newPw;
-    save();
-    toast('✅ Password reset successfully');
-  }
+  if (!d) return;
+  currentPasswordDealerId = id;
+  document.getElementById('modalDealerName').value = d.name;
+  document.getElementById('modalDealerCode').value = d.dealerCode;
+  document.getElementById('modalNewPassword').value = '';
+  document.getElementById('modalConfirmPassword').value = '';
+  document.getElementById('passwordModal').classList.add('active');
 }
 
-function showAddDealerModal() {
-  const name = prompt('Dealer Name:');
-  const code = prompt('Dealer Code (e.g., NEW01):');
-  if (name && code) {
-    DB.dealers.push({id: Date.now(), name, dealerCode: code.toUpperCase(), phone: '', gstin: '', state: '', password: 'dealer123', status: 'active'});
-    save();
-    toast('✅ Dealer added');
-    renderDealers();
-  }
+function closePasswordModal() {
+  document.getElementById('passwordModal').classList.remove('active');
+  currentPasswordDealerId = null;
+}
+
+function updateDealerPassword() {
+  if (!currentPasswordDealerId) return;
+  const np = document.getElementById('modalNewPassword').value;
+  const cp = document.getElementById('modalConfirmPassword').value;
+  if (!np) { toast('Enter new password','error'); return; }
+  if (np.length < 6) { toast('Min 6 characters','error'); return; }
+  if (np !== cp) { toast('Passwords do not match','error'); return; }
+  const d = DB.dealers.find(x => x.id === currentPasswordDealerId);
+  if (!d) return;
+  d.password = np;
+  save();
+  closePasswordModal();
+  toast(`✅ Password updated for ${d.name}`);
+  renderDealers();
+}
+
+function toggleDealerStatus(id) {
+  const d = DB.dealers.find(x => x.id === id);
+  if (!d) return;
+  const ns = d.status === 'active' ? 'inactive' : 'active';
+  if (ns === 'inactive' && !confirm(`Deactivate "${d.name}"? They will not be able to login.`)) return;
+  d.status = ns;
+  save();
+  toast(`${d.name} is now ${ns.toUpperCase()}`);
+  renderDealers();
+}
+
+function addDealer(e) {
+  e.preventDefault();
+  const f = e.target.elements;
+  const name = f.name.value.trim();
+  const code = f.code.value.trim().toUpperCase();
+  const password = f.password.value.trim();
+  if (!name || !code || !password) { toast('Name, code, password required','error'); return; }
+  if (DB.dealers.some(d => d.dealerCode === code)) { toast('Code already exists','error'); return; }
+  
+  DB.dealers.push({
+    id: Date.now(), name, dealerCode: code, password,
+    gstin: f.gstin.value.trim().toUpperCase() || '',
+    state: f.state.value.trim(),
+    phone: f.phone.value.trim(),
+    email: f.email.value.trim(),
+    status: 'active'
+  });
+  save();
+  e.target.reset();
+  e.target.querySelector('[name="password"]').value = 'dealer123';
+  toast('✅ Dealer added successfully');
+  renderDealers();
+}
+
+function deleteDealer(id) {
+  if (!confirm('Delete this dealer?')) return;
+  DB.dealers = DB.dealers.filter(d => d.id !== id);
+  save();
+  toast('Dealer deleted');
+  renderDealers();
+}
+
+function exportDealersExcel() {
+  if (!DB.dealers.length) { toast('No data','error'); return; }
+  exportToExcel(DB.dealers.map(d => ({
+    'Name': d.name, 'Code': d.dealerCode, 'Password': d.password,
+    'GSTIN': d.gstin || 'N/A', 'State': d.state, 'Phone': d.phone, 'Email': d.email,
+    'Status': d.status === 'active' ? 'Active' : 'Inactive'
+  })), `dealers_${dkey()}`, 'Dealers');
+}
+
+/* ============ ADMIN: WEBSITE CONTENT MANAGER ============ */
+function renderWebsiteManager() {
+  const w = DB.website;
+  document.getElementById('page-website').innerHTML = `
+    <div class="alert alert-info">🌐 <strong>Website Content Manager:</strong> Update public-facing content. Changes apply instantly to the website.</div>
+    
+    <div class="card">
+      <div class="card-title">🏢 Brand Identity</div>
+      <div class="form-row">
+        <div class="form-group"><label>Brand Name</label><input type="text" class="form-control" id="wBrand" value="${w.brand}"></div>
+        <div class="form-group"><label>Footer Tagline</label><input type="text" class="form-control" id="wTagline" value="${w.tagline}"></div>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-title">🎯 Hero Banner (Home Section)</div>
+      <div class="form-group"><label>Eyebrow Text (small top text)</label><input type="text" class="form-control" id="wEyebrow" value="${w.heroEyebrow}"></div>
+      <div class="form-group"><label>Main Title</label><input type="text" class="form-control" id="wTitle" value="${w.heroTitle}"></div>
+      <div class="form-group"><label>Subtitle / Description</label><textarea class="form-control" id="wSubtitle" rows="3">${w.heroSubtitle}</textarea></div>
+    </div>
+    
+    <div class="card">
+      <div class="card-title">📖 About Section</div>
+      <div class="form-group"><label>About Text</label><textarea class="form-control" id="wAbout" rows="4">${w.aboutText}</textarea></div>
+    </div>
+    
+    <div class="card">
+      <div class="card-title">📞 Contact Information</div>
+      <div class="form-row">
+        <div class="form-group"><label>Phone Number</label><input type="text" class="form-control" id="cPhone" value="${DB.settings.phone}"></div>
+        <div class="form-group"><label>WhatsApp (digits only)</label><input type="text" class="form-control" id="cWhatsApp" value="${DB.settings.whatsapp}"></div>
+      </div>
+      <div class="form-group"><label>Address</label><textarea class="form-control" id="cAddress" rows="2">${DB.settings.address}</textarea></div>
+      <div class="form-group"><label>Order Time Text</label><input type="text" class="form-control" id="cOrderTime" value="${DB.settings.orderTime}"></div>
+    </div>
+    
+    <button class="btn btn-block" onclick="saveWebsiteContent()" style="padding:14px;font-size:15px">💾 Save All Website Changes</button>
+    
+    <div class="alert alert-success" style="margin-top:20px">
+      ✅ <strong>Live Preview:</strong> Click "View Public Site" in the sidebar to see your changes instantly.
+    </div>
+  `;
+}
+
+function saveWebsiteContent() {
+  DB.website.brand = document.getElementById('wBrand').value;
+  DB.website.tagline = document.getElementById('wTagline').value;
+  DB.website.heroEyebrow = document.getElementById('wEyebrow').value;
+  DB.website.heroTitle = document.getElementById('wTitle').value;
+  DB.website.heroSubtitle = document.getElementById('wSubtitle').value;
+  DB.website.aboutText = document.getElementById('wAbout').value;
+  
+  DB.settings.phone = document.getElementById('cPhone').value;
+  DB.settings.whatsapp = document.getElementById('cWhatsApp').value;
+  DB.settings.address = document.getElementById('cAddress').value;
+  DB.settings.orderTime = document.getElementById('cOrderTime').value;
+  
+  save();
+  renderPublic();
+  toast('✅ All website content saved! Changes are live.');
 }
 
 /* ============ ADMIN: SETTINGS ============ */
 function renderSettings() {
   document.getElementById('page-settings').innerHTML = `
     <div class="card">
-      <div class="card-title">Website Settings</div>
-      <form onsubmit="saveSettings(event)">
-        <div class="form-row">
-          <div class="form-group"><label>WhatsApp Number (with country code, digits only)</label><input type="text" class="form-control" name="whatsapp" value="${DB.settings.whatsapp}" placeholder="919439059864"></div>
-          <div class="form-group"><label>Phone Number for Calls</label><input type="text" class="form-control" name="phone" value="${DB.settings.phone}" placeholder="+91 9178861085"></div>
+      <div class="card-title">⚙️ System Settings</div>
+      <div class="alert alert-warning">⚠️ These settings control the application behavior. Be careful when changing.</div>
+      
+      <div class="content-editor">
+        <h4>🗄️ Data Management</h4>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+          <button class="btn btn-outline btn-sm" onclick="exportAllData()">📥 Export All Data (Backup)</button>
+          <button class="btn btn-outline btn-sm" onclick="document.getElementById('importFile').click()">📤 Import Data</button>
+          <input type="file" id="importFile" style="display:none" accept=".json" onchange="importAllData(event)">
+          <button class="btn btn-danger btn-sm" onclick="resetAllData()">🗑️ Reset All Data</button>
         </div>
-        <div class="form-group"><label>Order Time Text</label><input type="text" class="form-control" name="orderTime" value="${DB.settings.orderTime}" placeholder="10:30 AM to 12:30 PM"></div>
-        <button type="submit" class="btn">💾 Save Settings</button>
-      </form>
-    </div>
-  `;
-}
-
-function saveSettings(e) {
-  e.preventDefault();
-  const f = e.target.elements;
-  DB.settings.whatsapp = f.whatsapp.value;
-  DB.settings.phone = f.phone.value;
-  DB.settings.orderTime = f.orderTime.value;
-  save();
-  toast('✅ Settings saved');
-  renderPublic();
-}
-
-/* ============ DEALER: DASHBOARD ============ */
-function renderDealerDashboard() {
-  const d = DB.dealers.find(x => x.id === DB.user.dealerId);
-  const myOrders = DB.orders.filter(o => o.dealerId === d.id);
-  const myLedger = DB.ledger.filter(l => l.dealerId === d.id);
-  const pending = myOrders.filter(o => o.status === 'pending').length;
-  const td = myLedger.reduce((s,l) => s + (l.debit||0), 0);
-  const tc = myLedger.reduce((s,l) => s + (l.credit||0), 0);
-  const t = cur();
-  
-  document.getElementById('page-d-dashboard').innerHTML = `
-    <div class="alert" style="background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;padding:16px;border-radius:8px;margin-bottom:20px">
-      👋 Welcome, <strong>${d.name}</strong>! Today's Live Price: <strong>${t ? rs(t.retail)+'/KG' : 'Not Set'}</strong> (${t ? t.availability : 'Awaiting update'})
-    </div>
-    <div class="stats-grid">
-      <div class="stat-card warning"><h3>Pending Orders</h3><div class="value">${pending}</div></div>
-      <div class="stat-card"><h3>Total Orders</h3><div class="value">${myOrders.length}</div></div>
-      <div class="stat-card success"><h3>Total Paid</h3><div class="value">${rs(tc)}</div></div>
-      <div class="stat-card danger"><h3>Outstanding</h3><div class="value">${rs(td - tc)}</div></div>
-    </div>
-    <div class="card">
-      <div class="card-title">Quick Actions</div>
-      <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <button class="btn" onclick="navigateTo('d-place-order')">📝 Place New Order</button>
-        <button class="btn btn-outline" onclick="navigateTo('d-my-orders')">📦 View My Orders</button>
-        <button class="btn btn-outline" onclick="navigateTo('d-my-ledger')">📒 View My Ledger</button>
+      </div>
+      
+      <div class="content-editor" style="margin-top:20px">
+        <h4>📊 Statistics</h4>
+        <div class="grid" style="margin-top:12px">
+          <div class="stat-card"><h3>Total Orders</h3><div class="value">${DB.orders.length}</div></div>
+          <div class="stat-card"><h3>Total Payments</h3><div class="value">${DB.payments.length}</div></div>
+          <div class="stat-card"><h3>Ledger Entries</h3><div class="value">${DB.ledger.length}</div></div>
+          <div class="stat-card"><h3>Price Records</h3><div class="value">${DB.livePrices.length}</div></div>
+        </div>
       </div>
     </div>
   `;
 }
 
-/* ============ DEALER: PLACE ORDER ============ */
-let orderItems = [];
-function renderDealerPlaceOrder() {
-  orderItems = [];
+function exportAllData() {
+  const data = {
+    exportDate: new Date().toISOString(),
+    settings: DB.settings,
+    website: DB.website,
+    livePrices: DB.livePrices,
+    dealers: DB.dealers,
+    orders: DB.orders,
+    ledger: DB.ledger,
+    payments: DB.payments
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `chakadola_backup_${dkey()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('✅ Backup downloaded');
+}
+
+function importAllData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!confirm('This will REPLACE all current data. Continue?')) return;
+      if (data.settings) DB.settings = data.settings;
+      if (data.website) DB.website = data.website;
+      if (data.livePrices) DB.livePrices = data.livePrices;
+      if (data.dealers) DB.dealers = data.dealers;
+      if (data.orders) DB.orders = data.orders;
+      if (data.ledger) DB.ledger = data.ledger;
+      if (data.payments) DB.payments = data.payments;
+      save();
+      toast('✅ Data imported successfully');
+      renderSettings();
+    } catch(err) {
+      toast('Invalid backup file','error');
+    }
+  };
+  reader.readAsText(file);
+}
+
+function resetAllData() {
+  if (!confirm('⚠️ This will DELETE ALL DATA. Are you sure?')) return;
+  if (!confirm('This cannot be undone. Really delete everything?')) return;
+  localStorage.clear();
+  location.reload();
+}
+
+/* ============ DEALER: DASHBOARD ============ */
+function renderDealerDashboard() {
+  const d = DB.dealers.find(x => x.id === DB.user.dealerId);
   const t = cur();
-  document.getElementById('page-d-place-order').innerHTML = `
-    <div class="alert" style="background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;padding:16px;border-radius:8px;margin-bottom:20px">
-      📌 Today's Live Price: <strong>${t ? rs(t.retail)+'/KG' : 'Not Set'}</strong>. Orders are subject to admin approval.
+  const myOrders = DB.orders.filter(o => o.dealerId === d.id);
+  const myLedger = DB.ledger.filter(l => l.dealerId === d.id);
+  const pending = myOrders.filter(o => o.status === 'pending').length;
+  const totalDebit = myLedger.reduce((s,l) => s + (l.debit||0), 0);
+  const totalCredit = myLedger.reduce((s,l) => s + (l.credit||0), 0);
+  const outstanding = totalDebit - totalCredit;
+  
+  document.getElementById('page-d-dashboard').innerHTML = `
+    <div class="alert alert-success">👋 Welcome, <strong>${d.name}</strong>! ${isRegisteredDealer(d) ? 'B2B - ITC eligible' : 'Unregistered Dealer'}</div>
+    
+    <div class="stats-grid">
+      <div class="stat-card success"><h3>Today's Live Price</h3><div class="value">${t ? rs(t.retail)+'/KG' : 'Not Set'}</div><div class="sub">${t ? AV[t.availability]?.[1] || t.availability : 'Awaiting update'}</div></div>
+      <div class="stat-card warning"><h3>Pending Orders</h3><div class="value">${pending}</div></div>
+      <div class="stat-card"><h3>Total Orders</h3><div class="value">${myOrders.length}</div></div>
+      <div class="stat-card ${outstanding>0?'danger':'success'}"><h3>Outstanding</h3><div class="value">${fmt(Math.abs(outstanding))}</div><div class="sub">${outstanding>0?'Payable':'Credit'}</div></div>
     </div>
+    
     <div class="card">
-      <div class="card-title">Place New Order</div>
-      <div id="orderItemsList"></div>
-      <button class="btn btn-sm btn-outline" onclick="addOrderItem()" style="margin-top:10px">➕ Add Item</button>
-      <div class="form-group" style="margin-top:16px"><label>Order Notes</label><textarea class="form-control" id="orderNotes" rows="2"></textarea></div>
-      <button class="btn" onclick="submitDealerOrder()" style="margin-top:12px">📤 Submit Order for Approval</button>
+      <div class="card-title">⚡ Quick Actions</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <button class="btn" onclick="navigateTo('d-live-price')">💰 View Today's Price</button>
+        <button class="btn" onclick="navigateTo('d-place-order')">📝 Place New Order</button>
+        <button class="btn btn-outline" onclick="navigateTo('d-my-orders')">📦 My Orders</button>
+        <button class="btn btn-outline" onclick="navigateTo('d-my-ledger')">📒 My Ledger</button>
+      </div>
+    </div>
+    
+    <div class="card" style="margin-top:20px">
+      <div class="card-title">📈 Recent Orders</div>
+      ${myOrders.slice(-5).reverse().map(o => {
+        const sb = {'pending':'<span class="badge warning">⏳</span>','approved':'<span class="badge success">✅</span>','dispatched':'<span class="badge dispatch">🚚</span>','delivered':'<span class="badge info">📦</span>','rejected':'<span class="badge danger">❌</span>'}[o.status];
+        return `<div style="padding:8px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;font-size:12px"><div>${o.orderNo} <small style="color:var(--mute)">${fD(o.date)}</small></div><div><strong>${fmt(o.total)}</strong> ${sb}</div></div>`;
+      }).join('') || '<div class="note" style="text-align:center;padding:20px">No orders yet</div>'}
     </div>
   `;
-  addOrderItem();
+}
+
+/* ============ DEALER: LIVE PRICE (Dealer Can View) ============ */
+function renderDealerLivePrice() {
+  const t = cur();
+  const sortedPrices = [...DB.livePrices].sort((a,b) => b.date.localeCompare(a.date));
+  
+  document.getElementById('page-d-live-price').innerHTML = `
+    <div class="alert alert-success">💰 <strong>Today's Live Prices</strong> are available to you as a registered dealer.</div>
+    
+    <div class="card">
+      <div class="card-title">🍄 Today's Rates <span class="badge primary">${fD(dkey())}</span></div>
+      ${t ? `
+        <div class="stats-grid">
+          <div class="stat-card"><h3>Retail Price</h3><div class="value">${rs(t.retail)}/KG</div></div>
+          <div class="stat-card success"><h3>Wholesale Price</h3><div class="value">${rs(t.wholesale)}/KG</div></div>
+          <div class="stat-card info"><h3>Bulk Price</h3><div class="value">${rs(t.bulk)}/KG</div></div>
+        </div>
+        <div style="text-align:center;padding:20px;background:var(--bg);border-radius:12px;margin-top:16px">
+          <div style="font-size:14px;color:var(--mute);margin-bottom:8px">Availability</div>
+          <div style="font-size:1.5rem;font-weight:700">${AV[t.availability]?.[0] || t.availability}</div>
+          ${t.notes ? `<div style="margin-top:12px;font-size:13px;color:var(--mute)"><strong>Note:</strong> ${t.notes}</div>` : ''}
+          <div style="margin-top:12px;font-size:11px;color:var(--mute)">Last updated: ${fT(t.updatedAt)}</div>
+        </div>
+      ` : `
+        <div class="empty"><div style="font-size:3rem;margin-bottom:10px">🟡</div>Today's price has not been set yet. Please check back later.</div>
+      `}
+    </div>
+    
+    <div class="card" style="margin-top:20px">
+      <div class="card-title">📜 Recent Price History</div>
+      <div class="table-wrapper">
+        <table><thead><tr><th>Date</th><th>Retail</th><th>Wholesale</th><th>Bulk</th><th>Availability</th></tr></thead>
+        <tbody>${sortedPrices.slice(0,10).map(p => `
+          <tr><td>${fD(p.date)}</td><td><strong>${rs(p.retail)}</strong></td><td>${rs(p.wholesale)}</td><td>${rs(p.bulk)}</td>
+          <td>${AV[p.availability]?AV[p.availability][0]:p.availability}</td></tr>
+        `).join('') || '<tr><td colspan="5" style="text-align:center">No history</td></tr>'}</tbody></table>
+      </div>
+    </div>
+    
+    <button class="btn btn-block" onclick="navigateTo('d-place-order')" style="margin-top:16px;padding:14px">📝 Place Order with Today's Price</button>
+  `;
+}
+
+/* ============ DEALER: PLACE ORDER ============ */
+function renderDealerPlaceOrder() {
+  const d = DB.dealers.find(x => x.id === DB.user.dealerId);
+  if (!isDealerActive(d)) { toast('Account inactive','error'); navigateTo('d-dashboard'); return; }
+  
+  const t = cur();
+  orderItems = [{name: 'Fresh Button Mushroom', qty: 1, rate: t ? t.retail : 0}];
+  
+  document.getElementById('page-d-place-order').innerHTML = `
+    <div class="alert ${t ? 'alert-success' : 'alert-warning'}">
+      ${t ? `📌 Today's Live Price: <strong>${rs(t.retail)}/KG</strong>` : '⚠️ Today\'s price not set. Default rate will be used.'}
+    </div>
+    
+    <div class="card">
+      <div class="card-title">📝 Place New Order</div>
+      <div id="orderItemsList"></div>
+      <button class="btn btn-sm btn-outline" onclick="addOrderItem()" style="margin-top:12px">➕ Add Item</button>
+      <div class="form-group" style="margin-top:16px"><label>Order Notes</label><textarea class="form-control" id="orderNotes" rows="2" placeholder="Special instructions..."></textarea></div>
+      <button class="btn btn-block" onclick="submitDealerOrder()" style="margin-top:12px;padding:14px">📤 Submit Order for Approval</button>
+    </div>
+  `;
+  renderOrderItemsList();
 }
 
 function addOrderItem() {
-  orderItems.push({name: 'Fresh Button Mushroom', qty: 1, rate: cur() ? cur().retail : 0});
+  const t = cur();
+  orderItems.push({name: 'Fresh Button Mushroom', qty: 1, rate: t ? t.retail : 0});
   renderOrderItemsList();
 }
 
@@ -996,14 +1750,12 @@ function renderOrderItemsList() {
     <div style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px;padding:12px;background:var(--bg);border-radius:8px">
       <div><label style="font-size:11px;color:var(--mute)">Item</label><input type="text" class="form-control" value="${it.name}" readonly></div>
       <div><label style="font-size:11px;color:var(--mute)">Qty (KG)</label><input type="number" class="form-control" value="${it.qty}" min="1" onchange="updateOrderItem(${i},'qty',this.value)"></div>
-      <div><label style="font-size:11px;color:var(--mute)">Rate</label><input type="text" class="form-control" value="${rs(it.rate)}" readonly></div>
+      <div><label style="font-size:11px;color:var(--mute)">Rate/KG</label><input type="text" class="form-control" value="${rs(it.rate)}" readonly></div>
       <button class="btn btn-sm btn-danger" onclick="removeOrderItem(${i})">✕</button>
     </div>
   `).join('');
-  
-  // Summary
   const total = orderItems.reduce((s, it) => s + (it.qty * it.rate), 0);
-  el.innerHTML += `<div style="text-align:right;font-size:1.2rem;font-weight:700;color:var(--brand);margin-top:12px">Estimated Total: ${rs(total)}</div>`;
+  el.innerHTML += `<div style="text-align:right;font-size:1.3rem;font-weight:700;color:var(--brand);margin-top:14px;padding:12px;background:var(--bg);border-radius:8px">Estimated Total: ${fmt(total)}</div>`;
 }
 
 function updateOrderItem(i, field, val) {
@@ -1013,16 +1765,16 @@ function updateOrderItem(i, field, val) {
 
 function removeOrderItem(i) {
   orderItems.splice(i, 1);
-  renderOrderItemsList();
+  if (!orderItems.length) addOrderItem();
+  else renderOrderItemsList();
 }
 
 function submitDealerOrder() {
   const valid = orderItems.filter(it => it.qty > 0);
-  if (!valid.length) { toast('Add at least one item', 'error'); return; }
-  
+  if (!valid.length) { toast('Add at least one item','error'); return; }
   const d = DB.dealers.find(x => x.id === DB.user.dealerId);
   const total = valid.reduce((s, it) => s + (it.qty * it.rate), 0);
-  const on = 'ORD-' + new Date().getFullYear() + '-' + String(DB.orders.length + 1).padStart(4, '0');
+  const on = 'ORD-' + new Date().getFullYear() + '-' + String(DB.orders.length + 1).padStart(4,'0');
   
   DB.orders.push({
     id: Date.now(), orderNo: on, dealerId: d.id, dealerName: d.name,
@@ -1041,45 +1793,122 @@ function renderDealerMyOrders() {
   const myOrders = DB.orders.filter(o => o.dealerId === d.id).reverse();
   
   document.getElementById('page-d-my-orders').innerHTML = `
-    <div class="card"><div class="card-title">My Orders</div>
+    <div class="card">
+      <div class="card-title">📦 My Orders <span class="badge primary">${myOrders.length}</span>
+        <button class="btn btn-sm btn-excel" onclick="exportMyOrdersExcel()">📥 Export Excel</button>
+      </div>
       ${myOrders.length ? myOrders.map(o => {
         const sb = {'pending':'<span class="badge warning">⏳ Pending</span>','approved':'<span class="badge success">✅ Approved</span>','dispatched':'<span class="badge dispatch">🚚 Dispatched</span>','delivered':'<span class="badge info">📦 Delivered</span>','rejected':'<span class="badge danger">❌ Rejected</span>'}[o.status];
-        return `<div class="card" style="margin-bottom:12px;border-left:4px solid var(--brand)">
-          <div style="display:flex;justify-content:space-between"><div><strong>${o.orderNo}</strong> ${sb}<br><span style="font-size:12px;color:var(--mute)">${fD(o.date)}</span></div><div style="text-align:right"><strong>${rs(o.total)}</strong></div></div>
-          <div style="background:var(--bg);padding:12px;border-radius:8px;margin:10px 0;font-size:13px">${o.items.map(it => `• ${it.name} × ${it.qty} KG`).join('<br>')}</div>
-          ${o.remarks ? `<div style="font-size:12px;color:var(--mute)"><strong>Admin Remarks:</strong> ${o.remarks}</div>` : ''}
-          ${o.challanNo ? `<div style="font-size:12px;margin-top:8px"><strong>Challan:</strong> ${o.challanNo} ${o.vehicleNo ? '| Vehicle: '+o.vehicleNo : ''}</div>` : ''}
+        return `<div class="order-card" style="border-left:4px solid var(--brand)">
+          <div class="order-header">
+            <div><div class="order-no">${o.orderNo} ${sb}</div>
+            <div class="order-meta">Date: ${fD(o.date)} ${o.invoiceNo?'<br>Invoice: '+o.invoiceNo:''} ${o.challanNo?'<br>Challan: '+o.challanNo:''}</div></div>
+            <div style="text-align:right"><div class="order-total">${fmt(o.total)}</div></div>
+          </div>
+          <div class="order-items">${o.items.map(it => `• ${it.name} × ${it.qty} KG @ ${rs(it.rate)}`).join('<br>')}</div>
+          ${o.remarks ? `<div style="font-size:12px;color:var(--mute);margin-top:8px"><strong>Admin Remarks:</strong> ${o.remarks}</div>` : ''}
+          ${o.challanNo ? `<div style="background:var(--bg);padding:12px;border-radius:8px;margin-top:10px;font-size:12px"><strong>🚚 Dispatch Details:</strong><br>Challan: <code>${o.challanNo}</code> ${o.vehicleNo?'| Vehicle: '+o.vehicleNo:''} ${o.trackingNo?'| Tracking: '+o.trackingNo:''}</div>` : ''}
+          ${o.status === 'dispatched' || o.status === 'delivered' ? `<div style="margin-top:10px"><button class="btn btn-sm btn-outline" onclick="printDealerChallan(${o.id})">📄 Print Challan</button></div>` : ''}
         </div>`;
-      }).join('') : '<div class="empty">No orders placed yet.</div>'}
+      }).join('') : '<div class="empty">No orders placed yet. <a href="#" onclick="navigateTo(\'d-place-order\');return false;" style="color:var(--brand);font-weight:600">Place your first order →</a></div>'}
     </div>
   `;
+}
+
+function printDealerChallan(id) {
+  const o = DB.orders.find(x => x.id === id); if (!o) return;
+  const d = DB.dealers.find(x => x.id === o.dealerId);
+  const html = `
+    <div class="print-challan">
+      <h2>DELIVERY CHALLAN</h2>
+      <div style="text-align:center;margin-bottom:20px;font-size:12px"><strong>${DB.website.brand}</strong><br>${DB.settings.address}<br>Phone: ${DB.settings.phone}</div>
+      <table><tr><th>Challan No:</th><td>${o.challanNo||o.dcNo}</td><th>Date:</th><td>${fD(o.dispatchDate)}</td></tr>
+      <tr><th>Order No:</th><td>${o.orderNo}</td><th>Invoice:</th><td>${o.invoiceNo||'N/A'}</td></tr>
+      <tr><th>Vehicle:</th><td>${o.vehicleNo||'N/A'}</td><th>Tracking:</th><td>${o.trackingNo||'N/A'}</td></tr></table>
+      <h3 style="margin-top:20px">Bill To:</h3>
+      <table><tr><th>Name:</th><td>${d?.name}</td></tr><tr><th>Code:</th><td>${d?.dealerCode}</td></tr><tr><th>GSTIN:</th><td>${d?.gstin||'N/A'}</td></tr><tr><th>Phone:</th><td>${d?.phone||'-'}</td></tr></table>
+      <table style="margin-top:20px"><thead><tr><th>Sr</th><th>Item</th><th>Qty (KG)</th><th>Rate</th><th>Amount</th></tr></thead>
+      <tbody>${o.items.map((it,i) => `<tr><td>${i+1}</td><td>${it.name}</td><td>${it.qty}</td><td>${rs(it.rate)}</td><td>${fmt(it.qty*it.rate)}</td></tr>`).join('')}</tbody>
+      <tfoot><tr><td colspan="4" style="text-align:right"><strong>Total:</strong></td><td><strong>${fmt(o.total)}</strong></td></tr></tfoot></table>
+      <div class="signatures"><div class="signature-box">Receiver</div><div class="signature-box">For ${DB.website.brand}</div></div>
+    </div>
+  `;
+  const pa = document.getElementById('printArea');
+  pa.innerHTML = html;
+  pa.style.display = 'block';
+  window.print();
+  setTimeout(() => pa.style.display = 'none', 500);
+}
+
+function exportMyOrdersExcel() {
+  const d = DB.dealers.find(x => x.id === DB.user.dealerId);
+  const myOrders = DB.orders.filter(o => o.dealerId === d.id);
+  if (!myOrders.length) { toast('No data','error'); return; }
+  exportToExcel(myOrders.map(o => ({
+    'Order No': o.orderNo, 'Date': fD(o.date), 'Items': o.items.map(i => `${i.name}×${i.qty}`).join('; '),
+    'Total Qty (KG)': o.items.reduce((s,i) => s+i.qty, 0), 'Total Amount (₹)': o.total,
+    'Status': o.status, 'Invoice No': o.invoiceNo, 'Challan No': o.challanNo
+  })), `my_orders_${d.dealerCode}_${dkey()}`, 'My Orders');
 }
 
 /* ============ DEALER: MY LEDGER ============ */
 function renderDealerLedger() {
   const d = DB.dealers.find(x => x.id === DB.user.dealerId);
-  const myLedger = DB.ledger.filter(l => l.dealerId === d.id).reverse();
-  const td = myLedger.reduce((s,l) => s + (l.debit||0), 0);
-  const tc = myLedger.reduce((s,l) => s + (l.credit||0), 0);
+  const myLedger = [...DB.ledger.filter(l => l.dealerId === d.id)].sort((a,b) => a.date.localeCompare(b.date) || a.id - b.id);
+  
+  let running = 0;
+  const withBalance = myLedger.map(l => {
+    running += (l.debit || 0) - (l.credit || 0);
+    return {...l, balance: running};
+  });
+  
+  const totalDebit = myLedger.reduce((s,l) => s + (l.debit||0), 0);
+  const totalCredit = myLedger.reduce((s,l) => s + (l.credit||0), 0);
+  const balance = totalDebit - totalCredit;
   
   document.getElementById('page-d-my-ledger').innerHTML = `
+    <div class="alert alert-info">📒 Your complete ledger. Payments appear after admin approval.</div>
+    
     <div class="stats-grid">
-      <div class="stat-card"><h3>Total Debit</h3><div class="value">${rs(td)}</div></div>
-      <div class="stat-card success"><h3>Total Credit (Paid)</h3><div class="value">${rs(tc)}</div></div>
-      <div class="stat-card warning"><h3>Outstanding</h3><div class="value">${rs(td - tc)}</div></div>
+      <div class="stat-card"><h3>Total Debit</h3><div class="value">${fmt(totalDebit)}</div></div>
+      <div class="stat-card success"><h3>Total Credit (Paid)</h3><div class="value">${fmt(totalCredit)}</div></div>
+      <div class="stat-card ${balance>0?'danger':'success'}"><h3>Outstanding</h3><div class="value">${fmt(Math.abs(balance))}</div><div class="sub">${balance>0?'Payable':'Credit Balance'}</div></div>
     </div>
+    
     <div class="card">
-      <div class="card-title">My Ledger Statement</div>
-      <div class="table-wrapper">
-        <table><thead><tr><th>Date</th><th>Voucher</th><th>Type</th><th>Particulars</th><th class="text-right">Debit</th><th class="text-right">Credit</th></tr></thead>
-        <tbody>${myLedger.map(l => `
-          <tr><td>${fD(l.date)}</td><td><code>${l.voucher}</code></td><td><span class="badge info">${l.type}</span></td><td>${l.particulars}</td>
-          <td class="text-right">${l.debit?rs(l.debit):'-'}</td><td class="text-right">${l.credit?rs(l.credit):'-'}</td></tr>
-        `).join('') || '<tr><td colspan="6" class="text-center">No entries yet</td></tr>'}</tbody>
-        <tfoot><tr class="total-row"><td colspan="4">Balance</td><td class="text-right">${rs(td)}</td><td class="text-right">${rs(tc)}</td></tr></tfoot></table>
+      <div class="card-title">📒 My Ledger Statement <span class="badge primary">${d.name}</span>
+        <button class="btn btn-sm btn-excel" onclick="exportMyLedgerExcel()">📥 Export Excel</button>
       </div>
+      ${withBalance.length ? `<div class="table-wrapper">
+        <table class="ledger-table">
+          <thead><tr><th>Date</th><th>Particulars</th><th>L.F.</th><th style="text-align:right">Debit (₹)</th><th style="text-align:right">Credit (₹)</th><th style="text-align:right">Balance (₹)</th></tr></thead>
+          <tbody>${withBalance.map(l => `
+            <tr><td>${fD(l.date)}</td>
+            <td><div style="font-weight:600">${l.account}</div><div style="font-size:11px;color:var(--mute);margin-top:2px">${l.particulars}</div><div style="font-size:10px;color:var(--brand)">Voucher: <span class="voucher">${l.voucher}</span></div></td>
+            <td class="lf-col">${l.lf || '-'}</td>
+            <td class="debit-col">${l.debit ? l.debit.toLocaleString('en-IN',{minimumFractionDigits:2}) : '—'}</td>
+            <td class="credit-col">${l.credit ? l.credit.toLocaleString('en-IN',{minimumFractionDigits:2}) : '—'}</td>
+            <td class="debit-col" style="color:${l.balance>=0?'#047857':'#dc2626'}">${Math.abs(l.balance).toLocaleString('en-IN',{minimumFractionDigits:2})} ${l.balance>=0?'Dr':'Cr'}</td>
+            </tr>
+          `).join('')}</tbody>
+          <tfoot><tr class="total-row"><td colspan="3"><strong>Total</strong></td><td class="debit-col"><strong>${totalDebit.toLocaleString('en-IN',{minimumFractionDigits:2})}</strong></td><td class="credit-col"><strong>${totalCredit.toLocaleString('en-IN',{minimumFractionDigits:2})}</strong></td><td class="debit-col"><strong>${Math.abs(balance).toLocaleString('en-IN',{minimumFractionDigits:2})} ${balance>=0?'Dr':'Cr'}</strong></td></tr></tfoot>
+        </table>
+      </div>` : '<div class="empty">No ledger entries yet</div>'}
     </div>
   `;
+}
+
+function exportMyLedgerExcel() {
+  const d = DB.dealers.find(x => x.id === DB.user.dealerId);
+  const myLedger = DB.ledger.filter(l => l.dealerId === d.id);
+  if (!myLedger.length) { toast('No data','error'); return; }
+  
+  let running = 0;
+  const data = myLedger.map(l => {
+    running += (l.debit || 0) - (l.credit || 0);
+    return {'Date':fD(l.date),'Voucher':l.voucher,'Type':l.type,'L.F.':l.lf,'Account':l.account,'Particulars':l.particulars,'Debit (₹)':l.debit||0,'Credit (₹)':l.credit||0,'Balance (₹)':running};
+  });
+  exportToExcel(data, `my_ledger_${d.dealerCode}_${dkey()}`, 'My Ledger');
 }
 
 /* ============ DEALER: PROFILE ============ */
@@ -1087,37 +1916,35 @@ function renderDealerProfile() {
   const d = DB.dealers.find(x => x.id === DB.user.dealerId);
   document.getElementById('page-d-profile').innerHTML = `
     <div class="card">
-      <div class="card-title">My Profile</div>
+      <div class="card-title">👤 My Profile ${isRegisteredDealer(d) ? '<span class="badge success">B2B Registered</span>' : '<span class="badge muted">Unregistered</span>'}</div>
       <table style="max-width:500px">
-        <tr><td style="padding:8px 0;font-weight:600">Dealer Name</td><td>${d.name}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:600;width:150px">Dealer Name</td><td>${d.name}</td></tr>
         <tr><td style="padding:8px 0;font-weight:600">Dealer Code</td><td><code>${d.dealerCode}</code></td></tr>
-        <tr><td style="padding:8px 0;font-weight:600">GSTIN</td><td>${d.gstin || 'N/A'}</td></tr>
-        <tr><td style="padding:8px 0;font-weight:600">State</td><td>${d.state || 'N/A'}</td></tr>
-        <tr><td style="padding:8px 0;font-weight:600">Phone</td><td>${d.phone || 'N/A'}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:600">GSTIN</td><td>${d.gstin || '<em style="color:var(--mute)">N/A</em>'}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:600">State</td><td>${d.state || '-'}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:600">Phone</td><td>${d.phone || '-'}</td></tr>
+        <tr><td style="padding:8px 0;font-weight:600">Email</td><td>${d.email || '-'}</td></tr>
         <tr><td style="padding:8px 0;font-weight:600">Status</td><td>${d.status === 'active' ? '<span class="badge success">Active</span>' : '<span class="badge danger">Inactive</span>'}</td></tr>
       </table>
-      <div class="alert" style="background:#fffbeb;color:#92400e;border:1px solid #fde68a;padding:12px;border-radius:8px;margin-top:16px">
-        ℹ️ Contact the administrator to update your profile details or reset your password.
-      </div>
+      <div class="alert alert-info" style="margin-top:16px">ℹ️ Contact the administrator to update profile details or change password.</div>
     </div>
   `;
 }
 
-/* ============ INITIALIZATION ============ */
+/* ============ INIT ============ */
 if (DB.user) {
   showApp();
 } else {
   showPublic();
 }
 
-// Midnight rollover check
-setInterval(() => {
-  if (dkey() !== window.lastDkey) {
-    window.lastDkey = dkey();
-    renderPublic();
-  }
-}, 60000);
+// Check midnight for price rollover
+setInterval(() => { if (dkey() !== window.lastDkey) { window.lastDkey = dkey(); renderPublic(); } }, 60000);
 window.lastDkey = dkey();
+
+// Close modals on outside click
+document.getElementById('loginModal').addEventListener('click', function(e) { if (e.target === this) closeLoginModal(); });
+document.getElementById('passwordModal').addEventListener('click', function(e) { if (e.target === this) closePasswordModal(); });
 </script>
 </body>
 </html>
